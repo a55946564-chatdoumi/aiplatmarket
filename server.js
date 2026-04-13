@@ -295,8 +295,8 @@ app.post('/api/admin/approve', async (req, res) => {
 /* ============================================================
    404 → index.html (SPA 폴백)
 ============================================================ */
-// 정규식 매개변수를 명시적으로 지정합니다.
-app.get('/:any*', (req, res) => {
+// 모든 경로를 받아 index.html로 보내줍니다.
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
