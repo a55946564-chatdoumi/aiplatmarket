@@ -1,0 +1,3307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="AI플랫마켓 - 지역 생활경제 정보와 공정 언론, 소상공인 홍보 플랫폼">
+<title>AI PLATMARKET | 지역 생활경제 & 공정 언론</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS 변수 & 리셋
+============================================================ */
+:root {
+  --navy:   #0d1f35;
+  --navy2:  #1a3556;
+  --red:    #c0392b;
+  --red2:   #e74c3c;
+  --gold:   #c9a84c;
+  --gray1:  #f4f6f9;
+  --gray2:  #e8ecf1;
+  --gray3:  #b0bac7;
+  --gray4:  #6b7a8d;
+  --text:   #1c2635;
+  --white:  #ffffff;
+  --border: 1px solid #dde2ea;
+  --shadow: 0 2px 12px rgba(13,31,53,0.08);
+  --radius: 6px;
+  --font-serif: 'Noto Serif KR', serif;
+  --font-sans:  'Pretendard', 'Apple SD Gothic Neo', 'Nanum Gothic', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: #eceff4;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; }
+img { display: block; max-width: 100%; }
+
+/* ============================================================
+   레이아웃 래퍼
+============================================================ */
+.wrap {
+  width: 92%;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+.site-shell {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+  background: var(--white);
+  box-shadow: 0 0 40px rgba(13,31,53,0.10);
+  min-height: 100vh;
+}
+
+/* ============================================================
+   최상단 띠 (날짜/날씨/바로가기)
+============================================================ */
+.top-strip {
+  background: var(--navy);
+  color: #aab8cb;
+  font-size: 0.78rem;
+  padding: 6px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.top-strip a { color: #aab8cb; margin-left: 14px; transition: color .2s; }
+.top-strip a:hover { color: var(--gold); }
+.weather-chip {
+  background: rgba(255,255,255,0.08);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.76rem;
+}
+.top-strip .right-links { display: flex; align-items: center; }
+
+/* ============================================================
+   헤더 (로고 + 검색 + 구독)
+============================================================ */
+header {
+  background: var(--white);
+  border-bottom: 3px solid var(--navy);
+  padding: 18px 30px 0;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.logo-area { text-align: left; cursor: pointer; }
+.logo-kr {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  color: var(--gray4);
+  letter-spacing: 3px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+}
+.logo-main {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: -2px;
+  line-height: 1;
+  display: block;
+}
+.logo-main span { color: var(--red); }
+
+/* 헤더 구독 박스 */
+.header-subscribe {
+  border: 2px solid var(--navy);
+  padding: 12px 20px;
+  text-align: center;
+  min-width: 200px;
+}
+.header-subscribe small { font-size: 0.75rem; color: var(--gray4); display: block; }
+.header-subscribe strong { font-size: 0.9rem; color: var(--navy); }
+.btn-subscribe {
+  margin-top: 8px;
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 6px 18px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   GNB 메뉴
+============================================================ */
+nav.gnb {
+  background: var(--white);
+  border-bottom: var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(13,31,53,0.05);
+}
+.gnb-inner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 30px;
+}
+.gnb-inner::-webkit-scrollbar { display: none; }
+.gnb-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition: all .2s;
+  border-top: 3px solid transparent;
+}
+.gnb-item:hover { color: var(--red); }
+.gnb-item.active {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+.gnb-item .badge {
+  background: var(--red);
+  color: white;
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+  font-weight: 800;
+}
+.gnb-divider {
+  width: 1px;
+  background: var(--gray2);
+  margin: 10px 0;
+  align-self: stretch;
+}
+
+/* ============================================================
+   검색 바 (고도화)
+============================================================ */
+.search-section {
+  background: var(--navy);
+  padding: 16px 30px;
+}
+.search-title {
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.search-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.search-form select,
+.search-form input[type="text"] {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.search-form select option { background: var(--navy2); color: white; }
+.search-form select { min-width: 130px; }
+.search-form input[type="text"] { flex: 1; min-width: 180px; }
+.search-form input::placeholder { color: rgba(255,255,255,0.45); }
+.search-form select:focus,
+.search-form input:focus {
+  border-color: var(--gold);
+  background: rgba(255,255,255,0.15);
+}
+.search-form .search-divider {
+  color: rgba(255,255,255,0.3);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+.btn-search {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--radius);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background .2s, transform .1s;
+}
+.btn-search:hover { background: var(--red2); }
+.btn-search:active { transform: scale(.97); }
+.btn-reset {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.7);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  transition: all .2s;
+}
+.btn-reset:hover { border-color: white; color: white; }
+
+/* 현재 위치 감지 버튼 */
+.location-btn {
+  background: rgba(201,168,76,0.15);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all .2s;
+}
+.location-btn:hover { background: rgba(201,168,76,0.25); }
+
+/* 인기 검색어 태그 */
+.hot-tags {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  align-items: center;
+}
+.hot-tags span { font-size: 0.72rem; color: var(--gold); font-weight: 700; }
+.hot-tag {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.75);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+.hot-tag:hover { background: rgba(255,255,255,0.15); color: white; }
+
+/* ============================================================
+   메인 컨텐츠 그리드
+============================================================ */
+.main-grid {
+  display: grid;
+  grid-template-columns: 210px 1fr 300px;
+  gap: 0;
+  background: var(--gray2);
+  align-items: start;
+}
+.main-left  { background: white; padding: 24px 22px; }
+.main-right { background: #f8fafd; padding: 18px; border-left: var(--border); }
+
+/* ── 좌측 사이드바 (페이지와 함께 스크롤) ── */
+.main-sidebar-left {
+  background: #fff;
+  border-right: var(--border);
+  padding: 18px 14px;
+}
+
+/* ── 모바일 사이드바 오버레이 ── */
+.mob-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13,31,53,.55);
+  z-index: 400;
+}
+.mob-sidebar-overlay.open { display: block; }
+.mob-sidebar-panel {
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 82%;
+  max-width: 320px;
+  background: white;
+  z-index: 401;
+  overflow-y: auto;
+  padding: 20px 16px;
+  transition: transform .3s ease;
+}
+.mob-sidebar-panel.left  { left: 0;  transform: translateX(-110%); box-shadow: 4px 0 20px rgba(0,0,0,.18); }
+.mob-sidebar-panel.right { right: 0; transform: translateX(110%);  box-shadow: -4px 0 20px rgba(0,0,0,.18); }
+.mob-sidebar-panel.left.open  { transform: translateX(0); }
+.mob-sidebar-panel.right.open { transform: translateX(0); }
+.mob-sb-close {
+  position: absolute; top: 12px; right: 14px;
+  background: none; border: none; font-size: 1.5rem; color: var(--gray4); cursor: pointer;
+}
+
+/* ── 햄버거 버튼 ── */
+.ham-btn {
+  display: none;
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+.ham-btn span {
+  display: block; width: 22px; height: 2px;
+  background: var(--navy); border-radius: 2px; transition: all .25s;
+}
+
+/* ── GNB 드롭다운 ── */
+.gnb-dd-wrap { position: relative; display: flex; align-items: stretch; }
+.gnb-dd-wrap:hover .gnb-dropdown { display: block; }
+.gnb-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  background: white;
+  border: var(--border);
+  border-top: 2px solid var(--red);
+  box-shadow: 0 8px 24px rgba(13,31,53,.12);
+  z-index: 200;
+  border-radius: 0 0 6px 6px;
+}
+.gnb-dd-item {
+  padding: 9px 16px;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray2);
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.gnb-dd-item:last-child { border-bottom: none; }
+.gnb-dd-item:hover { background: #fce8e6; color: var(--red); }
+
+/* GNB 내 미니 검색 */
+.gnb-search-wrap {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0;
+  padding: 0 14px;
+}
+.gnb-search-input {
+  border: 1px solid var(--gray2);
+  border-right: none;
+  padding: 6px 12px;
+  font-size: .82rem;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  width: 160px;
+  transition: border-color .2s;
+}
+.gnb-search-input:focus { border-color: var(--navy); }
+.gnb-search-btn {
+  background: var(--navy);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+/* ── 아코디언 (업종별 하위메뉴) ── */
+.acc-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .18s;
+  white-space: nowrap;
+  user-select: none;
+}
+.acc-header:hover { background: var(--gray1); color: var(--red); }
+.acc-header.open  { background: #fce8e6; color: var(--red); }
+.acc-arrow {
+  margin-left: auto;
+  font-size: .7rem;
+  transition: transform .25s;
+  color: var(--gray3);
+}
+.acc-header.open .acc-arrow { transform: rotate(180deg); color: var(--red); }
+.acc-body {
+  display: none;
+  padding: 4px 0 4px 30px;
+}
+.acc-body.open { display: block; }
+.acc-sub-item {
+  font-size: .75rem;
+  padding: 5px 8px;
+  color: var(--gray4);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.acc-sub-item:hover { background: var(--gray1); color: var(--red); }
+
+/* ── 공지 모달 ── */
+.notice-modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(13,31,53,.5);
+  z-index: 800;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.notice-modal-overlay.open { display: flex; }
+.notice-modal-box {
+  background: white;
+  border-radius: var(--radius);
+  max-width: 480px; width: 100%;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+  animation: modalIn .22s ease;
+}
+.notice-modal-header {
+  background: var(--navy); color: white;
+  padding: 16px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.notice-modal-header h3 { margin: 0; font-size: 1rem; font-family: var(--font-serif); }
+.notice-modal-close { background: none; border: none; color: rgba(255,255,255,.7); font-size: 1.3rem; cursor: pointer; }
+.notice-modal-body { padding: 20px; font-size: .88rem; line-height: 1.75; color: #444; }
+.notice-modal-meta { font-size: .75rem; color: var(--gray4); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--gray2); }
+
+/* ── 추천 콘텐츠 (라이브 하단) ── */
+.recommend-section { margin-top: 28px; }
+.mini-live-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.mini-live-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow .2s, transform .15s;
+}
+.mini-live-card:hover { box-shadow: 0 4px 16px rgba(13,31,53,.1); transform: translateY(-2px); }
+.mini-live-thumb {
+  aspect-ratio: 16/9;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  position: relative;
+}
+.mini-live-body { padding: 10px 12px; background: white; }
+.mini-live-title { font-size: .83rem; font-weight: 700; color: var(--navy); line-height: 1.35; margin-bottom: 4px; }
+.mini-live-meta  { font-size: .72rem; color: var(--gray4); }
+
+/* ── 추천 업체 가로 스크롤 카드 ── */
+.rec-scroll-wrap {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray2) transparent;
+}
+.rec-scroll-wrap::-webkit-scrollbar { height: 4px; }
+.rec-scroll-wrap::-webkit-scrollbar-thumb { background: var(--gray2); border-radius: 4px; }
+.rec-card {
+  flex-shrink: 0;
+  width: 150px;
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow .2s;
+}
+.rec-card:hover { box-shadow: 0 4px 14px rgba(13,31,53,.1); }
+.rec-card-thumb {
+  height: 90px;
+  background: linear-gradient(135deg, var(--gray2) 0%, #d0d8e4 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem;
+}
+.rec-card-body { padding: 8px 10px; background: white; }
+.rec-card-name { font-size: .78rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+.rec-card-sub  { font-size: .68rem; color: var(--gray4); }
+
+/* 좌측 섹션 타이틀 */
+.lsb-title {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0 4px 7px;
+  border-bottom: 2px solid var(--navy);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.lsb-divider { height: 1px; background: var(--gray2); margin: 14px 0; }
+
+/* 좌측 메뉴 아이템 */
+.lsb-menu { display: flex; flex-direction: column; gap: 1px; margin-bottom: 4px; }
+.lsb-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .18s;
+  white-space: nowrap;
+}
+.lsb-menu-item:hover { background: var(--gray1); color: var(--red); }
+.lsb-menu-item.active { background: #fce8e6; color: var(--red); }
+.lsb-menu-item .lsb-icon { font-size: 1rem; width: 22px; text-align: center; flex-shrink: 0; }
+.lsb-menu-item .lsb-cnt {
+  margin-left: auto;
+  font-size: 0.65rem;
+  background: var(--gray2);
+  color: var(--gray4);
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+/* 지역 버튼 그리드 */
+.lsb-region-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+.lsb-region-btn {
+  background: var(--gray1);
+  border: var(--border);
+  border-radius: 4px;
+  padding: 6px 4px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: var(--navy2);
+  text-align: center;
+  cursor: pointer;
+  transition: all .18s;
+}
+.lsb-region-btn:hover { background: var(--navy); color: white; border-color: var(--navy); }
+
+/* 공지사항 아이템 */
+.lsb-notice-item {
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--gray2);
+  cursor: pointer;
+}
+.lsb-notice-item:last-child { border-bottom: none; }
+.lsb-notice-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.35;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transition: color .18s;
+}
+.lsb-notice-item:hover .lsb-notice-title { color: var(--red); }
+.lsb-notice-date { font-size: 0.68rem; color: var(--gray4); margin-top: 3px; }
+.lsb-notice-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  background: var(--red);
+  color: white;
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-weight: 900;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* 오늘의 날씨/정보 카드 */
+.lsb-info-card {
+  background: linear-gradient(135deg, #e8f4fd 0%, #ddeeff 100%);
+  border: 1px solid #c2dff6;
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 4px;
+}
+.lsb-info-card .weather-big { font-size: 1.8rem; text-align: center; margin-bottom: 4px; }
+.lsb-info-card .weather-text { font-size: 0.75rem; color: #1a56a0; text-align: center; font-weight: 700; }
+
+/* 소셜 링크 */
+.lsb-social { display: flex; gap: 6px; margin-top: 4px; }
+.lsb-social-btn {
+  flex: 1;
+  padding: 7px 4px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: opacity .2s;
+}
+.lsb-social-btn:hover { opacity: .85; }
+.lsb-sns-kakao  { background: #FEE500; color: #3A1D1D; }
+.lsb-sns-naver  { background: #03C75A; color: white; }
+.lsb-sns-insta  { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: white; }
+
+/* 우측 사이드바 추가 카드 */
+.rsb-event-card {
+  border: 2px solid var(--gold);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.rsb-event-header {
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 7px 12px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.rsb-event-list { background: white; }
+.rsb-event-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--gray2);
+  cursor: pointer;
+  transition: background .15s;
+}
+.rsb-event-item:last-child { border-bottom: none; }
+.rsb-event-item:hover { background: var(--gray1); }
+.rsb-event-icon { font-size: 1.1rem; width: 22px; text-align: center; flex-shrink: 0; }
+.rsb-event-name { font-size: 0.78rem; font-weight: 600; color: var(--navy); flex: 1; line-height: 1.3; }
+.rsb-event-disc { font-size: 0.72rem; font-weight: 800; color: var(--red); white-space: nowrap; }
+
+/* 파트너 광고 배너 (소형) */
+.rsb-ad-mini {
+  background: white;
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow .2s;
+}
+.rsb-ad-mini:hover { box-shadow: var(--shadow); }
+.rsb-ad-mini-icon { font-size: 1.8rem; width: 40px; text-align: center; flex-shrink: 0; }
+.rsb-ad-mini-body { flex: 1; min-width: 0; }
+.rsb-ad-mini-name { font-size: 0.8rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+.rsb-ad-mini-sub  { font-size: 0.7rem; color: var(--gray4); }
+.rsb-ad-label { font-size: 0.58rem; background: var(--gray2); color: var(--gray4); padding: 1px 5px; border-radius: 2px; font-weight: 700; }
+
+/* ============================================================
+   방송 섹션 (TV홈쇼핑 스타일)
+============================================================ */
+.broadcast-wrap {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+/* 라이브 비디오 영역 */
+.live-video-area { position: relative; }
+.live-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  background: var(--red);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 3px 10px;
+  letter-spacing: 2px;
+  animation: blink 1.5s infinite;
+  border-radius: 3px;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.viewer-count {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  background: rgba(0,0,0,0.65);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.live-iframe-box {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+.live-iframe-box iframe { width: 100%; height: 100%; border: 0; }
+.live-info {
+  padding: 10px 0 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.live-channel-badge {
+  background: var(--navy);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.live-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+}
+
+/* 다음 방송 스크롤 목록 */
+.next-broadcast {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  height: 100%;
+}
+.next-broadcast-header {
+  background: var(--navy);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 8px 12px;
+  letter-spacing: 1px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.next-broadcast-scroll {
+  flex: 1;
+  overflow: hidden;
+  border: var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  position: relative;
+  height: 230px; /* 고정 높이 */
+}
+.next-broadcast-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: scrollUp 18s linear infinite;
+}
+.next-broadcast-inner:hover { animation-play-state: paused; }
+@keyframes scrollUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+.bc-card {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--gray2);
+  cursor: pointer;
+  transition: background .2s;
+  background: white;
+}
+.bc-card:hover { background: var(--gray1); }
+.bc-thumb {
+  width: 60px;
+  height: 45px;
+  border-radius: 4px;
+  object-fit: cover;
+  background: var(--gray2);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.bc-thumb-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+.bc-meta { flex: 1; min-width: 0; }
+.bc-time {
+  font-size: 0.68rem;
+  color: var(--red);
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.bc-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ============================================================
+   섹션 헤더 공통
+============================================================ */
+.sec-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--navy);
+}
+.sec-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sec-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: var(--red);
+  border-radius: 2px;
+}
+.sec-more {
+  font-size: 0.78rem;
+  color: var(--gray4);
+  border: 1px solid var(--gray3);
+  padding: 3px 10px;
+  border-radius: 20px;
+  transition: all .2s;
+  cursor: pointer;
+}
+.sec-more:hover { color: var(--navy); border-color: var(--navy); }
+
+/* ============================================================
+   업체 리스트 (뉴스 기사 스타일)
+============================================================ */
+.store-list { display: flex; flex-direction: column; gap: 0; }
+.store-item {
+  display: flex;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--gray2);
+  cursor: pointer;
+  transition: background .15s;
+}
+.store-item:last-child { border-bottom: none; }
+.store-item:hover { background: #fafcff; margin: 0 -8px; padding: 18px 8px; border-radius: 4px; }
+
+.store-thumb {
+  width: 130px;
+  height: 90px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--gray2) 0%, #dce3ed 100%);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.store-thumb.premium { box-shadow: 0 0 0 2px var(--gold); }
+.premium-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--gold);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 900;
+  padding: 2px 6px;
+  letter-spacing: 0.5px;
+}
+
+.store-body { flex: 1; min-width: 0; }
+.store-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 5px; }
+.tag {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+.tag-region { background: #e8f0fe; color: #1a56a0; }
+.tag-cat { background: #fce8e6; color: var(--red); }
+.tag-new { background: var(--red); color: white; }
+.tag-hot { background: #fff3e0; color: #e65100; }
+.tag-premium { background: var(--gold); color: white; }
+
+.store-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.store-desc {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-bottom: 8px;
+}
+.store-meta {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.meta-item {
+  font-size: 0.75rem;
+  color: var(--gray4);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.meta-item svg { width: 13px; height: 13px; opacity: .7; }
+.store-actions { display: flex; gap: 6px; margin-top: 8px; }
+.btn-detail {
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+  background: none;
+  border-radius: 3px;
+  font-weight: 600;
+  transition: all .2s;
+}
+.btn-detail:hover { background: var(--navy); color: white; }
+.btn-contact {
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  background: var(--red);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-weight: 600;
+  transition: background .2s;
+}
+.btn-contact:hover { background: var(--red2); }
+
+/* 로딩 스피너 */
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  color: var(--gray4);
+}
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--gray2);
+  border-top-color: var(--navy);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 빈 결과 */
+.empty-result {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray4);
+}
+.empty-result .emoji { font-size: 3rem; margin-bottom: 12px; }
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 20px 0 8px;
+}
+.page-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gray2);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all .2s;
+  background: white;
+  color: var(--text);
+}
+.page-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+.page-btn:hover:not(.active) { border-color: var(--navy); color: var(--navy); }
+
+/* ============================================================
+   사이드바
+============================================================ */
+/* 공지/광고 배너 */
+.ad-banner {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 20px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.ad-banner::before {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+.ad-label {
+  font-size: 0.65rem;
+  background: var(--gold);
+  color: var(--navy);
+  padding: 1px 7px;
+  border-radius: 2px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.ad-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.ad-sub { font-size: 0.78rem; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
+.btn-ad {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  padding: 7px 14px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  width: 100%;
+  transition: opacity .2s;
+}
+.btn-ad:hover { opacity: .85; }
+
+/* 인기 업체 랭킹 */
+.rank-list { display: flex; flex-direction: column; gap: 0; }
+.rank-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--gray2);
+  cursor: pointer;
+  transition: background .15s;
+}
+.rank-item:hover { color: var(--red); }
+.rank-num {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 900;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.rank-num.top1 { color: var(--red); }
+.rank-num.top2 { color: #e67e22; }
+.rank-num.top3 { color: var(--gold); }
+.rank-name { font-size: 0.85rem; font-weight: 600; flex: 1; }
+.rank-clicks { font-size: 0.72rem; color: var(--gray4); }
+.rank-change {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.rank-up { color: var(--red); background: #fce8e6; }
+.rank-down { color: #1a73e8; background: #e8f0fe; }
+.rank-same { color: var(--gray4); background: var(--gray2); }
+
+/* 빠른 이동 카테고리 */
+.quick-cats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.quick-cat {
+  background: var(--gray1);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 12px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--navy2);
+}
+.quick-cat .cat-icon { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+.quick-cat:hover { background: var(--navy); color: white; border-color: var(--navy); }
+
+/* AI 추천 카드 */
+.ai-card {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+  border: 1px solid #c2dff6;
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+.ai-card-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #1a56a0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ai-card p { font-size: 0.8rem; color: #555; margin: 0 0 10px; line-height: 1.5; }
+.btn-ai {
+  background: #1a56a0;
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  width: 100%;
+  transition: background .2s;
+}
+.btn-ai:hover { background: #154591; }
+
+/* 뉴스 티커 */
+.ticker-wrap {
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: 36px;
+}
+.ticker-label {
+  background: var(--red);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0 14px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+.ticker-track { overflow: hidden; flex: 1; }
+.ticker-inner {
+  display: flex;
+  gap: 50px;
+  white-space: nowrap;
+  color: rgba(255,255,255,0.88);
+  font-size: 0.8rem;
+  animation: tickerScroll 25s linear infinite;
+}
+@keyframes tickerScroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.ticker-inner:hover { animation-play-state: paused; }
+.ticker-item { cursor: pointer; }
+.ticker-item:hover { color: var(--gold); }
+
+/* ============================================================
+   페이지 섹션 전환
+============================================================ */
+.page-section { display: none; }
+.page-section.active { display: block; }
+
+/* ============================================================
+   입점 신청 폼
+============================================================ */
+.register-wrap {
+  padding: 40px 30px;
+}
+.form-card {
+  max-width: 680px;
+  margin: 0 auto;
+  border: 1px solid var(--gray2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.form-header {
+  background: var(--navy);
+  color: white;
+  padding: 24px 30px;
+}
+.form-header h2 { font-family: var(--font-serif); margin: 0 0 4px; font-size: 1.4rem; }
+.form-header p { font-size: 0.85rem; color: rgba(255,255,255,0.7); margin: 0; }
+.form-body { padding: 30px; background: white; }
+.form-group { margin-bottom: 18px; }
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.form-label .req { color: var(--red); margin-left: 3px; }
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--gray2);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s;
+}
+.form-input:focus { border-color: var(--navy); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+.form-footer {
+  border-top: 1px solid var(--gray2);
+  padding: 20px 30px;
+  background: var(--gray1);
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.btn-submit {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border-radius: 4px;
+  transition: background .2s, transform .1s;
+}
+.btn-submit:hover { background: var(--red2); }
+.btn-submit:active { transform: scale(.97); }
+.btn-cancel {
+  background: white;
+  color: var(--gray4);
+  border: 1px solid var(--gray3);
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: all .2s;
+}
+.btn-cancel:hover { border-color: var(--navy); color: var(--navy); }
+
+/* ============================================================
+   라이브 방송 전체 페이지
+============================================================ */
+.live-page { padding: 28px 30px; }
+.live-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.live-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow .2s, transform .15s;
+}
+.live-card:hover { box-shadow: 0 6px 20px rgba(13,31,53,0.12); transform: translateY(-2px); }
+.live-card-thumb {
+  aspect-ratio: 16/9;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  position: relative;
+}
+.live-card-body { padding: 12px 14px; }
+.live-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 5px; line-height: 1.3; }
+.live-card-meta { font-size: 0.75rem; color: var(--gray4); }
+.live-status-live { background: var(--red); color: white; }
+.live-status-soon { background: var(--gold); color: var(--navy); }
+.live-status-end { background: var(--gray3); color: white; }
+.live-status {
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 3px 8px;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   지역경제 뉴스 페이지
+============================================================ */
+.news-page { padding: 28px 30px; }
+.news-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+.news-main-article {
+  border-bottom: 1px solid var(--gray2);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.news-main-img {
+  width: 100%;
+  aspect-ratio: 16/7;
+  background: linear-gradient(135deg, #e8ecf1 0%, #d0d8e4 100%);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin-bottom: 14px;
+}
+.news-main-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.news-main-title:hover { text-decoration: underline; }
+.news-main-desc { font-size: 0.88rem; color: #555; line-height: 1.6; }
+.news-sub-list { display: flex; flex-direction: column; gap: 0; }
+.news-sub-item {
+  display: flex;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--gray2);
+  cursor: pointer;
+}
+.news-sub-thumb {
+  width: 80px;
+  height: 56px;
+  background: var(--gray2);
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+.news-sub-info h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  line-height: 1.35;
+  color: var(--navy);
+}
+.news-sub-info h4:hover { text-decoration: underline; }
+.news-sub-info small { font-size: 0.73rem; color: var(--gray4); }
+
+/* ============================================================
+   푸터
+============================================================ */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.6);
+  padding: 30px;
+}
+.footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { margin-bottom: 12px; }
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 5px;
+}
+.footer-copy { font-size: 0.75rem; }
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a { font-size: 0.78rem; transition: color .2s; }
+.footer-links a:hover { color: var(--gold); }
+
+/* ============================================================
+   모달 (업체 상세)
+============================================================ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13,31,53,0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: white;
+  border-radius: var(--radius);
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: modalIn .25s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+.modal-header {
+  padding: 20px 24px 16px;
+  border-bottom: var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--gray4);
+  cursor: pointer;
+  line-height: 1;
+  margin-top: -2px;
+}
+.modal-body { padding: 20px 24px; }
+.modal-footer { padding: 16px 24px; background: var(--gray1); border-top: var(--border); display: flex; gap: 10px; }
+
+/* ============================================================
+   토스트 알림
+============================================================ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--navy);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  z-index: 2000;
+  transition: transform .3s ease;
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ============================================================
+   반응형
+============================================================ */
+@media (max-width: 1260px) {
+  .main-grid { grid-template-columns: 190px 1fr 270px; }
+}
+@media (max-width: 1100px) {
+  .main-grid { grid-template-columns: 170px 1fr 230px; }
+  .main-sidebar-left { padding: 14px 10px; }
+  .lsb-menu-item, .acc-header { padding: 7px 8px; font-size: .78rem; }
+}
+@media (max-width: 900px) {
+  .site-shell { width: 100%; }
+  /* 3컬럼 → 1컬럼 */
+  .main-grid { grid-template-columns: 1fr; }
+  /* PC 사이드바 숨김 */
+  .main-sidebar-left { display: none; }
+  .main-right { display: none; }
+  /* 방송 wrap */
+  .broadcast-wrap { grid-template-columns: 1fr; }
+  .next-broadcast  { display: none; }
+  /* 헤더 */
+  header { padding: 10px 14px 0; }
+  .logo-main { font-size: 1.5rem; letter-spacing: -1px; }
+  .logo-kr   { font-size: .7rem; letter-spacing: 2px; }
+  .header-slogan { display: none; }
+  .header-subscribe { display: none; }
+  /* GNB */
+  .gnb-inner { padding: 0 6px; }
+  .gnb-item  { padding: 10px 10px; font-size: .8rem; }
+  .gnb-search-wrap { display: none; }
+  /* 검색 */
+  .search-section { padding: 12px 14px; }
+  .main-left { padding: 14px; }
+  .form-row { grid-template-columns: 1fr; }
+  .news-grid { grid-template-columns: 1fr; }
+  /* 햄버거 표시 */
+  .ham-btn { display: flex; }
+  /* 모바일 미니 라이브 */
+  .mini-live-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+@media (max-width: 600px) {
+  .search-form { gap: 6px; }
+  .search-form select { min-width: 90px; font-size: .8rem; }
+  .store-item { flex-direction: column; }
+  .store-thumb { width: 100%; height: 150px; }
+  .quick-cats  { grid-template-columns: repeat(3, 1fr); }
+  .mini-live-grid { grid-template-columns: 1fr 1fr; }
+  .rec-card { width: 130px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     사이트 외피
+============================================================ -->
+<div class="site-shell">
+
+<!-- 최상단 띠 -->
+<div class="top-strip">
+  <div style="display:flex;gap:14px;align-items:center;" class="top-strip-left">
+    <span id="currentDate">2026. 4. 13 (월)</span>
+    <span class="weather-chip" id="weatherChip">📍 위치 확인 중...</span>
+  </div>
+  <div class="right-links">
+    <a href="#" onclick="showPage('home')">홈</a>
+    <a href="#" onclick="showPage('news')">뉴스</a>
+    <a href="#" onclick="showPage('register')">입점신청</a>
+    <a href="#" onclick="showPage('live')">라이브</a>
+    <a href="#" style="color:var(--gold);font-weight:700;">로그인</a>
+  </div>
+</div>
+<style>
+/* 모바일: 날짜·날씨 숨기고 입점신청+로그인만 */
+@media (max-width: 900px) {
+  .top-strip { padding: 6px 14px; }
+  .top-strip-left { display: none !important; }
+  .top-strip .right-links a:not([onclick*="register"]):not([style]) { display: none; }
+}
+</style>
+
+<!-- 헤더 -->
+<header>
+  <div class="header-inner">
+    <!-- 모바일 햄버거(좌) -->
+    <button class="ham-btn" id="hamLeft" onclick="openMobSidebar('left')" aria-label="왼쪽 메뉴">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="logo-area" onclick="showPage('home')">
+      <span class="logo-kr">AI 플랫마켓</span>
+      <span class="logo-main" style="font-size:1.85rem;">AI<span>PLAT</span>MARKET</span>
+    </div>
+
+    <div class="header-slogan" style="flex:1; text-align:center; font-size:0.75rem; color:var(--gray4); line-height:1.5;">
+      <b style="color:var(--navy);font-size:.82rem;">"우리 동네 소식 · AI로 더 빠르게"</b><br>
+      <span>지역 소상공인과 소비자를 잇는 AI 생활경제 미디어</span>
+    </div>
+
+    <div class="header-subscribe">
+      <small>📰 뉴스레터 구독</small>
+      <strong>매일 아침 지역 소식 받기</strong>
+      <br><button class="btn-subscribe" onclick="showToast('구독 신청이 완료되었습니다!')">무료 구독 →</button>
+    </div>
+
+    <!-- 모바일 햄버거(우) -->
+    <button class="ham-btn" id="hamRight" onclick="openMobSidebar('right')" aria-label="오른쪽 메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- GNB -->
+  <nav class="gnb">
+    <div class="gnb-inner">
+      <div class="gnb-item active" onclick="showPage('home')">🏠 종합홈</div>
+      <div class="gnb-divider"></div>
+      <div class="gnb-item" onclick="showPage('news')">📰 지역경제</div>
+      <div class="gnb-divider"></div>
+
+      <!-- 지역 드롭다운 -->
+      <div class="gnb-dd-wrap">
+        <div class="gnb-item">📍 지역 ▾</div>
+        <div class="gnb-dropdown" id="gnbRegionDD">
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('')">전체 지역</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('서울')">서울</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('인천')">인천</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('경기')">경기</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('부산')">부산</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('대구')">대구</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('대전')">대전</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('광주')">광주</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('강원')">강원</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('충남')">충남</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('경남')">경남</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('전남')">전남</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('제주')">제주</div>
+        </div>
+      </div>
+      <div class="gnb-divider"></div>
+
+      <!-- 업종별 드롭다운 -->
+      <div class="gnb-dd-wrap">
+        <div class="gnb-item">🗂️ 업종별 ▾</div>
+        <div class="gnb-dropdown">
+          <div class="gnb-dd-item" onclick="gnbCatSelect('')">전체 업종</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('음식점')">🍽️ 음식점</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('카페')">☕ 카페/디저트</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('미용')">💇 미용/뷰티</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('의류')">👗 의류/패션</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('생활서비스')">🔧 생활서비스</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('의료')">💊 의료/건강</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('교육')">📚 교육/학원</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('숙박')">🏨 숙박</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('여가')">🎮 여가/문화</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('농수산')">🥬 농수산물</div>
+        </div>
+      </div>
+      <div class="gnb-divider"></div>
+
+      <!-- 인기순 -->
+      <div class="gnb-dd-wrap">
+        <div class="gnb-item">📊 인기순 ▾</div>
+        <div class="gnb-dropdown">
+          <div class="gnb-dd-item" onclick="gnbSortSelect('clicks')">🔥 클릭 인기순</div>
+          <div class="gnb-dd-item" onclick="gnbSortSelect('new')">🆕 최신 등록순</div>
+          <div class="gnb-dd-item" onclick="gnbSortSelect('premium')">⭐ 광고 우선</div>
+        </div>
+      </div>
+      <div class="gnb-divider"></div>
+
+      <div class="gnb-item" onclick="showPage('live')">📺 라이브 <span class="badge">LIVE</span></div>
+      <div class="gnb-divider"></div>
+      <div class="gnb-item" onclick="showPage('register')">✅ 입점</div>
+
+      <!-- GNB 내 검색박스 -->
+      <div class="gnb-search-wrap">
+        <input class="gnb-search-input" id="gnbKeyword" placeholder="업체·메뉴 검색..." onkeydown="if(event.key==='Enter') gnbSearch()">
+        <button class="gnb-search-btn" onclick="gnbSearch()">검색</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- 뉴스 티커 -->
+<div class="ticker-wrap">
+  <div class="ticker-label">속보</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="tickerContent">
+      <span class="ticker-item">📌 AI플랫마켓, 소상공인 디지털 마케팅 무료 지원 프로그램 시작</span>
+      <span class="ticker-item">🔥 인천 남동구 '오늘의 특가' — 철판볶음밥 전문점 2인 세트 30% 할인</span>
+      <span class="ticker-item">📊 2026 1분기 소상공인 온라인 매출 전년 대비 18% 증가</span>
+      <span class="ticker-item">🏪 경기도 성남 분당구 신규 입점 업체 모집 중 — 무료 등록 이벤트</span>
+      <span class="ticker-item">🎯 AI 광고 추천 서비스, 파트너 300개사 돌파 기념 이벤트</span>
+    </div>
+  </div>
+</div>
+
+<!-- 검색 섹션 -->
+<div class="search-section">
+  <div class="search-title">🔍 지역 · 업체 · 아이템 통합 검색</div>
+  <div class="search-form">
+    <button class="location-btn" onclick="detectLocation()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+      내 위치
+    </button>
+    <select id="searchSido" onchange="updateSigungu()">
+      <option value="">시/도 선택</option>
+      <option value="서울">서울특별시</option>
+      <option value="부산">부산광역시</option>
+      <option value="대구">대구광역시</option>
+      <option value="인천">인천광역시</option>
+      <option value="광주">광주광역시</option>
+      <option value="대전">대전광역시</option>
+      <option value="울산">울산광역시</option>
+      <option value="경기">경기도</option>
+      <option value="강원">강원도</option>
+      <option value="충북">충청북도</option>
+      <option value="충남">충청남도</option>
+      <option value="전북">전라북도</option>
+      <option value="전남">전라남도</option>
+      <option value="경북">경상북도</option>
+      <option value="경남">경상남도</option>
+      <option value="제주">제주특별자치도</option>
+    </select>
+    <select id="searchSigungu">
+      <option value="">구/군 선택</option>
+    </select>
+    <select id="searchCategory">
+      <option value="">전체 카테고리</option>
+      <option value="음식점">🍽️ 음식점</option>
+      <option value="카페">☕ 카페/디저트</option>
+      <option value="미용">💇 미용/뷰티</option>
+      <option value="의류">👗 의류/패션</option>
+      <option value="생활서비스">🔧 생활서비스</option>
+      <option value="의료">💊 의료/건강</option>
+      <option value="교육">📚 교육/학원</option>
+      <option value="숙박">🏨 숙박</option>
+      <option value="여가">🎮 여가/문화</option>
+      <option value="농수산">🥬 농수산물</option>
+    </select>
+    <select id="searchSort">
+      <option value="clicks">인기순</option>
+      <option value="new">최신순</option>
+      <option value="premium">광고 우선</option>
+    </select>
+    <input type="text" id="searchKeyword" placeholder="업체명, 메뉴, 서비스 검색..." onkeydown="if(event.key==='Enter') doSearch()">
+    <button class="btn-search" onclick="doSearch()">
+      <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      검색
+    </button>
+    <button class="btn-reset" onclick="resetSearch()">초기화</button>
+  </div>
+  <div class="hot-tags">
+    <span>🔥 인기:</span>
+    <span class="hot-tag" onclick="quickSearch('삼겹살')">삼겹살</span>
+    <span class="hot-tag" onclick="quickSearch('네일')">네일샵</span>
+    <span class="hot-tag" onclick="quickSearch('헬스')">헬스장</span>
+    <span class="hot-tag" onclick="quickSearch('족발')">족발</span>
+    <span class="hot-tag" onclick="quickSearch('카페')">카페</span>
+    <span class="hot-tag" onclick="quickSearch('치킨')">치킨</span>
+    <span class="hot-tag" onclick="quickSearch('세탁')">세탁소</span>
+    <span class="hot-tag" onclick="quickSearch('학원')">학원</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     홈 페이지
+============================================================ -->
+<div id="page-home" class="page-section active">
+  <div class="main-grid">
+
+    <!-- ★ 좌측 사이드바 ★ -->
+    <aside class="main-sidebar-left">
+
+      <!-- 오늘의 날씨 -->
+      <div class="lsb-info-card">
+        <div class="weather-big" id="lsbWeatherIcon">⛅</div>
+        <div class="weather-text" id="lsbWeatherText">인천 · 맑음 18°C</div>
+        <div style="font-size:.68rem;color:#5580aa;text-align:center;margin-top:4px;" id="lsbDate">2026. 4. 13 (월)</div>
+      </div>
+
+      <div class="lsb-divider"></div>
+
+      <!-- 사이트 메뉴 -->
+      <div class="lsb-title">📌 메뉴</div>
+      <div class="lsb-menu">
+        <div class="lsb-menu-item active" onclick="showPage('home')">
+          <span class="lsb-icon">🏠</span> 종합홈
+        </div>
+        <div class="lsb-menu-item" onclick="showPage('news')">
+          <span class="lsb-icon">📰</span> 지역경제 뉴스
+        </div>
+        <div class="lsb-menu-item" onclick="showPage('live')">
+          <span class="lsb-icon">📺</span> 라이브방송
+          <span class="lsb-cnt" style="background:var(--red);color:white;">LIVE</span>
+        </div>
+        <div class="lsb-menu-item" onclick="showPage('register')">
+          <span class="lsb-icon">✅</span> 입점신청
+        </div>
+        <div class="lsb-menu-item" onclick="showToast('파트너센터 준비 중입니다.')">
+          <span class="lsb-icon">⚙️</span> 파트너센터
+        </div>
+      </div>
+
+      <div class="lsb-divider"></div>
+
+      <!-- 업종 카테고리 (아코디언) -->
+      <div class="lsb-title">🗂️ 업종별</div>
+      <div class="lsb-menu">
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">🍽️</span> 음식점
+          <span class="lsb-cnt" id="cnt-음식점">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('삼겹살')">🥩 삼겹살·고기구이</div>
+          <div class="acc-sub-item" onclick="quickSearch('국밥')">🍲 국밥·탕·찌개</div>
+          <div class="acc-sub-item" onclick="quickSearch('치킨')">🍗 치킨·패스트푸드</div>
+          <div class="acc-sub-item" onclick="quickSearch('족발')">🍖 족발·보쌈</div>
+          <div class="acc-sub-item" onclick="quickSearch('중식')">🥢 중식·일식</div>
+          <div class="acc-sub-item" onclick="quickCat('음식점')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">☕</span> 카페/디저트
+          <span class="lsb-cnt" id="cnt-카페">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('스페셜티')">☕ 스페셜티 카페</div>
+          <div class="acc-sub-item" onclick="quickSearch('케이크')">🎂 케이크·디저트</div>
+          <div class="acc-sub-item" onclick="quickSearch('마카롱')">🧁 마카롱·구움과자</div>
+          <div class="acc-sub-item" onclick="quickCat('카페')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">💇</span> 미용/뷰티
+          <span class="lsb-cnt" id="cnt-미용">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('헤어')">✂️ 헤어·미용실</div>
+          <div class="acc-sub-item" onclick="quickSearch('네일')">💅 네일아트</div>
+          <div class="acc-sub-item" onclick="quickSearch('피부')">🧴 피부관리·에스테틱</div>
+          <div class="acc-sub-item" onclick="quickCat('미용')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">👗</span> 의류/패션
+          <span class="lsb-cnt" id="cnt-의류">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('빈티지')">🕶️ 빈티지·편집샵</div>
+          <div class="acc-sub-item" onclick="quickSearch('캐주얼')">👕 캐주얼·스트릿</div>
+          <div class="acc-sub-item" onclick="quickCat('의류')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">🔧</span> 생활서비스
+          <span class="lsb-cnt" id="cnt-생활서비스">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('세탁')">👕 세탁·수선</div>
+          <div class="acc-sub-item" onclick="quickSearch('청소')">🧹 청소·홈케어</div>
+          <div class="acc-sub-item" onclick="quickSearch('수리')">🔩 가전·가구수리</div>
+          <div class="acc-sub-item" onclick="quickCat('생활서비스')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">💊</span> 의료/건강
+          <span class="lsb-cnt" id="cnt-의료">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('한의원')">🌿 한의원·한약</div>
+          <div class="acc-sub-item" onclick="quickSearch('치과')">🦷 치과</div>
+          <div class="acc-sub-item" onclick="quickSearch('헬스')">💪 헬스장·PT</div>
+          <div class="acc-sub-item" onclick="quickCat('의료')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">📚</span> 교육/학원
+          <span class="lsb-cnt" id="cnt-교육">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('수학학원')">➕ 수학·과학</div>
+          <div class="acc-sub-item" onclick="quickSearch('영어학원')">🔤 영어·어학</div>
+          <div class="acc-sub-item" onclick="quickSearch('예체능')">🎨 예체능·예술</div>
+          <div class="acc-sub-item" onclick="quickCat('교육')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">🥬</span> 농수산물
+          <span class="lsb-cnt" id="cnt-농수산">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('친환경')">🌱 친환경·유기농</div>
+          <div class="acc-sub-item" onclick="quickSearch('수산')">🐟 수산물·해산물</div>
+          <div class="acc-sub-item" onclick="quickCat('농수산')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">🏨</span> 숙박
+          <span class="lsb-cnt" id="cnt-숙박">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('펜션')">🏡 펜션·독채</div>
+          <div class="acc-sub-item" onclick="quickSearch('게스트하우스')">🏘️ 게스트하우스</div>
+          <div class="acc-sub-item" onclick="quickCat('숙박')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
+          <span class="lsb-icon">🎮</span> 여가/문화
+          <span class="lsb-cnt" id="cnt-여가">-</span>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('공방')">🎨 공방·클래스</div>
+          <div class="acc-sub-item" onclick="quickSearch('노래방')">🎤 노래방·오락</div>
+          <div class="acc-sub-item" onclick="quickCat('여가')">전체 보기 →</div>
+        </div>
+
+      </div>
+
+      <div class="lsb-divider"></div>
+
+      <!-- 지역 바로가기 -->
+      <div class="lsb-title">📍 지역별</div>
+      <div class="lsb-region-grid">
+        <div class="lsb-region-btn" onclick="quickRegion('서울')">서울</div>
+        <div class="lsb-region-btn" onclick="quickRegion('인천')">인천</div>
+        <div class="lsb-region-btn" onclick="quickRegion('경기')">경기</div>
+        <div class="lsb-region-btn" onclick="quickRegion('부산')">부산</div>
+        <div class="lsb-region-btn" onclick="quickRegion('대구')">대구</div>
+        <div class="lsb-region-btn" onclick="quickRegion('대전')">대전</div>
+        <div class="lsb-region-btn" onclick="quickRegion('광주')">광주</div>
+        <div class="lsb-region-btn" onclick="quickRegion('강원')">강원</div>
+        <div class="lsb-region-btn" onclick="quickRegion('충남')">충남</div>
+        <div class="lsb-region-btn" onclick="quickRegion('경남')">경남</div>
+        <div class="lsb-region-btn" onclick="quickRegion('전남')">전남</div>
+        <div class="lsb-region-btn" onclick="quickRegion('제주')">제주</div>
+      </div>
+
+      <div class="lsb-divider"></div>
+
+      <!-- 공지사항 (클릭 시 상세 모달) -->
+      <div class="lsb-title">📢 공지사항</div>
+      <div>
+        <div class="lsb-notice-item" onclick="openNotice(0)">
+          <div class="lsb-notice-title"><span class="lsb-notice-badge">신규</span>무료 입점 이벤트 5월 말까지 연장</div>
+          <div class="lsb-notice-date">2026.04.13</div>
+        </div>
+        <div class="lsb-notice-item" onclick="openNotice(1)">
+          <div class="lsb-notice-title">AI 홍보문구 자동 생성 기능 업데이트</div>
+          <div class="lsb-notice-date">2026.04.10</div>
+        </div>
+        <div class="lsb-notice-item" onclick="openNotice(2)">
+          <div class="lsb-notice-title">라이브 방송 2채널 동시 운영 시작</div>
+          <div class="lsb-notice-date">2026.04.08</div>
+        </div>
+        <div class="lsb-notice-item" onclick="openNotice(3)">
+          <div class="lsb-notice-title">개인정보처리방침 개정 안내</div>
+          <div class="lsb-notice-date">2026.04.01</div>
+        </div>
+      </div>
+
+      <div class="lsb-divider"></div>
+
+      <!-- SNS 바로가기 -->
+      <div class="lsb-title">🔗 SNS</div>
+      <div class="lsb-social">
+        <button class="lsb-social-btn lsb-sns-kakao" onclick="showToast('카카오채널 준비 중입니다.')">💬 카카오</button>
+        <button class="lsb-social-btn lsb-sns-naver" onclick="showToast('네이버 블로그 준비 중입니다.')">N 블로그</button>
+      </div>
+      <div class="lsb-social" style="margin-top:5px;">
+        <button class="lsb-social-btn lsb-sns-insta" style="flex:1;" onclick="showToast('인스타그램 준비 중입니다.')">📸 인스타그램</button>
+      </div>
+
+    </aside>
+
+    <!-- 메인 좌측 -->
+    <div class="main-left">
+
+      <!-- 방송 섹션 -->
+      <div class="sec-header">
+        <div class="sec-title">📺 라이브 방송</div>
+        <span class="sec-more" onclick="showPage('live')">전체 보기 ›</span>
+      </div>
+
+      <div class="broadcast-wrap">
+        <!-- 라이브 비디오 -->
+        <div class="live-video-area">
+          <div class="live-badge">● LIVE</div>
+          <div class="viewer-count">
+            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+            <span id="viewCount">1,248</span>명 시청 중
+          </div>
+          <div class="live-iframe-box">
+            <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1&loop=1&playlist=jfKfPfyJRdk&controls=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          <div class="live-info">
+            <span class="live-channel-badge">AI플랫 CH1</span>
+            <div class="live-title">
+              [단독 특가] 우리동네 소상공인 직접 판매 — 오늘만 최대 40% 할인 이벤트 라이브
+            </div>
+          </div>
+        </div>
+
+        <!-- 다음 방송 자동 스크롤 -->
+        <div class="next-broadcast">
+          <div class="next-broadcast-header">▶ 다음 방송 일정</div>
+          <div class="next-broadcast-scroll">
+            <div class="next-broadcast-inner" id="broadcastList">
+              <!-- JS로 채움 (×2 for seamless loop) -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 업체 목록 -->
+      <div class="sec-header" style="margin-top:8px;">
+        <div class="sec-title">🏪 지역 업체 현황</div>
+        <span class="sec-more" onclick="doSearch()">전체 보기 ›</span>
+      </div>
+
+      <div id="storeList" class="store-list">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <div>업체 정보를 불러오는 중...</div>
+        </div>
+      </div>
+
+      <div class="pagination" id="pagination"></div>
+
+      <!-- ★ 라이브 방송 하단 추천 콘텐츠 ★ -->
+      <div class="recommend-section">
+
+        <!-- 두 번째 라이브 채널 -->
+        <div class="sec-header">
+          <div class="sec-title">📡 AI플랫 CH2 · 동시 방송</div>
+          <span class="sec-more" onclick="showPage('live')">전체 채널 ›</span>
+        </div>
+        <div class="mini-live-grid">
+          <div class="mini-live-card" onclick="showToast('CH2 방송 화면으로 이동합니다.')">
+            <div class="mini-live-thumb" style="background:linear-gradient(135deg,#1a3556,#0d1f35);">
+              💅
+              <span style="position:absolute;top:8px;left:8px;font-size:.6rem;padding:2px 7px;border-radius:3px;background:var(--red);color:white;font-weight:900;letter-spacing:1px;">● LIVE</span>
+            </div>
+            <div class="mini-live-body">
+              <div class="mini-live-title">서울 강남 K-뷰티 라이브 — 네일·속눈썹 패키지 특가</div>
+              <div class="mini-live-meta">AI플랫 CH2 · 👁 441명 시청 중</div>
+            </div>
+          </div>
+          <div class="mini-live-card" onclick="showToast('CH3 예고 방송입니다.')">
+            <div class="mini-live-thumb" style="background:linear-gradient(135deg,#2d5016,#3d6b1e);">
+              🥬
+              <span style="position:absolute;top:8px;left:8px;font-size:.6rem;padding:2px 7px;border-radius:3px;background:var(--gold);color:var(--navy);font-weight:900;letter-spacing:1px;">예고</span>
+            </div>
+            <div class="mini-live-body">
+              <div class="mini-live-title">경기 수원 로컬푸드 직거래 — 친환경 채소 꾸러미</div>
+              <div class="mini-live-meta">AI플랫 CH3 · 🕐 15:00 예정</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 추천 업체 가로스크롤 -->
+        <div class="sec-header" style="margin-top:4px;">
+          <div class="sec-title">🤖 AI 추천 업체</div>
+          <span class="sec-more">← 스크롤</span>
+        </div>
+        <div class="rec-scroll-wrap" id="recScrollList"><!-- JS로 채움 --></div>
+
+        <!-- 지역 생활 정보 카드 -->
+        <div class="sec-header" style="margin-top:24px;">
+          <div class="sec-title">📰 지역 생활 정보</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
+          <div style="background:var(--gray1);border:var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;" onclick="showPage('news')">
+            <div style="font-size:1.4rem;margin-bottom:6px;">📈</div>
+            <div style="font-size:.85rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:4px;">소상공인 디지털 전환 지원금 확대 — 최대 200만원</div>
+            <div style="font-size:.72rem;color:var(--gray4);">2026.04.13 · 지역경제</div>
+          </div>
+          <div style="background:var(--gray1);border:var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;" onclick="showPage('news')">
+            <div style="font-size:1.4rem;margin-bottom:6px;">🏪</div>
+            <div style="font-size:.85rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:4px;">인천 1분기 소상공인 매출 역대 최고 기록</div>
+            <div style="font-size:.72rem;color:var(--gray4);">2026.04.12 · 경제</div>
+          </div>
+          <div style="background:var(--gray1);border:var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;" onclick="showPage('news')">
+            <div style="font-size:1.4rem;margin-bottom:6px;">💡</div>
+            <div style="font-size:.85rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:4px;">AI 광고 추천 서비스 파트너 300개사 돌파</div>
+            <div style="font-size:.72rem;color:var(--gray4);">2026.04.11 · IT</div>
+          </div>
+          <div style="background:var(--gray1);border:var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;" onclick="showPage('news')">
+            <div style="font-size:1.4rem;margin-bottom:6px;">🌿</div>
+            <div style="font-size:.85rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:4px;">로컬 푸드 직거래 활성화, 농수산 매출 30%↑</div>
+            <div style="font-size:.72rem;color:var(--gray4);">2026.04.09 · 농수산</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <aside class="main-right">
+
+      <!-- 광고 배너 -->
+      <div class="ad-banner">
+        <div class="ad-label">AD · 파트너 혜택</div>
+        <div class="ad-title">내 매장도 AI플랫마켓에 무료 입점하세요</div>
+        <div class="ad-sub">초기 등록비 0원 · AI 홍보문구 자동 작성 · 실시간 통계 제공</div>
+        <button class="btn-ad" onclick="showPage('register')">지금 무료 입점 신청 →</button>
+      </div>
+
+      <!-- 오늘의 이벤트/할인 -->
+      <div class="rsb-event-card">
+        <div class="rsb-event-header">🔥 오늘의 특가 이벤트</div>
+        <div class="rsb-event-list">
+          <div class="rsb-event-item">
+            <div class="rsb-event-icon">🍖</div>
+            <div class="rsb-event-name">인천 남동구 족발보쌈<br>2인 세트 특가</div>
+            <div class="rsb-event-disc">30% ↓</div>
+          </div>
+          <div class="rsb-event-item">
+            <div class="rsb-event-icon">☕</div>
+            <div class="rsb-event-name">연수구 스페셜티 카페<br>아메리카노 2잔</div>
+            <div class="rsb-event-disc">1+1</div>
+          </div>
+          <div class="rsb-event-item">
+            <div class="rsb-event-icon">💇</div>
+            <div class="rsb-event-name">부평구 헤어샵<br>컷+염색 패키지</div>
+            <div class="rsb-event-disc">25% ↓</div>
+          </div>
+          <div class="rsb-event-item">
+            <div class="rsb-event-icon">🍕</div>
+            <div class="rsb-event-name">남동구 화덕피자<br>라지 사이즈</div>
+            <div class="rsb-event-disc">2천원↓</div>
+          </div>
+          <div class="rsb-event-item">
+            <div class="rsb-event-icon">🥬</div>
+            <div class="rsb-event-name">인천 로컬팜<br>친환경 채소 꾸러미</div>
+            <div class="rsb-event-disc">20% ↓</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 인기 업체 랭킹 -->
+      <div class="sec-header">
+        <div class="sec-title" style="font-size:.9rem;">많이 본 업체</div>
+        <span class="sec-more" style="font-size:.72rem;">실시간</span>
+      </div>
+      <div class="rank-list" id="rankList">
+        <div style="font-size:.8rem;color:var(--gray4);padding:16px 0;text-align:center;">순위 데이터 로딩 중...</div>
+      </div>
+
+      <!-- 파트너 광고 배너 (소형) -->
+      <div class="sec-header" style="margin-top:18px;">
+        <div class="sec-title" style="font-size:.9rem;">파트너 광고</div>
+        <span class="rsb-ad-label">AD</span>
+      </div>
+      <div class="rsb-ad-mini" onclick="showToast('광고 업체 페이지로 이동합니다.')">
+        <div class="rsb-ad-mini-icon">🍜</div>
+        <div class="rsb-ad-mini-body">
+          <div class="rsb-ad-mini-name">할매 손칼국수</div>
+          <div class="rsb-ad-mini-sub">인천 남동구 · 오늘 할인 이벤트</div>
+        </div>
+        <span style="font-size:.7rem;color:var(--red);font-weight:700;">►</span>
+      </div>
+      <div class="rsb-ad-mini" onclick="showToast('광고 업체 페이지로 이동합니다.')">
+        <div class="rsb-ad-mini-icon">💅</div>
+        <div class="rsb-ad-mini-body">
+          <div class="rsb-ad-mini-name">글로우 네일아트</div>
+          <div class="rsb-ad-mini-sub">인천 연수구 · 신규 오픈</div>
+        </div>
+        <span style="font-size:.7rem;color:var(--red);font-weight:700;">►</span>
+      </div>
+      <div class="rsb-ad-mini" onclick="showToast('광고 업체 페이지로 이동합니다.')">
+        <div class="rsb-ad-mini-icon">🧁</div>
+        <div class="rsb-ad-mini-body">
+          <div class="rsb-ad-mini-name">달달 케이크 공방</div>
+          <div class="rsb-ad-mini-sub">경기 성남 · 주문제작 전문</div>
+        </div>
+        <span style="font-size:.7rem;color:var(--red);font-weight:700;">►</span>
+      </div>
+
+      <!-- AI 추천 -->
+      <div class="ai-card" style="margin-top:18px;">
+        <div class="ai-card-title">🤖 AI 매출 분석</div>
+        <p>사장님 매장의 클릭 추이, 노출 시간, 경쟁 업체 현황을 AI가 분석해드립니다.</p>
+        <button class="btn-ai" onclick="showToast('파트너센터 로그인 후 이용 가능합니다.')">AI 분석 시작하기 →</button>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ============================================================
+     지역경제 뉴스 페이지
+============================================================ -->
+<div id="page-news" class="page-section">
+  <div class="news-page">
+    <div class="sec-header">
+      <div class="sec-title">📰 지역경제 뉴스</div>
+    </div>
+    <div class="news-grid">
+      <div>
+        <!-- 대표 기사 -->
+        <div class="news-main-article">
+          <div class="news-main-img">🏙️</div>
+          <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+            <span class="tag tag-cat">지역경제</span>
+            <span class="tag tag-new">NEW</span>
+          </div>
+          <div class="news-main-title">[단독] 소상공인 디지털 전환 지원금 내달부터 1인당 최대 200만원 지원 확대</div>
+          <div class="news-main-desc">정부는 디지털 전환을 희망하는 전국 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔다. 온라인 마케팅, AI 도구 도입, 배달 플랫폼 연동 비용을 포함한 종합 패키지 형태로 지원이 이루어질 예정이다...</div>
+          <div style="margin-top:10px;font-size:.78rem;color:var(--gray4);">2026.04.13 · AI플랫마켓 편집국</div>
+        </div>
+
+        <!-- 서브 기사 목록 -->
+        <div class="news-sub-list" id="newsList">
+          <div class="news-sub-item">
+            <div class="news-sub-thumb">📈</div>
+            <div class="news-sub-info">
+              <h4>인천 소상공인 매출 1분기 역대 최고 기록 — 배달 증가 영향</h4>
+              <small>2026.04.12 · 경제</small>
+            </div>
+          </div>
+          <div class="news-sub-item">
+            <div class="news-sub-thumb">🏪</div>
+            <div class="news-sub-info">
+              <h4>경기 성남·분당 신규 상권 분석 — AI가 예측한 유망 업종 TOP5</h4>
+              <small>2026.04.11 · 창업</small>
+            </div>
+          </div>
+          <div class="news-sub-item">
+            <div class="news-sub-thumb">💡</div>
+            <div class="news-sub-info">
+              <h4>카카오페이 소상공인 결제 수수료 0% 이벤트 다음 달부터 시행</h4>
+              <small>2026.04.10 · IT·핀테크</small>
+            </div>
+          </div>
+          <div class="news-sub-item">
+            <div class="news-sub-thumb">🌿</div>
+            <div class="news-sub-info">
+              <h4>로컬 푸드 직거래 플랫폼 활성화... 농수산 소상공인 매출 30%↑</h4>
+              <small>2026.04.09 · 농수산</small>
+            </div>
+          </div>
+          <div class="news-sub-item">
+            <div class="news-sub-thumb">🎓</div>
+            <div class="news-sub-info">
+              <h4>골목상권 살리기 프로젝트 — 지자체와 민간이 손잡다</h4>
+              <small>2026.04.08 · 정책</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 뉴스 사이드 -->
+      <div>
+        <div class="sec-header"><div class="sec-title" style="font-size:.9rem;">오피니언</div></div>
+        <div style="font-size:.85rem;line-height:1.7;color:#444;background:var(--gray1);padding:16px;border-radius:var(--radius);">
+          <b style="color:var(--navy);display:block;margin-bottom:6px;">"지역경제, AI가 살린다"</b>
+          소상공인의 디지털 전환은 더 이상 선택이 아닌 필수다. AI 기반 플랫폼을 통해 우리 동네 경제를 살리는 방법을 AI플랫마켓이 앞장서서 보여주겠습니다.
+          <div style="margin-top:8px;font-size:.75rem;color:var(--gray4);">— AI플랫마켓 편집장</div>
+        </div>
+
+        <div class="sec-header" style="margin-top:20px;"><div class="sec-title" style="font-size:.9rem;">많이 읽은 기사</div></div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="padding:10px 0;border-bottom:1px solid var(--gray2);font-size:.83rem;color:var(--navy);cursor:pointer;font-weight:600;">1. 2026년 소상공인 지원 정책 총정리</div>
+          <div style="padding:10px 0;border-bottom:1px solid var(--gray2);font-size:.83rem;color:var(--navy);cursor:pointer;font-weight:600;">2. 배달앱 수수료 비교 — 쿠팡·배민·요기요</div>
+          <div style="padding:10px 0;border-bottom:1px solid var(--gray2);font-size:.83rem;color:var(--navy);cursor:pointer;font-weight:600;">3. AI 홍보문구 작성 무료 서비스 TOP3</div>
+          <div style="padding:10px 0;border-bottom:1px solid var(--gray2);font-size:.83rem;color:var(--navy);cursor:pointer;font-weight:600;">4. 우리 동네 인기 창업 아이템 20선</div>
+          <div style="padding:10px 0;font-size:.83rem;color:var(--navy);cursor:pointer;font-weight:600;">5. 상가 임대료 지원 받는 법 A-Z</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     라이브 방송 페이지
+============================================================ -->
+<div id="page-live" class="page-section">
+  <div class="live-page">
+    <div class="sec-header">
+      <div class="sec-title">📺 라이브 방송 전체</div>
+    </div>
+    <div class="live-grid" id="liveGrid">
+      <!-- JS로 생성 -->
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     입점 신청 페이지
+============================================================ -->
+<div id="page-register" class="page-section">
+  <div class="register-wrap">
+    <div class="form-card">
+      <div class="form-header">
+        <h2>신규 입점 신청서</h2>
+        <p>무료로 등록하고 AI 홍보 혜택을 받으세요. 심사 후 24시간 내 등록 완료.</p>
+      </div>
+      <div class="form-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">업체명 <span class="req">*</span></label>
+            <input id="regName" type="text" class="form-input" placeholder="예: 맛있는 삼겹살">
+          </div>
+          <div class="form-group">
+            <label class="form-label">대표자명 <span class="req">*</span></label>
+            <input id="regOwner" type="text" class="form-input" placeholder="홍길동">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">시/도 <span class="req">*</span></label>
+            <select id="regSido" class="form-input form-select" onchange="updateRegSigungu()">
+              <option value="">선택</option>
+              <option>서울</option><option>부산</option><option>대구</option><option>인천</option>
+              <option>광주</option><option>대전</option><option>울산</option><option>경기</option>
+              <option>강원</option><option>충북</option><option>충남</option><option>전북</option>
+              <option>전남</option><option>경북</option><option>경남</option><option>제주</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">구/군/동 <span class="req">*</span></label>
+            <input id="regSigungu" type="text" class="form-input" placeholder="예: 남동구 구월동">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">업종 카테고리 <span class="req">*</span></label>
+            <select id="regCategory" class="form-input form-select">
+              <option value="">선택</option>
+              <option value="음식점">음식점</option>
+              <option value="카페">카페/디저트</option>
+              <option value="미용">미용/뷰티</option>
+              <option value="의류">의류/패션</option>
+              <option value="생활서비스">생활서비스</option>
+              <option value="의료">의료/건강</option>
+              <option value="교육">교육/학원</option>
+              <option value="숙박">숙박</option>
+              <option value="여가">여가/문화</option>
+              <option value="농수산">농수산물</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">전화번호 <span class="req">*</span></label>
+            <input id="regPhone" type="tel" class="form-input" placeholder="010-0000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">주력 아이템 / 메뉴 <span class="req">*</span></label>
+          <input id="regItem" type="text" class="form-input" placeholder="예: 생삼겹살, 된장찌개, 공기밥">
+        </div>
+        <div class="form-group">
+          <label class="form-label">업체 소개 (AI 홍보문구 자동 생성에 활용됩니다)</label>
+          <textarea id="regDesc" class="form-input" rows="3" placeholder="업체의 특징, 분위기, 강점을 자유롭게 적어주세요..." style="resize:vertical;"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">이메일 (결과 통보용)</label>
+          <input id="regEmail" type="email" class="form-input" placeholder="example@email.com">
+        </div>
+        <div style="background:var(--gray1);border:var(--border);border-radius:4px;padding:12px;font-size:.78rem;color:var(--gray4);">
+          📋 입점 심사는 영업일 기준 1-2일 이내 완료됩니다. 등록 후 AI가 자동으로 홍보 문구를 생성하여 업체 페이지에 노출됩니다.
+        </div>
+      </div>
+      <div class="form-footer">
+        <button class="btn-cancel" onclick="showPage('home')">취소</button>
+        <button class="btn-submit" onclick="doRegister()">신청서 제출하기 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 푸터 -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <div class="footer-logo">AI PLATMARKET</div>
+        <div class="footer-copy">© 2026 AI플랫마켓. All rights reserved.</div>
+      </div>
+      <div style="font-size:.75rem;line-height:1.8;color:rgba(255,255,255,.45);">
+        사업자등록번호: 000-00-00000 | 대표: 김형식<br>
+        주소: 인천광역시 | 이메일: contact@aiplatmarket.kr<br>
+        통신판매업신고번호: 제0000-인천-0000호
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">광고문의</a>
+      <a href="#" onclick="showPage('register')">입점문의</a>
+      <a href="#">공지사항</a>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /site-shell -->
+
+<!-- 업체 상세 모달 -->
+<div class="modal-overlay" id="storeModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div id="modalName" style="font-family:var(--font-serif);font-size:1.2rem;font-weight:800;color:var(--navy);"></div>
+        <div id="modalTags" style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;"></div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('storeModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="modalBody"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-contact" style="flex:1;" id="modalPhoneBtn">📞 전화 연결</button>
+      <button class="btn-detail" onclick="document.getElementById('storeModal').classList.remove('open')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 토스트 -->
+<div class="toast" id="toast"></div>
+
+<!-- 모바일 사이드바 오버레이 -->
+<div class="mob-sidebar-overlay" id="mobOverlay" onclick="closeMobSidebar()"></div>
+
+<!-- 모바일 좌측 패널 -->
+<div class="mob-sidebar-panel left" id="mobPanelLeft">
+  <button class="mob-sb-close" onclick="closeMobSidebar()">✕</button>
+  <div style="margin-top:30px;">
+    <div class="lsb-info-card" style="margin-bottom:14px;">
+      <div class="weather-big">⛅</div>
+      <div class="weather-text" id="mobWeatherText">인천 · 맑음 18°C</div>
+      <div style="font-size:.68rem;color:#5580aa;text-align:center;margin-top:4px;" id="mobDate">-</div>
+    </div>
+    <div class="lsb-title">📌 메뉴</div>
+    <div class="lsb-menu">
+      <div class="lsb-menu-item" onclick="closeMobSidebar();showPage('home')"><span class="lsb-icon">🏠</span>종합홈</div>
+      <div class="lsb-menu-item" onclick="closeMobSidebar();showPage('news')"><span class="lsb-icon">📰</span>지역경제 뉴스</div>
+      <div class="lsb-menu-item" onclick="closeMobSidebar();showPage('live')"><span class="lsb-icon">📺</span>라이브방송<span class="lsb-cnt" style="background:var(--red);color:white;">LIVE</span></div>
+      <div class="lsb-menu-item" onclick="closeMobSidebar();showPage('register')"><span class="lsb-icon">✅</span>입점신청</div>
+    </div>
+    <div class="lsb-divider"></div>
+    <div class="lsb-title">📍 지역별</div>
+    <div class="lsb-region-grid">
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('서울')">서울</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('인천')">인천</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('경기')">경기</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('부산')">부산</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('대구')">대구</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('대전')">대전</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('광주')">광주</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('강원')">강원</div>
+    </div>
+    <div class="lsb-divider"></div>
+    <div class="lsb-title">📢 공지사항</div>
+    <div class="lsb-notice-item" onclick="closeMobSidebar();openNotice(0)"><div class="lsb-notice-title"><span class="lsb-notice-badge">신규</span>무료 입점 이벤트 5월 말까지 연장</div><div class="lsb-notice-date">2026.04.13</div></div>
+    <div class="lsb-notice-item" onclick="closeMobSidebar();openNotice(1)"><div class="lsb-notice-title">AI 홍보문구 자동 생성 업데이트</div><div class="lsb-notice-date">2026.04.10</div></div>
+    <div class="lsb-divider"></div>
+    <div class="lsb-social">
+      <button class="lsb-social-btn lsb-sns-kakao" onclick="showToast('카카오채널 준비 중')">💬 카카오</button>
+      <button class="lsb-social-btn lsb-sns-naver" onclick="showToast('블로그 준비 중')">N 블로그</button>
+    </div>
+  </div>
+</div>
+
+<!-- 모바일 우측 패널 -->
+<div class="mob-sidebar-panel right" id="mobPanelRight">
+  <button class="mob-sb-close" onclick="closeMobSidebar()">✕</button>
+  <div style="margin-top:30px;">
+    <div class="ad-banner" style="margin-bottom:14px;">
+      <div class="ad-label">AD</div>
+      <div class="ad-title">무료 입점 신청하세요</div>
+      <button class="btn-ad" onclick="closeMobSidebar();showPage('register')">신청하기 →</button>
+    </div>
+    <div class="rsb-event-card" style="margin-bottom:14px;">
+      <div class="rsb-event-header">🔥 오늘의 특가</div>
+      <div class="rsb-event-list">
+        <div class="rsb-event-item"><div class="rsb-event-icon">🍖</div><div class="rsb-event-name">인천 족발보쌈 2인 세트</div><div class="rsb-event-disc">30%↓</div></div>
+        <div class="rsb-event-item"><div class="rsb-event-icon">☕</div><div class="rsb-event-name">연수구 카페 아메리카노</div><div class="rsb-event-disc">1+1</div></div>
+        <div class="rsb-event-item"><div class="rsb-event-icon">💇</div><div class="rsb-event-name">부평구 컷+염색 패키지</div><div class="rsb-event-disc">25%↓</div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:8px;">
+      <div class="lsb-title" style="margin-bottom:10px;">📊 인기 업체</div>
+      <div class="rank-list" id="rankListMob" style="font-size:.8rem;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 공지사항 모달 -->
+<div class="notice-modal-overlay" id="noticeModal" onclick="closeNoticeModal(event)">
+  <div class="notice-modal-box">
+    <div class="notice-modal-header">
+      <h3 id="noticeTitle">공지사항</h3>
+      <button class="notice-modal-close" onclick="document.getElementById('noticeModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="notice-modal-body">
+      <div class="notice-modal-meta" id="noticeMeta"></div>
+      <div id="noticeContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     JavaScript
+============================================================ -->
+<script>
+/* ── 상태 ── */
+const state = {
+  stores: [],
+  filtered: [],
+  currentPage: 1,
+  perPage: 8,
+};
+
+/* ── 다음 방송 데이터 ── */
+const broadcastSchedule = [
+  { time:'14:00', name:'인천 남동구 족발·보쌈 특가전', icon:'🍖' },
+  { time:'14:30', name:'서울 강남 뷰티 라이브 — 네일·속눈썹', icon:'💅' },
+  { time:'15:00', name:'경기 수원 로컬푸드 직거래 장터', icon:'🥬' },
+  { time:'15:30', name:'부산 해운대 해산물 경매 라이브', icon:'🦀' },
+  { time:'16:00', name:'인천 연수구 창업 설명회 LIVE', icon:'🚀' },
+  { time:'16:30', name:'대전 둔산동 카페 신메뉴 쇼케이스', icon:'☕' },
+  { time:'17:00', name:'광주 치킨 프랜차이즈 할인 이벤트', icon:'🍗' },
+  { time:'17:30', name:'경기 성남 IT·디지털 소상공인 지원 설명', icon:'💻' },
+];
+
+/* ── 라이브 방송 카드 데이터 ── */
+const liveData = [
+  { title:'인천 남동구 족발·보쌈 특가전', status:'live', icon:'🍖', viewers:892, channel:'AI플랫 CH1' },
+  { title:'서울 강남 뷰티 라이브 — 네일·속눈썹', status:'live', icon:'💅', viewers:441, channel:'AI플랫 CH2' },
+  { title:'경기 수원 로컬푸드 직거래', status:'soon', icon:'🥬', viewers:0, time:'15:00' },
+  { title:'부산 해운대 해산물 경매', status:'soon', icon:'🦀', viewers:0, time:'15:30' },
+  { title:'인천 연수구 창업 설명회', status:'soon', icon:'🚀', viewers:0, time:'16:00' },
+  { title:'[다시보기] 4/10 전통시장 특가전', status:'end', icon:'🏪', viewers:3421, channel:'AI플랫 CH1' },
+  { title:'[다시보기] 4/9 K-뷰티 라이브', status:'end', icon:'💄', viewers:2180, channel:'AI플랫 CH2' },
+  { title:'[다시보기] 4/8 로컬 카페 쇼케이스', status:'end', icon:'☕', viewers:1650, channel:'AI플랫 CH3' },
+];
+
+/* ── 시군구 데이터 ── */
+const sigunguData = {
+  서울: ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구','중랑구'],
+  부산: ['강서구','금정구','기장군','남구','동구','동래구','부산진구','북구','사상구','사하구','서구','수영구','연제구','영도구','중구','해운대구'],
+  인천: ['강화군','계양구','남동구','동구','미추홀구','부평구','서구','연수구','옹진군','중구'],
+  경기: ['고양시','과천시','광명시','광주시','구리시','군포시','김포시','남양주시','동두천시','부천시','성남시','수원시','시흥시','안산시','안성시','안양시','양주시','여주시','오산시','용인시','의왕시','의정부시','이천시','파주시','평택시','포천시','하남시','화성시'],
+  강원: ['강릉시','고성군','동해시','삼척시','속초시','양구군','양양군','영월군','원주시','인제군','정선군','철원군','춘천시','태백시','평창군','홍천군','화천군','횡성군'],
+  충북: ['괴산군','단양군','보은군','영동군','옥천군','음성군','제천시','증평군','진천군','청주시','충주시'],
+  충남: ['계룡시','공주시','금산군','논산시','당진시','보령시','부여군','서산시','서천군','아산시','예산군','천안시','청양군','태안군','홍성군'],
+  전북: ['고창군','군산시','김제시','남원시','무주군','부안군','순창군','완주군','익산시','임실군','장수군','전주시','정읍시','진안군'],
+  전남: ['강진군','고흥군','곡성군','광양시','구례군','나주시','담양군','목포시','무안군','보성군','순천시','신안군','여수시','영광군','영암군','완도군','장성군','장흥군','진도군','함평군','해남군','화순군'],
+  경북: ['경산시','경주시','고령군','구미시','군위군','김천시','문경시','봉화군','상주시','성주군','안동시','영덕군','영양군','영주시','영천시','예천군','울릉군','울진군','의성군','청도군','청송군','칠곡군','포항시'],
+  경남: ['거제시','거창군','고성군','김해시','남해군','밀양시','사천시','산청군','양산시','의령군','진주시','창녕군','창원시','통영시','하동군','함안군','함양군','합천군'],
+  대구: ['군위군','남구','달서구','달성군','동구','북구','서구','수성구','중구'],
+  광주: ['광산구','남구','동구','북구','서구'],
+  대전: ['대덕구','동구','서구','유성구','중구'],
+  울산: ['남구','동구','북구','울주군','중구'],
+  제주: ['서귀포시','제주시'],
+};
+
+/* ── 초기화 ── */
+window.addEventListener('DOMContentLoaded', () => {
+  setCurrentDate();
+  updateLsbInfo();
+  buildBroadcastList();
+  buildLiveGrid();
+  loadStores();
+  animateViewerCount();
+});
+
+function setCurrentDate() {
+  const d = new Date();
+  const days = ['일','월','화','수','목','금','토'];
+  document.getElementById('currentDate').textContent =
+    `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()} (${days[d.getDay()]})`;
+}
+
+/* ── 지역 감지 ── */
+function detectLocation() {
+  if (!navigator.geolocation) { showToast('위치 서비스를 지원하지 않는 브라우저입니다.'); return; }
+  showToast('📍 위치 확인 중...');
+  navigator.geolocation.getCurrentPosition(pos => {
+    // 실제 역지오코딩 API 연동 필요 (현재 인천으로 기본 설정)
+    document.getElementById('searchSido').value = '인천';
+    updateSigungu();
+    document.getElementById('weatherChip').textContent = '📍 인천광역시';
+    showToast('📍 인천광역시로 설정되었습니다.');
+  }, () => {
+    showToast('위치 접근이 거부되었습니다. 직접 선택해주세요.');
+  });
+}
+
+/* ── 시군구 업데이트 ── */
+function updateSigungu() {
+  const sido = document.getElementById('searchSido').value;
+  const sel = document.getElementById('searchSigungu');
+  sel.innerHTML = '<option value="">구/군 선택</option>';
+  (sigunguData[sido] || []).forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s; opt.textContent = s;
+    sel.appendChild(opt);
+  });
+}
+
+/* ── 다음 방송 목록 생성 ── */
+function buildBroadcastList() {
+  const container = document.getElementById('broadcastList');
+  // 두 번 반복 (seamless loop)
+  const doubled = [...broadcastSchedule, ...broadcastSchedule];
+  container.innerHTML = doubled.map(bc => `
+    <div class="bc-card">
+      <div class="bc-thumb">
+        <div class="bc-thumb-inner">${bc.icon}</div>
+      </div>
+      <div class="bc-meta">
+        <div class="bc-time">▶ ${bc.time}</div>
+        <div class="bc-name">${bc.name}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── 라이브 그리드 생성 ── */
+function buildLiveGrid() {
+  const g = document.getElementById('liveGrid');
+  if (!g) return;
+  const statusMap = {
+    live: { label: '● LIVE', cls: 'live-status-live' },
+    soon: { label: '예고', cls: 'live-status-soon' },
+    end:  { label: '다시보기', cls: 'live-status-end' },
+  };
+  g.innerHTML = liveData.map(l => {
+    const s = statusMap[l.status];
+    const meta = l.status === 'live'
+      ? `👁 ${l.viewers.toLocaleString()}명 시청 중`
+      : l.status === 'soon'
+      ? `🕐 ${l.time} 예정`
+      : `▶ ${l.viewers.toLocaleString()}회 재생`;
+    return `
+      <div class="live-card">
+        <div class="live-card-thumb">
+          ${l.icon}
+          <span class="live-status ${s.cls}">${s.label}</span>
+        </div>
+        <div class="live-card-body">
+          <div class="live-card-title">${l.title}</div>
+          <div class="live-card-meta">${l.channel ? `[${l.channel}]` : ''} ${meta}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ── 시청자 수 애니메이션 ── */
+function animateViewerCount() {
+  let count = 1248;
+  setInterval(() => {
+    count += Math.floor(Math.random() * 7) - 3;
+    if (count < 100) count = 100;
+    const el = document.getElementById('viewCount');
+    if (el) el.textContent = count.toLocaleString();
+  }, 3000);
+}
+
+/* ── 업체 로드 ── */
+async function loadStores(params = {}) {
+  renderLoading();
+  try {
+    const qs = new URLSearchParams(params).toString();
+    const res = await fetch(`/api/store${qs ? '?'+qs : ''}`);
+    if (!res.ok) throw new Error('서버 응답 오류');
+    const data = await res.json();
+    state.stores = data;
+    applyFilters();
+  } catch (err) {
+    // 개발 환경 — 더미 데이터 표시
+    state.stores = getDummyStores();
+    applyFilters();
+  }
+}
+
+function getDummyStores() {
+  const emojis = ['🍖','☕','💇','🍜','🍕','🧁','🌿','👗','💊','📚'];
+  const names = [
+    '우리동네 돼지갈비','커피빈 로스팅','정숙이 미용실','할매 손칼국수',
+    '나폴리 피자','달달 케이크 공방','그린팜 유기농','스타일 편집샵',
+    '건강 한의원','창의 수학학원'
+  ];
+  const regions = ['인천 남동구','서울 강남구','경기 성남시','부산 해운대구','인천 연수구'];
+  const cats = ['음식점','카페','미용','음식점','음식점','카페','농수산','의류','의료','교육'];
+  const items = ['생삼겹살 직화구이','스페셜티 원두','펌·염색 전문','들깨칼국수·수제비','화덕 나폴리탄','티라미수·마카롱','친환경 채소·과일','빈티지·캐주얼','침·뜸·한방','초중고 전 과목'];
+  return names.map((name, i) => ({
+    id: `dummy_${i}`,
+    name,
+    region: regions[i % regions.length],
+    category: cats[i],
+    item: items[i],
+    phone: `010-${String(1000+i*111).padStart(4,'0')}-${String(2000+i*222).padStart(4,'0')}`,
+    desc: `지역 주민들에게 인기 있는 ${name}입니다. 친절한 서비스와 합리적인 가격으로 많은 분들이 찾아오십니다.`,
+    clicks: Math.floor(Math.random() * 200),
+    views: Math.floor(Math.random() * 800),
+    premium: i < 2,
+    createdAt: new Date(Date.now() - i * 86400000 * 2).toISOString(),
+    emoji: emojis[i],
+  }));
+}
+
+/* ── 필터 적용 ── */
+function applyFilters() {
+  const sido     = document.getElementById('searchSido').value;
+  const sigungu  = document.getElementById('searchSigungu').value;
+  const category = document.getElementById('searchCategory').value;
+  const keyword  = document.getElementById('searchKeyword').value.trim();
+  const sort     = document.getElementById('searchSort').value;
+
+  let result = [...state.stores];
+
+  if (sido)     result = result.filter(s => s.region && s.region.includes(sido));
+  if (sigungu)  result = result.filter(s => s.region && s.region.includes(sigungu));
+  if (category) result = result.filter(s => s.category === category);
+  if (keyword)  result = result.filter(s =>
+    (s.name && s.name.includes(keyword)) ||
+    (s.item && s.item.includes(keyword)) ||
+    (s.desc && s.desc.includes(keyword))
+  );
+
+  // 프리미엄 우선 고정
+  const premium = result.filter(s => s.premium);
+  const normal  = result.filter(s => !s.premium);
+
+  if (sort === 'clicks') normal.sort((a,b) => (b.clicks||0) - (a.clicks||0));
+  else if (sort === 'new') normal.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  state.filtered = [...premium, ...normal];
+  state.currentPage = 1;
+  renderStores();
+  renderRanking();
+  updateCategoryCounts();
+  renderRecScroll();
+}
+
+/* ── 업체 렌더링 ── */
+function renderStores() {
+  const list = document.getElementById('storeList');
+  if (!list) return;
+
+  const start = (state.currentPage - 1) * state.perPage;
+  const page  = state.filtered.slice(start, start + state.perPage);
+
+  if (page.length === 0) {
+    list.innerHTML = `
+      <div class="empty-result">
+        <div class="emoji">🔍</div>
+        <b>검색 결과가 없습니다.</b><br>
+        <span style="font-size:.85rem;color:var(--gray4);">검색 조건을 변경해보세요.</span>
+      </div>`;
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  list.innerHTML = page.map(s => `
+    <div class="store-item" onclick="openModal('${s.id}')">
+      <div class="store-thumb ${s.premium ? 'premium' : ''}">
+        ${s.premium ? '<span class="premium-badge">★ 프리미엄</span>' : ''}
+        <span style="font-size:2.2rem;">${s.emoji || '🏪'}</span>
+      </div>
+      <div class="store-body">
+        <div class="store-tags">
+          ${s.region  ? `<span class="tag tag-region">${s.region}</span>` : ''}
+          ${s.category? `<span class="tag tag-cat">${s.category}</span>`  : ''}
+          ${s.premium ? `<span class="tag tag-premium">★ 광고</span>`     : ''}
+          ${isNew(s.createdAt) ? `<span class="tag tag-new">NEW</span>`   : ''}
+          ${(s.clicks||0) > 50 ? `<span class="tag tag-hot">🔥 인기</span>` : ''}
+        </div>
+        <div class="store-name">${s.name}</div>
+        <div class="store-desc">${s.item || ''} ${s.desc ? '— '+s.desc : ''}</div>
+        <div class="store-meta">
+          <span class="meta-item">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            조회 ${(s.views||0).toLocaleString()}
+          </span>
+          <span class="meta-item">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+            클릭 ${(s.clicks||0).toLocaleString()}
+          </span>
+          ${s.phone ? `<span class="meta-item">📞 ${s.phone}</span>` : ''}
+        </div>
+        <div class="store-actions">
+          <button class="btn-detail" onclick="event.stopPropagation();openModal('${s.id}')">상세보기</button>
+          <button class="btn-contact" onclick="event.stopPropagation();callStore('${s.id}','${s.phone}','${s.name}')">📞 문의</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  renderPagination();
+}
+
+function renderLoading() {
+  const list = document.getElementById('storeList');
+  if (list) list.innerHTML = `<div class="loading-spinner"><div class="spinner"></div><div>업체 정보를 불러오는 중...</div></div>`;
+}
+
+function isNew(dateStr) {
+  if (!dateStr) return false;
+  return (Date.now() - new Date(dateStr)) < 7 * 86400000;
+}
+
+/* ── 페이지네이션 ── */
+function renderPagination() {
+  const total = Math.ceil(state.filtered.length / state.perPage);
+  const pg = document.getElementById('pagination');
+  if (!pg || total <= 1) { if (pg) pg.innerHTML = ''; return; }
+
+  let html = '';
+  if (state.currentPage > 1) html += `<button class="page-btn" onclick="goPage(${state.currentPage-1})">‹</button>`;
+  for (let i = 1; i <= total; i++) {
+    html += `<button class="page-btn ${i===state.currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  if (state.currentPage < total) html += `<button class="page-btn" onclick="goPage(${state.currentPage+1})">›</button>`;
+  pg.innerHTML = html;
+}
+
+function goPage(n) {
+  state.currentPage = n;
+  renderStores();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── 랭킹 렌더링 ── */
+function renderRanking() {
+  const el = document.getElementById('rankList');
+  if (!el) return;
+  const sorted = [...state.stores].sort((a,b) => (b.clicks||0) - (a.clicks||0)).slice(0, 7);
+  const changes = ['▲2','same','▲1','▼1','same','▲3','▼2'];
+  const changeCls = ['rank-up','rank-same','rank-up','rank-down','rank-same','rank-up','rank-down'];
+  el.innerHTML = sorted.map((s, i) => `
+    <div class="rank-item" onclick="quickSearch('${s.name}')">
+      <div class="rank-num ${i===0?'top1':i===1?'top2':i===2?'top3':''}">${i+1}</div>
+      <div class="rank-name">${s.name}</div>
+      <span class="rank-change ${changeCls[i] || 'rank-same'}">${changes[i] || '―'}</span>
+      <div class="rank-clicks">${(s.clicks||0)}클릭</div>
+    </div>
+  `).join('');
+}
+
+/* ── 검색 함수들 ── */
+function doSearch() {
+  showPage('home');
+  applyFilters();
+}
+
+function resetSearch() {
+  document.getElementById('searchSido').value = '';
+  document.getElementById('searchSigungu').innerHTML = '<option value="">구/군 선택</option>';
+  document.getElementById('searchCategory').value = '';
+  document.getElementById('searchSort').value = 'clicks';
+  document.getElementById('searchKeyword').value = '';
+  applyFilters();
+}
+
+function quickSearch(kw) {
+  document.getElementById('searchKeyword').value = kw;
+  showPage('home');
+  applyFilters();
+}
+
+function quickCat(cat) {
+  document.getElementById('searchCategory').value = cat;
+  showPage('home');
+  applyFilters();
+  // 좌측 메뉴 활성 표시
+  document.querySelectorAll('.lsb-menu-item').forEach(el => el.classList.remove('active'));
+}
+
+/* ── 지역 바로가기 (좌측 사이드바) ── */
+function quickRegion(region) {
+  document.getElementById('searchSido').value = region;
+  updateSigungu();
+  document.getElementById('searchKeyword').value = '';
+  document.getElementById('searchCategory').value = '';
+  showPage('home');
+  applyFilters();
+  // 지역 버튼 활성 표시
+  document.querySelectorAll('.lsb-region-btn').forEach(btn => {
+    btn.style.background = btn.textContent.trim() === region ? 'var(--navy)' : '';
+    btn.style.color      = btn.textContent.trim() === region ? 'white' : '';
+    btn.style.borderColor= btn.textContent.trim() === region ? 'var(--navy)' : '';
+  });
+  showToast(`📍 ${region} 지역 업체를 검색합니다.`);
+}
+
+/* ── 좌측 사이드바 카테고리 카운트 ── */
+function updateCategoryCounts() {
+  const cats = ['음식점','카페','미용','의류','생활서비스','의료','교육','농수산','숙박','여가'];
+  cats.forEach(cat => {
+    const el = document.getElementById(`cnt-${cat}`);
+    if (!el) return;
+    const cnt = state.stores.filter(s => s.category === cat).length;
+    el.textContent = cnt > 0 ? cnt : '-';
+  });
+}
+
+/* ── 좌측 사이드바 날짜/날씨 ── */
+function updateLsbInfo() {
+  const d = new Date();
+  const days = ['일','월','화','수','목','금','토'];
+  const dateEl = document.getElementById('lsbDate');
+  if (dateEl) dateEl.textContent = `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()} (${days[d.getDay()]})`;
+  const hour = d.getHours();
+  const iconEl = document.getElementById('lsbWeatherIcon');
+  if (iconEl) iconEl.textContent = hour < 6 ? '🌙' : hour < 9 ? '🌤️' : hour < 18 ? '☀️' : '🌆';
+}
+
+/* ── 좌측 메뉴 활성화 ── */
+function updateLsbActive(pageId) {
+  document.querySelectorAll('.lsb-menu-item').forEach(el => el.classList.remove('active'));
+  const pageOrder = ['home','news','live','register'];
+  const idx = pageOrder.indexOf(pageId);
+  const items = document.querySelectorAll('.lsb-menu-item');
+  if (idx >= 0 && items[idx]) items[idx].classList.add('active');
+}
+
+/* ── 모달 ── */
+function openModal(id) {
+  const s = state.stores.find(x => x.id === id);
+  if (!s) return;
+
+  document.getElementById('modalName').textContent = s.name;
+  document.getElementById('modalTags').innerHTML = `
+    ${s.region  ? `<span class="tag tag-region">${s.region}</span>` : ''}
+    ${s.category? `<span class="tag tag-cat">${s.category}</span>` : ''}
+    ${s.premium ? `<span class="tag tag-premium">★ 프리미엄</span>` : ''}
+  `;
+  document.getElementById('modalBody').innerHTML = `
+    <div style="font-size:4rem;text-align:center;margin-bottom:16px;">${s.emoji || '🏪'}</div>
+    <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+      <tr><td style="padding:8px 0;color:var(--gray4);width:80px;">업종</td><td style="font-weight:600;">${s.category || '-'}</td></tr>
+      <tr style="border-top:1px solid var(--gray2);"><td style="padding:8px 0;color:var(--gray4);">지역</td><td style="font-weight:600;">${s.region || '-'}</td></tr>
+      <tr style="border-top:1px solid var(--gray2);"><td style="padding:8px 0;color:var(--gray4);">주요 아이템</td><td style="font-weight:600;">${s.item || '-'}</td></tr>
+      <tr style="border-top:1px solid var(--gray2);"><td style="padding:8px 0;color:var(--gray4);">연락처</td><td style="font-weight:600;">${s.phone || '-'}</td></tr>
+      <tr style="border-top:1px solid var(--gray2);"><td style="padding:8px 0;color:var(--gray4);">클릭수</td><td>${(s.clicks||0).toLocaleString()}</td></tr>
+    </table>
+    ${s.desc ? `<div style="margin-top:14px;background:var(--gray1);padding:12px;border-radius:4px;font-size:.85rem;color:#444;line-height:1.6;">${s.desc}</div>` : ''}
+  `;
+  document.getElementById('modalPhoneBtn').onclick = () => callStore(s.id, s.phone, s.name);
+  document.getElementById('storeModal').classList.add('open');
+
+  // 조회수 증가
+  fetch('/api/view', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ id }) }).catch(()=>{});
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('storeModal'))
+    document.getElementById('storeModal').classList.remove('open');
+}
+
+/* ── 전화 연결 + 클릭 추적 ── */
+async function callStore(id, phone, name) {
+  if (!phone || phone === 'undefined') { showToast('전화번호 정보가 없습니다.'); return; }
+  if (confirm(`📞 ${name}\n${phone}\n\n전화를 연결하시겠습니까?`)) {
+    window.location.href = 'tel:' + phone.replace(/-/g,'');
+    await fetch('/api/click', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    }).catch(()=>{});
+    loadStores();
+  }
+}
+
+/* ── 입점 신청 ── */
+async function doRegister() {
+  const data = {
+    name:     document.getElementById('regName').value.trim(),
+    owner:    document.getElementById('regOwner').value.trim(),
+    region:   (document.getElementById('regSido').value || '') + ' ' + (document.getElementById('regSigungu').value || ''),
+    category: document.getElementById('regCategory').value,
+    phone:    document.getElementById('regPhone').value.trim(),
+    item:     document.getElementById('regItem').value.trim(),
+    desc:     document.getElementById('regDesc').value.trim(),
+    email:    document.getElementById('regEmail').value.trim(),
+  };
+
+  if (!data.name || !data.phone || !data.category) {
+    showToast('❗ 업체명, 업종, 전화번호는 필수 항목입니다.');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/store', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error();
+    showToast('✅ 입점 신청이 완료되었습니다! 1-2일 내 심사 후 등록됩니다.');
+    showPage('home');
+    loadStores();
+    // 폼 초기화
+    ['regName','regOwner','regSigungu','regPhone','regItem','regDesc','regEmail'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('regSido').value = '';
+    document.getElementById('regCategory').value = '';
+  } catch {
+    showToast('❗ 제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+  }
+}
+
+/* ── 페이지 전환 ── */
+function showPage(id) {
+  document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+  const target = document.getElementById(`page-${id}`);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.gnb-item').forEach(el => el.classList.remove('active'));
+  const gnbMap = { home:0, news:1, live:2, register:3 };
+  const gnbItems = document.querySelectorAll('.gnb-item');
+  if (gnbMap[id] !== undefined && gnbItems[gnbMap[id]]) gnbItems[gnbMap[id]].classList.add('active');
+  updateLsbActive(id);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  setCurrentDate();
+  updateLsbInfo();
+  buildBroadcastList();
+  buildLiveGrid();
+  loadStores();
+  animateViewerCount();
+});
+
+/* ── 토스트 ── */
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+/* ============================================================
+   아코디언 (좌측 사이드바 업종별)
+============================================================ */
+function toggleAcc(header) {
+  const body = header.nextElementSibling;
+  const isOpen = header.classList.contains('open');
+  // 모두 닫기
+  document.querySelectorAll('.acc-header.open').forEach(h => {
+    h.classList.remove('open');
+    h.nextElementSibling.classList.remove('open');
+  });
+  // 클릭된 것만 토글
+  if (!isOpen) {
+    header.classList.add('open');
+    body.classList.add('open');
+  }
+}
+
+/* ============================================================
+   공지사항 모달
+============================================================ */
+const notices = [
+  {
+    title: '무료 입점 이벤트 5월 말까지 연장',
+    date: '2026.04.13',
+    category: '공지',
+    content: `안녕하세요, AI플랫마켓입니다.<br><br>
+많은 소상공인 사장님들의 뜨거운 호응에 힘입어, <strong>무료 입점 이벤트를 2026년 5월 31일까지 연장</strong>합니다.<br><br>
+▶ 대상: 전국 소상공인 누구나<br>
+▶ 혜택: 초기 등록비 0원 + AI 홍보문구 자동 생성<br>
+▶ 신청: 상단 '입점신청' 메뉴에서 바로 가능<br><br>
+지금 바로 신청하시고 디지털 마케팅 혜택을 누리세요!`
+  },
+  {
+    title: 'AI 홍보문구 자동 생성 기능 업데이트',
+    date: '2026.04.10',
+    category: '서비스',
+    content: `AI플랫마켓의 핵심 기능인 <strong>AI 홍보문구 자동 생성</strong>이 대폭 업그레이드되었습니다.<br><br>
+▶ 업종별 맞춤 문구 생성<br>
+▶ SNS·블로그·배너 3종 동시 생성<br>
+▶ 계절·시간대별 이벤트 문구 자동 추천<br>
+▶ 생성 속도 50% 향상<br><br>
+파트너 센터에 로그인하시면 즉시 이용하실 수 있습니다.`
+  },
+  {
+    title: '라이브 방송 2채널 동시 운영 시작',
+    date: '2026.04.08',
+    category: '서비스',
+    content: `AI플랫마켓이 <strong>라이브 방송 채널을 2개로 확대</strong>합니다.<br><br>
+▶ CH1: 음식점·식품 전문 채널 (오전 10시~오후 6시)<br>
+▶ CH2: 뷰티·패션·생활서비스 채널 (오후 2시~오후 8시)<br><br>
+라이브 방송 참여를 원하시는 파트너 업체는 파트너 센터에서 신청해 주세요.<br>
+방송 1회당 평균 500~2,000명의 시청자에게 직접 홍보하실 수 있습니다.`
+  },
+  {
+    title: '개인정보처리방침 개정 안내',
+    date: '2026.04.01',
+    category: '안내',
+    content: `AI플랫마켓 개인정보처리방침이 2026년 4월 1일부로 개정되었습니다.<br><br>
+▶ 주요 변경 사항:<br>
+- 위치정보 수집 항목 추가 (지역 맞춤 서비스 제공 목적)<br>
+- 마케팅 정보 수신 동의 항목 세분화<br>
+- 제3자 제공 업체 목록 갱신<br><br>
+개정된 방침은 하단 개인정보처리방침 링크에서 확인하실 수 있습니다.<br>
+궁금한 점은 contact@aiplatmarket.kr로 문의해 주세요.`
+  }
+];
+
+function openNotice(idx) {
+  const n = notices[idx];
+  if (!n) return;
+  document.getElementById('noticeTitle').textContent = n.title;
+  document.getElementById('noticeMeta').innerHTML =
+    `<span class="tag tag-cat" style="margin-right:8px;">${n.category}</span>${n.date} · AI플랫마켓`;
+  document.getElementById('noticeContent').innerHTML = n.content;
+  document.getElementById('noticeModal').classList.add('open');
+}
+function closeNoticeModal(e) {
+  if (e.target === document.getElementById('noticeModal'))
+    document.getElementById('noticeModal').classList.remove('open');
+}
+
+/* ============================================================
+   모바일 사이드바 열기/닫기
+============================================================ */
+function openMobSidebar(side) {
+  document.getElementById('mobOverlay').classList.add('open');
+  document.getElementById(side === 'left' ? 'mobPanelLeft' : 'mobPanelRight').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // 모바일 우측 패널 랭킹 업데이트
+  if (side === 'right') renderRankingMob();
+  // 모바일 날짜 업데이트
+  const d = new Date();
+  const days = ['일','월','화','수','목','금','토'];
+  const mobDateEl = document.getElementById('mobDate');
+  if (mobDateEl) mobDateEl.textContent = `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()} (${days[d.getDay()]})`;
+}
+function closeMobSidebar() {
+  document.getElementById('mobOverlay').classList.remove('open');
+  document.getElementById('mobPanelLeft').classList.remove('open');
+  document.getElementById('mobPanelRight').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* 모바일 우측 랭킹 */
+function renderRankingMob() {
+  const el = document.getElementById('rankListMob');
+  if (!el || !state.stores.length) return;
+  const sorted = [...state.stores].sort((a,b) => (b.clicks||0) - (a.clicks||0)).slice(0, 5);
+  el.innerHTML = sorted.map((s, i) => `
+    <div class="rank-item" onclick="closeMobSidebar();quickSearch('${s.name}')">
+      <div class="rank-num ${i===0?'top1':i===1?'top2':i===2?'top3':''}">${i+1}</div>
+      <div class="rank-name">${s.name}</div>
+      <div class="rank-clicks">${(s.clicks||0)}클릭</div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   GNB 드롭다운 선택 함수
+============================================================ */
+function gnbRegionSelect(region) {
+  document.getElementById('searchSido').value = region;
+  updateSigungu();
+  document.getElementById('searchKeyword').value = '';
+  document.getElementById('searchCategory').value = '';
+  showPage('home');
+  applyFilters();
+  if (region) showToast(`📍 ${region} 지역으로 검색합니다.`);
+}
+function gnbCatSelect(cat) {
+  document.getElementById('searchCategory').value = cat;
+  document.getElementById('searchSido').value = '';
+  document.getElementById('searchKeyword').value = '';
+  showPage('home');
+  applyFilters();
+  if (cat) showToast(`🗂️ ${cat} 업종을 검색합니다.`);
+}
+function gnbSortSelect(sort) {
+  document.getElementById('searchSort').value = sort;
+  showPage('home');
+  applyFilters();
+  const labels = { clicks:'🔥 인기순', new:'🆕 최신순', premium:'⭐ 광고 우선' };
+  showToast(labels[sort] + ' 으로 정렬합니다.');
+}
+function gnbSearch() {
+  const kw = document.getElementById('gnbKeyword').value.trim();
+  if (!kw) return;
+  document.getElementById('searchKeyword').value = kw;
+  document.getElementById('gnbKeyword').value = '';
+  showPage('home');
+  applyFilters();
+}
+
+/* ============================================================
+   AI 추천 업체 가로스크롤 렌더링
+============================================================ */
+function renderRecScroll() {
+  const el = document.getElementById('recScrollList');
+  if (!el) return;
+  const pool = state.stores.length > 0 ? state.stores : getDummyStores();
+  // 클릭수 기준 상위 10개 추천
+  const picks = [...pool].sort((a,b) => (b.clicks||0) - (a.clicks||0)).slice(0, 10);
+  if (!picks.length) { el.innerHTML = '<div style="color:var(--gray4);font-size:.8rem;padding:16px;">추천 업체를 불러오는 중...</div>'; return; }
+  el.innerHTML = picks.map(s => `
+    <div class="rec-card" onclick="openModal('${s.id}')">
+      <div class="rec-card-thumb">${s.emoji || '🏪'}</div>
+      <div class="rec-card-body">
+        <div class="rec-card-name">${s.name}</div>
+        <div class="rec-card-sub">${s.region || ''}</div>
+        <div style="font-size:.65rem;color:var(--red);font-weight:700;margin-top:2px;">${s.category || ''}</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   renderRanking 확장 — 모바일 패널도 동기화
+============================================================ */
+const _origRenderRanking = renderRanking;
+function renderRanking() {
+  _origRenderRanking();
+  renderRankingMob();
+  renderRecScroll();
+}
+
+/* ============================================================
+   updateLsbInfo 확장 — 모바일 날씨 패널 동기화
+============================================================ */
+const _origUpdateLsbInfo = updateLsbInfo;
+function updateLsbInfo() {
+  _origUpdateLsbInfo();
+  const hour = new Date().getHours();
+  const icon = hour < 6 ? '🌙' : hour < 9 ? '🌤️' : hour < 18 ? '☀️' : '🌆';
+  const mobIcon = document.querySelector('#mobPanelLeft .weather-big');
+  if (mobIcon) mobIcon.textContent = icon;
+}
+</script>
+</body>
+</html>
