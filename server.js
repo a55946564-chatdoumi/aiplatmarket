@@ -20,25 +20,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* ──────────────────────────────────────────
-   🔥 Firebase 초기화
-   렌더 환경변수 FIREBASE_SERVICE_ACCOUNT 에
-   serviceAccountKey.json 내용(JSON 문자열)을
-   통째로 붙여넣거나, 파일을 직접 사용합니다.
+   🔥 Firebase 초기화 (Secret File 방식)
+   Render의 'Secret Files' 설정에서 
+   serviceAccountKey.json 파일을 생성했다면 아래 코드가 작동합니다.
 ────────────────────────────────────────── */
 let db;
 try {
-  const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
-    ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
-    : require('./serviceAccountKey.json');
+  // 1. 먼저 Secret File로 생성된 파일을 불러옵니다.
+  const serviceAccount = require('./serviceAccountKey.json');
 
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
+  
   db = admin.firestore();
-  console.log('✅ Firebase 연결 성공');
+  console.log('✅ Firebase 연결 성공 (Secret File 사용)');
 } catch (err) {
   console.error('❌ Firebase 초기화 실패:', err.message);
-  // DB 없이도 서버는 기동 (개발 편의)
+  console.log('💡 힌트: Render의 Environment > Secret Files에 serviceAccountKey.json이 있는지 확인하세요.');
 }
 
 /* ──────────────────────────────────────────
