@@ -296,7 +296,8 @@ app.post('/api/admin/approve', async (req, res) => {
 /* ============================================================
    404 → index.html (SPA 폴백)
 ============================================================ */
-app.get('*', (req, res) => {
+// '*' 대신 '(.*)'를 사용해야 합니다.
+app.get('(.*)', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
