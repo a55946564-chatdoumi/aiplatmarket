@@ -1,0 +1,19 @@
+{
+  "name": "aiplatmarket",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": ["ai", "platform", "local-business"],
+  "author": "",
+  "license": "MIT",
+  "description": "소상공인 상생 플랫폼 - AI 기반 지역 경제 뉴스 포털",
+  "dependencies": {
+    "express": "^5.2.1",
+    "firebase-admin": "^13.8.0",
+    "rss-parser": "^3.13.0",
+    "ws": "^8.20.0"
+  }
+}
