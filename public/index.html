@@ -319,20 +319,244 @@ nav.gnb {
 .main-left  { background: white; padding: 24px 22px; }
 .main-right { background: #f8fafd; padding: 18px; border-left: var(--border); }
 
-/* ── 좌측 사이드바 ── */
+/* ── 좌측 사이드바 (페이지와 함께 스크롤) ── */
 .main-sidebar-left {
   background: #fff;
   border-right: var(--border);
   padding: 18px 14px;
-  position: sticky;
-  top: 50px;           /* GNB 높이만큼 */
-  max-height: calc(100vh - 50px);
+}
+
+/* ── 모바일 사이드바 오버레이 ── */
+.mob-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13,31,53,.55);
+  z-index: 400;
+}
+.mob-sidebar-overlay.open { display: block; }
+.mob-sidebar-panel {
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 82%;
+  max-width: 320px;
+  background: white;
+  z-index: 401;
   overflow-y: auto;
+  padding: 20px 16px;
+  transition: transform .3s ease;
+}
+.mob-sidebar-panel.left  { left: 0;  transform: translateX(-110%); box-shadow: 4px 0 20px rgba(0,0,0,.18); }
+.mob-sidebar-panel.right { right: 0; transform: translateX(110%);  box-shadow: -4px 0 20px rgba(0,0,0,.18); }
+.mob-sidebar-panel.left.open  { transform: translateX(0); }
+.mob-sidebar-panel.right.open { transform: translateX(0); }
+.mob-sb-close {
+  position: absolute; top: 12px; right: 14px;
+  background: none; border: none; font-size: 1.5rem; color: var(--gray4); cursor: pointer;
+}
+
+/* ── 햄버거 버튼 ── */
+.ham-btn {
+  display: none;
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+.ham-btn span {
+  display: block; width: 22px; height: 2px;
+  background: var(--navy); border-radius: 2px; transition: all .25s;
+}
+
+/* ── GNB 드롭다운 ── */
+.gnb-dd-wrap { position: relative; display: flex; align-items: stretch; }
+.gnb-dd-wrap:hover .gnb-dropdown { display: block; }
+.gnb-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  background: white;
+  border: var(--border);
+  border-top: 2px solid var(--red);
+  box-shadow: 0 8px 24px rgba(13,31,53,.12);
+  z-index: 200;
+  border-radius: 0 0 6px 6px;
+}
+.gnb-dd-item {
+  padding: 9px 16px;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray2);
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.gnb-dd-item:last-child { border-bottom: none; }
+.gnb-dd-item:hover { background: #fce8e6; color: var(--red); }
+
+/* GNB 내 미니 검색 */
+.gnb-search-wrap {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 0;
+  padding: 0 14px;
+}
+.gnb-search-input {
+  border: 1px solid var(--gray2);
+  border-right: none;
+  padding: 6px 12px;
+  font-size: .82rem;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  width: 160px;
+  transition: border-color .2s;
+}
+.gnb-search-input:focus { border-color: var(--navy); }
+.gnb-search-btn {
+  background: var(--navy);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+/* ── 아코디언 (업종별 하위메뉴) ── */
+.acc-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .18s;
+  white-space: nowrap;
+  user-select: none;
+}
+.acc-header:hover { background: var(--gray1); color: var(--red); }
+.acc-header.open  { background: #fce8e6; color: var(--red); }
+.acc-arrow {
+  margin-left: auto;
+  font-size: .7rem;
+  transition: transform .25s;
+  color: var(--gray3);
+}
+.acc-header.open .acc-arrow { transform: rotate(180deg); color: var(--red); }
+.acc-body {
+  display: none;
+  padding: 4px 0 4px 30px;
+}
+.acc-body.open { display: block; }
+.acc-sub-item {
+  font-size: .75rem;
+  padding: 5px 8px;
+  color: var(--gray4);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.acc-sub-item:hover { background: var(--gray1); color: var(--red); }
+
+/* ── 공지 모달 ── */
+.notice-modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(13,31,53,.5);
+  z-index: 800;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.notice-modal-overlay.open { display: flex; }
+.notice-modal-box {
+  background: white;
+  border-radius: var(--radius);
+  max-width: 480px; width: 100%;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+  animation: modalIn .22s ease;
+}
+.notice-modal-header {
+  background: var(--navy); color: white;
+  padding: 16px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.notice-modal-header h3 { margin: 0; font-size: 1rem; font-family: var(--font-serif); }
+.notice-modal-close { background: none; border: none; color: rgba(255,255,255,.7); font-size: 1.3rem; cursor: pointer; }
+.notice-modal-body { padding: 20px; font-size: .88rem; line-height: 1.75; color: #444; }
+.notice-modal-meta { font-size: .75rem; color: var(--gray4); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--gray2); }
+
+/* ── 추천 콘텐츠 (라이브 하단) ── */
+.recommend-section { margin-top: 28px; }
+.mini-live-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.mini-live-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow .2s, transform .15s;
+}
+.mini-live-card:hover { box-shadow: 0 4px 16px rgba(13,31,53,.1); transform: translateY(-2px); }
+.mini-live-thumb {
+  aspect-ratio: 16/9;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  position: relative;
+}
+.mini-live-body { padding: 10px 12px; background: white; }
+.mini-live-title { font-size: .83rem; font-weight: 700; color: var(--navy); line-height: 1.35; margin-bottom: 4px; }
+.mini-live-meta  { font-size: .72rem; color: var(--gray4); }
+
+/* ── 추천 업체 가로 스크롤 카드 ── */
+.rec-scroll-wrap {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
   scrollbar-width: thin;
   scrollbar-color: var(--gray2) transparent;
 }
-.main-sidebar-left::-webkit-scrollbar { width: 4px; }
-.main-sidebar-left::-webkit-scrollbar-thumb { background: var(--gray2); border-radius: 4px; }
+.rec-scroll-wrap::-webkit-scrollbar { height: 4px; }
+.rec-scroll-wrap::-webkit-scrollbar-thumb { background: var(--gray2); border-radius: 4px; }
+.rec-card {
+  flex-shrink: 0;
+  width: 150px;
+  border: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow .2s;
+}
+.rec-card:hover { box-shadow: 0 4px 14px rgba(13,31,53,.1); }
+.rec-card-thumb {
+  height: 90px;
+  background: linear-gradient(135deg, var(--gray2) 0%, #d0d8e4 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem;
+}
+.rec-card-body { padding: 8px 10px; background: white; }
+.rec-card-name { font-size: .78rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+.rec-card-sub  { font-size: .68rem; color: var(--gray4); }
 
 /* 좌측 섹션 타이틀 */
 .lsb-title {
@@ -1340,32 +1564,48 @@ footer {
   .main-grid { grid-template-columns: 190px 1fr 270px; }
 }
 @media (max-width: 1100px) {
-  .main-grid { grid-template-columns: 180px 1fr 240px; }
+  .main-grid { grid-template-columns: 170px 1fr 230px; }
   .main-sidebar-left { padding: 14px 10px; }
-  .lsb-menu-item { padding: 7px 8px; font-size: .78rem; }
+  .lsb-menu-item, .acc-header { padding: 7px 8px; font-size: .78rem; }
 }
 @media (max-width: 900px) {
   .site-shell { width: 100%; }
+  /* 3컬럼 → 1컬럼 */
   .main-grid { grid-template-columns: 1fr; }
+  /* PC 사이드바 숨김 */
   .main-sidebar-left { display: none; }
   .main-right { display: none; }
+  /* 방송 wrap */
   .broadcast-wrap { grid-template-columns: 1fr; }
-  .next-broadcast { display: none; }
-  header { padding: 14px 18px 0; }
-  .logo-main { font-size: 1.9rem; }
-  .gnb-inner { padding: 0 12px; }
-  .search-section { padding: 14px 18px; }
-  .main-left { padding: 18px; }
+  .next-broadcast  { display: none; }
+  /* 헤더 */
+  header { padding: 10px 14px 0; }
+  .logo-main { font-size: 1.5rem; letter-spacing: -1px; }
+  .logo-kr   { font-size: .7rem; letter-spacing: 2px; }
+  .header-slogan { display: none; }
+  .header-subscribe { display: none; }
+  /* GNB */
+  .gnb-inner { padding: 0 6px; }
+  .gnb-item  { padding: 10px 10px; font-size: .8rem; }
+  .gnb-search-wrap { display: none; }
+  /* 검색 */
+  .search-section { padding: 12px 14px; }
+  .main-left { padding: 14px; }
   .form-row { grid-template-columns: 1fr; }
   .news-grid { grid-template-columns: 1fr; }
-  .header-subscribe { display: none; }
+  /* 햄버거 표시 */
+  .ham-btn { display: flex; }
+  /* 모바일 미니 라이브 */
+  .mini-live-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
 }
 @media (max-width: 600px) {
   .search-form { gap: 6px; }
-  .search-form select { min-width: 100px; font-size: 0.82rem; }
+  .search-form select { min-width: 90px; font-size: .8rem; }
   .store-item { flex-direction: column; }
-  .store-thumb { width: 100%; height: 160px; }
-  .quick-cats { grid-template-columns: repeat(3, 1fr); }
+  .store-thumb { width: 100%; height: 150px; }
+  .quick-cats  { grid-template-columns: repeat(3, 1fr); }
+  .mini-live-grid { grid-template-columns: 1fr 1fr; }
+  .rec-card { width: 130px; }
 }
 </style>
 </head>
@@ -1378,7 +1618,7 @@ footer {
 
 <!-- 최상단 띠 -->
 <div class="top-strip">
-  <div style="display:flex;gap:14px;align-items:center;">
+  <div style="display:flex;gap:14px;align-items:center;" class="top-strip-left">
     <span id="currentDate">2026. 4. 13 (월)</span>
     <span class="weather-chip" id="weatherChip">📍 위치 확인 중...</span>
   </div>
@@ -1390,23 +1630,43 @@ footer {
     <a href="#" style="color:var(--gold);font-weight:700;">로그인</a>
   </div>
 </div>
+<style>
+/* 모바일: 날짜·날씨 숨기고 입점신청+로그인만 */
+@media (max-width: 900px) {
+  .top-strip { padding: 6px 14px; }
+  .top-strip-left { display: none !important; }
+  .top-strip .right-links a:not([onclick*="register"]):not([style]) { display: none; }
+}
+</style>
 
 <!-- 헤더 -->
 <header>
   <div class="header-inner">
+    <!-- 모바일 햄버거(좌) -->
+    <button class="ham-btn" id="hamLeft" onclick="openMobSidebar('left')" aria-label="왼쪽 메뉴">
+      <span></span><span></span><span></span>
+    </button>
+
     <div class="logo-area" onclick="showPage('home')">
-      <span class="logo-kr">AI 플랫마켓 · 지역생활경제 미디어</span>
-      <span class="logo-main">AI<span>PLAT</span>MARKET</span>
+      <span class="logo-kr">AI 플랫마켓</span>
+      <span class="logo-main" style="font-size:1.85rem;">AI<span>PLAT</span>MARKET</span>
     </div>
-    <div style="flex:1; text-align:center; font-size:0.78rem; color:var(--gray4); display:flex; flex-direction:column; gap:2px;">
-      <b style="font-size:0.85rem;color:var(--navy);">"우리 동네 소식, 더 빠르게 · 더 정확하게"</b>
-      <span>지역 소상공인과 소비자를 연결하는 AI 기반 생활경제 미디어</span>
+
+    <div class="header-slogan" style="flex:1; text-align:center; font-size:0.75rem; color:var(--gray4); line-height:1.5;">
+      <b style="color:var(--navy);font-size:.82rem;">"우리 동네 소식 · AI로 더 빠르게"</b><br>
+      <span>지역 소상공인과 소비자를 잇는 AI 생활경제 미디어</span>
     </div>
+
     <div class="header-subscribe">
       <small>📰 뉴스레터 구독</small>
       <strong>매일 아침 지역 소식 받기</strong>
       <br><button class="btn-subscribe" onclick="showToast('구독 신청이 완료되었습니다!')">무료 구독 →</button>
     </div>
+
+    <!-- 모바일 햄버거(우) -->
+    <button class="ham-btn" id="hamRight" onclick="openMobSidebar('right')" aria-label="오른쪽 메뉴">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 
   <!-- GNB -->
@@ -1416,11 +1676,67 @@ footer {
       <div class="gnb-divider"></div>
       <div class="gnb-item" onclick="showPage('news')">📰 지역경제</div>
       <div class="gnb-divider"></div>
-      <div class="gnb-item" onclick="showPage('live')">📺 라이브방송 <span class="badge">LIVE</span></div>
+
+      <!-- 지역 드롭다운 -->
+      <div class="gnb-dd-wrap">
+        <div class="gnb-item">📍 지역 ▾</div>
+        <div class="gnb-dropdown" id="gnbRegionDD">
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('')">전체 지역</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('서울')">서울</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('인천')">인천</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('경기')">경기</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('부산')">부산</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('대구')">대구</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('대전')">대전</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('광주')">광주</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('강원')">강원</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('충남')">충남</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('경남')">경남</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('전남')">전남</div>
+          <div class="gnb-dd-item" onclick="gnbRegionSelect('제주')">제주</div>
+        </div>
+      </div>
       <div class="gnb-divider"></div>
-      <div class="gnb-item" onclick="showPage('register')">✅ 입점문의</div>
+
+      <!-- 업종별 드롭다운 -->
+      <div class="gnb-dd-wrap">
+        <div class="gnb-item">🗂️ 업종별 ▾</div>
+        <div class="gnb-dropdown">
+          <div class="gnb-dd-item" onclick="gnbCatSelect('')">전체 업종</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('음식점')">🍽️ 음식점</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('카페')">☕ 카페/디저트</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('미용')">💇 미용/뷰티</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('의류')">👗 의류/패션</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('생활서비스')">🔧 생활서비스</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('의료')">💊 의료/건강</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('교육')">📚 교육/학원</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('숙박')">🏨 숙박</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('여가')">🎮 여가/문화</div>
+          <div class="gnb-dd-item" onclick="gnbCatSelect('농수산')">🥬 농수산물</div>
+        </div>
+      </div>
       <div class="gnb-divider"></div>
-      <div class="gnb-item" onclick="showToast('파트너 센터 준비 중입니다.')">⚙️ 파트너센터</div>
+
+      <!-- 인기순 -->
+      <div class="gnb-dd-wrap">
+        <div class="gnb-item">📊 인기순 ▾</div>
+        <div class="gnb-dropdown">
+          <div class="gnb-dd-item" onclick="gnbSortSelect('clicks')">🔥 클릭 인기순</div>
+          <div class="gnb-dd-item" onclick="gnbSortSelect('new')">🆕 최신 등록순</div>
+          <div class="gnb-dd-item" onclick="gnbSortSelect('premium')">⭐ 광고 우선</div>
+        </div>
+      </div>
+      <div class="gnb-divider"></div>
+
+      <div class="gnb-item" onclick="showPage('live')">📺 라이브 <span class="badge">LIVE</span></div>
+      <div class="gnb-divider"></div>
+      <div class="gnb-item" onclick="showPage('register')">✅ 입점</div>
+
+      <!-- GNB 내 검색박스 -->
+      <div class="gnb-search-wrap">
+        <input class="gnb-search-input" id="gnbKeyword" placeholder="업체·메뉴 검색..." onkeydown="if(event.key==='Enter') gnbSearch()">
+        <button class="gnb-search-btn" onclick="gnbSearch()">검색</button>
+      </div>
     </div>
   </nav>
 </header>
@@ -1548,49 +1864,128 @@ footer {
 
       <div class="lsb-divider"></div>
 
-      <!-- 업종 카테고리 -->
+      <!-- 업종 카테고리 (아코디언) -->
       <div class="lsb-title">🗂️ 업종별</div>
       <div class="lsb-menu">
-        <div class="lsb-menu-item" onclick="quickCat('음식점')">
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">🍽️</span> 음식점
           <span class="lsb-cnt" id="cnt-음식점">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('카페')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('삼겹살')">🥩 삼겹살·고기구이</div>
+          <div class="acc-sub-item" onclick="quickSearch('국밥')">🍲 국밥·탕·찌개</div>
+          <div class="acc-sub-item" onclick="quickSearch('치킨')">🍗 치킨·패스트푸드</div>
+          <div class="acc-sub-item" onclick="quickSearch('족발')">🍖 족발·보쌈</div>
+          <div class="acc-sub-item" onclick="quickSearch('중식')">🥢 중식·일식</div>
+          <div class="acc-sub-item" onclick="quickCat('음식점')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">☕</span> 카페/디저트
           <span class="lsb-cnt" id="cnt-카페">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('미용')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('스페셜티')">☕ 스페셜티 카페</div>
+          <div class="acc-sub-item" onclick="quickSearch('케이크')">🎂 케이크·디저트</div>
+          <div class="acc-sub-item" onclick="quickSearch('마카롱')">🧁 마카롱·구움과자</div>
+          <div class="acc-sub-item" onclick="quickCat('카페')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">💇</span> 미용/뷰티
           <span class="lsb-cnt" id="cnt-미용">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('의류')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('헤어')">✂️ 헤어·미용실</div>
+          <div class="acc-sub-item" onclick="quickSearch('네일')">💅 네일아트</div>
+          <div class="acc-sub-item" onclick="quickSearch('피부')">🧴 피부관리·에스테틱</div>
+          <div class="acc-sub-item" onclick="quickCat('미용')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">👗</span> 의류/패션
           <span class="lsb-cnt" id="cnt-의류">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('생활서비스')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('빈티지')">🕶️ 빈티지·편집샵</div>
+          <div class="acc-sub-item" onclick="quickSearch('캐주얼')">👕 캐주얼·스트릿</div>
+          <div class="acc-sub-item" onclick="quickCat('의류')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">🔧</span> 생활서비스
           <span class="lsb-cnt" id="cnt-생활서비스">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('의료')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('세탁')">👕 세탁·수선</div>
+          <div class="acc-sub-item" onclick="quickSearch('청소')">🧹 청소·홈케어</div>
+          <div class="acc-sub-item" onclick="quickSearch('수리')">🔩 가전·가구수리</div>
+          <div class="acc-sub-item" onclick="quickCat('생활서비스')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">💊</span> 의료/건강
           <span class="lsb-cnt" id="cnt-의료">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('교육')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('한의원')">🌿 한의원·한약</div>
+          <div class="acc-sub-item" onclick="quickSearch('치과')">🦷 치과</div>
+          <div class="acc-sub-item" onclick="quickSearch('헬스')">💪 헬스장·PT</div>
+          <div class="acc-sub-item" onclick="quickCat('의료')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">📚</span> 교육/학원
           <span class="lsb-cnt" id="cnt-교육">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('농수산')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('수학학원')">➕ 수학·과학</div>
+          <div class="acc-sub-item" onclick="quickSearch('영어학원')">🔤 영어·어학</div>
+          <div class="acc-sub-item" onclick="quickSearch('예체능')">🎨 예체능·예술</div>
+          <div class="acc-sub-item" onclick="quickCat('교육')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">🥬</span> 농수산물
           <span class="lsb-cnt" id="cnt-농수산">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('숙박')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('친환경')">🌱 친환경·유기농</div>
+          <div class="acc-sub-item" onclick="quickSearch('수산')">🐟 수산물·해산물</div>
+          <div class="acc-sub-item" onclick="quickCat('농수산')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">🏨</span> 숙박
           <span class="lsb-cnt" id="cnt-숙박">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
-        <div class="lsb-menu-item" onclick="quickCat('여가')">
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('펜션')">🏡 펜션·독채</div>
+          <div class="acc-sub-item" onclick="quickSearch('게스트하우스')">🏘️ 게스트하우스</div>
+          <div class="acc-sub-item" onclick="quickCat('숙박')">전체 보기 →</div>
+        </div>
+
+        <div class="acc-header" onclick="toggleAcc(this)">
           <span class="lsb-icon">🎮</span> 여가/문화
           <span class="lsb-cnt" id="cnt-여가">-</span>
+          <span class="acc-arrow">▼</span>
         </div>
+        <div class="acc-body">
+          <div class="acc-sub-item" onclick="quickSearch('공방')">🎨 공방·클래스</div>
+          <div class="acc-sub-item" onclick="quickSearch('노래방')">🎤 노래방·오락</div>
+          <div class="acc-sub-item" onclick="quickCat('여가')">전체 보기 →</div>
+        </div>
+
       </div>
 
       <div class="lsb-divider"></div>
@@ -1614,22 +2009,22 @@ footer {
 
       <div class="lsb-divider"></div>
 
-      <!-- 공지사항 -->
+      <!-- 공지사항 (클릭 시 상세 모달) -->
       <div class="lsb-title">📢 공지사항</div>
       <div>
-        <div class="lsb-notice-item">
+        <div class="lsb-notice-item" onclick="openNotice(0)">
           <div class="lsb-notice-title"><span class="lsb-notice-badge">신규</span>무료 입점 이벤트 5월 말까지 연장</div>
           <div class="lsb-notice-date">2026.04.13</div>
         </div>
-        <div class="lsb-notice-item">
+        <div class="lsb-notice-item" onclick="openNotice(1)">
           <div class="lsb-notice-title">AI 홍보문구 자동 생성 기능 업데이트</div>
           <div class="lsb-notice-date">2026.04.10</div>
         </div>
-        <div class="lsb-notice-item">
+        <div class="lsb-notice-item" onclick="openNotice(2)">
           <div class="lsb-notice-title">라이브 방송 2채널 동시 운영 시작</div>
           <div class="lsb-notice-date">2026.04.08</div>
         </div>
-        <div class="lsb-notice-item">
+        <div class="lsb-notice-item" onclick="openNotice(3)">
           <div class="lsb-notice-title">개인정보처리방침 개정 안내</div>
           <div class="lsb-notice-date">2026.04.01</div>
         </div>
@@ -1702,9 +2097,74 @@ footer {
       </div>
 
       <div class="pagination" id="pagination"></div>
-    </div>
 
-    <!-- 사이드바 -->
+      <!-- ★ 라이브 방송 하단 추천 콘텐츠 ★ -->
+      <div class="recommend-section">
+
+        <!-- 두 번째 라이브 채널 -->
+        <div class="sec-header">
+          <div class="sec-title">📡 AI플랫 CH2 · 동시 방송</div>
+          <span class="sec-more" onclick="showPage('live')">전체 채널 ›</span>
+        </div>
+        <div class="mini-live-grid">
+          <div class="mini-live-card" onclick="showToast('CH2 방송 화면으로 이동합니다.')">
+            <div class="mini-live-thumb" style="background:linear-gradient(135deg,#1a3556,#0d1f35);">
+              💅
+              <span style="position:absolute;top:8px;left:8px;font-size:.6rem;padding:2px 7px;border-radius:3px;background:var(--red);color:white;font-weight:900;letter-spacing:1px;">● LIVE</span>
+            </div>
+            <div class="mini-live-body">
+              <div class="mini-live-title">서울 강남 K-뷰티 라이브 — 네일·속눈썹 패키지 특가</div>
+              <div class="mini-live-meta">AI플랫 CH2 · 👁 441명 시청 중</div>
+            </div>
+          </div>
+          <div class="mini-live-card" onclick="showToast('CH3 예고 방송입니다.')">
+            <div class="mini-live-thumb" style="background:linear-gradient(135deg,#2d5016,#3d6b1e);">
+              🥬
+              <span style="position:absolute;top:8px;left:8px;font-size:.6rem;padding:2px 7px;border-radius:3px;background:var(--gold);color:var(--navy);font-weight:900;letter-spacing:1px;">예고</span>
+            </div>
+            <div class="mini-live-body">
+              <div class="mini-live-title">경기 수원 로컬푸드 직거래 — 친환경 채소 꾸러미</div>
+              <div class="mini-live-meta">AI플랫 CH3 · 🕐 15:00 예정</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 추천 업체 가로스크롤 -->
+        <div class="sec-header" style="margin-top:4px;">
+          <div class="sec-title">🤖 AI 추천 업체</div>
+          <span class="sec-more">← 스크롤</span>
+        </div>
+        <div class="rec-scroll-wrap" id="recScrollList"><!-- JS로 채움 --></div>
+
+        <!-- 지역 생활 정보 카드 -->
+        <div class="sec-header" style="margin-top:24px;">
+          <div class="sec-title">📰 지역 생활 정보</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
+          <div style="background:var(--gray1);border:var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;" onclick="showPage('news')">
+            <div style="font-size:1.4rem;margin-bottom:6px;">📈</div>
+            <div style="font-size:.85rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:4px;">소상공인 디지털 전환 지원금 확대 — 최대 200만원</div>
+            <div style="font-size:.72rem;color:var(--gray4);">2026.04.13 · 지역경제</div>
+          </div>
+          <div style="background:var(--gray1);border:var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;" onclick="showPage('news')">
+            <div style="font-size:1.4rem;margin-bottom:6px;">🏪</div>
+            <div style="font-size:.85rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:4px;">인천 1분기 소상공인 매출 역대 최고 기록</div>
+            <div style="font-size:.72rem;color:var(--gray4);">2026.04.12 · 경제</div>
+          </div>
+          <div style="background:var(--gray1);border:var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;" onclick="showPage('news')">
+            <div style="font-size:1.4rem;margin-bottom:6px;">💡</div>
+            <div style="font-size:.85rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:4px;">AI 광고 추천 서비스 파트너 300개사 돌파</div>
+            <div style="font-size:.72rem;color:var(--gray4);">2026.04.11 · IT</div>
+          </div>
+          <div style="background:var(--gray1);border:var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;" onclick="showPage('news')">
+            <div style="font-size:1.4rem;margin-bottom:6px;">🌿</div>
+            <div style="font-size:.85rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:4px;">로컬 푸드 직거래 활성화, 농수산 매출 30%↑</div>
+            <div style="font-size:.72rem;color:var(--gray4);">2026.04.09 · 농수산</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
     <aside class="main-right">
 
       <!-- 광고 배너 -->
@@ -2027,6 +2487,87 @@ footer {
 <!-- 토스트 -->
 <div class="toast" id="toast"></div>
 
+<!-- 모바일 사이드바 오버레이 -->
+<div class="mob-sidebar-overlay" id="mobOverlay" onclick="closeMobSidebar()"></div>
+
+<!-- 모바일 좌측 패널 -->
+<div class="mob-sidebar-panel left" id="mobPanelLeft">
+  <button class="mob-sb-close" onclick="closeMobSidebar()">✕</button>
+  <div style="margin-top:30px;">
+    <div class="lsb-info-card" style="margin-bottom:14px;">
+      <div class="weather-big">⛅</div>
+      <div class="weather-text" id="mobWeatherText">인천 · 맑음 18°C</div>
+      <div style="font-size:.68rem;color:#5580aa;text-align:center;margin-top:4px;" id="mobDate">-</div>
+    </div>
+    <div class="lsb-title">📌 메뉴</div>
+    <div class="lsb-menu">
+      <div class="lsb-menu-item" onclick="closeMobSidebar();showPage('home')"><span class="lsb-icon">🏠</span>종합홈</div>
+      <div class="lsb-menu-item" onclick="closeMobSidebar();showPage('news')"><span class="lsb-icon">📰</span>지역경제 뉴스</div>
+      <div class="lsb-menu-item" onclick="closeMobSidebar();showPage('live')"><span class="lsb-icon">📺</span>라이브방송<span class="lsb-cnt" style="background:var(--red);color:white;">LIVE</span></div>
+      <div class="lsb-menu-item" onclick="closeMobSidebar();showPage('register')"><span class="lsb-icon">✅</span>입점신청</div>
+    </div>
+    <div class="lsb-divider"></div>
+    <div class="lsb-title">📍 지역별</div>
+    <div class="lsb-region-grid">
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('서울')">서울</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('인천')">인천</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('경기')">경기</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('부산')">부산</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('대구')">대구</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('대전')">대전</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('광주')">광주</div>
+      <div class="lsb-region-btn" onclick="closeMobSidebar();quickRegion('강원')">강원</div>
+    </div>
+    <div class="lsb-divider"></div>
+    <div class="lsb-title">📢 공지사항</div>
+    <div class="lsb-notice-item" onclick="closeMobSidebar();openNotice(0)"><div class="lsb-notice-title"><span class="lsb-notice-badge">신규</span>무료 입점 이벤트 5월 말까지 연장</div><div class="lsb-notice-date">2026.04.13</div></div>
+    <div class="lsb-notice-item" onclick="closeMobSidebar();openNotice(1)"><div class="lsb-notice-title">AI 홍보문구 자동 생성 업데이트</div><div class="lsb-notice-date">2026.04.10</div></div>
+    <div class="lsb-divider"></div>
+    <div class="lsb-social">
+      <button class="lsb-social-btn lsb-sns-kakao" onclick="showToast('카카오채널 준비 중')">💬 카카오</button>
+      <button class="lsb-social-btn lsb-sns-naver" onclick="showToast('블로그 준비 중')">N 블로그</button>
+    </div>
+  </div>
+</div>
+
+<!-- 모바일 우측 패널 -->
+<div class="mob-sidebar-panel right" id="mobPanelRight">
+  <button class="mob-sb-close" onclick="closeMobSidebar()">✕</button>
+  <div style="margin-top:30px;">
+    <div class="ad-banner" style="margin-bottom:14px;">
+      <div class="ad-label">AD</div>
+      <div class="ad-title">무료 입점 신청하세요</div>
+      <button class="btn-ad" onclick="closeMobSidebar();showPage('register')">신청하기 →</button>
+    </div>
+    <div class="rsb-event-card" style="margin-bottom:14px;">
+      <div class="rsb-event-header">🔥 오늘의 특가</div>
+      <div class="rsb-event-list">
+        <div class="rsb-event-item"><div class="rsb-event-icon">🍖</div><div class="rsb-event-name">인천 족발보쌈 2인 세트</div><div class="rsb-event-disc">30%↓</div></div>
+        <div class="rsb-event-item"><div class="rsb-event-icon">☕</div><div class="rsb-event-name">연수구 카페 아메리카노</div><div class="rsb-event-disc">1+1</div></div>
+        <div class="rsb-event-item"><div class="rsb-event-icon">💇</div><div class="rsb-event-name">부평구 컷+염색 패키지</div><div class="rsb-event-disc">25%↓</div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:8px;">
+      <div class="lsb-title" style="margin-bottom:10px;">📊 인기 업체</div>
+      <div class="rank-list" id="rankListMob" style="font-size:.8rem;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 공지사항 모달 -->
+<div class="notice-modal-overlay" id="noticeModal" onclick="closeNoticeModal(event)">
+  <div class="notice-modal-box">
+    <div class="notice-modal-header">
+      <h3 id="noticeTitle">공지사항</h3>
+      <button class="notice-modal-close" onclick="document.getElementById('noticeModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="notice-modal-body">
+      <div class="notice-modal-meta" id="noticeMeta"></div>
+      <div id="noticeContent"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ============================================================
      JavaScript
 ============================================================ -->
@@ -2261,6 +2802,7 @@ function applyFilters() {
   renderStores();
   renderRanking();
   updateCategoryCounts();
+  renderRecScroll();
 }
 
 /* ── 업체 렌더링 ── */
@@ -2546,6 +3088,15 @@ function showPage(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+  setCurrentDate();
+  updateLsbInfo();
+  buildBroadcastList();
+  buildLiveGrid();
+  loadStores();
+  animateViewerCount();
+});
+
 /* ── 토스트 ── */
 let toastTimer;
 function showToast(msg) {
@@ -2554,6 +3105,202 @@ function showToast(msg) {
   el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+/* ============================================================
+   아코디언 (좌측 사이드바 업종별)
+============================================================ */
+function toggleAcc(header) {
+  const body = header.nextElementSibling;
+  const isOpen = header.classList.contains('open');
+  // 모두 닫기
+  document.querySelectorAll('.acc-header.open').forEach(h => {
+    h.classList.remove('open');
+    h.nextElementSibling.classList.remove('open');
+  });
+  // 클릭된 것만 토글
+  if (!isOpen) {
+    header.classList.add('open');
+    body.classList.add('open');
+  }
+}
+
+/* ============================================================
+   공지사항 모달
+============================================================ */
+const notices = [
+  {
+    title: '무료 입점 이벤트 5월 말까지 연장',
+    date: '2026.04.13',
+    category: '공지',
+    content: `안녕하세요, AI플랫마켓입니다.<br><br>
+많은 소상공인 사장님들의 뜨거운 호응에 힘입어, <strong>무료 입점 이벤트를 2026년 5월 31일까지 연장</strong>합니다.<br><br>
+▶ 대상: 전국 소상공인 누구나<br>
+▶ 혜택: 초기 등록비 0원 + AI 홍보문구 자동 생성<br>
+▶ 신청: 상단 '입점신청' 메뉴에서 바로 가능<br><br>
+지금 바로 신청하시고 디지털 마케팅 혜택을 누리세요!`
+  },
+  {
+    title: 'AI 홍보문구 자동 생성 기능 업데이트',
+    date: '2026.04.10',
+    category: '서비스',
+    content: `AI플랫마켓의 핵심 기능인 <strong>AI 홍보문구 자동 생성</strong>이 대폭 업그레이드되었습니다.<br><br>
+▶ 업종별 맞춤 문구 생성<br>
+▶ SNS·블로그·배너 3종 동시 생성<br>
+▶ 계절·시간대별 이벤트 문구 자동 추천<br>
+▶ 생성 속도 50% 향상<br><br>
+파트너 센터에 로그인하시면 즉시 이용하실 수 있습니다.`
+  },
+  {
+    title: '라이브 방송 2채널 동시 운영 시작',
+    date: '2026.04.08',
+    category: '서비스',
+    content: `AI플랫마켓이 <strong>라이브 방송 채널을 2개로 확대</strong>합니다.<br><br>
+▶ CH1: 음식점·식품 전문 채널 (오전 10시~오후 6시)<br>
+▶ CH2: 뷰티·패션·생활서비스 채널 (오후 2시~오후 8시)<br><br>
+라이브 방송 참여를 원하시는 파트너 업체는 파트너 센터에서 신청해 주세요.<br>
+방송 1회당 평균 500~2,000명의 시청자에게 직접 홍보하실 수 있습니다.`
+  },
+  {
+    title: '개인정보처리방침 개정 안내',
+    date: '2026.04.01',
+    category: '안내',
+    content: `AI플랫마켓 개인정보처리방침이 2026년 4월 1일부로 개정되었습니다.<br><br>
+▶ 주요 변경 사항:<br>
+- 위치정보 수집 항목 추가 (지역 맞춤 서비스 제공 목적)<br>
+- 마케팅 정보 수신 동의 항목 세분화<br>
+- 제3자 제공 업체 목록 갱신<br><br>
+개정된 방침은 하단 개인정보처리방침 링크에서 확인하실 수 있습니다.<br>
+궁금한 점은 contact@aiplatmarket.kr로 문의해 주세요.`
+  }
+];
+
+function openNotice(idx) {
+  const n = notices[idx];
+  if (!n) return;
+  document.getElementById('noticeTitle').textContent = n.title;
+  document.getElementById('noticeMeta').innerHTML =
+    `<span class="tag tag-cat" style="margin-right:8px;">${n.category}</span>${n.date} · AI플랫마켓`;
+  document.getElementById('noticeContent').innerHTML = n.content;
+  document.getElementById('noticeModal').classList.add('open');
+}
+function closeNoticeModal(e) {
+  if (e.target === document.getElementById('noticeModal'))
+    document.getElementById('noticeModal').classList.remove('open');
+}
+
+/* ============================================================
+   모바일 사이드바 열기/닫기
+============================================================ */
+function openMobSidebar(side) {
+  document.getElementById('mobOverlay').classList.add('open');
+  document.getElementById(side === 'left' ? 'mobPanelLeft' : 'mobPanelRight').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // 모바일 우측 패널 랭킹 업데이트
+  if (side === 'right') renderRankingMob();
+  // 모바일 날짜 업데이트
+  const d = new Date();
+  const days = ['일','월','화','수','목','금','토'];
+  const mobDateEl = document.getElementById('mobDate');
+  if (mobDateEl) mobDateEl.textContent = `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()} (${days[d.getDay()]})`;
+}
+function closeMobSidebar() {
+  document.getElementById('mobOverlay').classList.remove('open');
+  document.getElementById('mobPanelLeft').classList.remove('open');
+  document.getElementById('mobPanelRight').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* 모바일 우측 랭킹 */
+function renderRankingMob() {
+  const el = document.getElementById('rankListMob');
+  if (!el || !state.stores.length) return;
+  const sorted = [...state.stores].sort((a,b) => (b.clicks||0) - (a.clicks||0)).slice(0, 5);
+  el.innerHTML = sorted.map((s, i) => `
+    <div class="rank-item" onclick="closeMobSidebar();quickSearch('${s.name}')">
+      <div class="rank-num ${i===0?'top1':i===1?'top2':i===2?'top3':''}">${i+1}</div>
+      <div class="rank-name">${s.name}</div>
+      <div class="rank-clicks">${(s.clicks||0)}클릭</div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   GNB 드롭다운 선택 함수
+============================================================ */
+function gnbRegionSelect(region) {
+  document.getElementById('searchSido').value = region;
+  updateSigungu();
+  document.getElementById('searchKeyword').value = '';
+  document.getElementById('searchCategory').value = '';
+  showPage('home');
+  applyFilters();
+  if (region) showToast(`📍 ${region} 지역으로 검색합니다.`);
+}
+function gnbCatSelect(cat) {
+  document.getElementById('searchCategory').value = cat;
+  document.getElementById('searchSido').value = '';
+  document.getElementById('searchKeyword').value = '';
+  showPage('home');
+  applyFilters();
+  if (cat) showToast(`🗂️ ${cat} 업종을 검색합니다.`);
+}
+function gnbSortSelect(sort) {
+  document.getElementById('searchSort').value = sort;
+  showPage('home');
+  applyFilters();
+  const labels = { clicks:'🔥 인기순', new:'🆕 최신순', premium:'⭐ 광고 우선' };
+  showToast(labels[sort] + ' 으로 정렬합니다.');
+}
+function gnbSearch() {
+  const kw = document.getElementById('gnbKeyword').value.trim();
+  if (!kw) return;
+  document.getElementById('searchKeyword').value = kw;
+  document.getElementById('gnbKeyword').value = '';
+  showPage('home');
+  applyFilters();
+}
+
+/* ============================================================
+   AI 추천 업체 가로스크롤 렌더링
+============================================================ */
+function renderRecScroll() {
+  const el = document.getElementById('recScrollList');
+  if (!el) return;
+  const pool = state.stores.length > 0 ? state.stores : getDummyStores();
+  // 클릭수 기준 상위 10개 추천
+  const picks = [...pool].sort((a,b) => (b.clicks||0) - (a.clicks||0)).slice(0, 10);
+  if (!picks.length) { el.innerHTML = '<div style="color:var(--gray4);font-size:.8rem;padding:16px;">추천 업체를 불러오는 중...</div>'; return; }
+  el.innerHTML = picks.map(s => `
+    <div class="rec-card" onclick="openModal('${s.id}')">
+      <div class="rec-card-thumb">${s.emoji || '🏪'}</div>
+      <div class="rec-card-body">
+        <div class="rec-card-name">${s.name}</div>
+        <div class="rec-card-sub">${s.region || ''}</div>
+        <div style="font-size:.65rem;color:var(--red);font-weight:700;margin-top:2px;">${s.category || ''}</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   renderRanking 확장 — 모바일 패널도 동기화
+============================================================ */
+const _origRenderRanking = renderRanking;
+function renderRanking() {
+  _origRenderRanking();
+  renderRankingMob();
+  renderRecScroll();
+}
+
+/* ============================================================
+   updateLsbInfo 확장 — 모바일 날씨 패널 동기화
+============================================================ */
+const _origUpdateLsbInfo = updateLsbInfo;
+function updateLsbInfo() {
+  _origUpdateLsbInfo();
+  const hour = new Date().getHours();
+  const icon = hour < 6 ? '🌙' : hour < 9 ? '🌤️' : hour < 18 ? '☀️' : '🌆';
+  const mobIcon = document.querySelector('#mobPanelLeft .weather-big');
+  if (mobIcon) mobIcon.textContent = icon;
 }
 </script>
 </body>
