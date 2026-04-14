@@ -3,23 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="AI플랫마켓 - 소상공인+소비자 상생 플랫폼, 지역 생활경제 정보">
-<title>AI PLATMARKET | 소상공인+소비자 상생 플랫폼</title>
+<title>AI PLATMARKET | 국민경제+</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* =========================================================
-   RESET & VARIABLES
-========================================================= */
 :root{
-  --navy:#0d1f35; --navy2:#1a3556; --red:#c0392b; --red2:#e74c3c;
-  --gold:#c9a84c; --green:#1a7a4a;
-  --g1:#f4f6f9; --g2:#e8ecf1; --g3:#b0bac7; --g4:#6b7a8d;
-  --text:#1c2635; --white:#fff;
-  --bd:1px solid #dde2ea; --sh:0 2px 12px rgba(13,31,53,.08);
-  --r:6px;
+  --navy:#0d1f35;--navy2:#1a3556;--red:#c0392b;--red2:#e74c3c;
+  --gold:#c9a84c;--grn:#1a7a4a;--grn2:#0d5c36;--purple:#7b2d8b;
+  --g1:#f4f6f9;--g2:#e8ecf1;--g3:#b0bac7;--g4:#6b7a8d;
+  --text:#1c2635;--white:#fff;
+  --bd:1px solid #dde2ea;--sh:0 2px 12px rgba(13,31,53,.08);--r:6px;
   --fs:'Noto Serif KR',serif;
-  --fn:'Pretendard','Apple SD Gothic Neo','Nanum Gothic',sans-serif;
+  --fn:'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif;
+  --pad:28px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -27,561 +23,509 @@ body{margin:0;font-family:var(--fn);background:#eceff4;color:var(--text);font-si
 a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer}
 input,select,textarea{font-family:inherit}
-
-/* =========================================================
-   LAYOUT
-========================================================= */
 .shell{width:90%;max-width:1280px;margin:0 auto;background:#fff;box-shadow:0 0 40px rgba(13,31,53,.1);min-height:100vh}
 
-/* =========================================================
-   TOP STRIP
-========================================================= */
-.top-strip{background:var(--navy);color:#aab8cb;font-size:.78rem;padding:5px 28px;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
-.ts-left{display:flex;gap:12px;align-items:center}
-.ts-right{display:flex;align-items:center;gap:0}
-.ts-right a{color:#aab8cb;margin-left:14px;transition:color .2s;white-space:nowrap}
-.ts-right a:hover{color:var(--gold)}
-.ts-right a.highlight{color:var(--gold);font-weight:700}
-.w-chip{background:rgba(255,255,255,.08);padding:2px 9px;border-radius:20px;font-size:.75rem}
+/* === TOP STRIP === */
+.ts{background:var(--navy);color:#aab8cb;font-size:.78rem;padding:5px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:6px}
+.ts-r a{color:#aab8cb;margin-left:14px;transition:color .2s;white-space:nowrap}
+.ts-r a:hover{color:var(--gold)}
+.ts-r a.hl{color:var(--gold);font-weight:700}
+.wchip{background:rgba(255,255,255,.08);padding:2px 9px;border-radius:20px;font-size:.75rem}
 
-/* =========================================================
-   HEADER
-========================================================= */
-header{background:#fff;border-bottom:3px solid var(--navy);padding:14px 28px 0}
-.hd-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.logo-wrap{cursor:pointer}
-.logo-sub{font-family:var(--fs);font-size:.72rem;color:var(--g4);letter-spacing:2px;font-weight:600;display:block;margin-bottom:2px}
-.logo-main{font-family:var(--fs);font-size:1.9rem;font-weight:900;color:var(--navy);letter-spacing:-2px;line-height:1;display:block}
-.logo-main span{color:var(--red)}
-.hd-slogan{flex:1;text-align:center;font-size:.75rem;color:var(--g4);line-height:1.5}
-.hd-slogan b{color:var(--navy);font-size:.82rem;display:block}
-.hd-sub-box{border:2px solid var(--navy);padding:10px 18px;text-align:center;min-width:190px}
-.hd-sub-box small{font-size:.72rem;color:var(--g4);display:block}
-.hd-sub-box strong{font-size:.85rem;color:var(--navy)}
-.btn-sub{margin-top:7px;background:var(--red);color:#fff;border:none;padding:5px 16px;font-size:.78rem;font-weight:700}
-/* 모바일 햄버거 */
+/* === HEADER === */
+header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pad) 0}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:14px}
+/* 좌 - AIPLATMARKET */
+.logo{cursor:pointer;flex-shrink:0}
+.logo-sub{font-family:var(--fs);font-size:.7rem;color:var(--g4);letter-spacing:2px;font-weight:600;display:block;margin-bottom:1px}
+.logo-main{font-family:var(--fs);font-size:1.85rem;font-weight:900;color:var(--navy);letter-spacing:-2px;line-height:1;display:block}
+.logo-main em{color:var(--red);font-style:normal}
+/* 중앙 - 국민경제+ */
+.hd-center{flex:1;text-align:center;padding:0 8px}
+.hd-center .eco-pre{font-size:.7rem;color:var(--g4);letter-spacing:1.5px;display:block;margin-bottom:2px}
+.hd-center .eco-main{
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:2.15rem;font-weight:900;
+  color:var(--grn2);letter-spacing:-1px;
+  display:block;line-height:1;
+  text-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+.hd-center .eco-slogan{font-size:.7rem;color:var(--g4);margin-top:3px;display:block;line-height:1.5}
+.hd-center .eco-slogan b{color:var(--navy);font-size:.76rem;display:block}
+/* 우 - ChatDoumi */
+.hd-right{flex-shrink:0;text-align:center;cursor:pointer}
+.hd-right a{text-decoration:none;display:block}
+.hd-right .cd-pre{font-size:.68rem;color:var(--g4);display:block;margin-bottom:2px;letter-spacing:.5px}
+.hd-right .cd-main{font-family:var(--fs);font-size:1.85rem;font-weight:900;color:var(--navy);letter-spacing:-2px;line-height:1;display:block}
+.hd-right .cd-main em{color:var(--red);font-style:normal}
+/* 햄버거 */
 .ham{display:none;background:none;border:none;padding:6px;flex-direction:column;gap:5px;flex-shrink:0}
-.ham span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all .25s}
-.ham-r{margin-left:auto}
+.ham span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
 
-/* =========================================================
-   GNB
-========================================================= */
-nav.gnb{background:#fff;border-bottom:var(--bd);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(13,31,53,.05)}
-.gnb-inner{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;padding:0 28px} /* 로고 28px 좌측 맞춤 */
-.gnb-inner::-webkit-scrollbar{display:none}
-.gi{display:flex;align-items:center;padding:11px 14px;font-size:.88rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
+/* === GNB === */
+nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(13,31,53,.06)}
+/* 상단 줄: 핵심 메뉴 + 검색 */
+.gnb-top{display:flex;align-items:stretch;border-bottom:2px solid var(--g2);padding:0 var(--pad)}
+/* 하단 줄: 나머지 메뉴 스크롤 */
+.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;border-bottom:var(--bd);padding:0 var(--pad)}
+.gnb-sub::-webkit-scrollbar{display:none}
+/* 공통 메뉴 아이템 */
+.gi{display:flex;align-items:center;padding:10px 13px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
 .gi.act{color:var(--red);border-bottom-color:var(--red)}
-.gi .badge{background:var(--red);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:3px;margin-left:4px;font-weight:900}
-.gi .nbadge{background:var(--green);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:3px;margin-left:4px;font-weight:900}
-.gd{width:1px;background:var(--g2);margin:8px 0;align-self:stretch;flex-shrink:0}
-/* 드롭다운 - hover + click 모두 지원 */
-.dd-wrap{position:relative;display:flex;align-items:stretch;flex-shrink:0}
-.dd-wrap:hover .dd{display:block}
-.dd-wrap.open .dd{display:block}
-.dd{display:none;position:absolute;top:100%;left:0;min-width:150px;background:#fff;border:var(--bd);border-top:2px solid var(--red);box-shadow:0 8px 24px rgba(13,31,53,.12);z-index:200;border-radius:0 0 6px 6px}
-.ddi{padding:8px 14px;font-size:.8rem;font-weight:600;color:var(--text);cursor:pointer;border-bottom:1px solid var(--g2);white-space:nowrap;transition:background .15s}
+.gi .bx{background:var(--red);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
+.gi .bxg{background:var(--grn);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
+.gi .bxb{background:var(--purple);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
+.gd{width:1px;background:var(--g2);margin:7px 0;align-self:stretch;flex-shrink:0}
+
+/* 드롭다운 공통 */
+.ddw{position:relative;display:flex;align-items:stretch;flex-shrink:0}
+.ddw:hover .dd,.ddw.op .dd{display:flex;flex-direction:column}
+.dd{display:none;position:absolute;top:100%;left:0;min-width:160px;background:#fff;border:var(--bd);border-top:2px solid var(--red);box-shadow:0 8px 24px rgba(13,31,53,.13);z-index:300;border-radius:0 0 6px 6px;max-height:70vh;overflow-y:auto}
+.ddi{padding:8px 14px;font-size:.8rem;font-weight:600;color:var(--text);cursor:pointer;border-bottom:1px solid var(--g2);white-space:nowrap;transition:background .15s;flex-shrink:0}
 .ddi:last-child{border-bottom:none}
-.ddi:hover{background:#fce8e6;color:var(--red)}
-.ddi.sel{background:#fce8e6;color:var(--red);font-weight:800}
-/* GNB 검색 */
-.gnb-srch{display:flex;align-items:center;margin-left:auto;padding:0 12px;gap:0;flex-shrink:0}
-.gnb-inp{border:1px solid var(--g2);border-right:none;padding:5px 10px;font-size:.8rem;border-radius:20px 0 0 20px;outline:none;width:150px;transition:border-color .2s}
-.gnb-inp:focus{border-color:var(--navy)}
-.gnb-sbtn{background:var(--navy);color:#fff;border:none;padding:5px 12px;border-radius:0 20px 20px 0;font-size:.78rem;font-weight:700}
+.ddi:hover,.ddi.sel{background:#fce8e6;color:var(--red)}
 
-/* =========================================================
-   MUSIC GENRE BUTTONS
-========================================================= */
-.genre-bar{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;padding:10px 0 4px}
-.genre-btn{background:rgba(123,45,139,.1);border:1px solid rgba(123,45,139,.3);color:#7b2d8b;padding:5px 13px;border-radius:20px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
-.genre-btn:hover{background:rgba(123,45,139,.2);border-color:#7b2d8b}
-.genre-btn.act{background:#7b2d8b;color:#fff;border-color:#7b2d8b}
-.genre-lbl{font-size:.7rem;color:var(--g4);font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:2px}
-.genre-lbl::before{content:'♪';color:#7b2d8b}
+/* 지역 2단계 메가 드롭다운 */
+.dd-mega{flex-direction:row !important;min-width:360px;max-height:400px}
+.dd-sido{width:110px;border-right:var(--bd);overflow-y:auto;flex-shrink:0}
+.dd-sido .ddi{padding:7px 10px;font-size:.78rem}
+.dd-sido .ddi.sel{background:#fce8e6;color:var(--red);font-weight:800}
+.dd-gungu{flex:1;display:flex;flex-wrap:wrap;gap:4px;padding:8px;align-content:flex-start;overflow-y:auto}
+.gg{padding:4px 9px;border:var(--bd);border-radius:4px;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;background:#fff}
+.gg:hover{border-color:var(--red);color:var(--red);background:#fce8e6}
 
-/* =========================================================
-   TICKER
-========================================================= */
-.ticker{background:var(--navy);display:flex;align-items:center;height:34px;overflow:hidden}
-.t-lbl{background:var(--red);color:#fff;font-size:.7rem;font-weight:900;padding:0 12px;height:100%;display:flex;align-items:center;letter-spacing:1px;flex-shrink:0}
+/* 인기순 드롭다운 (핫태그 포함) */
+.dd-sort{min-width:200px}
+.dd-sort .hot-sec{padding:8px 12px 4px;border-bottom:var(--bd)}
+.dd-sort .hot-sec-lbl{font-size:.68rem;color:var(--g4);font-weight:700;margin-bottom:5px}
+.dd-sort .htrow{display:flex;flex-wrap:wrap;gap:4px}
+.dd-sort .ht{background:var(--g1);border:var(--bd);color:var(--text);padding:2px 8px;border-radius:12px;font-size:.7rem;cursor:pointer;transition:all .15s}
+.dd-sort .ht:hover{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* GNB 인라인 검색 */
+.gnb-sq{display:flex;align-items:center;margin-left:auto;padding:5px 0 5px 10px;gap:0;flex-shrink:0}
+.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 10px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:145px;transition:border-color .2s}
+.gnb-qi:focus{border-color:var(--navy)}
+.gnb-qb{background:var(--navy);color:#fff;border:none;padding:5px 11px;border-radius:0 20px 20px 0;font-size:.76rem;font-weight:700}
+
+/* === TICKER === */
+.ticker{background:var(--navy);display:flex;align-items:center;height:33px;overflow:hidden}
+.t-lbl{background:var(--red);color:#fff;font-size:.68rem;font-weight:900;padding:0 12px;height:100%;display:flex;align-items:center;letter-spacing:1px;flex-shrink:0}
 .t-track{overflow:hidden;flex:1}
-.t-inner{display:flex;gap:48px;white-space:nowrap;color:rgba(255,255,255,.88);font-size:.78rem;animation:tick 28s linear infinite}
-.t-inner:hover{animation-play-state:paused}
+.t-in{display:flex;gap:48px;white-space:nowrap;color:rgba(255,255,255,.88);font-size:.77rem;animation:tick 28s linear infinite}
+.t-in:hover{animation-play-state:paused}
 .t-item{cursor:pointer}
-.t-item:hover{color:var(--gold)}
 @keyframes tick{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
 
-/* =========================================================
-   SEARCH BAR
-========================================================= */
-.srch-sec{background:var(--navy);padding:13px 28px}
-.srch-lbl{font-size:.72rem;color:var(--gold);letter-spacing:2px;font-weight:700;margin-bottom:8px;text-transform:uppercase}
-.srch-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
-.srch-row select,.srch-row input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 12px;border-radius:var(--r);font-size:.85rem;outline:none;transition:all .2s}
-.srch-row select option{background:var(--navy2);color:#fff}
-.srch-row select{min-width:120px}
-.srch-row input{flex:1;min-width:160px}
-.srch-row input::placeholder{color:rgba(255,255,255,.4)}
-.srch-row select:focus,.srch-row input:focus{border-color:var(--gold);background:rgba(255,255,255,.15)}
-.btn-loc{background:rgba(201,168,76,.15);border:1px solid var(--gold);color:var(--gold);padding:8px 12px;border-radius:var(--r);font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:4px;transition:all .2s}
-.btn-loc:hover{background:rgba(201,168,76,.25)}
-.btn-go{background:var(--red);color:#fff;border:none;padding:8px 20px;border-radius:var(--r);font-weight:800;font-size:.88rem;display:flex;align-items:center;gap:5px;transition:background .2s}
-.btn-go:hover{background:var(--red2)}
-.btn-rst{background:transparent;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);padding:8px 14px;border-radius:var(--r);font-size:.82rem;transition:all .2s}
-.btn-rst:hover{border-color:#fff;color:#fff}
-.hot-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
-.hot-tags span{font-size:.7rem;color:var(--gold);font-weight:700}
-.htag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75);padding:2px 9px;border-radius:20px;font-size:.73rem;cursor:pointer;transition:all .2s}
-.htag:hover{background:rgba(255,255,255,.18);color:#fff}
-
-/* =========================================================
-   3-COLUMN GRID
-========================================================= */
+/* === 3-COL GRID === */
 .mgrid{display:grid;grid-template-columns:210px 1fr 300px;gap:0;background:var(--g2);align-items:start}
-.ml{background:#fff;padding:22px 20px}
-.mr{background:#f8fafd;padding:18px;border-left:var(--bd)}
+.ml{background:#fff;padding:20px 18px}
+.mr{background:#f8fafd;padding:16px;border-left:var(--bd);display:flex;flex-direction:column;gap:14px}
 
-/* =========================================================
-   LEFT SIDEBAR
-========================================================= */
-.lsb{background:#fff;border-right:var(--bd);padding:16px 12px}
-.lsb-ttl{font-size:.7rem;font-weight:900;color:var(--navy);letter-spacing:1.5px;text-transform:uppercase;padding:0 4px 6px;border-bottom:2px solid var(--navy);margin-bottom:9px;display:flex;align-items:center;gap:5px}
-.lsb-div{height:1px;background:var(--g2);margin:12px 0}
-/* 메뉴 */
-.lsb-menu{display:flex;flex-direction:column;gap:1px;margin-bottom:4px}
-.lmi{display:flex;align-items:center;gap:7px;padding:7px 9px;border-radius:5px;font-size:.8rem;font-weight:600;color:var(--text);cursor:pointer;transition:all .18s;white-space:nowrap}
+/* === LEFT SIDEBAR === */
+.lsb{background:#fff;border-right:var(--bd);padding:14px 10px}
+.lsb-ttl{font-size:.68rem;font-weight:900;color:var(--navy);letter-spacing:1.5px;text-transform:uppercase;padding:0 4px 5px;border-bottom:2px solid var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.lsb-div{height:1px;background:var(--g2);margin:10px 0}
+.lsb-menu{display:flex;flex-direction:column;gap:1px;margin-bottom:3px}
+.lmi{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:4px;font-size:.78rem;font-weight:600;color:var(--text);cursor:pointer;transition:all .18s;white-space:nowrap}
 .lmi:hover{background:var(--g1);color:var(--red)}
 .lmi.act{background:#fce8e6;color:var(--red)}
-.lmi .ico{font-size:.95rem;width:20px;text-align:center;flex-shrink:0}
-.lmi .cnt{margin-left:auto;font-size:.62rem;background:var(--g2);color:var(--g4);padding:1px 5px;border-radius:10px;font-weight:700}
-/* 지역 그리드 */
-.lsb-rg{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:4px}
-.rgb{background:var(--g1);border:var(--bd);border-radius:4px;padding:5px 3px;font-size:.7rem;font-weight:700;color:var(--navy2);text-align:center;cursor:pointer;transition:all .18s}
+.lmi .ico{font-size:.9rem;width:18px;text-align:center;flex-shrink:0}
+.lmi .cnt{margin-left:auto;font-size:.6rem;background:var(--g2);color:var(--g4);padding:1px 5px;border-radius:10px;font-weight:700}
+.lsb-rg{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px}
+.rgb{background:var(--g1);border:var(--bd);border-radius:4px;padding:5px 3px;font-size:.68rem;font-weight:700;color:var(--navy2);text-align:center;cursor:pointer;transition:all .18s}
 .rgb:hover,.rgb.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
-/* 공지 */
-.ni{padding:7px 3px;border-bottom:1px solid var(--g2);cursor:pointer}
+.ni{padding:6px 3px;border-bottom:1px solid var(--g2);cursor:pointer}
 .ni:last-child{border-bottom:none}
-.ni-t{font-size:.76rem;font-weight:600;color:var(--text);line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;transition:color .18s}
+.ni-t{font-size:.74rem;font-weight:600;color:var(--text);line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;transition:color .18s}
 .ni:hover .ni-t{color:var(--red)}
-.ni-d{font-size:.66rem;color:var(--g4);margin-top:2px}
-.ni-b{display:inline-block;font-size:.58rem;background:var(--red);color:#fff;padding:1px 4px;border-radius:2px;font-weight:900;margin-right:3px;vertical-align:middle}
-/* 아코디언 */
-.ac-h{display:flex;align-items:center;gap:7px;padding:7px 9px;border-radius:5px;font-size:.8rem;font-weight:600;color:var(--text);cursor:pointer;transition:all .18s;white-space:nowrap;user-select:none}
+.ni-d{font-size:.64rem;color:var(--g4);margin-top:1px}
+.ni-b{display:inline-block;font-size:.56rem;background:var(--red);color:#fff;padding:1px 4px;border-radius:2px;font-weight:900;margin-right:2px;vertical-align:middle}
+.ac-h{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:4px;font-size:.78rem;font-weight:600;color:var(--text);cursor:pointer;transition:all .18s;white-space:nowrap;user-select:none}
 .ac-h:hover{background:var(--g1);color:var(--red)}
 .ac-h.op{background:#fce8e6;color:var(--red)}
-.ac-arr{margin-left:auto;font-size:.65rem;transition:transform .25s;color:var(--g3)}
+.ac-arr{margin-left:auto;font-size:.62rem;transition:transform .25s;color:var(--g3)}
 .ac-h.op .ac-arr{transform:rotate(180deg);color:var(--red)}
-.ac-b{display:none;padding:3px 0 3px 28px}
+.ac-b{display:none;padding:2px 0 2px 26px}
 .ac-b.op{display:block}
-.ac-s{font-size:.73rem;padding:4px 7px;color:var(--g4);cursor:pointer;border-radius:4px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.ac-s{font-size:.71rem;padding:3px 7px;color:var(--g4);cursor:pointer;border-radius:4px;transition:all .15s}
 .ac-s:hover{background:var(--g1);color:var(--red)}
-/* SNS */
-.sns-row{display:flex;gap:5px;margin-bottom:5px}
-.sns-btn{flex:1;padding:6px 4px;border-radius:4px;font-size:.7rem;font-weight:700;text-align:center;cursor:pointer;border:none;transition:opacity .2s}
-.sns-btn:hover{opacity:.85}
-.sk{background:#FEE500;color:#3A1D1D}
-.sn{background:#03C75A;color:#fff}
-.si{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.sns-row{display:flex;gap:5px;margin-bottom:4px}
+.sns-btn{flex:1;padding:5px 4px;border-radius:4px;font-size:.68rem;font-weight:700;text-align:center;cursor:pointer;border:none}
+.sk{background:#FEE500;color:#3A1D1D}.sn{background:#03C75A;color:#fff}.si{background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);color:#fff}
 
-/* =========================================================
-   SECTION HEADER
-========================================================= */
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--navy)}
-.sh-t{font-family:var(--fs);font-size:1.05rem;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:7px}
-.sh-t::before{content:'';display:inline-block;width:4px;height:16px;background:var(--red);border-radius:2px}
-.sh-m{font-size:.76rem;color:var(--g4);border:1px solid var(--g3);padding:2px 9px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap}
+/* === SECTION HEADER === */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--navy)}
+.sh-t{font-family:var(--fs);font-size:1rem;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:6px}
+.sh-t::before{content:'';display:inline-block;width:3px;height:15px;background:var(--red);border-radius:2px}
+.sh-m{font-size:.73rem;color:var(--g4);border:var(--bd);padding:2px 8px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap}
 .sh-m:hover{color:var(--navy);border-color:var(--navy)}
 
-/* =========================================================
-   BROADCAST (라이브 + 뮤직)
-========================================================= */
-.bc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
-.bc-col{}
+/* === BROADCAST (라이브+뮤직) === */
+.bc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
 .live-area{position:relative}
-.live-badge{position:absolute;top:10px;left:10px;z-index:10;background:var(--red);color:#fff;font-size:.68rem;font-weight:900;padding:2px 9px;letter-spacing:2px;border-radius:3px;animation:blink 1.5s infinite}
-.music-badge{position:absolute;top:10px;left:10px;z-index:10;background:#7b2d8b;color:#fff;font-size:.68rem;font-weight:900;padding:2px 9px;letter-spacing:1px;border-radius:3px}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.55}}
-.vc{position:absolute;top:10px;right:10px;z-index:10;background:rgba(0,0,0,.65);color:#fff;font-size:.7rem;font-weight:600;padding:2px 9px;border-radius:20px;display:flex;align-items:center;gap:4px}
+.live-badge{position:absolute;top:9px;left:9px;z-index:10;background:var(--red);color:#fff;font-size:.65rem;font-weight:900;padding:2px 8px;letter-spacing:2px;border-radius:3px;animation:blink 1.5s infinite}
+.music-badge-pos{position:absolute;top:9px;left:9px;z-index:10}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+.vc{position:absolute;top:9px;right:9px;z-index:10;background:rgba(0,0,0,.65);color:#fff;font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:20px}
 .iframe-box{width:100%;aspect-ratio:16/9;background:#000;border-radius:var(--r);overflow:hidden;position:relative}
 .iframe-box iframe{width:100%;height:100%;border:0}
-.bc-info{padding:8px 0 0;display:flex;gap:10px;align-items:flex-start}
-.bc-ch{background:var(--navy);color:#fff;font-size:.68rem;font-weight:800;padding:2px 7px;border-radius:3px;white-space:nowrap;flex-shrink:0;margin-top:2px}
-.bc-ch.mu{background:#7b2d8b}
-.bc-ttl{font-family:var(--fs);font-size:.92rem;font-weight:700;color:var(--navy);line-height:1.4}
-/* 다음방송 스크롤 */
-.nb-wrap{display:flex;flex-direction:column;height:100%}
-.nb-hd{background:var(--navy);color:#fff;font-size:.72rem;font-weight:800;padding:7px 11px;letter-spacing:1px;border-radius:var(--r) var(--r) 0 0}
-.nb-sc{flex:1;overflow:hidden;border:var(--bd);border-top:none;border-radius:0 0 var(--r) var(--r);height:220px}
-.nb-in{display:flex;flex-direction:column;animation:scrollUp 20s linear infinite}
-.nb-in:hover{animation-play-state:paused}
-@keyframes scrollUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
-.nbc{display:flex;gap:9px;padding:9px 10px;border-bottom:1px solid var(--g2);cursor:pointer;background:#fff;transition:background .2s}
-.nbc:hover{background:var(--g1)}
-.nbt{width:58px;height:44px;border-radius:4px;background:var(--g2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
-.nbm{flex:1;min-width:0}
-.nbtm{font-size:.66rem;color:var(--red);font-weight:800;margin-bottom:1px}
-.nbn{font-size:.73rem;font-weight:700;color:var(--navy);line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 
-/* =========================================================
-   STORE LIST
-========================================================= */
-.sl{display:flex;flex-direction:column;gap:0}
-.si-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--g2);cursor:pointer;transition:background .15s;border-radius:4px}
-.si-item:last-child{border-bottom:none}
-.si-item:hover{background:#fafcff;margin:0 -6px;padding:16px 6px}
-.si-th{width:120px;height:84px;border-radius:4px;background:linear-gradient(135deg,var(--g2) 0%,#dce3ed 100%);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative;overflow:hidden}
-.si-th.pr{box-shadow:0 0 0 2px var(--gold)}
-.pr-b{position:absolute;top:0;right:0;background:var(--gold);color:#fff;font-size:.58rem;font-weight:900;padding:2px 5px;letter-spacing:.5px}
-.si-bd{flex:1;min-width:0}
-.tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:4px}
-.tag{font-size:.68rem;padding:2px 7px;border-radius:3px;font-weight:700}
-.tg{background:#e8f0fe;color:#1a56a0}
-.tc{background:#fce8e6;color:var(--red)}
-.tn{background:var(--red);color:#fff}
-.th{background:#fff3e0;color:#e65100}
-.tp{background:var(--gold);color:#fff}
-.sn2{font-family:var(--fs);font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:3px;line-height:1.3}
-.sd{font-size:.83rem;color:#555;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:7px}
-.sm{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.smt{font-size:.73rem;color:var(--g4);display:flex;align-items:center;gap:2px}
-.sa{display:flex;gap:5px;margin-top:7px}
-.btn-dt{font-size:.76rem;padding:3px 10px;border:1px solid var(--navy);color:var(--navy);background:none;border-radius:3px;font-weight:600;transition:all .2s}
+/* 채널 배지 + 드롭다운 */
+.bc-info{padding:6px 0 0;display:flex;gap:0;align-items:flex-start;flex-direction:column}
+.ch-ddw{position:relative;display:inline-flex;align-items:center;gap:0;margin-bottom:4px}
+.ch-badge{font-size:.66rem;font-weight:800;padding:2px 7px;border-radius:3px;cursor:pointer;display:flex;align-items:center;gap:3px;transition:all .2s;user-select:none}
+.ch-badge.live-ch{background:var(--navy);color:#fff}
+.ch-badge.music-ch{background:var(--purple);color:#fff}
+.ch-badge:hover{opacity:.85}
+.ch-arr{font-size:.6rem;margin-left:2px}
+.ch-dd{display:none;position:absolute;top:100%;left:0;min-width:230px;background:#fff;border:var(--bd);border-top:2px solid var(--navy);box-shadow:0 8px 24px rgba(13,31,53,.13);z-index:300;border-radius:0 0 6px 6px;margin-top:2px}
+.ch-ddw:hover .ch-dd,.ch-ddw.op .ch-dd{display:block}
+.ch-dd-hd{background:var(--navy);color:#fff;font-size:.7rem;font-weight:800;padding:6px 12px;letter-spacing:1px}
+.ch-dd-item{display:flex;gap:8px;padding:8px 12px;border-bottom:1px solid var(--g2);cursor:pointer;transition:background .15s;align-items:center}
+.ch-dd-item:last-child{border-bottom:none}
+.ch-dd-item:hover{background:var(--g1)}
+.ch-dd-item .cdt{font-size:.68rem;color:var(--red);font-weight:800;flex-shrink:0;width:40px}
+.ch-dd-item .cdn{font-size:.76rem;font-weight:600;color:var(--navy);flex:1;line-height:1.3}
+.ch-dd-item.now{background:#fce8e6}
+.bc-ttl{font-family:var(--fs);font-size:.9rem;font-weight:700;color:var(--navy);line-height:1.4}
+
+/* === STORE LIST (2컬럼 그리드) === */
+.sl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.si-card{border:var(--bd);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .15s;background:#fff}
+.si-card:hover{box-shadow:0 4px 16px rgba(13,31,53,.1);transform:translateY(-2px)}
+.si-thumb{height:90px;display:flex;align-items:center;justify-content:center;font-size:2.4rem;background:linear-gradient(135deg,var(--g2),#d0d8e4);position:relative}
+.si-thumb.pr{box-shadow:inset 0 0 0 2px var(--gold)}
+.pr-b{position:absolute;top:0;right:0;background:var(--gold);color:#fff;font-size:.56rem;font-weight:900;padding:2px 5px}
+.si-body{padding:9px 11px}
+.si-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.tag{font-size:.64rem;padding:1px 6px;border-radius:3px;font-weight:700}
+.tg{background:#e8f0fe;color:#1a56a0}.tc{background:#fce8e6;color:var(--red)}.tn{background:var(--red);color:#fff}.th{background:#fff3e0;color:#e65100}.tp{background:var(--gold);color:#fff}
+.si-name{font-family:var(--fs);font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:3px;line-height:1.3}
+.si-desc{font-size:.77rem;color:#555;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;margin-bottom:6px}
+.si-meta{display:flex;gap:8px;font-size:.68rem;color:var(--g4);flex-wrap:wrap;margin-bottom:6px}
+.si-acts{display:flex;gap:5px}
+.btn-dt{font-size:.72rem;padding:3px 9px;border:1px solid var(--navy);color:var(--navy);background:none;border-radius:3px;font-weight:600;transition:all .2s}
 .btn-dt:hover{background:var(--navy);color:#fff}
-.btn-ct{font-size:.76rem;padding:3px 10px;background:var(--red);color:#fff;border:none;border-radius:3px;font-weight:600;transition:background .2s}
+.btn-ct{font-size:.72rem;padding:3px 9px;background:var(--red);color:#fff;border:none;border-radius:3px;font-weight:600;transition:background .2s}
 .btn-ct:hover{background:var(--red2)}
-/* 스피너 */
-.spin-wrap{text-align:center;padding:40px;color:var(--g4)}
-.spin{width:34px;height:34px;border:3px solid var(--g2);border-top-color:var(--navy);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
+.spin-wrap{text-align:center;padding:36px;color:var(--g4)}
+.spin{width:32px;height:32px;border:3px solid var(--g2);border-top-color:var(--navy);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 8px}
 @keyframes spin{to{transform:rotate(360deg)}}
-/* 빈결과 */
-.empty{text-align:center;padding:50px 20px;color:var(--g4)}
-/* 페이지네이션 */
-.pgn{display:flex;justify-content:center;gap:5px;padding:18px 0 6px}
-.pb{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--g2);border-radius:4px;font-size:.83rem;cursor:pointer;transition:all .2s;background:#fff;color:var(--text)}
+.empty{text-align:center;padding:40px 20px;color:var(--g4)}
+.pgn{display:flex;justify-content:center;gap:4px;padding:14px 0 4px}
+.pb{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:var(--bd);border-radius:4px;font-size:.8rem;cursor:pointer;background:#fff;color:var(--text);transition:all .2s}
 .pb.act{background:var(--navy);color:#fff;border-color:var(--navy)}
 .pb:hover:not(.act){border-color:var(--navy);color:var(--navy)}
 
-/* =========================================================
-   RECOMMEND SECTION (라이브 하단)
-========================================================= */
-.rec-sec{margin-top:26px}
-.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+/* === RECOMMEND (라이브 하단) === */
+.rec-sec{margin-top:20px}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px}
 .mc{border:var(--bd);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .15s}
-.mc:hover{box-shadow:0 4px 16px rgba(13,31,53,.1);transform:translateY(-2px)}
+.mc:hover{box-shadow:0 4px 14px rgba(13,31,53,.1);transform:translateY(-2px)}
 .mc-th{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:2rem;position:relative}
-.mc-bd{padding:9px 11px;background:#fff}
-.mc-ttl{font-size:.82rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:3px}
-.mc-mt{font-size:.7rem;color:var(--g4)}
-/* 가로스크롤 추천 */
-.hs{display:flex;gap:10px;overflow-x:auto;padding-bottom:7px;scrollbar-width:thin;scrollbar-color:var(--g2) transparent}
+.mc-bd{padding:8px 10px;background:#fff}
+.mc-ttl{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:2px;line-height:1.3}
+.mc-mt{font-size:.68rem;color:var(--g4)}
+.hs{display:flex;gap:9px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--g2) transparent}
 .hs::-webkit-scrollbar{height:3px}
 .hs::-webkit-scrollbar-thumb{background:var(--g2);border-radius:4px}
-.hc{flex-shrink:0;width:140px;border:var(--bd);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:box-shadow .2s}
-.hc:hover{box-shadow:0 3px 12px rgba(13,31,53,.1)}
-.hc-th{height:84px;display:flex;align-items:center;justify-content:center;font-size:2rem;background:linear-gradient(135deg,var(--g2),#d0d8e4)}
-.hc-bd{padding:7px 9px;background:#fff}
-.hc-n{font-size:.76rem;font-weight:700;color:var(--navy);margin-bottom:2px}
-.hc-s{font-size:.66rem;color:var(--g4)}
-/* 뉴스카드 그리드 */
-.nc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
-.nc{background:var(--g1);border:var(--bd);border-radius:var(--r);padding:12px;cursor:pointer;transition:box-shadow .2s}
+.hc{flex-shrink:0;width:130px;border:var(--bd);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:box-shadow .2s}
+.hc:hover{box-shadow:0 3px 10px rgba(13,31,53,.1)}
+.hc-th{height:78px;display:flex;align-items:center;justify-content:center;font-size:2rem;background:linear-gradient(135deg,var(--g2),#d0d8e4)}
+.hc-bd{padding:6px 8px;background:#fff}
+.hc-n{font-size:.74rem;font-weight:700;color:var(--navy);margin-bottom:1px}
+.hc-s{font-size:.64rem;color:var(--g4)}
+.nc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:6px}
+.nc{background:var(--g1);border:var(--bd);border-radius:var(--r);padding:11px;cursor:pointer;transition:box-shadow .2s}
 .nc:hover{box-shadow:var(--sh)}
-.nc-ic{font-size:1.3rem;margin-bottom:5px}
-.nc-t{font-size:.82rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:3px}
-.nc-d{font-size:.7rem;color:var(--g4)}
+.nc-ic{font-size:1.2rem;margin-bottom:4px}
+.nc-t{font-size:.8rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:2px}
+.nc-d{font-size:.68rem;color:var(--g4)}
 
-/* =========================================================
-   RIGHT SIDEBAR
-========================================================= */
-/* 광고 배너 */
-.ad-bn{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--r);padding:16px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden}
-.ad-bn::before{content:'';position:absolute;right:-18px;top:-18px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.05)}
-.ad-lbl{font-size:.62rem;background:var(--gold);color:var(--navy);padding:1px 6px;border-radius:2px;font-weight:900;letter-spacing:1px;display:inline-block;margin-bottom:7px}
-.ad-ttl{font-family:var(--fs);font-size:.92rem;font-weight:700;line-height:1.4;margin-bottom:6px}
-.ad-sub{font-size:.76rem;color:rgba(255,255,255,.75);margin-bottom:10px}
-.btn-ad{background:var(--gold);color:var(--navy);border:none;padding:6px 12px;border-radius:4px;font-size:.78rem;font-weight:800;width:100%;transition:opacity .2s}
+/* === RIGHT SIDEBAR === */
+.ad-bn{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--r);padding:14px;color:#fff;position:relative;overflow:hidden}
+.ad-bn::before{content:'';position:absolute;right:-15px;top:-15px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.05)}
+.ad-lbl{font-size:.6rem;background:var(--gold);color:var(--navy);padding:1px 6px;border-radius:2px;font-weight:900;letter-spacing:1px;display:inline-block;margin-bottom:6px}
+.ad-ttl{font-family:var(--fs);font-size:.88rem;font-weight:700;line-height:1.4;margin-bottom:5px}
+.ad-sub{font-size:.73rem;color:rgba(255,255,255,.75);margin-bottom:8px}
+.btn-ad{background:var(--gold);color:var(--navy);border:none;padding:5px 11px;border-radius:4px;font-size:.76rem;font-weight:800;width:100%;transition:opacity .2s}
 .btn-ad:hover{opacity:.85}
-/* 이벤트카드 */
-.ev-card{border:2px solid var(--gold);border-radius:var(--r);overflow:hidden;margin-bottom:16px}
-.ev-hd{background:var(--gold);color:var(--navy);font-size:.72rem;font-weight:900;padding:6px 11px;letter-spacing:1px;display:flex;align-items:center;gap:4px}
-.ev-list{background:#fff}
-.ev-item{display:flex;align-items:center;gap:9px;padding:8px 11px;border-bottom:1px solid var(--g2);cursor:pointer;transition:background .15s}
+.ev-card{border:2px solid var(--gold);border-radius:var(--r);overflow:hidden}
+.ev-hd{background:var(--gold);color:var(--navy);font-size:.7rem;font-weight:900;padding:5px 10px;letter-spacing:1px}
+.ev-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-bottom:1px solid var(--g2);cursor:pointer;transition:background .15s;background:#fff}
 .ev-item:last-child{border-bottom:none}
 .ev-item:hover{background:var(--g1)}
-.ev-ic{font-size:1.1rem;width:20px;text-align:center;flex-shrink:0}
-.ev-nm{font-size:.76rem;font-weight:600;color:var(--navy);flex:1;line-height:1.3}
-.ev-dc{font-size:.7rem;font-weight:800;color:var(--red);white-space:nowrap}
-/* 랭킹 */
+.ev-ic{font-size:1rem;width:18px;text-align:center;flex-shrink:0}
+.ev-nm{font-size:.73rem;font-weight:600;color:var(--navy);flex:1;line-height:1.3}
+.ev-dc{font-size:.68rem;font-weight:800;color:var(--red);white-space:nowrap}
 .rk-list{display:flex;flex-direction:column;gap:0}
-.rk{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--g2);cursor:pointer;transition:all .15s}
+.rk{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--g2);cursor:pointer;transition:all .15s}
 .rk:hover{color:var(--red)}
-.rk-n{font-family:var(--fs);font-size:1.05rem;font-weight:900;width:20px;text-align:center;flex-shrink:0}
+.rk-n{font-family:var(--fs);font-size:1rem;font-weight:900;width:18px;text-align:center;flex-shrink:0}
 .t1{color:var(--red)}.t2{color:#e67e22}.t3{color:var(--gold)}
-.rk-nm{font-size:.83rem;font-weight:600;flex:1}
-.rk-ch{font-size:.7rem;color:var(--g4)}
-.rk-chg{font-size:.66rem;font-weight:700;padding:1px 4px;border-radius:2px}
+.rk-nm{font-size:.8rem;font-weight:600;flex:1}
+.rk-ch{font-size:.67rem;color:var(--g4)}
+.rk-chg{font-size:.63rem;font-weight:700;padding:1px 4px;border-radius:2px}
 .ru{color:var(--red);background:#fce8e6}.rd{color:#1a73e8;background:#e8f0fe}.rs{color:var(--g4);background:var(--g2)}
-/* 미니 광고 */
-.ma{background:#fff;border:var(--bd);border-radius:var(--r);padding:10px;margin-bottom:9px;display:flex;gap:9px;align-items:center;cursor:pointer;transition:box-shadow .2s}
+.ma{background:#fff;border:var(--bd);border-radius:var(--r);padding:9px;display:flex;gap:8px;align-items:center;cursor:pointer;transition:box-shadow .2s}
 .ma:hover{box-shadow:var(--sh)}
-.ma-ic{font-size:1.7rem;width:36px;text-align:center;flex-shrink:0}
+.ma-ic{font-size:1.6rem;width:32px;text-align:center;flex-shrink:0}
 .ma-bd{flex:1;min-width:0}
-.ma-n{font-size:.78rem;font-weight:700;color:var(--navy);margin-bottom:1px}
-.ma-s{font-size:.68rem;color:var(--g4)}
-.ad-lbl2{font-size:.56rem;background:var(--g2);color:var(--g4);padding:1px 4px;border-radius:2px;font-weight:700}
-/* AI카드 */
-.ai-card{background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border:1px solid #c2dff6;border-radius:var(--r);padding:14px;margin-top:16px}
-.ai-ttl{font-size:.8rem;font-weight:800;color:#1a56a0;margin-bottom:7px;display:flex;align-items:center;gap:5px}
-.ai-card p{font-size:.78rem;color:#555;margin:0 0 9px;line-height:1.5}
-.btn-ai{background:#1a56a0;color:#fff;border:none;padding:6px 12px;border-radius:4px;font-size:.76rem;font-weight:700;width:100%;text-decoration:none;display:block;text-align:center;transition:background .2s}
+.ma-n{font-size:.75rem;font-weight:700;color:var(--navy);margin-bottom:1px}
+.ma-s{font-size:.66rem;color:var(--g4)}
+.ai-card{background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border:1px solid #c2dff6;border-radius:var(--r);padding:12px}
+.ai-ttl{font-size:.78rem;font-weight:800;color:#1a56a0;margin-bottom:6px}
+.ai-card p{font-size:.75rem;color:#555;margin:0 0 8px;line-height:1.5}
+.btn-ai{background:#1a56a0;color:#fff;border:none;padding:5px 11px;border-radius:4px;font-size:.74rem;font-weight:700;width:100%;text-align:center;display:block;text-decoration:none;transition:background .2s}
 .btn-ai:hover{background:#154591}
+/* 뉴스레터 (우측 사이드바 하단) */
+.nl-box{border:2px solid var(--navy);padding:12px;border-radius:var(--r);text-align:center}
+.nl-box small{font-size:.7rem;color:var(--g4);display:block}
+.nl-box strong{font-size:.82rem;color:var(--navy);display:block;margin:2px 0}
+.btn-nl{margin-top:7px;background:var(--red);color:#fff;border:none;padding:5px 14px;font-size:.76rem;font-weight:700;border-radius:3px;width:100%}
+.rsb-lbl{font-size:.58rem;background:var(--g2);color:var(--g4);padding:1px 4px;border-radius:2px;font-weight:700}
 
-/* =========================================================
-   PAGE SECTIONS
-========================================================= */
+/* === PAGES === */
 .pg{display:none}
 .pg.act{display:block}
-
-/* =========================================================
-   NEWS PAGE
-========================================================= */
-.news-page{padding:24px 28px}
-.news-grid{display:grid;grid-template-columns:2fr 1fr;gap:28px}
-.nm-img{width:100%;aspect-ratio:16/7;background:linear-gradient(135deg,#e8ecf1,#d0d8e4);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:12px}
-.nm-ttl{font-family:var(--fs);font-size:1.35rem;font-weight:900;color:var(--navy);line-height:1.4;margin-bottom:7px;cursor:pointer}
+.sp-page{padding:22px var(--pad)}
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:12px}
+.sp-card{border:var(--bd);border-radius:var(--r);overflow:hidden;background:#fff;transition:box-shadow .2s,transform .15s;cursor:pointer}
+.sp-card:hover{box-shadow:0 6px 20px rgba(13,31,53,.12);transform:translateY(-2px)}
+.sp-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.sp-body{padding:12px}
+.sp-ttl{font-weight:700;font-size:.9rem;color:var(--navy);margin-bottom:4px}
+.sp-sub{font-size:.76rem;color:var(--g4);line-height:1.5}
+.sp-tag{display:inline-block;font-size:.62rem;padding:2px 6px;border-radius:3px;font-weight:700;margin-bottom:6px}
+/* PDF */
+.pdf-drop{border:2px dashed var(--g3);border-radius:var(--r);padding:28px;text-align:center;cursor:pointer;transition:all .2s;margin-top:12px}
+.pdf-drop:hover{border-color:var(--navy);background:var(--g1)}
+.pdf-list{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.pdf-item{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--g1);border:var(--bd);border-radius:var(--r)}
+.pdf-ico{font-size:1.3rem;flex-shrink:0}
+.pdf-nm{flex:1;font-size:.8rem;font-weight:600;color:var(--navy)}
+.pdf-meta{font-size:.67rem;color:var(--g4)}
+.btn-pdf{background:var(--navy);color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:700}
+/* 커뮤니티 */
+.cm-tabs{display:flex;gap:0;border-bottom:2px solid var(--g2);margin-bottom:14px}
+.cm-tab{padding:9px 16px;font-size:.84rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;color:var(--g4);transition:all .2s}
+.cm-tab:hover{color:var(--text)}
+.cm-tab.act{color:var(--red);border-bottom-color:var(--red)}
+.cm-post{border:var(--bd);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:box-shadow .2s;background:#fff}
+.cm-post:hover{box-shadow:var(--sh)}
+.cm-post-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px}
+.cm-post-ttl{font-size:.88rem;font-weight:700;color:var(--navy);line-height:1.35;flex:1}
+.cm-post-meta{font-size:.7rem;color:var(--g4);white-space:nowrap;margin-left:10px}
+.cm-post-prev{font-size:.78rem;color:#555;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cm-post-ft{display:flex;gap:10px;margin-top:6px;font-size:.7rem;color:var(--g4)}
+.cm-badge{font-size:.62rem;padding:2px 6px;border-radius:3px;font-weight:700}
+.cm-write{background:var(--navy);color:#fff;border:none;padding:8px 18px;border-radius:var(--r);font-size:.84rem;font-weight:700;float:right;margin-bottom:12px}
+/* 뉴스 */
+.news-page{padding:22px var(--pad)}
+.ng{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+.nm-img{width:100%;aspect-ratio:16/7;background:linear-gradient(135deg,#e8ecf1,#d0d8e4);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:11px}
+.nm-ttl{font-family:var(--fs);font-size:1.3rem;font-weight:900;color:var(--navy);line-height:1.4;margin-bottom:6px;cursor:pointer}
 .nm-ttl:hover{text-decoration:underline}
-.nm-desc{font-size:.86rem;color:#555;line-height:1.6}
-.ns-item{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--g2);cursor:pointer}
-.ns-th{width:76px;height:54px;background:var(--g2);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
-.ns-info h4{font-size:.86rem;font-weight:700;margin:0 0 3px;line-height:1.35;color:var(--navy)}
-.ns-info h4:hover{text-decoration:underline}
-.ns-info small{font-size:.71rem;color:var(--g4)}
-
-/* =========================================================
-   LIVE PAGE
-========================================================= */
-.live-page{padding:24px 28px}
-.live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:14px}
+.nm-desc{font-size:.85rem;color:#555;line-height:1.6}
+.ns{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--g2);cursor:pointer}
+.ns-th{width:72px;height:52px;background:var(--g2);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.ns-t{font-size:.84rem;font-weight:700;margin:0 0 3px;line-height:1.3;color:var(--navy)}
+.ns-t:hover{text-decoration:underline}
+.ns-d{font-size:.7rem;color:var(--g4)}
+/* 라이브 페이지 */
+.live-page{padding:22px var(--pad)}
+.lv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:12px}
 .lc{border:var(--bd);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .15s}
 .lc:hover{box-shadow:0 6px 20px rgba(13,31,53,.12);transform:translateY(-2px)}
 .lc-th{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:2.4rem;position:relative}
-.lc-bd{padding:11px 13px}
-.lc-ttl{font-size:.88rem;font-weight:700;margin-bottom:4px;line-height:1.3}
-.lc-mt{font-size:.73rem;color:var(--g4)}
+.lc-bd{padding:10px 12px}
+.lc-ttl{font-size:.85rem;font-weight:700;margin-bottom:3px;line-height:1.3}
+.lc-mt{font-size:.7rem;color:var(--g4)}
+.ls{font-size:.6rem;font-weight:900;padding:2px 6px;letter-spacing:1px;position:absolute;top:8px;left:8px;border-radius:3px}
 .ls-live{background:var(--red);color:#fff}.ls-soon{background:var(--gold);color:var(--navy)}.ls-end{background:var(--g3);color:#fff}
-.ls{font-size:.62rem;font-weight:900;padding:2px 7px;letter-spacing:1px;position:absolute;top:9px;left:9px;border-radius:3px}
-
-/* =========================================================
-   SPECIAL PAGES (더착한가게/복지/광고/판촉/레시피/여행)
-========================================================= */
-.sp-page{padding:24px 28px}
-.sp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:14px}
-.sp-card{border:var(--bd);border-radius:var(--r);overflow:hidden;background:#fff;transition:box-shadow .2s,transform .15s;cursor:pointer}
-.sp-card:hover{box-shadow:0 6px 20px rgba(13,31,53,.12);transform:translateY(-2px)}
-.sp-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:3rem}
-.sp-body{padding:14px}
-.sp-ttl{font-weight:700;font-size:.92rem;color:var(--navy);margin-bottom:5px}
-.sp-sub{font-size:.78rem;color:var(--g4);line-height:1.5}
-.sp-tag{display:inline-block;font-size:.65rem;padding:2px 7px;border-radius:3px;font-weight:700;margin-bottom:7px}
-/* PDF 업로드 영역 */
-.pdf-drop{border:2px dashed var(--g3);border-radius:var(--r);padding:30px;text-align:center;cursor:pointer;transition:all .2s;margin-top:14px}
-.pdf-drop:hover{border-color:var(--navy);background:var(--g1)}
-.pdf-drop-ico{font-size:2.5rem;margin-bottom:8px}
-.pdf-drop-txt{font-size:.85rem;color:var(--g4)}
-.pdf-drop-txt b{color:var(--navy);display:block;margin-bottom:4px}
-.pdf-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.pdf-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--g1);border:var(--bd);border-radius:var(--r)}
-.pdf-ico{font-size:1.4rem;flex-shrink:0}
-.pdf-nm{flex:1;font-size:.83rem;font-weight:600;color:var(--navy)}
-.pdf-meta{font-size:.7rem;color:var(--g4)}
-.btn-pdf-dl{background:var(--navy);color:#fff;border:none;padding:5px 12px;border-radius:4px;font-size:.75rem;font-weight:700;transition:background .2s}
-.btn-pdf-dl:hover{background:var(--navy2)}
-
-/* =========================================================
-   REGISTER PAGE
-========================================================= */
-.reg-wrap{padding:36px 28px}
-.form-card{max-width:660px;margin:0 auto;border:1px solid var(--g2);border-radius:var(--r);overflow:hidden}
-.fh{background:var(--navy);color:#fff;padding:22px 28px}
-.fh h2{font-family:var(--fs);margin:0 0 4px;font-size:1.35rem}
-.fh p{font-size:.83rem;color:rgba(255,255,255,.7);margin:0}
-.fb{padding:26px 28px;background:#fff}
-.fg{margin-bottom:16px}
-.fl{display:block;font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:5px}
+/* 입점 */
+.reg-wrap{padding:32px var(--pad)}
+.fc{max-width:640px;margin:0 auto;border:var(--bd);border-radius:var(--r);overflow:hidden}
+.fh{background:var(--navy);color:#fff;padding:20px 26px}
+.fh h2{font-family:var(--fs);margin:0 0 3px;font-size:1.3rem}
+.fh p{font-size:.8rem;color:rgba(255,255,255,.7);margin:0}
+.fb{padding:22px 26px;background:#fff}
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:.78rem;font-weight:700;color:var(--navy);margin-bottom:4px}
 .fl .req{color:var(--red);margin-left:2px}
-.fi{width:100%;padding:10px 13px;border:1px solid var(--g2);border-radius:4px;font-size:.88rem;color:var(--text);outline:none;transition:border-color .2s}
+.fi{width:100%;padding:9px 12px;border:var(--bd);border-radius:4px;font-size:.86rem;color:var(--text);outline:none;transition:border-color .2s}
 .fi:focus{border-color:var(--navy)}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.ff{border-top:1px solid var(--g2);padding:18px 28px;background:var(--g1);display:flex;gap:9px;justify-content:flex-end}
-.btn-sm{background:var(--red);color:#fff;border:none;padding:11px 28px;font-size:.92rem;font-weight:800;border-radius:4px;transition:all .2s}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ff{border-top:var(--bd);padding:16px 26px;background:var(--g1);display:flex;gap:8px;justify-content:flex-end}
+.btn-sm{background:var(--red);color:#fff;border:none;padding:10px 24px;font-size:.9rem;font-weight:800;border-radius:4px;transition:all .2s}
 .btn-sm:hover{background:var(--red2)}
-.btn-cn{background:#fff;color:var(--g4);border:1px solid var(--g3);padding:11px 20px;font-size:.88rem;border-radius:4px;transition:all .2s}
+.btn-cn{background:#fff;color:var(--g4);border:var(--bd);padding:10px 18px;font-size:.86rem;border-radius:4px;transition:all .2s}
 .btn-cn:hover{border-color:var(--navy);color:var(--navy)}
 
-/* =========================================================
-   MOBILE SIDEBAR OVERLAY
-========================================================= */
-.mob-overlay{display:none;position:fixed;inset:0;background:rgba(13,31,53,.55);z-index:400}
-.mob-overlay.op{display:block}
-.mob-panel{position:fixed;top:0;bottom:0;width:82%;max-width:310px;background:#fff;z-index:401;overflow-y:auto;padding:18px 14px;transition:transform .3s ease}
+/* === MOBILE SIDEBAR === */
+.mob-ov{display:none;position:fixed;inset:0;background:rgba(13,31,53,.55);z-index:400}
+.mob-ov.op{display:block}
+.mob-panel{position:fixed;top:0;bottom:0;width:82%;max-width:310px;background:#fff;z-index:401;overflow-y:auto;padding:16px 12px;transition:transform .3s ease}
 .mob-panel.left{left:0;transform:translateX(-110%);box-shadow:4px 0 20px rgba(0,0,0,.18)}
 .mob-panel.right{right:0;transform:translateX(110%);box-shadow:-4px 0 20px rgba(0,0,0,.18)}
 .mob-panel.left.op{transform:translateX(0)}
 .mob-panel.right.op{transform:translateX(0)}
-.mob-close{position:absolute;top:11px;right:13px;background:none;border:none;font-size:1.4rem;color:var(--g4);cursor:pointer}
+.mob-close{position:absolute;top:10px;right:12px;background:none;border:none;font-size:1.3rem;color:var(--g4);cursor:pointer}
+.mob-brand{font-family:var(--fs);font-size:1.3rem;font-weight:900;color:var(--navy);letter-spacing:-1px;margin:28px 0 14px 4px}
+.mob-brand em{color:var(--red);font-style:normal}
+.mob-cd{font-family:var(--fs);font-size:1.3rem;font-weight:900;color:var(--navy);letter-spacing:-1px;margin:28px 0 14px 4px}
+.mob-cd em{color:var(--red);font-style:normal}
+.mob-cd small{display:block;font-size:.64rem;color:var(--g4);font-family:var(--fn);letter-spacing:.5px;margin-bottom:2px;font-weight:400}
 
-/* =========================================================
-   MODAL (업체 상세)
-========================================================= */
+/* === STORE MODAL === */
 .mo{display:none;position:fixed;inset:0;background:rgba(13,31,53,.6);z-index:1000;align-items:center;justify-content:center;padding:20px}
 .mo.op{display:flex}
-.mb{background:#fff;border-radius:var(--r);max-width:540px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:min .25s ease}
-@keyframes min{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-.mh{padding:18px 22px 14px;border-bottom:var(--bd);display:flex;justify-content:space-between;align-items:flex-start}
+.mb{background:#fff;border-radius:var(--r);max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:min .25s ease}
+@keyframes min{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.mh{padding:16px 20px 13px;border-bottom:var(--bd);display:flex;justify-content:space-between;align-items:flex-start}
 .mc2{background:none;border:none;font-size:1.3rem;color:var(--g4);cursor:pointer}
-.mbody{padding:18px 22px}
-.mf{padding:14px 22px;background:var(--g1);border-top:var(--bd);display:flex;gap:9px}
+.mbd{padding:16px 20px}
+.mf{padding:13px 20px;background:var(--g1);border-top:var(--bd);display:flex;gap:8px}
 
-/* =========================================================
-   NOTICE MODAL
-========================================================= */
+/* === NOTICE MODAL === */
 .nm-ov{display:none;position:fixed;inset:0;background:rgba(13,31,53,.5);z-index:800;align-items:center;justify-content:center;padding:20px}
 .nm-ov.op{display:flex}
-.nm-box{background:#fff;border-radius:var(--r);max-width:460px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:min .22s ease}
-.nm-hd{background:var(--navy);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
-.nm-hd h3{margin:0;font-size:.95rem;font-family:var(--fs)}
-.nm-cl{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.2rem;cursor:pointer}
-.nm-bd{padding:18px;font-size:.86rem;line-height:1.75;color:#444}
-.nm-meta{font-size:.73rem;color:var(--g4);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--g2)}
+.nm-box{background:#fff;border-radius:var(--r);max-width:440px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:min .22s ease}
+.nm-hd{background:var(--navy);color:#fff;padding:13px 16px;display:flex;justify-content:space-between;align-items:center}
+.nm-hd h3{margin:0;font-size:.93rem;font-family:var(--fs)}
+.nm-cl{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.1rem;cursor:pointer}
+.nm-bd{padding:16px;font-size:.84rem;line-height:1.75;color:#444}
+.nm-meta{font-size:.7rem;color:var(--g4);margin-bottom:10px;padding-bottom:9px;border-bottom:var(--bd)}
 
-/* =========================================================
-   TOAST
-========================================================= */
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:#fff;padding:10px 22px;border-radius:30px;font-size:.86rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:2000;transition:transform .3s ease;white-space:nowrap}
+/* === TOAST === */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:#fff;padding:9px 20px;border-radius:30px;font-size:.84rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:2000;transition:transform .3s;white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-/* =========================================================
-   FOOTER
-========================================================= */
-footer{background:var(--navy);color:rgba(255,255,255,.6);padding:28px}
-.ft{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
-.ft-logo{font-family:var(--fs);font-size:1.15rem;font-weight:900;color:#fff;margin-bottom:4px}
-.ft-copy{font-size:.73rem}
-.ft-links{display:flex;gap:14px;flex-wrap:wrap}
-.ft-links a{font-size:.76rem;transition:color .2s}
+/* === FOOTER === */
+footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)}
+.ft{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ft-logo{font-family:var(--fs);font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:3px}
+.ft-copy{font-size:.7rem}
+.ft-links{display:flex;gap:12px;flex-wrap:wrap}
+.ft-links a{font-size:.73rem;transition:color .2s}
 .ft-links a:hover{color:var(--gold)}
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-@media(max-width:1260px){.mgrid{grid-template-columns:190px 1fr 270px}}
+/* === RESPONSIVE === */
+@media(max-width:1260px){.mgrid{grid-template-columns:185px 1fr 270px}}
 @media(max-width:1100px){
-  .mgrid{grid-template-columns:170px 1fr 230px}
-  .lsb{padding:13px 9px}
-  .lmi,.ac-h{padding:6px 7px;font-size:.76rem}
+  .mgrid{grid-template-columns:165px 1fr 230px}
+  .lsb{padding:11px 8px}
+  .lmi,.ac-h{font-size:.74rem;padding:5px 6px}
   .bc-grid{grid-template-columns:1fr}
+  .sl-grid{grid-template-columns:1fr}
 }
 @media(max-width:900px){
   .shell{width:100%}
   .mgrid{grid-template-columns:1fr}
-  .lsb{display:none}
-  .mr{display:none}
+  .lsb{display:none}.mr{display:none}
   header{padding:9px 12px 0}
-  .logo-main{font-size:1.5rem;letter-spacing:-1px}
-  .logo-sub{font-size:.68rem}
+  .logo-main{font-size:1.4rem}
+  .hd-right{display:none}
   .hd-slogan{display:none}
-  .hd-sub-box{display:none}
-  .gnb-inner{padding:0 6px}
-  .gi{padding:9px 9px;font-size:.78rem}
-  .gnb-srch{display:none}
-  .srch-sec{padding:11px 12px}
-  .ml{padding:14px}
+  .gnb-top{padding:0 8px}
+  .gnb-sub{padding:0 8px}
+  .gi{padding:8px 9px;font-size:.78rem}
+  .ml{padding:12px}
   .bc-grid{grid-template-columns:1fr}
-  .news-grid{grid-template-columns:1fr}
-  .fr{grid-template-columns:1fr}
-  .ham{display:flex}
-  /* 상단 띠 모바일 */
-  .ts-left .w-chip{display:none}
-}
-@media(max-width:600px){
-  .srch-row select{min-width:88px;font-size:.78rem}
-  .si-item{flex-direction:column}
-  .si-th{width:100%;height:140px}
+  .sl-grid{grid-template-columns:1fr}
   .mini-grid{grid-template-columns:1fr 1fr}
   .nc-grid{grid-template-columns:1fr 1fr}
+  .news-page,.sp-page,.live-page,.reg-wrap,.cm-page{padding:16px 14px}
+  .ng{grid-template-columns:1fr}
+  .fr{grid-template-columns:1fr}
+  .ham{display:flex}
+  .hd-center .eco-main{font-size:1.6rem}
+  .gnb-sq{display:none}
+}
+@media(max-width:600px){
+  .hd-center .eco-main{font-size:1.35rem}
+  .sl-grid{grid-template-columns:1fr}
+  .mini-grid{grid-template-columns:1fr 1fr}
   .sp-grid{grid-template-columns:1fr 1fr}
+  .nc-grid{grid-template-columns:1fr 1fr}
+}
+/* 모바일 중앙 국민경제+ */
+@media(max-width:900px){
+  .hd{justify-content:space-between}
+  .hd-center{display:block}
 }
 </style>
 </head>
 <body>
 <div class="shell">
 
-<!-- ===================== TOP STRIP ===================== -->
-<div class="top-strip">
-  <div class="ts-left">
-    <span id="currentDate">2026. 4. 14 (화)</span>
-    <span class="w-chip" id="weatherChip">📍 위치 확인 중...</span>
+<!-- TOP STRIP -->
+<div class="ts">
+  <div class="ts-l" style="display:flex;gap:12px;align-items:center">
+    <span id="currentDate"></span>
+    <span class="wchip" id="weatherChip">📍 위치 확인 중...</span>
   </div>
-  <div class="ts-right">
+  <div class="ts-r">
     <a href="#" onclick="showPage('news');return false">뉴스</a>
     <a href="#" onclick="showPage('live');return false">라이브</a>
     <a href="#" onclick="showPage('register');return false" style="font-weight:700">입점신청</a>
-    <a href="#" class="highlight">로그인</a>
+    <a href="https://chatdoumi.com" target="_blank" class="hl">ChatDoumi</a>
   </div>
 </div>
 
-<!-- ===================== HEADER ===================== -->
+<!-- HEADER -->
 <header>
-  <div class="hd-inner">
-    <button class="ham" id="hamL" onclick="openSidebar('left')" aria-label="메뉴"><span></span><span></span><span></span></button>
+  <div class="hd">
+    <!-- 모바일 좌측 햄버거 -->
+    <button class="ham" id="hamL" onclick="openSide('left')" aria-label="메뉴"><span></span><span></span><span></span></button>
 
-    <div class="logo-wrap" onclick="showPage('home')">
+    <!-- 좌: AIPLATMARKET -->
+    <div class="logo" onclick="showPage('home')">
       <span class="logo-sub">소상공인+소비자 상생 플랫폼</span>
-      <span class="logo-main">AI<span>PLAT</span>MARKET</span>
+      <span class="logo-main">AI<em>PLAT</em>MARKET</span>
     </div>
 
-    <div class="hd-slogan">
-      <b>"우리 동네 소식 · AI로 더 빠르게"</b>
-      지역 소상공인과 소비자를 잇는 AI 생활경제 미디어
+    <!-- 중: 국민경제+ -->
+    <div class="hd-center">
+      <span class="eco-pre">국민에 의한 국민을 위한</span>
+      <span class="eco-main">국민경제<em style="color:var(--grn2)">+</em></span>
+      <span class="eco-slogan">
+        <b>"우리 동네 소식 · AI로 더 빠르게"</b>
+        지역 소상공인과 소비자를 잇는 AI 생활경제 미디어
+      </span>
     </div>
 
-    <div class="hd-sub-box">
-      <small>📰 뉴스레터 구독</small>
-      <strong>매일 아침 지역 소식 받기</strong>
-      <br><button class="btn-sub" onclick="toast('구독 신청이 완료되었습니다!')">무료 구독 →</button>
+    <!-- 우: ChatDoumi -->
+    <div class="hd-right">
+      <a href="https://chatdoumi.com" target="_blank" rel="noopener">
+        <span class="cd-pre">내 사업 내 비서</span>
+        <span class="cd-main">Chat<em>Doumi</em></span>
+      </a>
     </div>
 
-    <button class="ham ham-r" id="hamR" onclick="openSidebar('right')" aria-label="더보기"><span></span><span></span><span></span></button>
+    <!-- 모바일 우측 햄버거 -->
+    <button class="ham" id="hamR" onclick="openSide('right')" aria-label="더보기" style="margin-left:auto"><span></span><span></span><span></span></button>
   </div>
 
-  <!-- GNB -->
+  <!-- GNB 상단 줄: 종합홈~검색 -->
   <nav class="gnb">
-    <div class="gnb-inner">
+    <div class="gnb-top" id="gnbTop">
       <div class="gi act" onclick="showPage('home')">🏠 종합홈</div><div class="gd"></div>
       <div class="gi" onclick="showPage('news')">📰 지역경제</div><div class="gd"></div>
 
-      <div class="dd-wrap" id="ddReg">
+      <!-- 지역 2단계 드롭다운 -->
+      <div class="ddw" id="ddReg">
         <div class="gi" id="giReg" onclick="toggleDd('ddReg')">📍 지역 ▾</div>
-        <div class="dd">
-          <div class="ddi" onclick="gnbReg('');closeDds()">전체 지역</div>
-          <div class="ddi" onclick="gnbReg('서울');closeDds()">서울</div>
-          <div class="ddi" onclick="gnbReg('인천');closeDds()">인천</div>
-          <div class="ddi" onclick="gnbReg('경기');closeDds()">경기</div>
-          <div class="ddi" onclick="gnbReg('부산');closeDds()">부산</div>
-          <div class="ddi" onclick="gnbReg('대구');closeDds()">대구</div>
-          <div class="ddi" onclick="gnbReg('대전');closeDds()">대전</div>
-          <div class="ddi" onclick="gnbReg('광주');closeDds()">광주</div>
-          <div class="ddi" onclick="gnbReg('강원');closeDds()">강원</div>
-          <div class="ddi" onclick="gnbReg('충남');closeDds()">충남</div>
-          <div class="ddi" onclick="gnbReg('경남');closeDds()">경남</div>
-          <div class="ddi" onclick="gnbReg('전남');closeDds()">전남</div>
-          <div class="ddi" onclick="gnbReg('제주');closeDds()">제주</div>
+        <div class="dd dd-mega">
+          <div class="dd-sido" id="sidoList"></div>
+          <div class="dd-gungu" id="gunguList"><div style="font-size:.75rem;color:var(--g4);padding:10px">시/도를 선택하세요</div></div>
         </div>
       </div><div class="gd"></div>
 
-      <div class="dd-wrap" id="ddCat">
+      <!-- 업종별 드롭다운 -->
+      <div class="ddw" id="ddCat">
         <div class="gi" id="giCat" onclick="toggleDd('ddCat')">🗂️ 업종별 ▾</div>
         <div class="dd">
           <div class="ddi" onclick="gnbCat('');closeDds()">전체 업종</div>
@@ -598,37 +542,56 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:28px}
         </div>
       </div><div class="gd"></div>
 
-      <div class="dd-wrap" id="ddSort">
+      <!-- 인기순 드롭다운 (핫태그 포함) -->
+      <div class="ddw" id="ddSort">
         <div class="gi" id="giSort" onclick="toggleDd('ddSort')">📊 인기순 ▾</div>
-        <div class="dd">
-          <div class="ddi sel" id="sortDdi-clicks" onclick="gnbSort('clicks');closeDds()">🔥 클릭 인기순</div>
-          <div class="ddi" id="sortDdi-new" onclick="gnbSort('new');closeDds()">🆕 최신순</div>
-          <div class="ddi" id="sortDdi-premium" onclick="gnbSort('premium');closeDds()">⭐ 광고 우선</div>
+        <div class="dd dd-sort">
+          <div class="ddi sel" id="sd-clicks" onclick="gnbSort('clicks');closeDds()">🔥 클릭 인기순</div>
+          <div class="ddi" id="sd-new" onclick="gnbSort('new');closeDds()">🆕 최신 등록순</div>
+          <div class="ddi" id="sd-premium" onclick="gnbSort('premium');closeDds()">⭐ 광고 우선</div>
+          <div class="hot-sec">
+            <div class="hot-sec-lbl">🔥 인기 검색어</div>
+            <div class="htrow">
+              <span class="ht" onclick="gnbKw('삼겹살');closeDds()">삼겹살</span>
+              <span class="ht" onclick="gnbKw('네일');closeDds()">네일샵</span>
+              <span class="ht" onclick="gnbKw('헬스');closeDds()">헬스장</span>
+              <span class="ht" onclick="gnbKw('족발');closeDds()">족발</span>
+              <span class="ht" onclick="gnbKw('카페');closeDds()">카페</span>
+              <span class="ht" onclick="gnbKw('치킨');closeDds()">치킨</span>
+              <span class="ht" onclick="gnbKw('세탁');closeDds()">세탁소</span>
+              <span class="ht" onclick="gnbKw('학원');closeDds()">학원</span>
+            </div>
+          </div>
         </div>
       </div><div class="gd"></div>
 
-      <div class="gi" onclick="showPage('live')">📺 라이브 <span class="badge">LIVE</span></div><div class="gd"></div>
-      <div class="gi" onclick="showPage('good')">💚 더착한가게 <span class="nbadge">NEW</span></div><div class="gd"></div>
+      <!-- 인라인 검색 -->
+      <div class="gnb-sq">
+        <input class="gnb-qi" id="gnbQi" placeholder="업체·메뉴 검색..." onkeydown="if(event.key==='Enter')gnbSearch()">
+        <button class="gnb-qb" onclick="gnbSearch()">검색</button>
+      </div>
+    </div>
+
+    <!-- GNB 하단 줄: 나머지 메뉴 스크롤 -->
+    <div class="gnb-sub">
+      <div class="gi" onclick="showPage('live')">📺 라이브 <span class="bx">LIVE</span></div><div class="gd"></div>
+      <div class="gi" onclick="showPage('community')">💬 커뮤니티 <span class="bxb">NEW</span></div><div class="gd"></div>
+      <div class="gi" onclick="showPage('good')">💚 더착한가게 <span class="bxg">NEW</span></div><div class="gd"></div>
       <div class="gi" onclick="showPage('welfare')">🤝 지역복지</div><div class="gd"></div>
       <div class="gi" onclick="showPage('localad')">📋 지역광고</div><div class="gd"></div>
       <div class="gi" onclick="showPage('promo')">🎁 판촉물</div><div class="gd"></div>
       <div class="gi" onclick="showPage('recipe')">👨‍🍳 레시피</div><div class="gd"></div>
       <div class="gi" onclick="showPage('travel')">✈️ 여행</div><div class="gd"></div>
-      <div class="gi" onclick="showPage('register')">✅ 입점</div>
-
-      <div class="gnb-srch">
-        <input class="gnb-inp" id="gnbKw" placeholder="검색..." onkeydown="if(event.key==='Enter')gnbSearch()">
-        <button class="gnb-sbtn" onclick="gnbSearch()">검색</button>
-      </div>
+      <div class="gi" onclick="showPage('register')">✅ 입점신청</div>
     </div>
   </nav>
 </header>
 
-<!-- ===================== TICKER ===================== -->
+<!-- TICKER -->
 <div class="ticker">
   <div class="t-lbl">속보</div>
   <div class="t-track">
-    <div class="t-inner">
+    <div class="t-in">
       <span class="t-item">📌 AI플랫마켓, 소상공인 디지털 마케팅 무료 지원 프로그램 시작</span>
       <span class="t-item">🔥 인천 남동구 '오늘의 특가' — 철판볶음밥 전문점 2인 세트 30% 할인</span>
       <span class="t-item">📊 2026 1분기 소상공인 온라인 매출 전년 대비 18% 증가</span>
@@ -638,501 +601,426 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:28px}
   </div>
 </div>
 
-<!-- ===================== SEARCH ===================== -->
-<div class="srch-sec">
-  <div class="srch-lbl">🔍 지역 · 업체 · 아이템 통합 검색</div>
-  <div class="srch-row">
-    <button class="btn-loc" onclick="detectLoc()">📍 내 위치</button>
-    <select id="sSido" onchange="updateSigungu()">
-      <option value="">시/도</option>
-      <option>서울</option><option>부산</option><option>대구</option><option>인천</option>
-      <option>광주</option><option>대전</option><option>울산</option><option>경기</option>
-      <option>강원</option><option>충북</option><option>충남</option><option>전북</option>
-      <option>전남</option><option>경북</option><option>경남</option><option>제주</option>
-    </select>
-    <select id="sSigungu"><option value="">구/군</option></select>
-    <select id="sCat">
-      <option value="">전체 카테고리</option>
-      <option value="음식점">🍽️ 음식점</option><option value="카페">☕ 카페</option>
-      <option value="미용">💇 미용</option><option value="의류">👗 의류</option>
-      <option value="생활서비스">🔧 생활서비스</option><option value="의료">💊 의료</option>
-      <option value="교육">📚 교육</option><option value="숙박">🏨 숙박</option>
-      <option value="여가">🎮 여가</option><option value="농수산">🥬 농수산</option>
-    </select>
-    <select id="sSort"><option value="clicks">인기순</option><option value="new">최신순</option><option value="premium">광고우선</option></select>
-    <input type="text" id="sKw" placeholder="업체명, 메뉴 검색..." onkeydown="if(event.key==='Enter')doSearch()">
-    <button class="btn-go" onclick="doSearch()">🔍 검색</button>
-    <button class="btn-rst" onclick="resetSearch()">초기화</button>
-  </div>
-  <div class="hot-tags">
-    <span>🔥 인기:</span>
-    <span class="htag" onclick="quickKw('삼겹살')">삼겹살</span>
-    <span class="htag" onclick="quickKw('네일')">네일샵</span>
-    <span class="htag" onclick="quickKw('헬스')">헬스장</span>
-    <span class="htag" onclick="quickKw('족발')">족발</span>
-    <span class="htag" onclick="quickKw('카페')">카페</span>
-    <span class="htag" onclick="quickKw('치킨')">치킨</span>
-    <span class="htag" onclick="quickKw('세탁')">세탁소</span>
-    <span class="htag" onclick="quickKw('학원')">학원</span>
-  </div>
-</div>
-
-<!-- ===================== HOME PAGE ===================== -->
+<!-- ==================== HOME PAGE ==================== -->
 <div id="page-home" class="pg act">
   <div class="mgrid">
 
-    <!-- ── 좌측 사이드바 ── -->
+    <!-- 좌측 사이드바 -->
     <aside class="lsb">
-      <div style="background:linear-gradient(135deg,#e8f4fd,#ddeeff);border:1px solid #c2dff6;border-radius:var(--r);padding:11px;margin-bottom:4px;text-align:center">
-        <div style="font-size:1.7rem" id="lsbIco">⛅</div>
-        <div style="font-size:.75rem;color:#1a56a0;font-weight:700" id="lsbWth">인천 · 맑음 18°C</div>
-        <div style="font-size:.66rem;color:#5580aa;margin-top:3px" id="lsbDt"></div>
+      <div style="background:linear-gradient(135deg,#e8f4fd,#ddeeff);border:1px solid #c2dff6;border-radius:var(--r);padding:10px;margin-bottom:3px;text-align:center">
+        <div style="font-size:1.6rem" id="lsbIco">⛅</div>
+        <div style="font-size:.73rem;color:#1a56a0;font-weight:700">인천 · 맑음 18°C</div>
+        <div style="font-size:.64rem;color:#5580aa;margin-top:2px" id="lsbDt"></div>
       </div>
       <div class="lsb-div"></div>
-
       <div class="lsb-ttl">📌 메뉴</div>
       <div class="lsb-menu">
         <div class="lmi act" onclick="showPage('home')"><span class="ico">🏠</span>종합홈</div>
         <div class="lmi" onclick="showPage('news')"><span class="ico">📰</span>지역경제</div>
         <div class="lmi" onclick="showPage('live')"><span class="ico">📺</span>라이브<span class="cnt" style="background:var(--red);color:#fff">LIVE</span></div>
+        <div class="lmi" onclick="showPage('community')"><span class="ico">💬</span>커뮤니티</div>
         <div class="lmi" onclick="showPage('good')"><span class="ico">💚</span>더착한가게</div>
         <div class="lmi" onclick="showPage('welfare')"><span class="ico">🤝</span>지역복지</div>
-        <div class="lmi" onclick="showPage('localad')"><span class="ico">📋</span>지역생활광고</div>
+        <div class="lmi" onclick="showPage('localad')"><span class="ico">📋</span>지역광고</div>
         <div class="lmi" onclick="showPage('promo')"><span class="ico">🎁</span>판촉물</div>
         <div class="lmi" onclick="showPage('recipe')"><span class="ico">👨‍🍳</span>레시피</div>
-        <div class="lmi" onclick="showPage('travel')"><span class="ico">✈️</span>전국·세계여행</div>
+        <div class="lmi" onclick="showPage('travel')"><span class="ico">✈️</span>여행</div>
         <div class="lmi" onclick="showPage('register')"><span class="ico">✅</span>입점신청</div>
       </div>
       <div class="lsb-div"></div>
-
       <div class="lsb-ttl">🗂️ 업종별</div>
       <div class="lsb-menu">
         <div class="ac-h" onclick="toggleAcc(this)"><span class="ico">🍽️</span>음식점<span class="cnt" id="c-음식점">-</span><span class="ac-arr">▼</span></div>
-        <div class="ac-b">
-          <div class="ac-s" onclick="quickKw('삼겹살')">🥩 삼겹살·고기구이</div>
-          <div class="ac-s" onclick="quickKw('국밥')">🍲 국밥·탕·찌개</div>
-          <div class="ac-s" onclick="quickKw('치킨')">🍗 치킨·패스트푸드</div>
-          <div class="ac-s" onclick="quickKw('족발')">🍖 족발·보쌈</div>
-          <div class="ac-s" onclick="quickKw('중식')">🥢 중식·일식</div>
-          <div class="ac-s" onclick="quickCat('음식점')">전체 보기 →</div>
-        </div>
+        <div class="ac-b"><div class="ac-s" onclick="gnbKw('삼겹살')">🥩 삼겹살·고기구이</div><div class="ac-s" onclick="gnbKw('국밥')">🍲 국밥·탕·찌개</div><div class="ac-s" onclick="gnbKw('치킨')">🍗 치킨</div><div class="ac-s" onclick="gnbKw('족발')">🍖 족발·보쌈</div><div class="ac-s" onclick="gnbCat('음식점')">전체 보기 →</div></div>
         <div class="ac-h" onclick="toggleAcc(this)"><span class="ico">☕</span>카페/디저트<span class="cnt" id="c-카페">-</span><span class="ac-arr">▼</span></div>
-        <div class="ac-b">
-          <div class="ac-s" onclick="quickKw('스페셜티')">☕ 스페셜티 카페</div>
-          <div class="ac-s" onclick="quickKw('케이크')">🎂 케이크·디저트</div>
-          <div class="ac-s" onclick="quickCat('카페')">전체 보기 →</div>
-        </div>
+        <div class="ac-b"><div class="ac-s" onclick="gnbKw('스페셜티')">☕ 스페셜티</div><div class="ac-s" onclick="gnbKw('케이크')">🎂 케이크</div><div class="ac-s" onclick="gnbCat('카페')">전체 보기 →</div></div>
         <div class="ac-h" onclick="toggleAcc(this)"><span class="ico">💇</span>미용/뷰티<span class="cnt" id="c-미용">-</span><span class="ac-arr">▼</span></div>
-        <div class="ac-b">
-          <div class="ac-s" onclick="quickKw('헤어')">✂️ 헤어·미용실</div>
-          <div class="ac-s" onclick="quickKw('네일')">💅 네일아트</div>
-          <div class="ac-s" onclick="quickKw('피부')">🧴 피부관리</div>
-          <div class="ac-s" onclick="quickCat('미용')">전체 보기 →</div>
-        </div>
+        <div class="ac-b"><div class="ac-s" onclick="gnbKw('헤어')">✂️ 헤어</div><div class="ac-s" onclick="gnbKw('네일')">💅 네일</div><div class="ac-s" onclick="gnbCat('미용')">전체 보기 →</div></div>
         <div class="ac-h" onclick="toggleAcc(this)"><span class="ico">🔧</span>생활서비스<span class="cnt" id="c-생활서비스">-</span><span class="ac-arr">▼</span></div>
-        <div class="ac-b">
-          <div class="ac-s" onclick="quickKw('세탁')">👕 세탁·수선</div>
-          <div class="ac-s" onclick="quickKw('청소')">🧹 청소·홈케어</div>
-          <div class="ac-s" onclick="quickCat('생활서비스')">전체 보기 →</div>
-        </div>
+        <div class="ac-b"><div class="ac-s" onclick="gnbKw('세탁')">👕 세탁</div><div class="ac-s" onclick="gnbKw('청소')">🧹 청소</div><div class="ac-s" onclick="gnbCat('생활서비스')">전체 보기 →</div></div>
         <div class="ac-h" onclick="toggleAcc(this)"><span class="ico">💊</span>의료/건강<span class="cnt" id="c-의료">-</span><span class="ac-arr">▼</span></div>
-        <div class="ac-b">
-          <div class="ac-s" onclick="quickKw('한의원')">🌿 한의원</div>
-          <div class="ac-s" onclick="quickKw('헬스')">💪 헬스장·PT</div>
-          <div class="ac-s" onclick="quickCat('의료')">전체 보기 →</div>
-        </div>
+        <div class="ac-b"><div class="ac-s" onclick="gnbKw('한의원')">🌿 한의원</div><div class="ac-s" onclick="gnbKw('헬스')">💪 헬스·PT</div><div class="ac-s" onclick="gnbCat('의료')">전체 보기 →</div></div>
         <div class="ac-h" onclick="toggleAcc(this)"><span class="ico">📚</span>교육/학원<span class="cnt" id="c-교육">-</span><span class="ac-arr">▼</span></div>
-        <div class="ac-b">
-          <div class="ac-s" onclick="quickKw('수학학원')">➕ 수학·과학</div>
-          <div class="ac-s" onclick="quickKw('영어학원')">🔤 영어·어학</div>
-          <div class="ac-s" onclick="quickCat('교육')">전체 보기 →</div>
-        </div>
+        <div class="ac-b"><div class="ac-s" onclick="gnbKw('수학학원')">➕ 수학</div><div class="ac-s" onclick="gnbKw('영어학원')">🔤 영어</div><div class="ac-s" onclick="gnbCat('교육')">전체 보기 →</div></div>
         <div class="ac-h" onclick="toggleAcc(this)"><span class="ico">🥬</span>농수산물<span class="cnt" id="c-농수산">-</span><span class="ac-arr">▼</span></div>
-        <div class="ac-b">
-          <div class="ac-s" onclick="quickKw('친환경')">🌱 친환경·유기농</div>
-          <div class="ac-s" onclick="quickKw('수산')">🐟 수산물</div>
-          <div class="ac-s" onclick="quickCat('농수산')">전체 보기 →</div>
-        </div>
+        <div class="ac-b"><div class="ac-s" onclick="gnbKw('친환경')">🌱 친환경</div><div class="ac-s" onclick="gnbKw('수산')">🐟 수산물</div><div class="ac-s" onclick="gnbCat('농수산')">전체 보기 →</div></div>
       </div>
       <div class="lsb-div"></div>
-
       <div class="lsb-ttl">📍 지역별</div>
       <div class="lsb-rg">
-        <div class="rgb" onclick="quickReg('서울')">서울</div>
-        <div class="rgb" onclick="quickReg('인천')">인천</div>
-        <div class="rgb" onclick="quickReg('경기')">경기</div>
-        <div class="rgb" onclick="quickReg('부산')">부산</div>
-        <div class="rgb" onclick="quickReg('대구')">대구</div>
-        <div class="rgb" onclick="quickReg('대전')">대전</div>
-        <div class="rgb" onclick="quickReg('광주')">광주</div>
-        <div class="rgb" onclick="quickReg('강원')">강원</div>
-        <div class="rgb" onclick="quickReg('충남')">충남</div>
-        <div class="rgb" onclick="quickReg('경남')">경남</div>
-        <div class="rgb" onclick="quickReg('전남')">전남</div>
-        <div class="rgb" onclick="quickReg('제주')">제주</div>
+        <div class="rgb" onclick="quickReg('서울')">서울</div><div class="rgb" onclick="quickReg('인천')">인천</div>
+        <div class="rgb" onclick="quickReg('경기')">경기</div><div class="rgb" onclick="quickReg('부산')">부산</div>
+        <div class="rgb" onclick="quickReg('대구')">대구</div><div class="rgb" onclick="quickReg('대전')">대전</div>
+        <div class="rgb" onclick="quickReg('광주')">광주</div><div class="rgb" onclick="quickReg('강원')">강원</div>
+        <div class="rgb" onclick="quickReg('충남')">충남</div><div class="rgb" onclick="quickReg('경남')">경남</div>
+        <div class="rgb" onclick="quickReg('전남')">전남</div><div class="rgb" onclick="quickReg('제주')">제주</div>
       </div>
       <div class="lsb-div"></div>
-
       <div class="lsb-ttl">📢 공지사항</div>
       <div>
-        <div class="ni" onclick="openNotice(0)"><div class="ni-t"><span class="ni-b">신규</span>무료 입점 이벤트 5월 말까지 연장</div><div class="ni-d">2026.04.13</div></div>
-        <div class="ni" onclick="openNotice(1)"><div class="ni-t">AI 홍보문구 자동 생성 기능 업데이트</div><div class="ni-d">2026.04.10</div></div>
-        <div class="ni" onclick="openNotice(2)"><div class="ni-t">라이브 방송 2채널 동시 운영 시작</div><div class="ni-d">2026.04.08</div></div>
-        <div class="ni" onclick="openNotice(3)"><div class="ni-t">개인정보처리방침 개정 안내</div><div class="ni-d">2026.04.01</div></div>
+        <div class="ni" onclick="openNotice(0)"><div class="ni-t"><span class="ni-b">신규</span>무료 입점 이벤트 5월 연장</div><div class="ni-d">2026.04.13</div></div>
+        <div class="ni" onclick="openNotice(1)"><div class="ni-t">AI 홍보문구 자동 생성 업데이트</div><div class="ni-d">2026.04.10</div></div>
+        <div class="ni" onclick="openNotice(2)"><div class="ni-t">라이브 방송 2채널 동시 운영</div><div class="ni-d">2026.04.08</div></div>
+        <div class="ni" onclick="openNotice(3)"><div class="ni-t">개인정보처리방침 개정</div><div class="ni-d">2026.04.01</div></div>
       </div>
       <div class="lsb-div"></div>
-
       <div class="lsb-ttl">🔗 SNS</div>
-      <div class="sns-row"><button class="sns-btn sk" onclick="toast('카카오채널 준비 중')">💬 카카오</button><button class="sns-btn sn" onclick="toast('블로그 준비 중')">N 블로그</button></div>
+      <div class="sns-row"><button class="sns-btn sk" onclick="toast('카카오 준비 중')">💬 카카오</button><button class="sns-btn sn" onclick="toast('블로그 준비 중')">N 블로그</button></div>
       <div class="sns-row"><button class="sns-btn si" style="flex:1" onclick="toast('인스타그램 준비 중')">📸 인스타그램</button></div>
     </aside>
 
-    <!-- ── 메인 컨텐츠 ── -->
+    <!-- 메인 컨텐츠 -->
     <div class="ml">
 
-      <!-- 라이브 + 뮤직 방송 -->
-      <div class="sh"><div class="sh-t">📺 라이브 & 뮤직 방송</div><span class="sh-m" onclick="showPage('live')">전체 보기 ›</span></div>
+      <!-- 라이브 홈쇼핑 & 뮤직 방송 -->
+      <div class="sh"><div class="sh-t">📺 라이브 홈쇼핑 &amp; 뮤직 방송</div><span class="sh-m" onclick="showPage('live')">전체 채널 ›</span></div>
       <div class="bc-grid">
+
         <!-- 라이브 CH1 -->
         <div>
           <div class="live-area">
             <div class="live-badge">● LIVE</div>
-            <div class="vc"><span id="vcnt">1,248</span>명</div>
+            <div class="vc">👁 <span id="vcnt">1,248</span>명</div>
             <div class="iframe-box">
-              <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1&loop=1&playlist=jfKfPfyJRdk&controls=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+              <iframe id="liveIframe" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0&controls=1&rel=0" allow="autoplay;encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
-          <div class="bc-info"><span class="bc-ch">AI플랫 CH1</span><div class="bc-ttl">[단독 특가] 우리동네 소상공인 — 오늘만 최대 40% 할인</div></div>
+          <div class="bc-info">
+            <!-- CH1 배지 + 드롭다운 (다음 방송) -->
+            <div class="ch-ddw" id="chLiveDd">
+              <div class="ch-badge live-ch" onclick="toggleChDd('chLiveDd')">
+                AI플랫 CH1 <span class="ch-arr">▾</span>
+              </div>
+              <div class="ch-dd">
+                <div class="ch-dd-hd">▶ 다음 방송 일정</div>
+                <div id="liveSched"></div>
+              </div>
+            </div>
+            <div class="bc-ttl" id="liveTitle">[단독 특가] 우리동네 소상공인 — 오늘만 최대 40% 할인</div>
+          </div>
         </div>
-        <!-- 뮤직 CH2 -->
+
+        <!-- 뮤직 CH -->
         <div>
           <div class="live-area">
-            <div class="music-badge">♪ MUSIC</div>
-            <div class="vc">🎵 <span>886</span>명</div>
+            <div class="live-badge" style="background:var(--purple);animation:none">♪ MUSIC</div>
+            <div class="vc">🎵 <span id="musicVcnt">886</span>명</div>
             <div class="iframe-box">
-              <iframe id="musicIframe" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG&autoplay=1&mute=1&controls=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+              <iframe id="musicIframe" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG&autoplay=1&mute=0&controls=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
-          <div class="bc-info"><span class="bc-ch mu">AI플랫 MUSIC</span><div class="bc-ttl" id="musicTitle">소상공인 응원 K-POP 플레이리스트 — 오늘도 힘내세요 🎶</div></div>
-          <!-- 장르 선택 버튼 -->
-          <div class="genre-lbl">장르 선택</div>
-          <div class="genre-bar">
-            <button class="genre-btn act" id="gb-kpop"  onclick="setGenre('kpop')">🎵 K-POP</button>
-            <button class="genre-btn"      id="gb-trot"  onclick="setGenre('trot')">🎤 트롯</button>
-            <button class="genre-btn"      id="gb-ballad"onclick="setGenre('ballad')">🎼 발라드</button>
-            <button class="genre-btn"      id="gb-rock"  onclick="setGenre('rock')">🎸 록/메탈</button>
-            <button class="genre-btn"      id="gb-pop"   onclick="setGenre('pop')">🌍 팝</button>
-            <button class="genre-btn"      id="gb-hiphop"onclick="setGenre('hiphop')">🎧 힙합/R&B</button>
-            <button class="genre-btn"      id="gb-jazz"  onclick="setGenre('jazz')">🎷 재즈/팝재즈</button>
-            <button class="genre-btn"      id="gb-classic"onclick="setGenre('classic')">🎻 클래식</button>
-          </div>
-        </div><!-- /뮤직 bc-col -->
-      </div><!-- /bc-grid -->
-      <div style="display:grid;grid-template-columns:1fr 190px;gap:14px;margin-top:20px;align-items:start">
-        <div>
-          <div class="sh"><div class="sh-t">🏪 지역 업체</div><span class="sh-m" onclick="doSearch()">전체 ›</span></div>
-          <div id="storeList" class="sl"><div class="spin-wrap"><div class="spin"></div>업체 정보를 불러오는 중...</div></div>
-          <div class="pgn" id="pgn"></div>
-        </div>
-        <div>
-          <div class="nb-wrap">
-            <div class="nb-hd">▶ 다음 방송</div>
-            <div class="nb-sc"><div class="nb-in" id="nbList"></div></div>
+          <div class="bc-info">
+            <!-- MUSIC 배지 + 장르 드롭다운 -->
+            <div class="ch-ddw" id="chMusicDd">
+              <div class="ch-badge music-ch" onclick="toggleChDd('chMusicDd')">
+                AI플랫 MUSIC <span class="ch-arr">▾</span>
+              </div>
+              <div class="ch-dd">
+                <div class="ch-dd-hd">♪ 장르 선택</div>
+                <div id="genreSched"></div>
+              </div>
+            </div>
+            <div class="bc-ttl" id="musicTitle">K-POP 플레이리스트 — 오늘도 힘내세요 🎶</div>
           </div>
         </div>
-      </div>
 
-      <!-- 추천 콘텐츠 -->
+      </div><!-- /bc-grid -->
+
+      <!-- 업체 목록 (2컬럼) -->
+      <div class="sh" style="margin-top:4px"><div class="sh-t">🏪 지역 업체</div><span class="sh-m" onclick="applyFilters()">전체 ›</span></div>
+      <div id="storeList" class="sl-grid"><div class="spin-wrap" style="grid-column:1/-1"><div class="spin"></div>업체 정보를 불러오는 중...</div></div>
+      <div class="pgn" id="pgn"></div>
+
+      <!-- 추천 콘텐츠 (업체 목록 아래) -->
       <div class="rec-sec">
-        <!-- CH2 미니 카드 -->
-        <div class="sh" style="margin-top:20px"><div class="sh-t">📡 동시 방송</div><span class="sh-m" onclick="showPage('live')">전체 채널 ›</span></div>
+        <div class="sh" style="margin-top:18px"><div class="sh-t">📡 동시 방송</div><span class="sh-m" onclick="showPage('live')">전체 ›</span></div>
         <div class="mini-grid">
-          <div class="mc" onclick="toast('CH3 뷰티 라이브로 이동합니다.')">
-            <div class="mc-th" style="background:linear-gradient(135deg,#1a3556,#0d1f35)">💅<span class="ls ls-live" style="position:absolute;top:8px;left:8px">● LIVE</span></div>
-            <div class="mc-bd"><div class="mc-ttl">서울 강남 K-뷰티 — 네일·속눈썹 패키지</div><div class="mc-mt">AI플랫 CH3 · 👁 441명</div></div>
+          <div class="mc" onclick="toast('CH3 방송으로 이동합니다.')">
+            <div class="mc-th" style="background:linear-gradient(135deg,#1a3556,#0d1f35)">💅<span class="ls ls-live" style="position:absolute;top:7px;left:7px">●LIVE</span></div>
+            <div class="mc-bd"><div class="mc-ttl">서울 강남 K-뷰티 라이브</div><div class="mc-mt">AI플랫 CH3 · 👁 441명</div></div>
           </div>
           <div class="mc" onclick="toast('CH4 예고 방송입니다.')">
-            <div class="mc-th" style="background:linear-gradient(135deg,#2d5016,#3d6b1e)">🥬<span class="ls ls-soon" style="position:absolute;top:8px;left:8px">예고</span></div>
+            <div class="mc-th" style="background:linear-gradient(135deg,#2d5016,#3d6b1e)">🥬<span class="ls ls-soon" style="position:absolute;top:7px;left:7px">예고</span></div>
             <div class="mc-bd"><div class="mc-ttl">경기 수원 로컬푸드 직거래</div><div class="mc-mt">AI플랫 CH4 · 🕐 15:00</div></div>
           </div>
         </div>
-
-        <!-- AI 추천 가로스크롤 -->
         <div class="sh"><div class="sh-t">🤖 AI 추천 업체</div><span class="sh-m">← 스크롤</span></div>
         <div class="hs" id="recList"></div>
-
-        <!-- 뉴스 카드 -->
-        <div class="sh" style="margin-top:20px"><div class="sh-t">📰 지역 생활 정보</div><span class="sh-m" onclick="showPage('news')">전체 ›</span></div>
+        <div class="sh" style="margin-top:18px"><div class="sh-t">📰 지역 생활 정보</div><span class="sh-m" onclick="showPage('news')">전체 ›</span></div>
         <div class="nc-grid">
-          <div class="nc" onclick="showPage('news')"><div class="nc-ic">📈</div><div class="nc-t">소상공인 디지털 전환 지원금 확대 — 최대 200만원</div><div class="nc-d">2026.04.13 · 지역경제</div></div>
-          <div class="nc" onclick="showPage('news')"><div class="nc-ic">🏪</div><div class="nc-t">인천 1분기 소상공인 매출 역대 최고 기록</div><div class="nc-d">2026.04.12 · 경제</div></div>
-          <div class="nc" onclick="showPage('news')"><div class="nc-ic">💡</div><div class="nc-t">AI 광고 추천 파트너 300개사 돌파 이벤트</div><div class="nc-d">2026.04.11 · IT</div></div>
-          <div class="nc" onclick="showPage('news')"><div class="nc-ic">🌿</div><div class="nc-t">로컬 푸드 직거래 활성화, 농수산 매출 30%↑</div><div class="nc-d">2026.04.09 · 농수산</div></div>
+          <div class="nc" onclick="showPage('news')"><div class="nc-ic">📈</div><div class="nc-t">소상공인 디지털 전환 지원금 최대 200만원</div><div class="nc-d">2026.04.13</div></div>
+          <div class="nc" onclick="showPage('news')"><div class="nc-ic">🏪</div><div class="nc-t">인천 1분기 소상공인 매출 역대 최고</div><div class="nc-d">2026.04.12</div></div>
+          <div class="nc" onclick="showPage('news')"><div class="nc-ic">💡</div><div class="nc-t">AI 광고 추천 파트너 300개사 돌파</div><div class="nc-d">2026.04.11</div></div>
+          <div class="nc" onclick="showPage('news')"><div class="nc-ic">🌿</div><div class="nc-t">로컬푸드 직거래 농수산 매출 30%↑</div><div class="nc-d">2026.04.09</div></div>
         </div>
       </div>
-    </div>
+    </div><!-- /ml -->
 
-    <!-- ── 우측 사이드바 ── -->
+    <!-- 우측 사이드바 -->
     <aside class="mr">
-      <div class="ad-bn"><div class="ad-lbl">AD · 파트너</div><div class="ad-ttl">AI플랫마켓 무료 입점하세요</div><div class="ad-sub">등록비 0원 · AI 홍보문구 자동 작성 · 실시간 통계</div><button class="btn-ad" onclick="showPage('register')">무료 입점 신청 →</button></div>
+      <div class="ad-bn"><div class="ad-lbl">AD · 파트너</div><div class="ad-ttl">AI플랫마켓 무료 입점하세요</div><div class="ad-sub">등록비 0원 · AI 홍보문구 자동 작성</div><button class="btn-ad" onclick="showPage('register')">무료 입점 신청 →</button></div>
 
       <div class="ev-card">
         <div class="ev-hd">🔥 오늘의 특가</div>
-        <div class="ev-list">
-          <div class="ev-item"><div class="ev-ic">🍖</div><div class="ev-nm">인천 남동구 족발보쌈 2인</div><div class="ev-dc">30%↓</div></div>
-          <div class="ev-item"><div class="ev-ic">☕</div><div class="ev-nm">연수구 스페셜티 아메리카노</div><div class="ev-dc">1+1</div></div>
-          <div class="ev-item"><div class="ev-ic">💇</div><div class="ev-nm">부평구 컷+염색 패키지</div><div class="ev-dc">25%↓</div></div>
-          <div class="ev-item"><div class="ev-ic">🍕</div><div class="ev-nm">남동구 화덕피자 라지</div><div class="ev-dc">2천원↓</div></div>
-          <div class="ev-item"><div class="ev-ic">🥬</div><div class="ev-nm">로컬팜 친환경 채소 꾸러미</div><div class="ev-dc">20%↓</div></div>
-        </div>
+        <div class="ev-item"><div class="ev-ic">🍖</div><div class="ev-nm">인천 남동구 족발보쌈 2인</div><div class="ev-dc">30%↓</div></div>
+        <div class="ev-item"><div class="ev-ic">☕</div><div class="ev-nm">연수구 스페셜티 아메리카노</div><div class="ev-dc">1+1</div></div>
+        <div class="ev-item"><div class="ev-ic">💇</div><div class="ev-nm">부평구 컷+염색 패키지</div><div class="ev-dc">25%↓</div></div>
+        <div class="ev-item"><div class="ev-ic">🍕</div><div class="ev-nm">남동구 화덕피자 라지</div><div class="ev-dc">2천원↓</div></div>
+        <div class="ev-item"><div class="ev-ic">🥬</div><div class="ev-nm">로컬팜 친환경 채소 꾸러미</div><div class="ev-dc">20%↓</div></div>
       </div>
 
-      <div class="sh"><div class="sh-t" style="font-size:.88rem">📊 인기 업체</div></div>
-      <div class="rk-list" id="rkList"><div style="font-size:.78rem;color:var(--g4);padding:14px 0;text-align:center">로딩 중...</div></div>
+      <div>
+        <div class="sh"><div class="sh-t" style="font-size:.86rem">📊 인기 업체</div></div>
+        <div class="rk-list" id="rkList"><div style="font-size:.76rem;color:var(--g4);padding:12px 0;text-align:center">로딩 중...</div></div>
+      </div>
 
-      <div class="sh" style="margin-top:16px"><div class="sh-t" style="font-size:.88rem">파트너 광고</div><span class="ad-lbl2">AD</span></div>
-      <div class="ma" onclick="toast('업체 페이지로 이동합니다.')"><div class="ma-ic">🍜</div><div class="ma-bd"><div class="ma-n">할매 손칼국수</div><div class="ma-s">인천 남동구 · 오늘 할인</div></div><span style="font-size:.7rem;color:var(--red);font-weight:700">►</span></div>
-      <div class="ma" onclick="toast('업체 페이지로 이동합니다.')"><div class="ma-ic">💅</div><div class="ma-bd"><div class="ma-n">글로우 네일아트</div><div class="ma-s">인천 연수구 · 신규 오픈</div></div><span style="font-size:.7rem;color:var(--red);font-weight:700">►</span></div>
-      <div class="ma" onclick="toast('업체 페이지로 이동합니다.')"><div class="ma-ic">🧁</div><div class="ma-bd"><div class="ma-n">달달 케이크 공방</div><div class="ma-s">경기 성남 · 주문제작</div></div><span style="font-size:.7rem;color:var(--red);font-weight:700">►</span></div>
+      <div>
+        <div class="sh"><div class="sh-t" style="font-size:.86rem">파트너 광고</div><span class="rsb-lbl">AD</span></div>
+        <div class="ma" onclick="toast('업체 페이지로 이동합니다.')"><div class="ma-ic">🍜</div><div class="ma-bd"><div class="ma-n">할매 손칼국수</div><div class="ma-s">인천 남동구 · 오늘 할인</div></div><span style="font-size:.68rem;color:var(--red);font-weight:700">►</span></div>
+        <div class="ma" onclick="toast('업체 페이지로 이동합니다.')"><div class="ma-ic">💅</div><div class="ma-bd"><div class="ma-n">글로우 네일아트</div><div class="ma-s">인천 연수구 · 신규 오픈</div></div><span style="font-size:.68rem;color:var(--red);font-weight:700">►</span></div>
+        <div class="ma" onclick="toast('업체 페이지로 이동합니다.')"><div class="ma-ic">🧁</div><div class="ma-bd"><div class="ma-n">달달 케이크 공방</div><div class="ma-s">경기 성남 · 주문제작</div></div><span style="font-size:.68rem;color:var(--red);font-weight:700">►</span></div>
+      </div>
 
       <div class="ai-card">
         <div class="ai-ttl">🤖 AI 매출 분석</div>
         <p>사장님 매장의 클릭 추이, 경쟁 현황을 AI가 분석해드립니다.</p>
         <a class="btn-ai" href="https://chatdoumi.com" target="_blank" rel="noopener">AI 분석 시작하기 →</a>
       </div>
-    </aside>
-  </div>
-</div>
 
-<!-- ===================== NEWS PAGE ===================== -->
+      <!-- 뉴스레터 구독 (우측 하단) -->
+      <div class="nl-box">
+        <small>📰 뉴스레터 구독</small>
+        <strong>매일 아침 지역 소식 받기</strong>
+        <button class="btn-nl" onclick="toast('구독 신청이 완료되었습니다!')">무료 구독 →</button>
+      </div>
+    </aside>
+
+  </div><!-- /mgrid -->
+</div><!-- /page-home -->
+
+<!-- ==================== NEWS ==================== -->
 <div id="page-news" class="pg">
   <div class="news-page">
     <div class="sh"><div class="sh-t">📰 지역경제 뉴스</div></div>
-    <div class="news-grid">
+    <div class="ng">
       <div>
-        <div style="border-bottom:1px solid var(--g2);padding-bottom:18px;margin-bottom:18px;cursor:pointer">
+        <div style="border-bottom:var(--bd);padding-bottom:16px;margin-bottom:16px;cursor:pointer">
           <div class="nm-img">🏙️</div>
-          <div style="display:flex;gap:7px;margin-bottom:7px;flex-wrap:wrap"><span class="tag tc">지역경제</span><span class="tag tn">NEW</span></div>
-          <div class="nm-ttl">[단독] 소상공인 디지털 전환 지원금 내달부터 1인당 최대 200만원 확대</div>
+          <div style="display:flex;gap:6px;margin-bottom:6px"><span class="tag tc">지역경제</span><span class="tag tn">NEW</span></div>
+          <div class="nm-ttl">[단독] 소상공인 디지털 전환 지원금 내달부터 최대 200만원 확대</div>
           <div class="nm-desc">정부는 디지털 전환을 희망하는 전국 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔다...</div>
-          <div style="margin-top:8px;font-size:.76rem;color:var(--g4)">2026.04.13 · AI플랫마켓 편집국</div>
+          <div style="margin-top:7px;font-size:.73rem;color:var(--g4)">2026.04.13 · AI플랫마켓 편집국</div>
         </div>
-        <div class="ns-item"><div class="ns-th">📈</div><div class="ns-info"><h4>인천 소상공인 매출 1분기 역대 최고 — 배달 증가 영향</h4><small>2026.04.12 · 경제</small></div></div>
-        <div class="ns-item"><div class="ns-th">🏪</div><div class="ns-info"><h4>경기 성남·분당 신규 상권 분석 — AI 예측 유망 업종 TOP5</h4><small>2026.04.11 · 창업</small></div></div>
-        <div class="ns-item"><div class="ns-th">💡</div><div class="ns-info"><h4>카카오페이 소상공인 결제 수수료 0% 이벤트 시행</h4><small>2026.04.10 · IT</small></div></div>
-        <div class="ns-item"><div class="ns-th">🌿</div><div class="ns-info"><h4>로컬 푸드 직거래 활성화, 농수산 소상공인 매출 30%↑</h4><small>2026.04.09 · 농수산</small></div></div>
+        <div class="ns"><div class="ns-th">📈</div><div><div class="ns-t">인천 소상공인 매출 1분기 역대 최고 — 배달 증가 영향</div><small class="ns-d">2026.04.12 · 경제</small></div></div>
+        <div class="ns"><div class="ns-th">🏪</div><div><div class="ns-t">경기 성남·분당 신규 상권 분석 — AI 예측 유망 업종 TOP5</div><small class="ns-d">2026.04.11 · 창업</small></div></div>
+        <div class="ns"><div class="ns-th">💡</div><div><div class="ns-t">카카오페이 소상공인 결제 수수료 0% 이벤트 시행</div><small class="ns-d">2026.04.10 · IT</small></div></div>
+        <div class="ns"><div class="ns-th">🌿</div><div><div class="ns-t">로컬 푸드 직거래 활성화, 농수산 소상공인 매출 30%↑</div><small class="ns-d">2026.04.09 · 농수산</small></div></div>
       </div>
       <div>
         <div class="sh"><div class="sh-t" style="font-size:.88rem">오피니언</div></div>
-        <div style="font-size:.83rem;line-height:1.7;color:#444;background:var(--g1);padding:14px;border-radius:var(--r);margin-bottom:20px"><b style="color:var(--navy);display:block;margin-bottom:5px">"지역경제, AI가 살린다"</b>소상공인의 디지털 전환은 선택이 아닌 필수입니다. AI플랫마켓이 앞장서겠습니다.<div style="margin-top:7px;font-size:.72rem;color:var(--g4)">— AI플랫마켓 편집장</div></div>
+        <div style="font-size:.82rem;line-height:1.7;color:#444;background:var(--g1);padding:12px;border-radius:var(--r);margin-bottom:16px"><b style="color:var(--navy);display:block;margin-bottom:4px">"지역경제, AI가 살린다"</b>소상공인의 디지털 전환은 선택이 아닌 필수입니다. AI플랫마켓이 앞장서겠습니다.<div style="margin-top:6px;font-size:.7rem;color:var(--g4)">— AI플랫마켓 편집장</div></div>
         <div class="sh"><div class="sh-t" style="font-size:.88rem">많이 읽은 기사</div></div>
-        <div style="font-size:.82rem;font-weight:600;color:var(--navy);padding:9px 0;border-bottom:1px solid var(--g2);cursor:pointer">1. 2026년 소상공인 지원 정책 총정리</div>
-        <div style="font-size:.82rem;font-weight:600;color:var(--navy);padding:9px 0;border-bottom:1px solid var(--g2);cursor:pointer">2. 배달앱 수수료 비교 — 쿠팡·배민·요기요</div>
-        <div style="font-size:.82rem;font-weight:600;color:var(--navy);padding:9px 0;border-bottom:1px solid var(--g2);cursor:pointer">3. AI 홍보문구 무료 서비스 TOP3</div>
-        <div style="font-size:.82rem;font-weight:600;color:var(--navy);padding:9px 0;border-bottom:1px solid var(--g2);cursor:pointer">4. 우리 동네 인기 창업 아이템 20선</div>
-        <div style="font-size:.82rem;font-weight:600;color:var(--navy);padding:9px 0;cursor:pointer">5. 상가 임대료 지원 받는 법 A-Z</div>
+        <div style="font-size:.8rem;font-weight:600;color:var(--navy);padding:8px 0;border-bottom:var(--bd);cursor:pointer">1. 2026년 소상공인 지원 정책 총정리</div>
+        <div style="font-size:.8rem;font-weight:600;color:var(--navy);padding:8px 0;border-bottom:var(--bd);cursor:pointer">2. 배달앱 수수료 비교 — 쿠팡·배민·요기요</div>
+        <div style="font-size:.8rem;font-weight:600;color:var(--navy);padding:8px 0;border-bottom:var(--bd);cursor:pointer">3. AI 홍보문구 무료 서비스 TOP3</div>
+        <div style="font-size:.8rem;font-weight:600;color:var(--navy);padding:8px 0;cursor:pointer">4. 우리 동네 인기 창업 아이템 20선</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ===================== LIVE PAGE ===================== -->
+<!-- ==================== LIVE ==================== -->
 <div id="page-live" class="pg">
   <div class="live-page">
-    <div class="sh"><div class="sh-t">📺 라이브 방송 전체</div></div>
-    <div class="live-grid" id="liveGrid"></div>
+    <div class="sh"><div class="sh-t">📺 라이브 홈쇼핑 방송 전체</div></div>
+    <div class="lv-grid" id="liveGrid"></div>
   </div>
 </div>
 
-<!-- ===================== 더착한가게 ===================== -->
+<!-- ==================== 커뮤니티 ==================== -->
+<div id="page-community" class="pg">
+  <div class="sp-page" style="padding-bottom:30px">
+    <div class="sh"><div class="sh-t">💬 커뮤니티</div></div>
+    <button class="cm-write" onclick="toast('로그인 후 글쓰기가 가능합니다.')">✏️ 글쓰기</button>
+    <div class="cm-tabs">
+      <div class="cm-tab act" onclick="cmTab(this,'all')">전체</div>
+      <div class="cm-tab" onclick="cmTab(this,'free')">자유게시판</div>
+      <div class="cm-tab" onclick="cmTab(this,'info')">정보공유</div>
+      <div class="cm-tab" onclick="cmTab(this,'qna')">Q&amp;A</div>
+      <div class="cm-tab" onclick="cmTab(this,'deal')">공동구매</div>
+      <div class="cm-tab" onclick="cmTab(this,'review')">후기</div>
+    </div>
+    <div id="cmPosts">
+      <div class="cm-post"><div class="cm-post-hd"><div class="cm-post-ttl"><span class="cm-badge" style="background:#e8f0fe;color:#1a56a0;margin-right:5px">정보</span>인천 남동구 소상공인 지원금 신청 방법 공유합니다</div><span class="cm-post-meta">04.13 · 조회 1,241</span></div><div class="cm-post-prev">구청 담당자에게 직접 확인한 내용입니다. 신청 기간은 이달 말까지이며...</div><div class="cm-post-ft"><span>👍 38</span><span>💬 12</span><span>by 인천사장님</span></div></div>
+      <div class="cm-post"><div class="cm-post-hd"><div class="cm-post-ttl"><span class="cm-badge" style="background:#fce8e6;color:var(--red);margin-right:5px">Q&A</span>배달앱 수수료 어떻게 줄이고 계신가요?</div><span class="cm-post-meta">04.12 · 조회 892</span></div><div class="cm-post-prev">배달앱 수수료가 너무 부담됩니다. 다른 분들은 어떻게 관리하고 계신지...</div><div class="cm-post-ft"><span>👍 21</span><span>💬 34</span><span>by 치킨사장</span></div></div>
+      <div class="cm-post"><div class="cm-post-hd"><div class="cm-post-ttl"><span class="cm-badge" style="background:#e8f5e9;color:#2e7d32;margin-right:5px">후기</span>AI플랫마켓 입점 후 한 달 매출 후기 솔직하게 씁니다</div><span class="cm-post-meta">04.11 · 조회 2,103</span></div><div class="cm-post-prev">처음엔 반신반의했는데 입점 후 한달 결과를 공유드립니다. 클릭수가...</div><div class="cm-post-ft"><span>👍 87</span><span>💬 56</span><span>by 미용실원장</span></div></div>
+      <div class="cm-post"><div class="cm-post-hd"><div class="cm-post-ttl"><span class="cm-badge" style="background:#fff3e0;color:#e65100;margin-right:5px">공구</span>매장용 포스기 공동구매 모집합니다 (20대 목표)</div><span class="cm-post-meta">04.10 · 조회 445</span></div><div class="cm-post-prev">현재 8분 참여 중입니다. 개당 15만원 예상, 20대 이상 모이면 진행...</div><div class="cm-post-ft"><span>👍 15</span><span>💬 22</span><span>by 가게주인A</span></div></div>
+      <div class="cm-post"><div class="cm-post-hd"><div class="cm-post-ttl"><span class="cm-badge" style="background:var(--g1);color:var(--g4);margin-right:5px">자유</span>오늘 우리 가게 역대 최고 매출 달성! 기쁜 마음에 공유합니다 😊</div><span class="cm-post-meta">04.09 · 조회 678</span></div><div class="cm-post-prev">드디어 일매출 100만원을 넘었습니다! 다들 화이팅하세요...</div><div class="cm-post-ft"><span>👍 142</span><span>💬 48</span><span>by 떡볶이사장</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 더착한가게 ==================== -->
 <div id="page-good" class="pg">
-  <div class="sp-page">
-    <div class="sh"><div class="sh-t">💚 더착한가게</div></div>
-    <p style="font-size:.88rem;color:#555;margin-bottom:4px">착한 가격, 착한 서비스, 착한 마음으로 운영하는 지역 소상공인을 소개합니다.</p>
-    <div class="sp-grid">
-      <div class="sp-card"><div class="sp-thumb" style="background:#e8f5e9">💚</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">착한가격</span><div class="sp-ttl">인천 착한 삼겹살</div><div class="sp-sub">1인분 8,000원 · 10년 단골 전문점 · 인천 남동구</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#f3e5f5">🌸</div><div class="sp-body"><span class="sp-tag" style="background:#f3e5f5;color:#7b1fa2">착한서비스</span><div class="sp-ttl">동네 어르신 헤어샵</div><div class="sp-sub">65세 이상 무료 컷 서비스 · 부평구 산곡동</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#fff3e0">🤝</div><div class="sp-body"><span class="sp-tag" style="background:#fff3e0;color:#e65100">상생협약</span><div class="sp-ttl">로컬팜 직거래 장터</div><div class="sp-sub">농가 직거래 · 유통마진 0% · 매주 토요일</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#e3f2fd">📚</div><div class="sp-body"><span class="sp-tag" style="background:#e3f2fd;color:#1565c0">교육나눔</span><div class="sp-ttl">무료 독서실 카페</div><div class="sp-sub">학생 무료 자습 공간 제공 · 경기 성남</div></div></div>
-    </div>
-  </div>
+  <div class="sp-page"><div class="sh"><div class="sh-t">💚 더착한가게</div></div><p style="font-size:.86rem;color:#555;margin-bottom:4px">착한 가격·서비스로 운영하는 지역 소상공인을 소개합니다.</p>
+  <div class="sp-grid">
+    <div class="sp-card"><div class="sp-thumb" style="background:#e8f5e9">💚</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">착한가격</span><div class="sp-ttl">인천 착한 삼겹살</div><div class="sp-sub">1인분 8,000원 · 10년 단골 전문점 · 남동구</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#f3e5f5">🌸</div><div class="sp-body"><span class="sp-tag" style="background:#f3e5f5;color:#7b1fa2">착한서비스</span><div class="sp-ttl">동네 어르신 헤어샵</div><div class="sp-sub">65세 이상 무료 컷 서비스 · 부평구</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#fff3e0">🤝</div><div class="sp-body"><span class="sp-tag" style="background:#fff3e0;color:#e65100">상생협약</span><div class="sp-ttl">로컬팜 직거래 장터</div><div class="sp-sub">농가 직거래 · 유통마진 0% · 매주 토요일</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#e3f2fd">📚</div><div class="sp-body"><span class="sp-tag" style="background:#e3f2fd;color:#1565c0">교육나눔</span><div class="sp-ttl">무료 독서실 카페</div><div class="sp-sub">학생 무료 자습 공간 제공 · 경기 성남</div></div></div>
+  </div></div>
 </div>
 
-<!-- ===================== 지역복지 ===================== -->
+<!-- ==================== 지역복지 ==================== -->
 <div id="page-welfare" class="pg">
-  <div class="sp-page">
-    <div class="sh"><div class="sh-t">🤝 지역복지</div></div>
-    <p style="font-size:.88rem;color:#555;margin-bottom:4px">지역 복지 서비스, 지원 프로그램, 봉사 활동 정보를 안내합니다.</p>
-    <div class="sp-grid">
-      <div class="sp-card"><div class="sp-thumb" style="background:#e8f5e9">🏠</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">주거지원</span><div class="sp-ttl">저소득가정 주거 지원</div><div class="sp-sub">인천시 · 신청기간: 상시 · 월세 최대 30만원</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#fff9c4">🍱</div><div class="sp-body"><span class="sp-tag" style="background:#fff9c4;color:#f57f17">급식지원</span><div class="sp-ttl">어르신 무료 급식소</div><div class="sp-sub">매주 월·수·금 11시 · 인천 남동구 구월동</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#e3f2fd">📋</div><div class="sp-body"><span class="sp-tag" style="background:#e3f2fd;color:#1565c0">행정지원</span><div class="sp-ttl">소상공인 법률 무료 상담</div><div class="sp-sub">매월 1·3주 화요일 · 인천상공회의소</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#fce4ec">❤️</div><div class="sp-body"><span class="sp-tag" style="background:#fce4ec;color:#c62828">봉사활동</span><div class="sp-ttl">지역 봉사 매칭 센터</div><div class="sp-sub">자원봉사 신청 · 시간 인증 · 마일리지 제공</div></div></div>
-    </div>
-  </div>
+  <div class="sp-page"><div class="sh"><div class="sh-t">🤝 지역복지</div></div><p style="font-size:.86rem;color:#555;margin-bottom:4px">지역 복지 서비스·지원 프로그램을 안내합니다.</p>
+  <div class="sp-grid">
+    <div class="sp-card"><div class="sp-thumb" style="background:#e8f5e9">🏠</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">주거지원</span><div class="sp-ttl">저소득가정 주거 지원</div><div class="sp-sub">인천시 · 신청기간: 상시 · 월세 최대 30만원</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#fff9c4">🍱</div><div class="sp-body"><span class="sp-tag" style="background:#fff9c4;color:#f57f17">급식지원</span><div class="sp-ttl">어르신 무료 급식소</div><div class="sp-sub">매주 월·수·금 11시 · 남동구 구월동</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#e3f2fd">📋</div><div class="sp-body"><span class="sp-tag" style="background:#e3f2fd;color:#1565c0">법률상담</span><div class="sp-ttl">소상공인 법률 무료 상담</div><div class="sp-sub">매월 1·3주 화요일 · 인천상공회의소</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#fce4ec">❤️</div><div class="sp-body"><span class="sp-tag" style="background:#fce4ec;color:#c62828">봉사활동</span><div class="sp-ttl">지역 봉사 매칭 센터</div><div class="sp-sub">자원봉사 신청 · 시간 인증 · 마일리지</div></div></div>
+  </div></div>
 </div>
 
-<!-- ===================== 지역생활광고 (PDF) ===================== -->
+<!-- ==================== 지역생활광고 ==================== -->
 <div id="page-localad" class="pg">
-  <div class="sp-page">
-    <div class="sh"><div class="sh-t">📋 지역생활광고</div></div>
-    <p style="font-size:.88rem;color:#555;margin-bottom:4px">전단지·광고 PDF를 업로드하여 지역 주민에게 홍보하세요.</p>
-    <div class="pdf-drop" id="pdfDrop" onclick="document.getElementById('pdfInput').click()" ondragover="event.preventDefault()" ondrop="handlePdfDrop(event)">
-      <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="handlePdfSelect(this)">
-      <div class="pdf-drop-ico">📄</div>
-      <div class="pdf-drop-txt"><b>PDF 파일을 여기에 드래그하거나 클릭하여 업로드</b>최대 10MB · PDF 형식만 가능</div>
+  <div class="sp-page"><div class="sh"><div class="sh-t">📋 지역생활광고</div></div><p style="font-size:.86rem;color:#555;margin-bottom:4px">전단지·광고 PDF를 업로드하여 지역 주민에게 홍보하세요.</p>
+    <div class="pdf-drop" onclick="document.getElementById('pdfInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+      <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="handlePdfFile(this)">
+      <div style="font-size:2.4rem;margin-bottom:7px">📄</div>
+      <div style="font-size:.84rem;color:var(--g4)"><b style="color:var(--navy);display:block;margin-bottom:3px">PDF 파일 드래그 또는 클릭하여 업로드</b>최대 10MB · PDF 형식만 가능</div>
     </div>
     <div class="pdf-list" id="pdfList">
-      <div class="pdf-item"><div class="pdf-ico">📄</div><div class="pdf-nm">인천 남동구 전통시장 할인 행사 안내.pdf</div><div class="pdf-meta">2026.04.10 · 1.2MB</div><button class="btn-pdf-dl" onclick="toast('다운로드를 시작합니다.')">보기</button></div>
-      <div class="pdf-item"><div class="pdf-ico">📄</div><div class="pdf-nm">부평구 소상공인 지원 사업 신청 안내.pdf</div><div class="pdf-meta">2026.04.08 · 0.8MB</div><button class="btn-pdf-dl" onclick="toast('다운로드를 시작합니다.')">보기</button></div>
+      <div class="pdf-item"><div class="pdf-ico">📄</div><div class="pdf-nm">인천 남동구 전통시장 할인 행사 안내.pdf</div><div class="pdf-meta">2026.04.10 · 1.2MB</div><button class="btn-pdf" onclick="toast('보기 기능 준비 중입니다.')">보기</button></div>
+      <div class="pdf-item"><div class="pdf-ico">📄</div><div class="pdf-nm">부평구 소상공인 지원 사업 신청 안내.pdf</div><div class="pdf-meta">2026.04.08 · 0.8MB</div><button class="btn-pdf" onclick="toast('보기 기능 준비 중입니다.')">보기</button></div>
     </div>
   </div>
 </div>
 
-<!-- ===================== 판촉물 ===================== -->
+<!-- ==================== 판촉물 ==================== -->
 <div id="page-promo" class="pg">
-  <div class="sp-page">
-    <div class="sh"><div class="sh-t">🎁 판촉물</div></div>
-    <p style="font-size:.88rem;color:#555;margin-bottom:4px">소상공인을 위한 판촉물·홍보물 제작 업체를 소개합니다.</p>
-    <div class="sp-grid">
-      <div class="sp-card"><div class="sp-thumb" style="background:#e8f0fe">🖨️</div><div class="sp-body"><span class="sp-tag" style="background:#e8f0fe;color:#1a56a0">인쇄물</span><div class="sp-ttl">전단지·리플렛 인쇄</div><div class="sp-sub">1,000장 15,000원 · 당일 제작 · 전국 배송</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#fff3e0">🎀</div><div class="sp-body"><span class="sp-tag" style="background:#fff3e0;color:#e65100">포장재</span><div class="sp-ttl">로고 쇼핑백·포장지</div><div class="sp-sub">최소 100개 · 맞춤 디자인 · 친환경 소재</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#e8f5e9">📌</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">사인물</span><div class="sp-ttl">현수막·배너·간판</div><div class="sp-sub">현수막 3,500원/m² · 실내외 배너 제작</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#fce4ec">🎁</div><div class="sp-body"><span class="sp-tag" style="background:#fce4ec;color:#c62828">답례품</span><div class="sp-ttl">로고 인쇄 답례품</div><div class="sp-sub">볼펜·머그컵·에코백 · 50개부터 제작 가능</div></div></div>
-    </div>
-  </div>
+  <div class="sp-page"><div class="sh"><div class="sh-t">🎁 판촉물</div></div><div class="sp-grid">
+    <div class="sp-card"><div class="sp-thumb" style="background:#e8f0fe">🖨️</div><div class="sp-body"><span class="sp-tag" style="background:#e8f0fe;color:#1a56a0">인쇄물</span><div class="sp-ttl">전단지·리플렛 인쇄</div><div class="sp-sub">1,000장 15,000원 · 당일 제작</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#fff3e0">🎀</div><div class="sp-body"><span class="sp-tag" style="background:#fff3e0;color:#e65100">포장재</span><div class="sp-ttl">로고 쇼핑백·포장지</div><div class="sp-sub">최소 100개 · 맞춤 디자인</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#e8f5e9">📌</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">사인물</span><div class="sp-ttl">현수막·배너·간판</div><div class="sp-sub">현수막 3,500원/m² · 빠른제작</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#fce4ec">🎁</div><div class="sp-body"><span class="sp-tag" style="background:#fce4ec;color:#c62828">답례품</span><div class="sp-ttl">로고 인쇄 답례품</div><div class="sp-sub">볼펜·머그컵·에코백 · 50개~</div></div></div>
+  </div></div>
 </div>
 
-<!-- ===================== 레시피 ===================== -->
+<!-- ==================== 레시피 ==================== -->
 <div id="page-recipe" class="pg">
-  <div class="sp-page">
-    <div class="sh"><div class="sh-t">👨‍🍳 새로운 레시피</div></div>
-    <p style="font-size:.88rem;color:#555;margin-bottom:4px">AI가 추천하는 계절 레시피와 소상공인 식재료를 연결합니다.</p>
-    <div class="sp-grid">
-      <div class="sp-card"><div class="sp-thumb" style="background:#fff3e0">🍜</div><div class="sp-body"><span class="sp-tag" style="background:#fff3e0;color:#e65100">AI추천</span><div class="sp-ttl">봄철 냉이된장찌개</div><div class="sp-sub">로컬팜 신선 냉이 활용 · 조리 20분 · 난이도 ★</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#e8f5e9">🥗</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">제철</span><div class="sp-ttl">딸기 치아씨드 볼</div><div class="sp-sub">4월 제철 딸기 레시피 · 칼로리 낮은 디저트</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#e3f2fd">🍱</div><div class="sp-body"><span class="sp-tag" style="background:#e3f2fd;color:#1565c0">도시락</span><div class="sp-ttl">소풍 도시락 3종 세트</div><div class="sp-sub">봄 소풍 시즌 · 간단 준비 · AI 맞춤 조합</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:#f3e5f5">🧆</div><div class="sp-body"><span class="sp-tag" style="background:#f3e5f5;color:#7b1fa2">세계</span><div class="sp-ttl">글로벌 퓨전 요리</div><div class="sp-sub">한국 식재료로 만드는 세계 요리 시리즈</div></div></div>
-    </div>
-  </div>
+  <div class="sp-page"><div class="sh"><div class="sh-t">👨‍🍳 새로운 레시피</div></div><div class="sp-grid">
+    <div class="sp-card"><div class="sp-thumb" style="background:#fff3e0">🍜</div><div class="sp-body"><span class="sp-tag" style="background:#fff3e0;color:#e65100">AI추천</span><div class="sp-ttl">봄철 냉이된장찌개</div><div class="sp-sub">로컬팜 신선 냉이 활용 · 20분</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#e8f5e9">🥗</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">제철</span><div class="sp-ttl">딸기 치아씨드 볼</div><div class="sp-sub">4월 제철 딸기 · 저칼로리 디저트</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#e3f2fd">🍱</div><div class="sp-body"><span class="sp-tag" style="background:#e3f2fd;color:#1565c0">도시락</span><div class="sp-ttl">소풍 도시락 3종 세트</div><div class="sp-sub">봄 소풍 시즌 · AI 맞춤 조합</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:#f3e5f5">🧆</div><div class="sp-body"><span class="sp-tag" style="background:#f3e5f5;color:#7b1fa2">세계</span><div class="sp-ttl">글로벌 퓨전 요리</div><div class="sp-sub">한국 식재료로 만드는 세계 요리</div></div></div>
+  </div></div>
 </div>
 
-<!-- ===================== 여행 ===================== -->
+<!-- ==================== 여행 ==================== -->
 <div id="page-travel" class="pg">
-  <div class="sp-page">
-    <div class="sh"><div class="sh-t">✈️ 전국·세계 여행 미리보기</div></div>
-    <p style="font-size:.88rem;color:#555;margin-bottom:4px">지역 소상공인과 함께하는 여행 미디어. 전국·전세계 여행지를 미리 만나보세요.</p>
-    <div class="sp-grid">
-      <div class="sp-card"><div class="sp-thumb" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb)">🏝️</div><div class="sp-body"><span class="sp-tag" style="background:#e3f2fd;color:#1565c0">국내</span><div class="sp-ttl">제주 서귀포 올레길</div><div class="sp-sub">4월 유채꽃 절정 · 지역 맛집 5곳 포함 코스</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">🌸</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">국내</span><div class="sp-ttl">경주 벚꽃 여행</div><div class="sp-sub">불국사·첨성대 코스 · 로컬 맛집 추천</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">🗼</div><div class="sp-body"><span class="sp-tag" style="background:#fff3e0;color:#e65100">해외</span><div class="sp-ttl">일본 오사카 미식 여행</div><div class="sp-sub">소상공인 로컬 레스토랑 특집 · 항공+숙박 패키지</div></div></div>
-      <div class="sp-card"><div class="sp-thumb" style="background:linear-gradient(135deg,#fce4ec,#f8bbd9)">🥖</div><div class="sp-body"><span class="sp-tag" style="background:#fce4ec;color:#c62828">해외</span><div class="sp-ttl">프랑스 파리 골목 여행</div><div class="sp-sub">현지 소상공인 마켓 탐방 · AI 맞춤 루트 제공</div></div></div>
-    </div>
-  </div>
+  <div class="sp-page"><div class="sh"><div class="sh-t">✈️ 전국·세계 여행 미리보기</div></div><div class="sp-grid">
+    <div class="sp-card"><div class="sp-thumb" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb)">🏝️</div><div class="sp-body"><span class="sp-tag" style="background:#e3f2fd;color:#1565c0">국내</span><div class="sp-ttl">제주 서귀포 올레길</div><div class="sp-sub">4월 유채꽃 절정 · 지역 맛집 5곳</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">🌸</div><div class="sp-body"><span class="sp-tag" style="background:#e8f5e9;color:#2e7d32">국내</span><div class="sp-ttl">경주 벚꽃 여행</div><div class="sp-sub">불국사·첨성대 코스 · 로컬 맛집</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">🗼</div><div class="sp-body"><span class="sp-tag" style="background:#fff3e0;color:#e65100">해외</span><div class="sp-ttl">일본 오사카 미식 여행</div><div class="sp-sub">소상공인 로컬 레스토랑 특집</div></div></div>
+    <div class="sp-card"><div class="sp-thumb" style="background:linear-gradient(135deg,#fce4ec,#f8bbd9)">🥖</div><div class="sp-body"><span class="sp-tag" style="background:#fce4ec;color:#c62828">해외</span><div class="sp-ttl">프랑스 파리 골목 여행</div><div class="sp-sub">현지 소상공인 마켓 탐방</div></div></div>
+  </div></div>
 </div>
 
-<!-- ===================== 입점신청 PAGE ===================== -->
+<!-- ==================== 입점신청 ==================== -->
 <div id="page-register" class="pg">
   <div class="reg-wrap">
-    <div class="form-card">
+    <div class="fc">
       <div class="fh"><h2>신규 입점 신청서</h2><p>무료 등록 · AI 홍보 혜택 · 심사 후 24시간 내 등록</p></div>
       <div class="fb">
-        <div class="fr"><div class="fg"><label class="fl">업체명 <span class="req">*</span></label><input id="rName" class="fi" placeholder="예: 맛있는 삼겹살"></div><div class="fg"><label class="fl">대표자명 <span class="req">*</span></label><input id="rOwner" class="fi" placeholder="홍길동"></div></div>
-        <div class="fr"><div class="fg"><label class="fl">시/도 <span class="req">*</span></label><select id="rSido" class="fi" onchange="updateRegSigungu()"><option value="">선택</option><option>서울</option><option>부산</option><option>대구</option><option>인천</option><option>광주</option><option>대전</option><option>울산</option><option>경기</option><option>강원</option><option>충북</option><option>충남</option><option>전북</option><option>전남</option><option>경북</option><option>경남</option><option>제주</option></select></div><div class="fg"><label class="fl">구/군/동 <span class="req">*</span></label><input id="rSigungu" class="fi" placeholder="예: 남동구 구월동"></div></div>
+        <div class="fr"><div class="fg"><label class="fl">업체명 <span class="req">*</span></label><input id="rName" class="fi" placeholder="예: 맛있는 삼겹살"></div><div class="fg"><label class="fl">대표자명</label><input id="rOwner" class="fi" placeholder="홍길동"></div></div>
+        <div class="fr"><div class="fg"><label class="fl">시/도 <span class="req">*</span></label><select id="rSido" class="fi"><option value="">선택</option><option>서울</option><option>부산</option><option>대구</option><option>인천</option><option>광주</option><option>대전</option><option>울산</option><option>경기</option><option>강원</option><option>충북</option><option>충남</option><option>전북</option><option>전남</option><option>경북</option><option>경남</option><option>제주</option></select></div><div class="fg"><label class="fl">구/군/동</label><input id="rSigungu" class="fi" placeholder="예: 남동구 구월동"></div></div>
         <div class="fr"><div class="fg"><label class="fl">업종 <span class="req">*</span></label><select id="rCat" class="fi"><option value="">선택</option><option value="음식점">음식점</option><option value="카페">카페/디저트</option><option value="미용">미용/뷰티</option><option value="의류">의류/패션</option><option value="생활서비스">생활서비스</option><option value="의료">의료/건강</option><option value="교육">교육/학원</option><option value="숙박">숙박</option><option value="여가">여가/문화</option><option value="농수산">농수산물</option></select></div><div class="fg"><label class="fl">전화번호 <span class="req">*</span></label><input id="rPhone" class="fi" type="tel" placeholder="010-0000-0000"></div></div>
         <div class="fg"><label class="fl">주력 아이템/메뉴 <span class="req">*</span></label><input id="rItem" class="fi" placeholder="예: 생삼겹살, 된장찌개"></div>
-        <div class="fg"><label class="fl">업체 소개</label><textarea id="rDesc" class="fi" rows="3" placeholder="특징, 분위기, 강점을 자유롭게 적어주세요..." style="resize:vertical"></textarea></div>
+        <div class="fg"><label class="fl">업체 소개</label><textarea id="rDesc" class="fi" rows="3" style="resize:vertical" placeholder="특징, 분위기, 강점을 자유롭게..."></textarea></div>
         <div class="fg"><label class="fl">이메일</label><input id="rEmail" class="fi" type="email" placeholder="example@email.com"></div>
-        <div style="background:var(--g1);border:var(--bd);border-radius:4px;padding:10px;font-size:.76rem;color:var(--g4)">📋 입점 심사는 영업일 기준 1-2일 이내 완료됩니다. AI가 홍보문구를 자동 생성합니다.</div>
+        <div style="background:var(--g1);border:var(--bd);border-radius:4px;padding:9px;font-size:.74rem;color:var(--g4)">📋 입점 심사는 영업일 1-2일 이내 완료. AI가 홍보문구를 자동 생성합니다.</div>
       </div>
       <div class="ff"><button class="btn-cn" onclick="showPage('home')">취소</button><button class="btn-sm" onclick="doRegister()">신청서 제출하기 →</button></div>
     </div>
   </div>
 </div>
 
-<!-- ===================== FOOTER ===================== -->
 <footer>
   <div class="ft">
-    <div><div class="ft-logo">AI PLATMARKET</div><div class="ft-copy">© 2026 AI플랫마켓. All rights reserved.</div><div style="font-size:.72rem;line-height:1.8;color:rgba(255,255,255,.45);margin-top:6px">사업자등록번호: 000-00-00000 | 대표: 김형식<br>주소: 인천광역시 | contact@aiplatmarket.kr</div></div>
-    <div class="ft-links"><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">광고문의</a><a href="#" onclick="showPage('register');return false">입점문의</a><a href="#">공지사항</a></div>
+    <div><div class="ft-logo">AI PLATMARKET · 국민경제+</div><div class="ft-copy">© 2026 AI플랫마켓. All rights reserved.</div><div style="font-size:.7rem;line-height:1.8;color:rgba(255,255,255,.45);margin-top:5px">사업자등록번호: 000-00-00000 | 대표: 김형식<br>주소: 인천광역시 | contact@aiplatmarket.kr</div></div>
+    <div class="ft-links"><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">광고문의</a><a href="#" onclick="showPage('register');return false">입점문의</a><a href="#" onclick="showPage('community');return false">커뮤니티</a></div>
   </div>
 </footer>
-
 </div><!-- /shell -->
 
-<!-- ===================== MOBILE SIDEBARS ===================== -->
-<div class="mob-overlay" id="mobOverlay" onclick="closeSidebar()"></div>
+<!-- ==================== MOBILE SIDEBARS ==================== -->
+<div class="mob-ov" id="mobOv" onclick="closeSide()"></div>
 <div class="mob-panel left" id="mobL">
-  <button class="mob-close" onclick="closeSidebar()">✕</button>
-  <div style="margin-top:32px">
-    <div style="background:linear-gradient(135deg,#e8f4fd,#ddeeff);border:1px solid #c2dff6;border-radius:var(--r);padding:11px;margin-bottom:12px;text-align:center">
-      <div style="font-size:1.6rem" id="mobIco">⛅</div>
-      <div style="font-size:.75rem;color:#1a56a0;font-weight:700">인천 · 맑음 18°C</div>
-      <div style="font-size:.66rem;color:#5580aa;margin-top:3px" id="mobDt"></div>
-    </div>
-    <div class="lsb-ttl">📌 메뉴</div>
-    <div class="lsb-menu">
-      <div class="lmi" onclick="closeSidebar();showPage('home')"><span class="ico">🏠</span>종합홈</div>
-      <div class="lmi" onclick="closeSidebar();showPage('news')"><span class="ico">📰</span>지역경제 뉴스</div>
-      <div class="lmi" onclick="closeSidebar();showPage('live')"><span class="ico">📺</span>라이브방송</div>
-      <div class="lmi" onclick="closeSidebar();showPage('good')"><span class="ico">💚</span>더착한가게</div>
-      <div class="lmi" onclick="closeSidebar();showPage('welfare')"><span class="ico">🤝</span>지역복지</div>
-      <div class="lmi" onclick="closeSidebar();showPage('localad')"><span class="ico">📋</span>지역생활광고</div>
-      <div class="lmi" onclick="closeSidebar();showPage('promo')"><span class="ico">🎁</span>판촉물</div>
-      <div class="lmi" onclick="closeSidebar();showPage('recipe')"><span class="ico">👨‍🍳</span>레시피</div>
-      <div class="lmi" onclick="closeSidebar();showPage('travel')"><span class="ico">✈️</span>전국·세계여행</div>
-      <div class="lmi" onclick="closeSidebar();showPage('register')"><span class="ico">✅</span>입점신청</div>
-    </div>
-    <div class="lsb-div"></div>
-    <div class="lsb-ttl">📍 지역별</div>
-    <div class="lsb-rg">
-      <div class="rgb" onclick="closeSidebar();quickReg('서울')">서울</div>
-      <div class="rgb" onclick="closeSidebar();quickReg('인천')">인천</div>
-      <div class="rgb" onclick="closeSidebar();quickReg('경기')">경기</div>
-      <div class="rgb" onclick="closeSidebar();quickReg('부산')">부산</div>
-      <div class="rgb" onclick="closeSidebar();quickReg('대구')">대구</div>
-      <div class="rgb" onclick="closeSidebar();quickReg('광주')">광주</div>
-    </div>
-    <div class="lsb-div"></div>
-    <div class="lsb-ttl">📢 공지사항</div>
-    <div class="ni" onclick="closeSidebar();openNotice(0)"><div class="ni-t"><span class="ni-b">신규</span>무료 입점 이벤트 5월 연장</div><div class="ni-d">2026.04.13</div></div>
-    <div class="ni" onclick="closeSidebar();openNotice(1)"><div class="ni-t">AI 홍보문구 기능 업데이트</div><div class="ni-d">2026.04.10</div></div>
-    <div class="lsb-div"></div>
-    <div class="sns-row"><button class="sns-btn sk" onclick="toast('카카오 준비 중')">💬 카카오</button><button class="sns-btn sn" onclick="toast('블로그 준비 중')">N 블로그</button></div>
+  <button class="mob-close" onclick="closeSide()">✕</button>
+  <div class="mob-brand">AI<em>PLAT</em>MARKET</div>
+  <div style="background:linear-gradient(135deg,#e8f4fd,#ddeeff);border:1px solid #c2dff6;border-radius:var(--r);padding:10px;margin-bottom:12px;text-align:center">
+    <div style="font-size:1.5rem" id="mobIco">⛅</div>
+    <div style="font-size:.73rem;color:#1a56a0;font-weight:700">인천 · 맑음 18°C</div>
+    <div style="font-size:.64rem;color:#5580aa;margin-top:2px" id="mobDt"></div>
   </div>
+  <div class="lsb-ttl">📌 메뉴</div>
+  <div class="lsb-menu">
+    <div class="lmi" onclick="closeSide();showPage('home')"><span class="ico">🏠</span>종합홈</div>
+    <div class="lmi" onclick="closeSide();showPage('news')"><span class="ico">📰</span>지역경제 뉴스</div>
+    <div class="lmi" onclick="closeSide();showPage('live')"><span class="ico">📺</span>라이브방송</div>
+    <div class="lmi" onclick="closeSide();showPage('community')"><span class="ico">💬</span>커뮤니티</div>
+    <div class="lmi" onclick="closeSide();showPage('good')"><span class="ico">💚</span>더착한가게</div>
+    <div class="lmi" onclick="closeSide();showPage('welfare')"><span class="ico">🤝</span>지역복지</div>
+    <div class="lmi" onclick="closeSide();showPage('localad')"><span class="ico">📋</span>지역생활광고</div>
+    <div class="lmi" onclick="closeSide();showPage('promo')"><span class="ico">🎁</span>판촉물</div>
+    <div class="lmi" onclick="closeSide();showPage('recipe')"><span class="ico">👨‍🍳</span>레시피</div>
+    <div class="lmi" onclick="closeSide();showPage('travel')"><span class="ico">✈️</span>전국·세계여행</div>
+    <div class="lmi" onclick="closeSide();showPage('register')"><span class="ico">✅</span>입점신청</div>
+  </div>
+  <div class="lsb-div"></div>
+  <div class="lsb-ttl">📍 지역별</div>
+  <div class="lsb-rg">
+    <div class="rgb" onclick="closeSide();quickReg('서울')">서울</div><div class="rgb" onclick="closeSide();quickReg('인천')">인천</div>
+    <div class="rgb" onclick="closeSide();quickReg('경기')">경기</div><div class="rgb" onclick="closeSide();quickReg('부산')">부산</div>
+    <div class="rgb" onclick="closeSide();quickReg('대구')">대구</div><div class="rgb" onclick="closeSide();quickReg('광주')">광주</div>
+  </div>
+  <div class="lsb-div"></div>
+  <div class="lsb-ttl">📢 공지사항</div>
+  <div class="ni" onclick="closeSide();openNotice(0)"><div class="ni-t"><span class="ni-b">신규</span>무료 입점 이벤트 5월 연장</div><div class="ni-d">2026.04.13</div></div>
+  <div class="ni" onclick="closeSide();openNotice(1)"><div class="ni-t">AI 홍보문구 자동 생성 업데이트</div><div class="ni-d">2026.04.10</div></div>
+  <div class="lsb-div"></div>
+  <div class="sns-row"><button class="sns-btn sk" onclick="toast('카카오 준비 중')">💬 카카오</button><button class="sns-btn sn" onclick="toast('블로그 준비 중')">N 블로그</button></div>
 </div>
 <div class="mob-panel right" id="mobR">
-  <button class="mob-close" onclick="closeSidebar()">✕</button>
-  <div style="margin-top:32px">
-    <div class="ad-bn" style="margin-bottom:12px"><div class="ad-lbl">AD</div><div class="ad-ttl">무료 입점 신청</div><button class="btn-ad" onclick="closeSidebar();showPage('register')">신청하기 →</button></div>
-    <div class="ev-card" style="margin-bottom:12px">
-      <div class="ev-hd">🔥 오늘의 특가</div>
-      <div class="ev-list">
-        <div class="ev-item"><div class="ev-ic">🍖</div><div class="ev-nm">인천 족발보쌈 2인 세트</div><div class="ev-dc">30%↓</div></div>
-        <div class="ev-item"><div class="ev-ic">☕</div><div class="ev-nm">연수구 카페 아메리카노</div><div class="ev-dc">1+1</div></div>
-        <div class="ev-item"><div class="ev-ic">💇</div><div class="ev-nm">부평구 컷+염색 패키지</div><div class="ev-dc">25%↓</div></div>
-      </div>
-    </div>
-    <div class="lsb-ttl">📊 인기 업체</div>
-    <div class="rk-list" id="rkListMob"></div>
-    <div class="ai-card" style="margin-top:12px">
-      <div class="ai-ttl">🤖 AI 매출 분석</div>
-      <p>사장님 매장 AI 분석 서비스</p>
-      <a class="btn-ai" href="https://chatdoumi.com" target="_blank" rel="noopener">AI 분석 시작하기 →</a>
-    </div>
+  <button class="mob-close" onclick="closeSide()">✕</button>
+  <div class="mob-cd"><small>내 사업 내 비서</small><a href="https://chatdoumi.com" target="_blank">Chat<em>Doumi</em></a></div>
+  <div class="ad-bn" style="margin-bottom:12px"><div class="ad-lbl">AD</div><div class="ad-ttl">무료 입점 신청</div><button class="btn-ad" onclick="closeSide();showPage('register')">신청하기 →</button></div>
+  <div class="ev-card" style="margin-bottom:12px">
+    <div class="ev-hd">🔥 오늘의 특가</div>
+    <div class="ev-item"><div class="ev-ic">🍖</div><div class="ev-nm">인천 족발보쌈 2인 세트</div><div class="ev-dc">30%↓</div></div>
+    <div class="ev-item"><div class="ev-ic">☕</div><div class="ev-nm">연수구 카페 아메리카노</div><div class="ev-dc">1+1</div></div>
+    <div class="ev-item"><div class="ev-ic">💇</div><div class="ev-nm">부평구 컷+염색 패키지</div><div class="ev-dc">25%↓</div></div>
+  </div>
+  <div class="lsb-ttl">📊 인기 업체</div>
+  <div class="rk-list" id="rkListMob"></div>
+  <div class="ai-card" style="margin-top:12px">
+    <div class="ai-ttl">🤖 AI 매출 분석</div>
+    <p>사장님 매장 AI 분석 서비스</p>
+    <a class="btn-ai" href="https://chatdoumi.com" target="_blank" rel="noopener">AI 분석 시작하기 →</a>
   </div>
 </div>
 
-<!-- ===================== STORE MODAL ===================== -->
+<!-- STORE MODAL -->
 <div class="mo" id="storeModal" onclick="if(event.target===this)this.classList.remove('op')">
   <div class="mb">
-    <div class="mh"><div><div id="moName" style="font-family:var(--fs);font-size:1.15rem;font-weight:800;color:var(--navy)"></div><div id="moTags" style="margin-top:5px;display:flex;gap:5px;flex-wrap:wrap"></div></div><button class="mc2" onclick="document.getElementById('storeModal').classList.remove('op')">✕</button></div>
-    <div class="mbody" id="moBody"></div>
+    <div class="mh"><div><div id="moName" style="font-family:var(--fs);font-size:1.1rem;font-weight:800;color:var(--navy)"></div><div id="moTags" style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap"></div></div><button class="mc2" onclick="document.getElementById('storeModal').classList.remove('op')">✕</button></div>
+    <div class="mbd" id="moBody"></div>
     <div class="mf"><button class="btn-ct" style="flex:1" id="moPhoneBtn">📞 전화 연결</button><button class="btn-dt" onclick="document.getElementById('storeModal').classList.remove('op')">닫기</button></div>
   </div>
 </div>
 
-<!-- ===================== NOTICE MODAL ===================== -->
+<!-- NOTICE MODAL -->
 <div class="nm-ov" id="noticeModal" onclick="if(event.target===this)this.classList.remove('op')">
   <div class="nm-box">
     <div class="nm-hd"><h3 id="nmTitle">공지사항</h3><button class="nm-cl" onclick="document.getElementById('noticeModal').classList.remove('op')">✕</button></div>
@@ -1140,86 +1028,24 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:28px}
   </div>
 </div>
 
-<!-- ===================== TOAST ===================== -->
 <div class="toast" id="toastEl"></div>
 
-<!-- ===================== JAVASCRIPT ===================== -->
+<!-- ==================== JAVASCRIPT ==================== -->
 <script>
 'use strict';
 
-/* =========================================================
-   MUSIC GENRE
-========================================================= */
-const GENRES = {
-  kpop:   { list:'PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG', label:'K-POP 플레이리스트' },
-  trot:   { list:'PLAjhe9VBXQ-p_5qHCJEBGfP6aDGpjZkVX', label:'트롯 명곡 모음' },
-  ballad: { list:'PL3-tEhc1Ub_Ql92Y85dpR9PLNm-6qWFKY', label:'발라드 베스트' },
-  rock:   { list:'PLAjhe9VBXQ-r2IVsLEhIc2LFdPAVMWU7m', label:'록/메탈 명곡' },
-  pop:    { list:'PLAjhe9VBXQ-q0Q_oZdRNFSFCbFgK3HRTQ', label:'팝 히트곡' },
-  hiphop: { list:'PLAjhe9VBXQ-okRZ0nFLI12d0RCnpKjRmE', label:'힙합/R&B 베스트' },
-  jazz:   { list:'PLAjhe9VBXQ-pnhS3GWBDk_4fZDIqjYvYb', label:'재즈·팝재즈' },
-  classic:{ list:'PLAjhe9VBXQ-r3t_3_ZKnGnPSOfTHOPYLr', label:'클래식 명연주' },
-};
-
-function setGenre(g) {
-  const info = GENRES[g];
-  if (!info) return;
-  const ifr = document.getElementById('musicIframe');
-  if (ifr) ifr.src = `https://www.youtube.com/embed/videoseries?list=${info.list}&autoplay=1&mute=0&controls=1`;
-  const ttl = document.getElementById('musicTitle');
-  if (ttl) ttl.textContent = `${info.label} — 오늘도 힘내세요 🎶`;
-  document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('act'));
-  const btn = document.getElementById('gb-' + g);
-  if (btn) btn.classList.add('act');
-}
-
-/* =========================================================
-   GNB DROPDOWN TOGGLE
-========================================================= */
-function toggleDd(id) {
-  const wrap = document.getElementById(id);
-  if (!wrap) return;
-  const isOpen = wrap.classList.contains('open');
-  closeDds();
-  if (!isOpen) wrap.classList.add('open');
-  if (typeof event !== 'undefined') event.stopPropagation();
-}
-function closeDds() {
-  document.querySelectorAll('.dd-wrap.open').forEach(el => el.classList.remove('open'));
-}
-document.addEventListener('click', function() { closeDds(); });
-
-/* =========================================================
-   GNB 활성 표시 업데이트
-========================================================= */
-function updateGnbLabel() {
-  const reg  = document.getElementById('sSido').value;
-  const cat  = document.getElementById('sCat').value;
-  const sort = document.getElementById('sSort').value;
-  const sortLabels = {clicks:'📊 인기순 ▾', new:'📊 최신순 ▾', premium:'📊 광고우선 ▾'};
-  const giReg  = document.getElementById('giReg');
-  const giCat  = document.getElementById('giCat');
-  const giSort = document.getElementById('giSort');
-  if (giReg)  { giReg.textContent  = reg ? `📍 ${reg} ▾` : '📍 지역 ▾';   giReg.classList.toggle('act', !!reg); }
-  if (giCat)  { giCat.textContent  = cat ? `🗂️ ${cat} ▾` : '🗂️ 업종별 ▾'; giCat.classList.toggle('act', !!cat); }
-  if (giSort) { giSort.textContent = sortLabels[sort] || '📊 인기순 ▾'; giSort.classList.toggle('act', sort !== 'clicks'); }
-  ['clicks','new','premium'].forEach(s => { const el = document.getElementById('sortDdi-'+s); if(el) el.classList.toggle('sel', s===sort); });
-}
-
-/* =========================================================
-   DATA
-========================================================= */
+/* ── DATA ── */
 const SIGUNGU = {
   서울:['강남구','강동구','강북구','강서구','관악구','광진구','구로구','노원구','도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구','영등포구','용산구','은평구','종로구','중구'],
   부산:['강서구','금정구','기장군','남구','동구','동래구','부산진구','북구','사상구','사하구','서구','수영구','연제구','영도구','중구','해운대구'],
   인천:['강화군','계양구','남동구','동구','미추홀구','부평구','서구','연수구','옹진군','중구'],
   경기:['고양시','과천시','광명시','광주시','구리시','군포시','김포시','남양주시','부천시','성남시','수원시','시흥시','안산시','안양시','용인시','의정부시','이천시','파주시','평택시','하남시','화성시'],
-  강원:['강릉시','고성군','동해시','삼척시','속초시','원주시','춘천시','태백시','평창군','홍천군'],
+  강원:['강릉시','고성군','동해시','삼척시','속초시','원주시','인제군','정선군','춘천시','태백시','평창군','홍천군'],
   충북:['괴산군','단양군','보은군','영동군','음성군','제천시','진천군','청주시','충주시'],
   충남:['공주시','금산군','논산시','당진시','보령시','부여군','서산시','아산시','예산군','천안시','청양군','태안군','홍성군'],
-  전북:['고창군','군산시','김제시','남원시','무주군','부안군','순창군','완주군','익산시','임실군','장수군','전주시','정읍시'],
-  전남:['강진군','고흥군','곡성군','광양시','구례군','나주시','담양군','목포시','보성군','순천시','신안군','여수시','영광군','영암군','완도군','장성군','장흥군','진도군','함평군','해남군','화순군'],
-  경북:['경산시','경주시','고령군','구미시','김천시','문경시','봉화군','상주시','안동시','영덕군','영주시','영천시','예천군','울진군','의성군','청도군','청송군','칠곡군','포항시'],
+  전북:['고창군','군산시','김제시','남원시','무주군','부안군','완주군','익산시','임실군','전주시','정읍시'],
+  전남:['강진군','고흥군','곡성군','광양시','구례군','나주시','담양군','목포시','보성군','순천시','신안군','여수시','영광군','영암군','완도군','장성군','장흥군','해남군','화순군'],
+  경북:['경산시','경주시','고령군','구미시','김천시','문경시','봉화군','상주시','안동시','영덕군','영주시','영천시','예천군','울진군','의성군','청도군','포항시'],
   경남:['거제시','거창군','고성군','김해시','남해군','밀양시','사천시','산청군','양산시','진주시','창녕군','창원시','통영시','하동군','함안군','함양군','합천군'],
   대구:['남구','달서구','달성군','동구','북구','서구','수성구','중구'],
   광주:['광산구','남구','동구','북구','서구'],
@@ -1229,21 +1055,32 @@ const SIGUNGU = {
 };
 
 const NOTICES = [
-  {title:'무료 입점 이벤트 5월 말까지 연장',date:'2026.04.13',cat:'공지',body:`많은 소상공인 사장님들의 호응에 힘입어 <strong>무료 입점 이벤트를 2026년 5월 31일까지 연장</strong>합니다.<br><br>▶ 대상: 전국 소상공인 누구나<br>▶ 혜택: 초기 등록비 0원 + AI 홍보문구 자동 생성<br>▶ 신청: 상단 '입점신청' 메뉴에서 바로 가능`},
-  {title:'AI 홍보문구 자동 생성 기능 업데이트',date:'2026.04.10',cat:'서비스',body:`AI 홍보문구 자동 생성이 대폭 업그레이드되었습니다.<br><br>▶ 업종별 맞춤 문구 생성<br>▶ SNS·블로그·배너 3종 동시 생성<br>▶ 계절·시간대별 이벤트 문구 자동 추천`},
-  {title:'라이브 방송 2채널 동시 운영 시작',date:'2026.04.08',cat:'서비스',body:`라이브 방송 채널을 확대합니다.<br><br>▶ CH1: 음식점·식품 (오전 10시~오후 6시)<br>▶ CH2: 뷰티·패션·생활 (오후 2시~오후 8시)<br>▶ MUSIC: K-POP 소상공인 응원 채널 (상시)`, },
+  {title:'무료 입점 이벤트 5월 말까지 연장',date:'2026.04.13',cat:'공지',body:`많은 소상공인 사장님들의 호응으로 <strong>무료 입점 이벤트를 2026년 5월 31일까지 연장</strong>합니다.<br><br>▶ 대상: 전국 소상공인<br>▶ 혜택: 초기 등록비 0원 + AI 홍보문구 자동 생성<br>▶ 신청: 상단 '입점신청' 메뉴`},
+  {title:'AI 홍보문구 자동 생성 기능 업데이트',date:'2026.04.10',cat:'서비스',body:`<strong>AI 홍보문구 자동 생성</strong>이 업그레이드되었습니다.<br><br>▶ 업종별 맞춤 문구 생성<br>▶ SNS·블로그·배너 3종 동시 생성<br>▶ 계절·시간대별 이벤트 문구 추천`},
+  {title:'라이브 방송 2채널 동시 운영 시작',date:'2026.04.08',cat:'서비스',body:`라이브 방송 채널을 확대합니다.<br><br>▶ CH1: 음식점·식품 (오전 10시~오후 6시)<br>▶ CH2: 뷰티·패션·생활 (오후 2시~오후 8시)<br>▶ MUSIC: K-POP 소상공인 응원 채널 (상시)`},
   {title:'개인정보처리방침 개정 안내',date:'2026.04.01',cat:'안내',body:`개인정보처리방침이 2026년 4월 1일부로 개정되었습니다.<br><br>▶ 위치정보 수집 항목 추가<br>▶ 마케팅 정보 수신 동의 항목 세분화<br>▶ 제3자 제공 업체 목록 갱신`},
 ];
 
-const BC_SCHEDULE = [
-  {time:'14:00',name:'인천 남동구 족발·보쌈 특가전',ico:'🍖'},
-  {time:'14:30',name:'서울 강남 뷰티 라이브',ico:'💅'},
-  {time:'15:00',name:'경기 수원 로컬푸드 직거래',ico:'🥬'},
-  {time:'15:30',name:'부산 해운대 해산물 경매',ico:'🦀'},
-  {time:'16:00',name:'인천 연수구 창업 설명회',ico:'🚀'},
+const BC_SCHED = [
+  {time:'현재',name:'[단독 특가] 우리동네 소상공인 직접 판매',ico:'🏪',now:true},
+  {time:'14:30',name:'인천 남동구 족발·보쌈 특가전',ico:'🍖'},
+  {time:'15:00',name:'서울 강남 뷰티 라이브',ico:'💅'},
+  {time:'15:30',name:'경기 수원 로컬푸드 직거래',ico:'🥬'},
+  {time:'16:00',name:'부산 해운대 해산물 경매',ico:'🦀'},
   {time:'16:30',name:'대전 카페 신메뉴 쇼케이스',ico:'☕'},
   {time:'17:00',name:'광주 치킨 할인 이벤트',ico:'🍗'},
   {time:'17:30',name:'K-POP 소상공인 응원 콘서트',ico:'🎵'},
+];
+
+const GENRES = [
+  {id:'kpop',   label:'🎵 K-POP',   list:'PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG', now:true},
+  {id:'trot',   label:'🎤 트롯',    list:'PLAjhe9VBXQ-p_5qHCJEBGfP6aDGpjZkVX'},
+  {id:'ballad', label:'🎼 발라드',  list:'PL3-tEhc1Ub_Ql92Y85dpR9PLNm-6qWFKY'},
+  {id:'rock',   label:'🎸 록/메탈', list:'PLAjhe9VBXQ-r2IVsLEhIc2LFdPAVMWU7m'},
+  {id:'pop',    label:'🌍 팝',      list:'PLAjhe9VBXQ-q0Q_oZdRNFSFCbFgK3HRTQ'},
+  {id:'hiphop', label:'🎧 힙합/R&B',list:'PLAjhe9VBXQ-okRZ0nFLI12d0RCnpKjRmE'},
+  {id:'jazz',   label:'🎷 재즈',    list:'PLAjhe9VBXQ-pnhS3GWBDk_4fZDIqjYvYb'},
+  {id:'classic',label:'🎻 클래식',  list:'PLAjhe9VBXQ-r3t_3_ZKnGnPSOfTHOPYLr'},
 ];
 
 const LIVE_DATA = [
@@ -1256,92 +1093,133 @@ const LIVE_DATA = [
   {title:'[다시보기] 4/9 K-뷰티 라이브',st:'end',ico:'💄',viewers:2180,ch:'AI플랫 CH2',bg:'#2a0a1a'},
 ];
 
-/* =========================================================
-   STATE
-========================================================= */
-const S = {
-  stores: [],
-  filtered: [],
-  page: 1,
-  perPage: 8,
-};
+/* ── STATE ── */
+const S = { stores:[], filtered:[], page:1, perPage:8, sido:'', gungu:'', cat:'', sort:'clicks', kw:'' };
+let curGenreIdx = 0;
+let _tt;
 
-/* =========================================================
-   INIT
-========================================================= */
+/* ── INIT ── */
 document.addEventListener('DOMContentLoaded', function() {
-  setDate();
-  buildNbList();
+  initDate();
+  buildSidoList();
+  buildLiveSched();
+  buildGenreSched();
   buildLiveGrid();
   loadStores();
   startViewerAnim();
+  // 외부 클릭 드롭다운 닫기
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.ddw') && !e.target.closest('.ch-ddw')) closeDds();
+  });
 });
 
-function setDate() {
-  const d = new Date();
-  const days = ['일','월','화','수','목','금','토'];
+function initDate() {
+  const d = new Date(), days=['일','월','화','수','목','금','토'];
   const s = `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()} (${days[d.getDay()]})`;
-  const el = document.getElementById('currentDate');
-  if (el) el.textContent = s;
-  const ld = document.getElementById('lsbDt');
-  if (ld) ld.textContent = s;
-  const md = document.getElementById('mobDt');
-  if (md) md.textContent = s;
   const h = d.getHours();
-  const ico = h < 6 ? '🌙' : h < 9 ? '🌤️' : h < 18 ? '☀️' : '🌆';
-  ['lsbIco','mobIco'].forEach(id => { const e = document.getElementById(id); if(e) e.textContent = ico; });
+  const ico = h<6?'🌙':h<9?'🌤️':h<18?'☀️':'🌆';
+  ['currentDate','lsbDt','mobDt'].forEach(id => { const e=document.getElementById(id); if(e) e.textContent=s; });
+  ['lsbIco','mobIco'].forEach(id => { const e=document.getElementById(id); if(e) e.textContent=ico; });
 }
 
-/* =========================================================
-   BROADCAST
-========================================================= */
-function buildNbList() {
-  const el = document.getElementById('nbList');
+/* ── 시도 목록 생성 ── */
+function buildSidoList() {
+  const el = document.getElementById('sidoList');
   if (!el) return;
-  const doubled = [...BC_SCHEDULE, ...BC_SCHEDULE];
-  el.innerHTML = doubled.map(b => `
-    <div class="nbc">
-      <div class="nbt">${b.ico}</div>
-      <div class="nbm"><div class="nbtm">▶ ${b.time}</div><div class="nbn">${b.name}</div></div>
+  const sidos = Object.keys(SIGUNGU);
+  el.innerHTML = sidos.map(s => `<div class="ddi" onmouseenter="showGungu('${s}')" onclick="selectSido('${s}')">${s}</div>`).join('');
+}
+function showGungu(sido) {
+  const el = document.getElementById('gunguList');
+  if (!el) return;
+  const list = SIGUNGU[sido] || [];
+  el.innerHTML = list.map(g => `<div class="gg" onclick="selectGungu('${sido}','${g}')">${g}</div>`).join('');
+  // 시도 항목 선택 표시
+  document.querySelectorAll('#sidoList .ddi').forEach(d => d.classList.toggle('sel', d.textContent===sido));
+}
+function selectSido(sido) {
+  S.sido = sido; S.gungu = '';
+  updateGnbLabel(); applyFilters(); showPage('home');
+  // 드롭다운은 gungu 선택 후 닫힘
+}
+function selectGungu(sido, gungu) {
+  S.sido = sido; S.gungu = gungu;
+  updateGnbLabel(); applyFilters(); showPage('home'); closeDds();
+}
+
+/* ── 라이브 다음 방송 목록 ── */
+function buildLiveSched() {
+  const el = document.getElementById('liveSched');
+  if (!el) return;
+  el.innerHTML = BC_SCHED.map(b => `
+    <div class="ch-dd-item ${b.now?'now':''}">
+      <span class="cdt">${b.time}</span>
+      <span>${b.ico} ${b.name}</span>
     </div>`).join('');
 }
 
+/* ── 장르 목록 ── */
+function buildGenreSched() {
+  const el = document.getElementById('genreSched');
+  if (!el) return;
+  el.innerHTML = GENRES.map((g,i) => `
+    <div class="ch-dd-item ${i===0?'now':''}" id="gd-${g.id}" onclick="setGenre(${i})">
+      <span class="cdt">${i===0?'현재':''}</span>
+      <span>${g.label}</span>
+    </div>`).join('');
+}
+
+/* ── 장르 변경 ── */
+function setGenre(idx) {
+  curGenreIdx = idx;
+  const g = GENRES[idx];
+  const ifr = document.getElementById('musicIframe');
+  if (ifr) ifr.src = `https://www.youtube.com/embed/videoseries?list=${g.list}&autoplay=1&mute=0&controls=1`;
+  const ttl = document.getElementById('musicTitle');
+  if (ttl) ttl.textContent = `${g.label} — 오늘도 힘내세요 🎶`;
+  // 드롭다운 현재 표시 갱신
+  document.querySelectorAll('#genreSched .ch-dd-item').forEach((el,i) => {
+    el.classList.toggle('now', i===idx);
+    const ct = el.querySelector('.cdt');
+    if (ct) ct.textContent = i===idx ? '현재' : '';
+  });
+  toast(`${g.label} 재생 중 🎵`);
+}
+
+/* ── 라이브 그리드 ── */
 function buildLiveGrid() {
   const el = document.getElementById('liveGrid');
   if (!el) return;
   const SM = {live:{lbl:'● LIVE',cls:'ls-live'},soon:{lbl:'예고',cls:'ls-soon'},end:{lbl:'다시보기',cls:'ls-end'}};
   el.innerHTML = LIVE_DATA.map(l => {
     const s = SM[l.st];
-    const mt = l.st==='live' ? `${l.ch} · 👁 ${l.viewers.toLocaleString()}명` : l.st==='soon' ? `🕐 ${l.time} 예정` : `▶ ${l.viewers.toLocaleString()}회`;
+    const mt = l.st==='live'?`${l.ch} · 👁 ${l.viewers.toLocaleString()}명`:l.st==='soon'?`🕐 ${l.time} 예정`:`▶ ${l.viewers.toLocaleString()}회`;
     return `<div class="lc"><div class="lc-th" style="background:${l.bg}">${l.ico}<span class="ls ${s.cls}">${s.lbl}</span></div><div class="lc-bd"><div class="lc-ttl">${l.title}</div><div class="lc-mt">${mt}</div></div></div>`;
   }).join('');
 }
 
+/* ── 시청자 애니메이션 ── */
 function startViewerAnim() {
-  let c = 1248;
-  setInterval(function() {
-    c += Math.floor(Math.random() * 7) - 3;
-    if (c < 100) c = 100;
-    const el = document.getElementById('vcnt');
-    if (el) el.textContent = c.toLocaleString();
-  }, 3000);
+  let c=1248;
+  setInterval(function(){
+    c+=Math.floor(Math.random()*7)-3; if(c<100)c=100;
+    const e=document.getElementById('vcnt'); if(e) e.textContent=c.toLocaleString();
+  },3000);
 }
 
-/* =========================================================
-   STORES
-========================================================= */
+/* ── 업체 로드 ── */
 function getDummy() {
   const emojis=['🍖','☕','💇','🍜','🍕','🧁','🌿','👗','💊','📚'];
   const names=['우리동네 돼지갈비','커피빈 로스팅','정숙이 미용실','할매 손칼국수','나폴리 피자','달달 케이크 공방','그린팜 유기농','스타일 편집샵','건강 한의원','창의 수학학원'];
   const regions=['인천 남동구','서울 강남구','경기 성남시','부산 해운대구','인천 연수구'];
   const cats=['음식점','카페','미용','음식점','음식점','카페','농수산','의류','의료','교육'];
   const items=['생삼겹살 직화구이','스페셜티 원두','펌·염색 전문','들깨칼국수·수제비','화덕 나폴리탄','티라미수·마카롱','친환경 채소·과일','빈티지·캐주얼','침·뜸·한방','초중고 전 과목'];
-  return names.map((nm,i) => ({
-    id:`d${i}`, name:nm, region:regions[i%regions.length], category:cats[i],
-    item:items[i], phone:`010-${String(1000+i*111).padStart(4,'0')}-${String(2000+i*222).padStart(4,'0')}`,
+  return names.map((nm,i)=>({
+    id:'d'+i,name:nm,region:regions[i%regions.length],category:cats[i],
+    item:items[i],phone:`010-${String(1000+i*111).padStart(4,'0')}-${String(2000+i*222).padStart(4,'0')}`,
     desc:`지역 주민들에게 인기 있는 ${nm}입니다.`,
-    clicks:Math.floor(Math.random()*200), views:Math.floor(Math.random()*800),
-    premium:i<2, emoji:emojis[i],
+    clicks:Math.floor(Math.random()*200),views:Math.floor(Math.random()*800),
+    premium:i<2,emoji:emojis[i],
     createdAt:new Date(Date.now()-i*86400000*2).toISOString(),
   }));
 }
@@ -1351,76 +1229,60 @@ async function loadStores() {
   try {
     const res = await fetch('/api/store');
     if (!res.ok) throw new Error();
-    S.stores = await res.json();
-  } catch(_) {
-    S.stores = getDummy();
-  }
+    const data = await res.json();
+    S.stores = data.length > 0 ? data : getDummy();
+  } catch(_) { S.stores = getDummy(); }
   applyFilters();
 }
 
 function applyFilters() {
-  const sido = document.getElementById('sSido').value;
-  const sigungu = document.getElementById('sSigungu').value;
-  const cat = document.getElementById('sCat').value;
-  const kw = document.getElementById('sKw').value.trim();
-  const sort = document.getElementById('sSort').value;
-
   let r = [...S.stores];
-  if (sido) r = r.filter(s => s.region && s.region.includes(sido));
-  if (sigungu) r = r.filter(s => s.region && s.region.includes(sigungu));
-  if (cat) r = r.filter(s => s.category === cat);
-  if (kw) { const lk = kw.toLowerCase(); r = r.filter(s => (s.name||'').toLowerCase().includes(lk)||(s.item||'').toLowerCase().includes(lk)||(s.desc||'').toLowerCase().includes(lk)); }
-
-  const pr = r.filter(s => s.premium);
-  const nm = r.filter(s => !s.premium);
-  if (sort === 'new') nm.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
-  else nm.sort((a,b) => (b.clicks||0) - (a.clicks||0));
-
-  S.filtered = [...pr, ...nm];
-  S.page = 1;
-  renderStores();
-  renderRanking();
-  renderRecList();
-  updateCatCounts();
-  updateGnbLabel();
+  if (S.sido)  r = r.filter(s => s.region && s.region.includes(S.sido));
+  if (S.gungu) r = r.filter(s => s.region && s.region.includes(S.gungu));
+  if (S.cat)   r = r.filter(s => s.category === S.cat);
+  if (S.kw)    { const lk=S.kw.toLowerCase(); r=r.filter(s=>(s.name||'').toLowerCase().includes(lk)||(s.item||'').toLowerCase().includes(lk)||(s.desc||'').toLowerCase().includes(lk)); }
+  const pr=r.filter(s=>s.premium), nm=r.filter(s=>!s.premium);
+  if (S.sort==='new') nm.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  else nm.sort((a,b)=>(b.clicks||0)-(a.clicks||0));
+  S.filtered=[...pr,...nm]; S.page=1;
+  renderStores(); renderRanking(); renderRecList(); updateCatCounts(); updateGnbLabel();
 }
 
 function renderLoading() {
-  const el = document.getElementById('storeList');
-  if (el) el.innerHTML = '<div class="spin-wrap"><div class="spin"></div>업체 정보를 불러오는 중...</div>';
+  const el=document.getElementById('storeList');
+  if(el) el.innerHTML='<div class="spin-wrap" style="grid-column:1/-1"><div class="spin"></div>업체 정보를 불러오는 중...</div>';
 }
 
-function isNew(dt) { return dt && (Date.now() - new Date(dt)) < 7*86400000; }
+function isNew(dt){ return dt&&(Date.now()-new Date(dt))<7*86400000; }
 
 function renderStores() {
-  const el = document.getElementById('storeList');
-  if (!el) return;
-  const start = (S.page-1) * S.perPage;
-  const items = S.filtered.slice(start, start + S.perPage);
-  if (!items.length) { el.innerHTML = '<div class="empty">🔍 검색 결과가 없습니다.<br><small>조건을 변경해보세요.</small></div>'; document.getElementById('pgn').innerHTML=''; return; }
-  el.innerHTML = items.map(s => `
-    <div class="si-item" onclick="openStore('${s.id}')">
-      <div class="si-th ${s.premium?'pr':''}">
-        ${s.premium ? '<span class="pr-b">★ 프리미엄</span>' : ''}
-        <span style="font-size:2rem">${s.emoji||'🏪'}</span>
+  const el=document.getElementById('storeList');
+  if(!el)return;
+  const start=(S.page-1)*S.perPage;
+  const items=S.filtered.slice(start,start+S.perPage);
+  if(!items.length){
+    el.innerHTML='<div class="empty" style="grid-column:1/-1">🔍 검색 결과가 없습니다.<br><small style="font-size:.78rem;color:var(--g4)">조건을 변경하거나 <a onclick="clearFilters()" style="color:var(--red);cursor:pointer">전체 보기</a></small></div>';
+    document.getElementById('pgn').innerHTML=''; return;
+  }
+  el.innerHTML=items.map(s=>`
+    <div class="si-card" onclick="openStore('${s.id}')">
+      <div class="si-thumb ${s.premium?'pr':''}">
+        ${s.premium?'<span class="pr-b">★</span>':''}
+        <span>${s.emoji||'🏪'}</span>
       </div>
-      <div class="si-bd">
-        <div class="tags">
-          ${s.region ? `<span class="tag tg">${s.region}</span>` : ''}
-          ${s.category ? `<span class="tag tc">${s.category}</span>` : ''}
-          ${s.premium ? `<span class="tag tp">★ 광고</span>` : ''}
-          ${isNew(s.createdAt) ? `<span class="tag tn">NEW</span>` : ''}
-          ${(s.clicks||0)>50 ? `<span class="tag th">🔥 인기</span>` : ''}
+      <div class="si-body">
+        <div class="si-tags">
+          ${s.region?`<span class="tag tg">${s.region}</span>`:''}
+          ${s.category?`<span class="tag tc">${s.category}</span>`:''}
+          ${s.premium?`<span class="tag tp">광고</span>`:''}
+          ${isNew(s.createdAt)?`<span class="tag tn">NEW</span>`:''}
+          ${(s.clicks||0)>50?`<span class="tag th">🔥</span>`:''}
         </div>
-        <div class="sn2">${s.name}</div>
-        <div class="sd">${s.item||''} ${s.desc ? '— '+s.desc : ''}</div>
-        <div class="sm">
-          <span class="smt">👁 ${(s.views||0).toLocaleString()}</span>
-          <span class="smt">🖱 ${(s.clicks||0).toLocaleString()}</span>
-          ${s.phone ? `<span class="smt">📞 ${s.phone}</span>` : ''}
-        </div>
-        <div class="sa">
-          <button class="btn-dt" onclick="event.stopPropagation();openStore('${s.id}')">상세보기</button>
+        <div class="si-name">${s.name}</div>
+        <div class="si-desc">${s.item||''} ${s.desc?'— '+s.desc:''}</div>
+        <div class="si-meta"><span>👁 ${(s.views||0).toLocaleString()}</span><span>🖱 ${(s.clicks||0).toLocaleString()}</span></div>
+        <div class="si-acts">
+          <button class="btn-dt" onclick="event.stopPropagation();openStore('${s.id}')">상세</button>
           <button class="btn-ct" onclick="event.stopPropagation();callStore('${s.id}','${s.phone}','${s.name}')">📞 문의</button>
         </div>
       </div>
@@ -1428,263 +1290,231 @@ function renderStores() {
   renderPgn();
 }
 
-function renderPgn() {
-  const el = document.getElementById('pgn');
-  if (!el) return;
-  const total = Math.ceil(S.filtered.length / S.perPage);
-  if (total <= 1) { el.innerHTML = ''; return; }
-  let h = '';
-  if (S.page > 1) h += `<button class="pb" onclick="goPage(${S.page-1})">‹</button>`;
-  for (let i=1; i<=total; i++) h += `<button class="pb ${i===S.page?'act':''}" onclick="goPage(${i})">${i}</button>`;
-  if (S.page < total) h += `<button class="pb" onclick="goPage(${S.page+1})">›</button>`;
-  el.innerHTML = h;
-}
+function clearFilters() { S.sido='';S.gungu='';S.cat='';S.kw='';S.sort='clicks'; applyFilters(); updateGnbLabel(); }
 
-function goPage(n) { S.page = n; renderStores(); window.scrollTo({top:0,behavior:'smooth'}); }
+function renderPgn() {
+  const el=document.getElementById('pgn');
+  if(!el)return;
+  const total=Math.ceil(S.filtered.length/S.perPage);
+  if(total<=1){el.innerHTML='';return;}
+  let h='';
+  if(S.page>1) h+=`<button class="pb" onclick="goPage(${S.page-1})">‹</button>`;
+  for(let i=1;i<=total;i++) h+=`<button class="pb ${i===S.page?'act':''}" onclick="goPage(${i})">${i}</button>`;
+  if(S.page<total) h+=`<button class="pb" onclick="goPage(${S.page+1})">›</button>`;
+  el.innerHTML=h;
+}
+function goPage(n){S.page=n;renderStores();window.scrollTo({top:0,behavior:'smooth'});}
 
 function renderRanking() {
-  const sorted = [...S.stores].sort((a,b) => (b.clicks||0)-(a.clicks||0));
-  const chg = ['▲2','same','▲1','▼1','same','▲3','▼2'];
-  const cls = ['ru','rs','ru','rd','rs','ru','rd'];
-
-  // PC
-  const el = document.getElementById('rkList');
-  if (el) el.innerHTML = sorted.slice(0,7).map((s,i) => `
-    <div class="rk" onclick="quickKw('${s.name}')">
-      <div class="rk-n ${i===0?'t1':i===1?'t2':i===2?'t3':''}">${i+1}</div>
-      <div class="rk-nm">${s.name}</div>
-      <span class="rk-chg ${cls[i]||'rs'}">${chg[i]||'―'}</span>
-      <div class="rk-ch">${(s.clicks||0)}클릭</div>
-    </div>`).join('');
-
-  // Mobile
-  const mel = document.getElementById('rkListMob');
-  if (mel) mel.innerHTML = sorted.slice(0,5).map((s,i) => `
-    <div class="rk" onclick="closeSidebar();quickKw('${s.name}')">
-      <div class="rk-n ${i===0?'t1':i===1?'t2':i===2?'t3':''}">${i+1}</div>
-      <div class="rk-nm">${s.name}</div>
-      <div class="rk-ch">${(s.clicks||0)}클릭</div>
-    </div>`).join('');
+  const sorted=[...S.stores].sort((a,b)=>(b.clicks||0)-(a.clicks||0));
+  const chg=['▲2','same','▲1','▼1','same','▲3','▼2'];
+  const cls=['ru','rs','ru','rd','rs','ru','rd'];
+  function makeHtml(list,isMob){
+    return list.map((s,i)=>`
+      <div class="rk" onclick="${isMob?'closeSide();':''}gnbKw('${s.name}')">
+        <div class="rk-n ${i===0?'t1':i===1?'t2':i===2?'t3':''}">${i+1}</div>
+        <div class="rk-nm">${s.name}</div>
+        ${!isMob?`<span class="rk-chg ${cls[i]||'rs'}">${chg[i]||'―'}</span>`:''}
+        <div class="rk-ch">${(s.clicks||0)}클릭</div>
+      </div>`).join('');
+  }
+  const el=document.getElementById('rkList');
+  if(el) el.innerHTML=makeHtml(sorted.slice(0,7),false);
+  const mel=document.getElementById('rkListMob');
+  if(mel) mel.innerHTML=makeHtml(sorted.slice(0,5),true);
 }
 
 function renderRecList() {
-  const el = document.getElementById('recList');
-  if (!el) return;
-  const pool = [...S.stores].sort((a,b) => (b.clicks||0)-(a.clicks||0)).slice(0,10);
-  if (!pool.length) { el.innerHTML = '<div style="color:var(--g4);font-size:.78rem;padding:14px">추천 업체 로딩 중...</div>'; return; }
-  el.innerHTML = pool.map(s => `
+  const el=document.getElementById('recList');
+  if(!el)return;
+  const pool=[...S.stores].sort((a,b)=>(b.clicks||0)-(a.clicks||0)).slice(0,10);
+  if(!pool.length){el.innerHTML='<div style="color:var(--g4);font-size:.76rem;padding:12px">추천 업체 로딩 중...</div>';return;}
+  el.innerHTML=pool.map(s=>`
     <div class="hc" onclick="openStore('${s.id}')">
       <div class="hc-th">${s.emoji||'🏪'}</div>
-      <div class="hc-bd"><div class="hc-n">${s.name}</div><div class="hc-s">${s.region||''}</div><div style="font-size:.62rem;color:var(--red);font-weight:700">${s.category||''}</div></div>
+      <div class="hc-bd"><div class="hc-n">${s.name}</div><div class="hc-s">${s.region||''}</div><div style="font-size:.6rem;color:var(--red);font-weight:700">${s.category||''}</div></div>
     </div>`).join('');
 }
 
 function updateCatCounts() {
-  ['음식점','카페','미용','생활서비스','의료','교육','농수산'].forEach(cat => {
-    const el = document.getElementById('c-'+cat);
-    if (!el) return;
-    const n = S.stores.filter(s => s.category===cat).length;
-    el.textContent = n > 0 ? n : '-';
+  ['음식점','카페','미용','생활서비스','의료','교육','농수산'].forEach(cat=>{
+    const el=document.getElementById('c-'+cat);
+    if(!el)return;
+    el.textContent=S.stores.filter(s=>s.category===cat).length||'-';
   });
 }
 
-/* =========================================================
-   SEARCH FUNCTIONS
-========================================================= */
-function doSearch() { showPage('home'); applyFilters(); }
+/* ── GNB 함수 ── */
+function gnbCat(c){ S.cat=c; showPage('home'); applyFilters(); if(c) toast(`🗂️ ${c} 검색`); }
+function gnbSort(s){ S.sort=s; showPage('home'); applyFilters(); }
+function gnbKw(kw){ S.kw=kw; showPage('home'); applyFilters(); }
+function gnbSearch(){ const v=document.getElementById('gnbQi').value.trim(); if(v){S.kw=v;document.getElementById('gnbQi').value='';showPage('home');applyFilters();} }
+function quickReg(r){ S.sido=r; S.gungu=''; updateGnbLabel(); document.querySelectorAll('.rgb').forEach(b=>b.classList.toggle('sel',b.textContent.trim()===r)); showPage('home'); applyFilters(); toast(`📍 ${r} 검색`); }
 
-function resetSearch() {
-  document.getElementById('sSido').value = '';
-  document.getElementById('sSigungu').innerHTML = '<option value="">구/군</option>';
-  document.getElementById('sCat').value = '';
-  document.getElementById('sSort').value = 'clicks';
-  document.getElementById('sKw').value = '';
-  applyFilters();
+function updateGnbLabel() {
+  const regLbl = S.gungu ? `📍 ${S.sido} ${S.gungu} ▾` : S.sido ? `📍 ${S.sido} ▾` : '📍 지역 ▾';
+  const catLbl = S.cat ? `🗂️ ${S.cat} ▾` : '🗂️ 업종별 ▾';
+  const sortMap = {clicks:'📊 인기순 ▾',new:'📊 최신순 ▾',premium:'📊 광고우선 ▾'};
+  const sortLbl = sortMap[S.sort]||'📊 인기순 ▾';
+  const giReg=document.getElementById('giReg'), giCat=document.getElementById('giCat'), giSort=document.getElementById('giSort');
+  if(giReg){giReg.textContent=regLbl; giReg.classList.toggle('act',!!S.sido);}
+  if(giCat){giCat.textContent=catLbl; giCat.classList.toggle('act',!!S.cat);}
+  if(giSort){giSort.textContent=sortLbl; giSort.classList.toggle('act',S.sort!=='clicks');}
+  ['clicks','new','premium'].forEach(s=>{const e=document.getElementById('sd-'+s);if(e)e.classList.toggle('sel',s===S.sort);});
 }
 
-function quickKw(kw) { document.getElementById('sKw').value = kw; showPage('home'); applyFilters(); }
-function quickCat(c) { document.getElementById('sCat').value = c; showPage('home'); applyFilters(); }
-function quickReg(r) {
-  document.getElementById('sSido').value = r; updateSigungu();
-  document.getElementById('sKw').value = ''; document.getElementById('sCat').value = '';
-  document.querySelectorAll('.rgb').forEach(b => { b.classList.toggle('sel', b.textContent.trim()===r); });
-  showPage('home'); applyFilters(); toast(`📍 ${r} 지역을 검색합니다.`);
+/* ── 드롭다운 토글 ── */
+function toggleDd(id) {
+  const wrap=document.getElementById(id);
+  if(!wrap)return;
+  const isOpen=wrap.classList.contains('op');
+  closeDds();
+  if(!isOpen) wrap.classList.add('op');
+}
+function toggleChDd(id) {
+  const wrap=document.getElementById(id);
+  if(!wrap)return;
+  const isOpen=wrap.classList.contains('op');
+  closeDds();
+  if(!isOpen) wrap.classList.add('op');
+}
+function closeDds() {
+  document.querySelectorAll('.ddw.op').forEach(e=>e.classList.remove('op'));
+  document.querySelectorAll('.ch-ddw.op').forEach(e=>e.classList.remove('op'));
 }
 
-function gnbReg(r) { document.getElementById('sSido').value=r; updateSigungu(); showPage('home'); applyFilters(); if(r) toast(`📍 ${r} 지역으로 검색합니다.`); }
-function gnbCat(c) { document.getElementById('sCat').value=c; showPage('home'); applyFilters(); if(c) toast(`🗂️ ${c} 업종을 검색합니다.`); }
-function gnbSort(s) { document.getElementById('sSort').value=s; showPage('home'); applyFilters(); }
-function gnbSearch() { const kw=document.getElementById('gnbKw').value.trim(); if(!kw) return; document.getElementById('sKw').value=kw; document.getElementById('gnbKw').value=''; showPage('home'); applyFilters(); }
-
-function updateSigungu() {
-  const sido = document.getElementById('sSido').value;
-  const sel = document.getElementById('sSigungu');
-  sel.innerHTML = '<option value="">구/군</option>';
-  (SIGUNGU[sido]||[]).forEach(s => { const o=document.createElement('option'); o.value=o.textContent=s; sel.appendChild(o); });
-}
-function updateRegSigungu() {} // 입점폼은 자유입력
-
-function detectLoc() {
-  if (!navigator.geolocation) { toast('위치 서비스를 지원하지 않는 브라우저입니다.'); return; }
-  toast('📍 위치 확인 중...');
-  navigator.geolocation.getCurrentPosition(
-    () => { document.getElementById('sSido').value='인천'; updateSigungu(); document.getElementById('weatherChip').textContent='📍 인천광역시'; toast('📍 인천광역시로 설정되었습니다.'); },
-    () => toast('위치 접근이 거부되었습니다.')
-  );
+/* ── 아코디언 ── */
+function toggleAcc(hdr) {
+  const body=hdr.nextElementSibling;
+  const wasOpen=hdr.classList.contains('op');
+  document.querySelectorAll('.ac-h.op').forEach(h=>{h.classList.remove('op');h.nextElementSibling.classList.remove('op');});
+  if(!wasOpen){hdr.classList.add('op');body.classList.add('op');}
 }
 
-/* =========================================================
-   STORE MODAL
-========================================================= */
+/* ── 모바일 사이드바 ── */
+function openSide(side) {
+  document.getElementById('mobOv').classList.add('op');
+  document.getElementById(side==='left'?'mobL':'mobR').classList.add('op');
+  document.body.style.overflow='hidden';
+}
+function closeSide() {
+  document.getElementById('mobOv').classList.remove('op');
+  document.getElementById('mobL').classList.remove('op');
+  document.getElementById('mobR').classList.remove('op');
+  document.body.style.overflow='';
+}
+
+/* ── 업체 모달 ── */
 function openStore(id) {
-  const s = S.stores.find(x => x.id===id);
-  if (!s) return;
-  document.getElementById('moName').textContent = s.name;
-  document.getElementById('moTags').innerHTML = [
-    s.region ? `<span class="tag tg">${s.region}</span>` : '',
-    s.category ? `<span class="tag tc">${s.category}</span>` : '',
-    s.premium ? `<span class="tag tp">★ 프리미엄</span>` : '',
+  const s=S.stores.find(x=>x.id===id);
+  if(!s)return;
+  document.getElementById('moName').textContent=s.name;
+  document.getElementById('moTags').innerHTML=[
+    s.region?`<span class="tag tg">${s.region}</span>`:'',
+    s.category?`<span class="tag tc">${s.category}</span>`:'',
+    s.premium?`<span class="tag tp">★ 프리미엄</span>`:'',
   ].join('');
-  document.getElementById('moBody').innerHTML = `
-    <div style="font-size:3.5rem;text-align:center;margin-bottom:14px">${s.emoji||'🏪'}</div>
-    <table style="width:100%;border-collapse:collapse;font-size:.86rem">
-      <tr><td style="padding:7px 0;color:var(--g4);width:75px">업종</td><td style="font-weight:600">${s.category||'-'}</td></tr>
-      <tr style="border-top:1px solid var(--g2)"><td style="padding:7px 0;color:var(--g4)">지역</td><td style="font-weight:600">${s.region||'-'}</td></tr>
-      <tr style="border-top:1px solid var(--g2)"><td style="padding:7px 0;color:var(--g4)">주요 아이템</td><td style="font-weight:600">${s.item||'-'}</td></tr>
-      <tr style="border-top:1px solid var(--g2)"><td style="padding:7px 0;color:var(--g4)">연락처</td><td style="font-weight:600">${s.phone||'-'}</td></tr>
-      <tr style="border-top:1px solid var(--g2)"><td style="padding:7px 0;color:var(--g4)">클릭</td><td>${(s.clicks||0).toLocaleString()}</td></tr>
+  document.getElementById('moBody').innerHTML=`
+    <div style="font-size:3rem;text-align:center;margin-bottom:12px">${s.emoji||'🏪'}</div>
+    <table style="width:100%;border-collapse:collapse;font-size:.84rem">
+      <tr><td style="padding:7px 0;color:var(--g4);width:70px">업종</td><td style="font-weight:600">${s.category||'-'}</td></tr>
+      <tr style="border-top:var(--bd)"><td style="padding:7px 0;color:var(--g4)">지역</td><td style="font-weight:600">${s.region||'-'}</td></tr>
+      <tr style="border-top:var(--bd)"><td style="padding:7px 0;color:var(--g4)">아이템</td><td style="font-weight:600">${s.item||'-'}</td></tr>
+      <tr style="border-top:var(--bd)"><td style="padding:7px 0;color:var(--g4)">연락처</td><td style="font-weight:600">${s.phone||'-'}</td></tr>
+      <tr style="border-top:var(--bd)"><td style="padding:7px 0;color:var(--g4)">클릭</td><td>${(s.clicks||0).toLocaleString()}</td></tr>
     </table>
-    ${s.desc ? `<div style="margin-top:12px;background:var(--g1);padding:11px;border-radius:4px;font-size:.83rem;color:#444;line-height:1.6">${s.desc}</div>` : ''}`;
-  document.getElementById('moPhoneBtn').onclick = () => callStore(s.id, s.phone, s.name);
+    ${s.desc?`<div style="margin-top:10px;background:var(--g1);padding:10px;border-radius:4px;font-size:.8rem;color:#444;line-height:1.6">${s.desc}</div>`:''}`;
+  document.getElementById('moPhoneBtn').onclick=()=>callStore(s.id,s.phone,s.name);
   document.getElementById('storeModal').classList.add('op');
   fetch('/api/view',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})}).catch(()=>{});
 }
 
-async function callStore(id, phone, name) {
-  if (!phone || phone==='undefined') { toast('전화번호 정보가 없습니다.'); return; }
-  if (confirm(`📞 ${name}\n${phone}\n\n전화를 연결하시겠습니까?`)) {
-    window.location.href = 'tel:' + phone.replace(/-/g,'');
+async function callStore(id,phone,name) {
+  if(!phone||phone==='undefined'){toast('전화번호 정보가 없습니다.');return;}
+  if(confirm(`📞 ${name}\n${phone}\n\n전화를 연결하시겠습니까?`)){
+    window.location.href='tel:'+phone.replace(/-/g,'');
     fetch('/api/click',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})}).catch(()=>{});
   }
 }
 
-/* =========================================================
-   NOTICE MODAL
-========================================================= */
+/* ── 공지 모달 ── */
 function openNotice(i) {
-  const n = NOTICES[i];
-  if (!n) return;
-  document.getElementById('nmTitle').textContent = n.title;
-  document.getElementById('nmMeta').innerHTML = `<span class="tag tc" style="margin-right:7px">${n.cat}</span>${n.date} · AI플랫마켓`;
-  document.getElementById('nmBody').innerHTML = n.body;
+  const n=NOTICES[i];if(!n)return;
+  document.getElementById('nmTitle').textContent=n.title;
+  document.getElementById('nmMeta').innerHTML=`<span class="tag tc" style="margin-right:6px">${n.cat}</span>${n.date} · AI플랫마켓`;
+  document.getElementById('nmBody').innerHTML=n.body;
   document.getElementById('noticeModal').classList.add('op');
 }
 
-/* =========================================================
-   ACCORDION
-========================================================= */
-function toggleAcc(hdr) {
-  const body = hdr.nextElementSibling;
-  const wasOpen = hdr.classList.contains('op');
-  document.querySelectorAll('.ac-h.op').forEach(h => { h.classList.remove('op'); h.nextElementSibling.classList.remove('op'); });
-  if (!wasOpen) { hdr.classList.add('op'); body.classList.add('op'); }
+/* ── 커뮤니티 탭 ── */
+function cmTab(el,type) {
+  document.querySelectorAll('.cm-tab').forEach(t=>t.classList.remove('act'));
+  el.classList.add('act');
+  toast(`${el.textContent} 게시판`);
 }
 
-/* =========================================================
-   MOBILE SIDEBAR
-========================================================= */
-function openSidebar(side) {
-  document.getElementById('mobOverlay').classList.add('op');
-  document.getElementById(side==='left'?'mobL':'mobR').classList.add('op');
-  document.body.style.overflow = 'hidden';
+/* ── PDF ── */
+function handlePdfFile(input) {
+  const f=input.files[0];if(!f)return;
+  if(f.size>10*1024*1024){toast('❗ 10MB 초과');return;}
+  addPdf(f.name,f.size);
 }
-function closeSidebar() {
-  document.getElementById('mobOverlay').classList.remove('op');
-  document.getElementById('mobL').classList.remove('op');
-  document.getElementById('mobR').classList.remove('op');
-  document.body.style.overflow = '';
+function handleDrop(e) {
+  e.preventDefault();
+  const f=e.dataTransfer.files[0];
+  if(!f||!f.name.endsWith('.pdf')){toast('PDF만 가능합니다.');return;}
+  addPdf(f.name,f.size);
+}
+function addPdf(name,size) {
+  const list=document.getElementById('pdfList');if(!list)return;
+  const sz=(size/1024/1024).toFixed(1);
+  const d=new Date().toLocaleDateString('ko-KR');
+  const item=document.createElement('div');item.className='pdf-item';
+  item.innerHTML=`<div class="pdf-ico">📄</div><div class="pdf-nm">${name}</div><div class="pdf-meta">${d} · ${sz}MB</div><button class="btn-pdf" onclick="toast('업로드 완료!')">보기</button>`;
+  list.prepend(item);toast('✅ PDF 업로드 완료!');
 }
 
-/* =========================================================
-   PAGE SWITCH
-========================================================= */
+/* ── 페이지 전환 ── */
 function showPage(id) {
-  document.querySelectorAll('.pg').forEach(el => el.classList.remove('act'));
-  const tgt = document.getElementById('page-'+id);
-  if (tgt) tgt.classList.add('act');
-  // GNB active
-  document.querySelectorAll('.gi').forEach(el => el.classList.remove('act'));
-  const gmap = {home:0, news:1};
-  const gis = document.querySelectorAll('.gi');
-  if (gmap[id] !== undefined && gis[gmap[id]]) gis[gmap[id]].classList.add('act');
-  // LSB active
-  document.querySelectorAll('.lmi').forEach(el => el.classList.remove('act'));
+  document.querySelectorAll('.pg').forEach(e=>e.classList.remove('act'));
+  const tgt=document.getElementById('page-'+id);
+  if(tgt)tgt.classList.add('act');
+  document.querySelectorAll('.gnb-top .gi, .gnb-sub .gi').forEach(e=>e.classList.remove('act'));
+  const gMap={home:0,news:1};
+  const gis=document.querySelectorAll('.gnb-top .gi');
+  if(gMap[id]!==undefined&&gis[gMap[id]])gis[gMap[id]].classList.add('act');
+  document.querySelectorAll('.lmi').forEach(e=>e.classList.remove('act'));
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* =========================================================
-   REGISTER
-========================================================= */
+/* ── 입점 신청 ── */
 async function doRegister() {
-  const data = {
-    name: document.getElementById('rName').value.trim(),
-    owner: document.getElementById('rOwner').value.trim(),
-    region: (document.getElementById('rSido').value||'') + ' ' + (document.getElementById('rSigungu').value||''),
-    category: document.getElementById('rCat').value,
-    phone: document.getElementById('rPhone').value.trim(),
-    item: document.getElementById('rItem').value.trim(),
-    desc: document.getElementById('rDesc').value.trim(),
-    email: document.getElementById('rEmail').value.trim(),
+  const data={
+    name:document.getElementById('rName').value.trim(),
+    owner:document.getElementById('rOwner').value.trim(),
+    region:(document.getElementById('rSido').value||'')+' '+(document.getElementById('rSigungu').value||''),
+    category:document.getElementById('rCat').value,
+    phone:document.getElementById('rPhone').value.trim(),
+    item:document.getElementById('rItem').value.trim(),
+    desc:document.getElementById('rDesc').value.trim(),
+    email:document.getElementById('rEmail').value.trim(),
   };
-  if (!data.name || !data.phone || !data.category) { toast('❗ 업체명, 업종, 전화번호는 필수입니다.'); return; }
-  try {
-    const res = await fetch('/api/store',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    if (!res.ok) throw new Error();
+  if(!data.name||!data.phone||!data.category){toast('❗ 업체명, 업종, 전화번호는 필수입니다.');return;}
+  try{
+    const res=await fetch('/api/store',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    if(!res.ok)throw new Error();
     toast('✅ 입점 신청 완료! 1-2일 내 심사 후 등록됩니다.');
-    showPage('home'); loadStores();
-    ['rName','rOwner','rSigungu','rPhone','rItem','rDesc','rEmail'].forEach(id => { const e=document.getElementById(id); if(e) e.value=''; });
-    document.getElementById('rSido').value = '';
-    document.getElementById('rCat').value = '';
-  } catch(_) { toast('❗ 제출 중 오류가 발생했습니다.'); }
+    showPage('home');loadStores();
+    ['rName','rOwner','rSigungu','rPhone','rItem','rDesc','rEmail'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+    document.getElementById('rSido').value='';document.getElementById('rCat').value='';
+  }catch(_){toast('❗ 제출 중 오류가 발생했습니다.');}
 }
 
-/* =========================================================
-   PDF
-========================================================= */
-function handlePdfSelect(input) {
-  const f = input.files[0];
-  if (!f) return;
-  if (f.size > 10*1024*1024) { toast('❗ 파일 크기가 10MB를 초과합니다.'); return; }
-  addPdfItem(f.name, f.size);
-}
-function handlePdfDrop(e) {
-  e.preventDefault();
-  const f = e.dataTransfer.files[0];
-  if (!f || !f.name.endsWith('.pdf')) { toast('PDF 파일만 업로드 가능합니다.'); return; }
-  addPdfItem(f.name, f.size);
-}
-function addPdfItem(name, size) {
-  const list = document.getElementById('pdfList');
-  if (!list) return;
-  const sz = (size/1024/1024).toFixed(1);
-  const today = new Date().toLocaleDateString('ko-KR').replace(/ /g,'').replace(/\.$|\.(?=\d)/g, '.').slice(0,-1);
-  const item = document.createElement('div');
-  item.className = 'pdf-item';
-  item.innerHTML = `<div class="pdf-ico">📄</div><div class="pdf-nm">${name}</div><div class="pdf-meta">${today} · ${sz}MB</div><button class="btn-pdf-dl" onclick="toast('업로드가 완료되었습니다!')">보기</button>`;
-  list.prepend(item);
-  toast('✅ PDF 업로드가 완료되었습니다!');
-}
-
-/* =========================================================
-   TOAST
-========================================================= */
-let _tt;
+/* ── 토스트 ── */
 function toast(msg) {
-  const el = document.getElementById('toastEl');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(_tt);
-  _tt = setTimeout(() => el.classList.remove('show'), 3000);
+  const el=document.getElementById('toastEl');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),3000);
 }
 </script>
 </body>
