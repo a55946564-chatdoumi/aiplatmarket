@@ -68,26 +68,38 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:14px 28px 0}
    GNB
 ========================================================= */
 nav.gnb{background:#fff;border-bottom:var(--bd);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(13,31,53,.05)}
-.gnb-inner{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;padding:0 20px}
+.gnb-inner{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;padding:0 28px} /* 로고 28px 좌측 맞춤 */
 .gnb-inner::-webkit-scrollbar{display:none}
-.gi{display:flex;align-items:center;padding:11px 14px;font-size:.88rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative}
+.gi{display:flex;align-items:center;padding:11px 14px;font-size:.88rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
 .gi.act{color:var(--red);border-bottom-color:var(--red)}
 .gi .badge{background:var(--red);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:3px;margin-left:4px;font-weight:900}
 .gi .nbadge{background:var(--green);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:3px;margin-left:4px;font-weight:900}
 .gd{width:1px;background:var(--g2);margin:8px 0;align-self:stretch;flex-shrink:0}
-/* 드롭다운 */
-.dd-wrap{position:relative;display:flex;align-items:stretch}
+/* 드롭다운 - hover + click 모두 지원 */
+.dd-wrap{position:relative;display:flex;align-items:stretch;flex-shrink:0}
 .dd-wrap:hover .dd{display:block}
+.dd-wrap.open .dd{display:block}
 .dd{display:none;position:absolute;top:100%;left:0;min-width:150px;background:#fff;border:var(--bd);border-top:2px solid var(--red);box-shadow:0 8px 24px rgba(13,31,53,.12);z-index:200;border-radius:0 0 6px 6px}
 .ddi{padding:8px 14px;font-size:.8rem;font-weight:600;color:var(--text);cursor:pointer;border-bottom:1px solid var(--g2);white-space:nowrap;transition:background .15s}
 .ddi:last-child{border-bottom:none}
 .ddi:hover{background:#fce8e6;color:var(--red)}
+.ddi.sel{background:#fce8e6;color:var(--red);font-weight:800}
 /* GNB 검색 */
-.gnb-srch{display:flex;align-items:center;margin-left:auto;padding:0 12px;gap:0}
+.gnb-srch{display:flex;align-items:center;margin-left:auto;padding:0 12px;gap:0;flex-shrink:0}
 .gnb-inp{border:1px solid var(--g2);border-right:none;padding:5px 10px;font-size:.8rem;border-radius:20px 0 0 20px;outline:none;width:150px;transition:border-color .2s}
 .gnb-inp:focus{border-color:var(--navy)}
 .gnb-sbtn{background:var(--navy);color:#fff;border:none;padding:5px 12px;border-radius:0 20px 20px 0;font-size:.78rem;font-weight:700}
+
+/* =========================================================
+   MUSIC GENRE BUTTONS
+========================================================= */
+.genre-bar{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;padding:10px 0 4px}
+.genre-btn{background:rgba(123,45,139,.1);border:1px solid rgba(123,45,139,.3);color:#7b2d8b;padding:5px 13px;border-radius:20px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.genre-btn:hover{background:rgba(123,45,139,.2);border-color:#7b2d8b}
+.genre-btn.act{background:#7b2d8b;color:#fff;border-color:#7b2d8b}
+.genre-lbl{font-size:.7rem;color:var(--g4);font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:2px}
+.genre-lbl::before{content:'♪';color:#7b2d8b}
 
 /* =========================================================
    TICKER
@@ -550,43 +562,48 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:28px}
       <div class="gi act" onclick="showPage('home')">🏠 종합홈</div><div class="gd"></div>
       <div class="gi" onclick="showPage('news')">📰 지역경제</div><div class="gd"></div>
 
-      <div class="dd-wrap">
-        <div class="gi">📍 지역 ▾</div>
+      <div class="dd-wrap" id="ddReg">
+        <div class="gi" id="giReg" onclick="toggleDd('ddReg')">📍 지역 ▾</div>
         <div class="dd">
-          <div class="ddi" onclick="gnbReg('')">전체 지역</div>
-          <div class="ddi" onclick="gnbReg('서울')">서울</div>
-          <div class="ddi" onclick="gnbReg('인천')">인천</div>
-          <div class="ddi" onclick="gnbReg('경기')">경기</div>
-          <div class="ddi" onclick="gnbReg('부산')">부산</div>
-          <div class="ddi" onclick="gnbReg('대구')">대구</div>
-          <div class="ddi" onclick="gnbReg('대전')">대전</div>
-          <div class="ddi" onclick="gnbReg('광주')">광주</div>
-          <div class="ddi" onclick="gnbReg('강원')">강원</div>
-          <div class="ddi" onclick="gnbReg('경남')">경남</div>
+          <div class="ddi" onclick="gnbReg('');closeDds()">전체 지역</div>
+          <div class="ddi" onclick="gnbReg('서울');closeDds()">서울</div>
+          <div class="ddi" onclick="gnbReg('인천');closeDds()">인천</div>
+          <div class="ddi" onclick="gnbReg('경기');closeDds()">경기</div>
+          <div class="ddi" onclick="gnbReg('부산');closeDds()">부산</div>
+          <div class="ddi" onclick="gnbReg('대구');closeDds()">대구</div>
+          <div class="ddi" onclick="gnbReg('대전');closeDds()">대전</div>
+          <div class="ddi" onclick="gnbReg('광주');closeDds()">광주</div>
+          <div class="ddi" onclick="gnbReg('강원');closeDds()">강원</div>
+          <div class="ddi" onclick="gnbReg('충남');closeDds()">충남</div>
+          <div class="ddi" onclick="gnbReg('경남');closeDds()">경남</div>
+          <div class="ddi" onclick="gnbReg('전남');closeDds()">전남</div>
+          <div class="ddi" onclick="gnbReg('제주');closeDds()">제주</div>
         </div>
       </div><div class="gd"></div>
 
-      <div class="dd-wrap">
-        <div class="gi">🗂️ 업종별 ▾</div>
+      <div class="dd-wrap" id="ddCat">
+        <div class="gi" id="giCat" onclick="toggleDd('ddCat')">🗂️ 업종별 ▾</div>
         <div class="dd">
-          <div class="ddi" onclick="gnbCat('')">전체 업종</div>
-          <div class="ddi" onclick="gnbCat('음식점')">🍽️ 음식점</div>
-          <div class="ddi" onclick="gnbCat('카페')">☕ 카페/디저트</div>
-          <div class="ddi" onclick="gnbCat('미용')">💇 미용/뷰티</div>
-          <div class="ddi" onclick="gnbCat('의류')">👗 의류/패션</div>
-          <div class="ddi" onclick="gnbCat('생활서비스')">🔧 생활서비스</div>
-          <div class="ddi" onclick="gnbCat('의료')">💊 의료/건강</div>
-          <div class="ddi" onclick="gnbCat('교육')">📚 교육/학원</div>
-          <div class="ddi" onclick="gnbCat('농수산')">🥬 농수산물</div>
+          <div class="ddi" onclick="gnbCat('');closeDds()">전체 업종</div>
+          <div class="ddi" onclick="gnbCat('음식점');closeDds()">🍽️ 음식점</div>
+          <div class="ddi" onclick="gnbCat('카페');closeDds()">☕ 카페/디저트</div>
+          <div class="ddi" onclick="gnbCat('미용');closeDds()">💇 미용/뷰티</div>
+          <div class="ddi" onclick="gnbCat('의류');closeDds()">👗 의류/패션</div>
+          <div class="ddi" onclick="gnbCat('생활서비스');closeDds()">🔧 생활서비스</div>
+          <div class="ddi" onclick="gnbCat('의료');closeDds()">💊 의료/건강</div>
+          <div class="ddi" onclick="gnbCat('교육');closeDds()">📚 교육/학원</div>
+          <div class="ddi" onclick="gnbCat('숙박');closeDds()">🏨 숙박</div>
+          <div class="ddi" onclick="gnbCat('여가');closeDds()">🎮 여가/문화</div>
+          <div class="ddi" onclick="gnbCat('농수산');closeDds()">🥬 농수산물</div>
         </div>
       </div><div class="gd"></div>
 
-      <div class="dd-wrap">
-        <div class="gi">📊 인기순 ▾</div>
+      <div class="dd-wrap" id="ddSort">
+        <div class="gi" id="giSort" onclick="toggleDd('ddSort')">📊 인기순 ▾</div>
         <div class="dd">
-          <div class="ddi" onclick="gnbSort('clicks')">🔥 클릭 인기순</div>
-          <div class="ddi" onclick="gnbSort('new')">🆕 최신순</div>
-          <div class="ddi" onclick="gnbSort('premium')">⭐ 광고 우선</div>
+          <div class="ddi sel" id="sortDdi-clicks" onclick="gnbSort('clicks');closeDds()">🔥 클릭 인기순</div>
+          <div class="ddi" id="sortDdi-new" onclick="gnbSort('new');closeDds()">🆕 최신순</div>
+          <div class="ddi" id="sortDdi-premium" onclick="gnbSort('premium');closeDds()">⭐ 광고 우선</div>
         </div>
       </div><div class="gd"></div>
 
@@ -793,14 +810,24 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:28px}
             <div class="music-badge">♪ MUSIC</div>
             <div class="vc">🎵 <span>886</span>명</div>
             <div class="iframe-box">
-              <iframe src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG&autoplay=1&mute=1&controls=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+              <iframe id="musicIframe" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG&autoplay=1&mute=1&controls=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>
             </div>
           </div>
-          <div class="bc-info"><span class="bc-ch mu">AI플랫 MUSIC</span><div class="bc-ttl">소상공인 응원 K-POP 플레이리스트 — 오늘도 힘내세요 🎶</div></div>
-        </div>
-      </div>
-
-      <!-- 다음방송 + 업체목록 그리드 -->
+          <div class="bc-info"><span class="bc-ch mu">AI플랫 MUSIC</span><div class="bc-ttl" id="musicTitle">소상공인 응원 K-POP 플레이리스트 — 오늘도 힘내세요 🎶</div></div>
+          <!-- 장르 선택 버튼 -->
+          <div class="genre-lbl">장르 선택</div>
+          <div class="genre-bar">
+            <button class="genre-btn act" id="gb-kpop"  onclick="setGenre('kpop')">🎵 K-POP</button>
+            <button class="genre-btn"      id="gb-trot"  onclick="setGenre('trot')">🎤 트롯</button>
+            <button class="genre-btn"      id="gb-ballad"onclick="setGenre('ballad')">🎼 발라드</button>
+            <button class="genre-btn"      id="gb-rock"  onclick="setGenre('rock')">🎸 록/메탈</button>
+            <button class="genre-btn"      id="gb-pop"   onclick="setGenre('pop')">🌍 팝</button>
+            <button class="genre-btn"      id="gb-hiphop"onclick="setGenre('hiphop')">🎧 힙합/R&B</button>
+            <button class="genre-btn"      id="gb-jazz"  onclick="setGenre('jazz')">🎷 재즈/팝재즈</button>
+            <button class="genre-btn"      id="gb-classic"onclick="setGenre('classic')">🎻 클래식</button>
+          </div>
+        </div><!-- /뮤직 bc-col -->
+      </div><!-- /bc-grid -->
       <div style="display:grid;grid-template-columns:1fr 190px;gap:14px;margin-top:20px;align-items:start">
         <div>
           <div class="sh"><div class="sh-t">🏪 지역 업체</div><span class="sh-m" onclick="doSearch()">전체 ›</span></div>
@@ -1121,6 +1148,65 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:28px}
 'use strict';
 
 /* =========================================================
+   MUSIC GENRE
+========================================================= */
+const GENRES = {
+  kpop:   { list:'PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG', label:'K-POP 플레이리스트' },
+  trot:   { list:'PLAjhe9VBXQ-p_5qHCJEBGfP6aDGpjZkVX', label:'트롯 명곡 모음' },
+  ballad: { list:'PL3-tEhc1Ub_Ql92Y85dpR9PLNm-6qWFKY', label:'발라드 베스트' },
+  rock:   { list:'PLAjhe9VBXQ-r2IVsLEhIc2LFdPAVMWU7m', label:'록/메탈 명곡' },
+  pop:    { list:'PLAjhe9VBXQ-q0Q_oZdRNFSFCbFgK3HRTQ', label:'팝 히트곡' },
+  hiphop: { list:'PLAjhe9VBXQ-okRZ0nFLI12d0RCnpKjRmE', label:'힙합/R&B 베스트' },
+  jazz:   { list:'PLAjhe9VBXQ-pnhS3GWBDk_4fZDIqjYvYb', label:'재즈·팝재즈' },
+  classic:{ list:'PLAjhe9VBXQ-r3t_3_ZKnGnPSOfTHOPYLr', label:'클래식 명연주' },
+};
+
+function setGenre(g) {
+  const info = GENRES[g];
+  if (!info) return;
+  const ifr = document.getElementById('musicIframe');
+  if (ifr) ifr.src = `https://www.youtube.com/embed/videoseries?list=${info.list}&autoplay=1&mute=0&controls=1`;
+  const ttl = document.getElementById('musicTitle');
+  if (ttl) ttl.textContent = `${info.label} — 오늘도 힘내세요 🎶`;
+  document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('act'));
+  const btn = document.getElementById('gb-' + g);
+  if (btn) btn.classList.add('act');
+}
+
+/* =========================================================
+   GNB DROPDOWN TOGGLE
+========================================================= */
+function toggleDd(id) {
+  const wrap = document.getElementById(id);
+  if (!wrap) return;
+  const isOpen = wrap.classList.contains('open');
+  closeDds();
+  if (!isOpen) wrap.classList.add('open');
+  if (typeof event !== 'undefined') event.stopPropagation();
+}
+function closeDds() {
+  document.querySelectorAll('.dd-wrap.open').forEach(el => el.classList.remove('open'));
+}
+document.addEventListener('click', function() { closeDds(); });
+
+/* =========================================================
+   GNB 활성 표시 업데이트
+========================================================= */
+function updateGnbLabel() {
+  const reg  = document.getElementById('sSido').value;
+  const cat  = document.getElementById('sCat').value;
+  const sort = document.getElementById('sSort').value;
+  const sortLabels = {clicks:'📊 인기순 ▾', new:'📊 최신순 ▾', premium:'📊 광고우선 ▾'};
+  const giReg  = document.getElementById('giReg');
+  const giCat  = document.getElementById('giCat');
+  const giSort = document.getElementById('giSort');
+  if (giReg)  { giReg.textContent  = reg ? `📍 ${reg} ▾` : '📍 지역 ▾';   giReg.classList.toggle('act', !!reg); }
+  if (giCat)  { giCat.textContent  = cat ? `🗂️ ${cat} ▾` : '🗂️ 업종별 ▾'; giCat.classList.toggle('act', !!cat); }
+  if (giSort) { giSort.textContent = sortLabels[sort] || '📊 인기순 ▾'; giSort.classList.toggle('act', sort !== 'clicks'); }
+  ['clicks','new','premium'].forEach(s => { const el = document.getElementById('sortDdi-'+s); if(el) el.classList.toggle('sel', s===sort); });
+}
+
+/* =========================================================
    DATA
 ========================================================= */
 const SIGUNGU = {
@@ -1296,6 +1382,7 @@ function applyFilters() {
   renderRanking();
   renderRecList();
   updateCatCounts();
+  updateGnbLabel();
 }
 
 function renderLoading() {
