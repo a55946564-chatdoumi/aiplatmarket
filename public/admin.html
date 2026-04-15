@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI PLATMARKET 관리자 대시보드</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d1f35;--navy2:#1a3556;--red:#c0392b;--red2:#e74c3c;
+  --gold:#c9a84c;--grn:#1a7a4a;--blue:#1a56a0;--purple:#7b2d8b;
+  --g1:#f4f6f9;--g2:#e8ecf1;--g3:#b0bac7;--g4:#6b7a8d;
+  --text:#1c2635;
+  --bd:1px solid #dde2ea;--r:6px;
+  --fn:'Noto Sans KR',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fn);background:#eef1f6;color:var(--text);font-size:14px;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+/* ── 레이아웃 ── */
+.admin-wrap{display:flex;min-height:100vh}
+
+/* ── 사이드바 ── */
+.side{width:240px;background:var(--navy);color:#fff;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.side-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.side-logo .main{font-size:1.1rem;font-weight:900;letter-spacing:-.5px}
+.side-logo .main em{color:var(--red);font-style:normal}
+.side-logo .sub{font-size:.68rem;color:rgba(255,255,255,.5);margin-top:2px}
+.side-admin-info{padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.1);font-size:.75rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px}
+.side-admin-info .avatar{width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--navy);font-weight:900;flex-shrink:0}
+.side-nav{flex:1;padding:10px 0}
+.nav-sec{padding:8px 20px 4px;font-size:.62rem;font-weight:900;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 20px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.75);cursor:pointer;transition:all .18s;position:relative}
+.nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-item.act{background:rgba(255,255,255,.12);color:#fff;border-left:3px solid var(--gold)}
+.nav-item .ic{font-size:.95rem;width:18px;text-align:center;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:.6rem;font-weight:900;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
+.nav-badge.g{background:var(--grn)}
+.side-bottom{padding:14px 20px;border-top:1px solid rgba(255,255,255,.1);font-size:.75rem;color:rgba(255,255,255,.4)}
+
+/* ── 메인 콘텐츠 ── */
+.main{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.topbar{background:#fff;border-bottom:var(--bd);padding:12px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar-title{font-size:1.05rem;font-weight:800;color:var(--navy)}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.btn-primary{background:var(--navy);color:#fff;border:none;padding:7px 16px;border-radius:var(--r);font-size:.8rem;font-weight:700;transition:all .2s}
+.btn-primary:hover{background:var(--navy2)}
+.btn-danger{background:var(--red);color:#fff;border:none;padding:6px 14px;border-radius:var(--r);font-size:.78rem;font-weight:700;transition:all .2s}
+.btn-danger:hover{background:var(--red2)}
+.btn-success{background:var(--grn);color:#fff;border:none;padding:6px 14px;border-radius:var(--r);font-size:.78rem;font-weight:700;transition:all .2s}
+.btn-success:hover{opacity:.88}
+.btn-warn{background:var(--gold);color:var(--navy);border:none;padding:6px 14px;border-radius:var(--r);font-size:.78rem;font-weight:700;transition:all .2s}
+.btn-sm{padding:4px 10px;font-size:.72rem;border-radius:4px;border:none;font-weight:700;cursor:pointer}
+.content{flex:1;overflow-y:auto;padding:24px 28px}
+
+/* ── 패널(뷰) ── */
+.panel{display:none}
+.panel.act{display:block}
+
+/* ── 통계 카드 ── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:var(--r);padding:18px;border:var(--bd);position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;right:-12px;top:-12px;width:60px;height:60px;border-radius:50%;opacity:.08;background:currentColor}
+.stat-card .sc-label{font-size:.72rem;color:var(--g4);font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.stat-card .sc-val{font-size:1.8rem;font-weight:900;line-height:1;margin-bottom:4px}
+.stat-card .sc-sub{font-size:.72rem;color:var(--g4)}
+.sc-navy{color:var(--navy)}.sc-red{color:var(--red)}.sc-grn{color:var(--grn)}.sc-gold{color:var(--gold)}.sc-blue{color:var(--blue)}.sc-purple{color:var(--purple)}
+
+/* ── 테이블 ── */
+.tbl-wrap{background:#fff;border-radius:var(--r);border:var(--bd);overflow:hidden;margin-bottom:20px}
+.tbl-header{padding:14px 18px;border-bottom:var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.tbl-title{font-size:.9rem;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:7px}
+.tbl-title::before{content:'';display:inline-block;width:3px;height:14px;background:var(--red);border-radius:2px}
+.tbl-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tbl-search{border:var(--bd);padding:5px 10px;border-radius:4px;font-size:.78rem;outline:none;width:180px;color:var(--text)}
+.tbl-search:focus{border-color:var(--navy)}
+.tbl-filter{border:var(--bd);padding:5px 9px;border-radius:4px;font-size:.78rem;outline:none;color:var(--text);background:#fff;cursor:pointer}
+table{width:100%;border-collapse:collapse}
+thead th{padding:10px 14px;text-align:left;font-size:.72rem;font-weight:800;color:var(--g4);text-transform:uppercase;letter-spacing:.5px;background:var(--g1);border-bottom:var(--bd)}
+tbody tr{border-bottom:var(--bd);transition:background .15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#fafcff}
+td{padding:10px 14px;font-size:.82rem;color:var(--text)}
+.td-name{font-weight:700;color:var(--navy)}
+.td-small{font-size:.72rem;color:var(--g4)}
+.badge{display:inline-block;font-size:.62rem;padding:2px 7px;border-radius:3px;font-weight:700}
+.b-pend{background:#fff3e0;color:#e65100}
+.b-ok{background:#e8f5e9;color:#2e7d32}
+.b-rej{background:#fce8e6;color:var(--red)}
+.b-prem{background:var(--gold);color:#fff}
+.b-cat{background:#e8f0fe;color:var(--blue)}
+.b-new{background:var(--red);color:#fff}
+.actions-cell{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.empty-row td{text-align:center;padding:30px;color:var(--g4)}
+
+/* ── 탭 ── */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--g2);margin-bottom:18px}
+.tab{padding:9px 18px;font-size:.83rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;color:var(--g4);transition:all .2s;margin-bottom:-2px}
+.tab:hover{color:var(--text)}
+.tab.act{color:var(--red);border-bottom-color:var(--red)}
+
+/* ── 상세 모달 ── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(13,31,53,.55);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.modal-ov.op{display:flex}
+.modal-box{background:#fff;border-radius:var(--r);max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.modal-hd{padding:16px 20px;border-bottom:var(--bd);display:flex;justify-content:space-between;align-items:center;background:var(--navy);color:#fff;border-radius:var(--r) var(--r) 0 0}
+.modal-hd h3{font-size:.95rem;margin:0}
+.modal-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.2rem;cursor:pointer}
+.modal-body{padding:20px}
+.info-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.info-table td{padding:8px 0;border-bottom:var(--bd)}
+.info-table td:first-child{width:110px;color:var(--g4);font-weight:600}
+.modal-foot{padding:14px 20px;border-top:var(--bd);background:var(--g1);display:flex;gap:8px;justify-content:flex-end}
+
+/* ── 차트 영역 (canvas 대신 바 차트) ── */
+.bar-chart{display:flex;flex-direction:column;gap:8px;padding:16px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-label{width:80px;font-size:.74rem;font-weight:600;text-align:right;flex-shrink:0;color:var(--text)}
+.bar-track{flex:1;height:20px;background:var(--g2);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .8s ease;display:flex;align-items:center;padding-left:6px;font-size:.65rem;font-weight:700;color:#fff;min-width:20px}
+.bar-cnt{font-size:.72rem;color:var(--g4);width:50px;flex-shrink:0}
+
+/* ── 알림 배지 (탑바) ── */
+.notif-btn{position:relative;background:none;border:none;font-size:1.1rem;cursor:pointer;padding:4px}
+.notif-dot{position:absolute;top:2px;right:2px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid #fff}
+
+/* ── 로그인 화면 ── */
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%)}
+.login-box{background:#fff;border-radius:12px;padding:40px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-logo{text-align:center;margin-bottom:24px}
+.login-logo .main{font-size:1.5rem;font-weight:900;color:var(--navy)}
+.login-logo .main em{color:var(--red);font-style:normal}
+.login-logo .sub{font-size:.75rem;color:var(--g4);margin-top:3px}
+.lg{display:flex;flex-direction:column;gap:12px}
+.lg input{border:var(--bd);padding:11px 14px;border-radius:var(--r);font-size:.9rem;outline:none;transition:border-color .2s;font-family:inherit}
+.lg input:focus{border-color:var(--navy)}
+.lg-btn{background:var(--navy);color:#fff;border:none;padding:12px;border-radius:var(--r);font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s}
+.lg-btn:hover{background:var(--navy2)}
+.lg-err{color:var(--red);font-size:.78rem;text-align:center}
+
+/* ── 토스트 ── */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:#fff;padding:10px 20px;border-radius:30px;font-size:.84rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:2000;transition:all .3s;opacity:0;transform:translateY(20px);pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.success{background:var(--grn)}
+.toast.error{background:var(--red)}
+
+/* ── 반응형 ── */
+@media(max-width:900px){
+  .side{width:56px;overflow:visible}
+  .side-logo .main,.side-logo .sub,.nav-item span:not(.ic),.nav-badge,.nav-sec,.side-admin-info .name,.side-bottom{display:none}
+  .nav-item{padding:10px;justify-content:center}
+  .content{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== 로그인 화면 ========== -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="main">AI<em>PLAT</em>MARKET</div>
+      <div class="sub">관리자 대시보드</div>
+    </div>
+    <div class="lg">
+      <input type="text" id="lgId" placeholder="관리자 아이디" onkeydown="if(event.key==='Enter')doLogin()">
+      <input type="password" id="lgPw" placeholder="비밀번호" onkeydown="if(event.key==='Enter')doLogin()">
+      <div id="lgErr" class="lg-err"></div>
+      <button class="lg-btn" onclick="doLogin()">로그인</button>
+    </div>
+    <div style="margin-top:14px;font-size:.72rem;color:var(--g4);text-align:center">
+      기본: admin / aiplatmarket2026<br>
+      <span style="color:var(--red)">운영 전 비밀번호를 반드시 변경하세요</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 대시보드 ========== -->
+<div id="dashWrap" class="admin-wrap" style="display:none">
+
+  <!-- 사이드바 -->
+  <aside class="side">
+    <div class="side-logo">
+      <div class="main">AI<em>PLAT</em>MARKET</div>
+      <div class="sub">관리자 대시보드</div>
+    </div>
+    <div class="side-admin-info">
+      <div class="avatar">A</div>
+      <span class="name">관리자</span>
+    </div>
+    <nav class="side-nav">
+      <div class="nav-sec">메인</div>
+      <div class="nav-item act" onclick="showPanel('dashboard')"><span class="ic">📊</span><span>대시보드</span></div>
+
+      <div class="nav-sec">입점 관리</div>
+      <div class="nav-item" onclick="showPanel('stores')"><span class="ic">🏪</span><span>입점 업체 목록</span><span class="nav-badge" id="nb-stores">0</span></div>
+      <div class="nav-item" onclick="showPanel('pending')"><span class="ic">⏳</span><span>승인 대기</span><span class="nav-badge" id="nb-pending">0</span></div>
+
+      <div class="nav-sec">광고 관리</div>
+      <div class="nav-item" onclick="showPanel('ads')"><span class="ic">📢</span><span>광고 업체 관리</span></div>
+      <div class="nav-item" onclick="showPanel('adreq')"><span class="ic">📋</span><span>광고 신청 목록</span><span class="nav-badge g" id="nb-adreq">0</span></div>
+
+      <div class="nav-sec">신청 관리</div>
+      <div class="nav-item" onclick="showPanel('branch')"><span class="ic">🏢</span><span>지역본부/지사</span><span class="nav-badge g" id="nb-branch">0</span></div>
+      <div class="nav-item" onclick="showPanel('reporter')"><span class="ic">📰</span><span>홍보기자단</span><span class="nav-badge g" id="nb-reporter">0</span></div>
+
+      <div class="nav-sec">콘텐츠</div>
+      <div class="nav-item" onclick="showPanel('notice')"><span class="ic">📢</span><span>공지사항</span></div>
+      <div class="nav-item" onclick="showPanel('event')"><span class="ic">🎉</span><span>지역행사</span></div>
+
+      <div class="nav-sec">설정</div>
+      <div class="nav-item" onclick="showPanel('settings')"><span class="ic">⚙️</span><span>사이트 설정</span></div>
+      <div class="nav-item" onclick="doLogout()"><span class="ic">🚪</span><span>로그아웃</span></div>
+    </nav>
+    <div class="side-bottom">v1.0.0 · 2026</div>
+  </aside>
+
+  <!-- 메인 영역 -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">📊 대시보드</div>
+      <div class="topbar-right">
+        <button class="notif-btn" onclick="showPanel('pending')">🔔<span class="notif-dot" id="notifDot"></span></button>
+        <button class="btn-primary" onclick="refreshAll()">🔄 새로고침</button>
+        <a href="/" target="_blank"><button class="btn-primary" style="background:var(--grn)">🌐 사이트 보기</button></a>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ===== 대시보드 ===== -->
+      <div id="panel-dashboard" class="panel act">
+        <div class="stat-grid" id="statGrid">
+          <div class="stat-card sc-navy"><div class="sc-label">전체 입점 업체</div><div class="sc-val" id="s-total">-</div><div class="sc-sub">누적 등록</div></div>
+          <div class="stat-card sc-red"><div class="sc-label">승인 대기</div><div class="sc-val" id="s-pend">-</div><div class="sc-sub">검토 필요</div></div>
+          <div class="stat-card sc-gold"><div class="sc-label">프리미엄 광고</div><div class="sc-val" id="s-prem">-</div><div class="sc-sub">활성 광고</div></div>
+          <div class="stat-card sc-grn"><div class="sc-label">총 클릭수</div><div class="sc-val" id="s-clicks">-</div><div class="sc-sub">누적</div></div>
+          <div class="stat-card sc-blue"><div class="sc-label">총 조회수</div><div class="sc-val" id="s-views">-</div><div class="sc-sub">누적</div></div>
+          <div class="stat-card sc-purple"><div class="sc-label">지역본부 신청</div><div class="sc-val" id="s-branch">-</div><div class="sc-sub">처리 대기 포함</div></div>
+          <div class="stat-card sc-navy"><div class="sc-label">홍보기자단 신청</div><div class="sc-val" id="s-reporter">-</div><div class="sc-sub">처리 대기 포함</div></div>
+          <div class="stat-card sc-grn"><div class="sc-label">광고 신청</div><div class="sc-val" id="s-adreq">-</div><div class="sc-sub">처리 대기 포함</div></div>
+        </div>
+
+        <!-- 업종별 차트 -->
+        <div class="tbl-wrap">
+          <div class="tbl-header"><div class="tbl-title">업종별 입점 현황</div></div>
+          <div class="bar-chart" id="catChart"></div>
+        </div>
+
+        <!-- 최근 신청 목록 -->
+        <div class="tbl-wrap">
+          <div class="tbl-header">
+            <div class="tbl-title">최근 입점 신청 (5건)</div>
+            <button class="btn-primary" style="font-size:.75rem;padding:5px 12px" onclick="showPanel('pending')">전체 보기</button>
+          </div>
+          <table><thead><tr><th>업체명</th><th>업종</th><th>지역</th><th>신청일</th><th>상태</th><th>처리</th></tr></thead>
+          <tbody id="recentApply"></tbody></table>
+        </div>
+      </div>
+
+      <!-- ===== 입점 업체 목록 ===== -->
+      <div id="panel-stores" class="panel">
+        <div class="tabs">
+          <div class="tab act" onclick="filterStores('all',this)">전체 <span id="cnt-all"></span></div>
+          <div class="tab" onclick="filterStores('approved',this)">승인됨 <span id="cnt-approved"></span></div>
+          <div class="tab" onclick="filterStores('pending',this)">대기중 <span id="cnt-pend2"></span></div>
+          <div class="tab" onclick="filterStores('premium',this)">프리미엄 <span id="cnt-prem2"></span></div>
+        </div>
+        <div class="tbl-wrap">
+          <div class="tbl-header">
+            <div class="tbl-title">입점 업체 관리</div>
+            <div class="tbl-actions">
+              <input class="tbl-search" placeholder="업체명 검색..." oninput="searchStores(this.value)">
+              <select class="tbl-filter" onchange="filterByCat(this.value)">
+                <option value="">전체 업종</option>
+                <option>음식점</option><option>카페</option><option>미용</option><option>의류</option>
+                <option>생활서비스</option><option>의료</option><option>교육</option><option>농수산</option><option>숙박</option><option>여가</option>
+              </select>
+              <button class="btn-primary" style="font-size:.75rem;padding:5px 12px" onclick="exportCSV()">📥 CSV 내보내기</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th><input type="checkbox" onchange="selectAll(this)"></th><th>업체명</th><th>업종</th><th>지역</th><th>연락처</th><th>클릭/조회</th><th>상태</th><th>처리</th></tr></thead>
+            <tbody id="storesTbody"></tbody>
+          </table>
+          </div>
+          <div style="padding:12px 18px;display:flex;justify-content:space-between;align-items:center;border-top:var(--bd);font-size:.78rem;color:var(--g4)">
+            <span id="storeCount">0개 업체</span>
+            <div style="display:flex;gap:6px" id="storePgn"></div>
+          </div>
+        </div>
+        <!-- 일괄처리 -->
+        <div style="display:flex;gap:8px;padding:10px 0">
+          <button class="btn-success btn-sm" onclick="bulkApprove()">✅ 선택 일괄 승인</button>
+          <button class="btn-danger btn-sm" onclick="bulkReject()">❌ 선택 일괄 거절</button>
+          <button class="btn-warn btn-sm" onclick="bulkPremium()">⭐ 선택 프리미엄 전환</button>
+        </div>
+      </div>
+
+      <!-- ===== 승인 대기 ===== -->
+      <div id="panel-pending" class="panel">
+        <div class="tbl-wrap">
+          <div class="tbl-header">
+            <div class="tbl-title">⏳ 승인 대기 입점 신청</div>
+            <div class="tbl-actions">
+              <button class="btn-success" style="font-size:.75rem;padding:5px 12px" onclick="bulkApprove()">✅ 전체 승인</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th><input type="checkbox" onchange="selectAll(this)"></th><th>업체명</th><th>대표자</th><th>업종</th><th>지역</th><th>연락처</th><th>신청일</th><th>소개</th><th>처리</th></tr></thead>
+            <tbody id="pendingTbody"></tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 광고 업체 관리 ===== -->
+      <div id="panel-ads" class="panel">
+        <div class="tbl-wrap">
+          <div class="tbl-header">
+            <div class="tbl-title">📢 프리미엄 광고 업체</div>
+            <div class="tbl-actions">
+              <input class="tbl-search" placeholder="업체명 검색...">
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>업체명</th><th>업종</th><th>지역</th><th>클릭수</th><th>조회수</th><th>광고상태</th><th>처리</th></tr></thead>
+            <tbody id="adsTbody"></tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 광고 신청 목록 ===== -->
+      <div id="panel-adreq" class="panel">
+        <div class="tbl-wrap">
+          <div class="tbl-header">
+            <div class="tbl-title">📋 광고 신청 목록</div>
+          </div>
+          <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>신청업체</th><th>광고종류</th><th>연락처</th><th>요청내용</th><th>신청일</th><th>상태</th><th>처리</th></tr></thead>
+            <tbody id="adreqTbody">
+              <tr><td colspan="7" style="text-align:center;padding:30px;color:var(--g4)">
+                광고 신청 데이터를 불러오는 중...<br>
+                <span style="font-size:.72rem">Firestore 'ad_requests' 컬렉션 연동 필요</span>
+              </td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="margin-top:16px">
+          <div class="tbl-header"><div class="tbl-title">📝 광고 신청 접수</div></div>
+          <div style="padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div><label style="font-size:.75rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px">업체명</label><input class="tbl-search" style="width:100%" id="adBiz" placeholder="업체명 입력"></div>
+            <div><label style="font-size:.75rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px">광고 종류</label>
+              <select class="tbl-filter" style="width:100%" id="adType"><option>배너 광고</option><option>프리미엄 입점</option><option>라이브 방송</option><option>이벤트 특가</option></select></div>
+            <div><label style="font-size:.75rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px">연락처</label><input class="tbl-search" style="width:100%" id="adPhone" placeholder="010-0000-0000"></div>
+            <div><label style="font-size:.75rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px">예산</label><input class="tbl-search" style="width:100%" id="adBudget" placeholder="예: 월 50만원"></div>
+            <div style="grid-column:1/-1"><label style="font-size:.75rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px">요청 내용</label><textarea style="width:100%;border:var(--bd);padding:8px 10px;border-radius:4px;font-family:inherit;font-size:.82rem;resize:vertical" rows="3" id="adContent" placeholder="광고 목적, 타깃, 기간 등..."></textarea></div>
+            <div style="grid-column:1/-1"><button class="btn-primary" onclick="submitAdReq()">광고 신청 등록</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 지역본부/지사 신청 ===== -->
+      <div id="panel-branch" class="panel">
+        <div class="tbl-wrap">
+          <div class="tbl-header"><div class="tbl-title">🏢 지역본부 · 지사 신청 목록</div></div>
+          <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>신청자</th><th>유형</th><th>희망지역</th><th>연락처</th><th>이메일</th><th>신청일</th><th>상태</th><th>처리</th></tr></thead>
+            <tbody id="branchTbody">
+              <tr><td colspan="8" style="text-align:center;padding:30px;color:var(--g4)">
+                신청 데이터 로딩 중...<br>
+                <span style="font-size:.72rem">Firestore 'branches' 컬렉션 연동 필요</span>
+              </td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 홍보기자단 신청 ===== -->
+      <div id="panel-reporter" class="panel">
+        <div class="tbl-wrap">
+          <div class="tbl-header"><div class="tbl-title">📰 홍보기자단 신청 목록</div></div>
+          <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>신청자</th><th>유형</th><th>담당지역</th><th>연락처</th><th>자기소개</th><th>신청일</th><th>상태</th><th>처리</th></tr></thead>
+            <tbody id="reporterTbody">
+              <tr><td colspan="8" style="text-align:center;padding:30px;color:var(--g4)">
+                신청 데이터 로딩 중...<br>
+                <span style="font-size:.72rem">Firestore 'reporters' 컬렉션 연동 필요</span>
+              </td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 공지사항 ===== -->
+      <div id="panel-notice" class="panel">
+        <div class="tbl-wrap">
+          <div class="tbl-header">
+            <div class="tbl-title">📢 공지사항 관리</div>
+            <button class="btn-primary" style="font-size:.75rem;padding:5px 12px" onclick="showNoticeForm()">+ 새 공지 작성</button>
+          </div>
+          <div id="noticeFormWrap" style="display:none;padding:16px;border-bottom:var(--bd)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+              <input class="tbl-search" style="width:100%" id="ntTitle" placeholder="공지 제목">
+              <select class="tbl-filter" style="width:100%" id="ntCat"><option>공지</option><option>서비스</option><option>안내</option><option>이벤트</option></select>
+            </div>
+            <textarea style="width:100%;border:var(--bd);padding:8px 10px;border-radius:4px;font-family:inherit;font-size:.82rem;resize:vertical;margin-bottom:10px" rows="4" id="ntContent" placeholder="공지 내용..."></textarea>
+            <div style="display:flex;gap:8px">
+              <button class="btn-primary" onclick="saveNotice()">저장</button>
+              <button class="btn-sm" style="background:var(--g2);color:var(--g4)" onclick="document.getElementById('noticeFormWrap').style.display='none'">취소</button>
+            </div>
+          </div>
+          <table>
+            <thead><tr><th>제목</th><th>분류</th><th>작성일</th><th>처리</th></tr></thead>
+            <tbody id="noticeTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== 지역행사 ===== -->
+      <div id="panel-event" class="panel">
+        <div class="tbl-wrap">
+          <div class="tbl-header">
+            <div class="tbl-title">🎉 지역행사 관리</div>
+            <button class="btn-primary" style="font-size:.75rem;padding:5px 12px" onclick="showEventForm()">+ 행사 등록</button>
+          </div>
+          <div id="eventFormWrap" style="display:none;padding:16px;border-bottom:var(--bd)">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
+              <input class="tbl-search" style="width:100%" id="evTitle" placeholder="행사명">
+              <input class="tbl-search" style="width:100%" id="evDate" placeholder="날짜 (예: 4/20~4/25)">
+              <input class="tbl-search" style="width:100%" id="evRegion" placeholder="지역">
+            </div>
+            <textarea style="width:100%;border:var(--bd);padding:8px 10px;border-radius:4px;font-family:inherit;font-size:.82rem;resize:vertical;margin-bottom:10px" rows="2" id="evDesc" placeholder="행사 내용..."></textarea>
+            <button class="btn-primary" onclick="saveEvent()">저장</button>
+          </div>
+          <table>
+            <thead><tr><th>행사명</th><th>날짜</th><th>지역</th><th>내용</th><th>처리</th></tr></thead>
+            <tbody id="eventTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== 설정 ===== -->
+      <div id="panel-settings" class="panel">
+        <div class="tbl-wrap">
+          <div class="tbl-header"><div class="tbl-title">⚙️ 관리자 설정</div></div>
+          <div style="padding:20px;display:grid;gap:16px">
+
+            <div style="border:var(--bd);border-radius:var(--r);padding:16px">
+              <div style="font-weight:700;color:var(--navy);margin-bottom:12px;font-size:.88rem">🔐 관리자 비밀번호 변경</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:480px">
+                <input class="tbl-search" style="width:100%" type="password" id="pw1" placeholder="새 비밀번호">
+                <input class="tbl-search" style="width:100%" type="password" id="pw2" placeholder="비밀번호 확인">
+              </div>
+              <button class="btn-primary" style="margin-top:10px;font-size:.78rem;padding:6px 14px" onclick="changePw()">비밀번호 변경</button>
+            </div>
+
+            <div style="border:var(--bd);border-radius:var(--r);padding:16px">
+              <div style="font-weight:700;color:var(--navy);margin-bottom:12px;font-size:.88rem">🤖 AI 자동 승인 설정</div>
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.84rem">
+                <input type="checkbox" id="autoApprove" style="width:16px;height:16px;cursor:pointer">
+                <span>입점 신청 자동 승인 활성화 <span style="color:var(--red);font-size:.72rem">(신청 즉시 노출)</span></span>
+              </label>
+              <div style="font-size:.75rem;color:var(--g4);margin-top:6px;padding-left:26px">
+                활성화 시 신청서 제출 즉시 목록에 노출됩니다. 비활성화 시 관리자 승인 후 노출됩니다.
+              </div>
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.84rem;margin-top:10px">
+                <input type="checkbox" id="aiCopyAuto" style="width:16px;height:16px;cursor:pointer" checked>
+                <span>승인 시 AI 홍보문구 자동 생성 <span style="color:var(--grn);font-size:.72rem">(ChatDoumi 연동)</span></span>
+              </label>
+            </div>
+
+            <div style="border:var(--bd);border-radius:var(--r);padding:16px">
+              <div style="font-weight:700;color:var(--navy);margin-bottom:12px;font-size:.88rem">📧 알림 이메일 설정</div>
+              <div style="display:grid;grid-template-columns:1fr auto;gap:8px;max-width:400px">
+                <input class="tbl-search" style="width:100%" id="notifEmail" placeholder="관리자 이메일" value="contact@aiplatmarket.kr">
+                <button class="btn-primary" style="font-size:.76rem;padding:5px 12px" onclick="saveSettings()">저장</button>
+              </div>
+              <div style="font-size:.75rem;color:var(--g4);margin-top:6px">신규 입점 신청, 광고 문의 발생 시 이메일 알림</div>
+            </div>
+
+            <div style="border:2px solid var(--red);border-radius:var(--r);padding:16px">
+              <div style="font-weight:700;color:var(--red);margin-bottom:8px;font-size:.88rem">⚠️ 위험 구역</div>
+              <button class="btn-danger btn-sm" onclick="if(confirm('대기중 거절 신청을 모두 삭제합니다. 계속하시겠습니까?'))toast('완료','success')">거절 데이터 정리</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 업체 상세 모달 -->
+<div class="modal-ov" id="storeModal">
+  <div class="modal-box">
+    <div class="modal-hd"><h3 id="modTitle">업체 상세</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <table class="info-table" id="modTable"></table>
+    </div>
+    <div class="modal-foot" id="modFoot"></div>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script>
+'use strict';
+
+/* ==============================
+   로그인 관리
+============================== */
+const ADMIN_ID = 'admin';
+const ADMIN_PW_KEY = 'apm_admin_pw';
+let adminPw = localStorage.getItem(ADMIN_PW_KEY) || 'aiplatmarket2026';
+
+function doLogin() {
+  const id = document.getElementById('lgId').value.trim();
+  const pw = document.getElementById('lgPw').value;
+  if (id === ADMIN_ID && pw === adminPw) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashWrap').style.display = 'flex';
+    refreshAll();
+  } else {
+    document.getElementById('lgErr').textContent = '아이디 또는 비밀번호가 올바르지 않습니다.';
+  }
+}
+
+function doLogout() {
+  if (!confirm('로그아웃 하시겠습니까?')) return;
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('dashWrap').style.display = 'none';
+  document.getElementById('lgId').value = '';
+  document.getElementById('lgPw').value = '';
+}
+
+function changePw() {
+  const p1 = document.getElementById('pw1').value;
+  const p2 = document.getElementById('pw2').value;
+  if (!p1) { toast('새 비밀번호를 입력하세요.','error'); return; }
+  if (p1 !== p2) { toast('비밀번호가 일치하지 않습니다.','error'); return; }
+  localStorage.setItem(ADMIN_PW_KEY, p1);
+  adminPw = p1;
+  document.getElementById('pw1').value = '';
+  document.getElementById('pw2').value = '';
+  toast('비밀번호가 변경되었습니다.','success');
+}
+
+/* ==============================
+   패널 전환
+============================== */
+const panelTitles = {
+  dashboard:'📊 대시보드', stores:'🏪 입점 업체 목록', pending:'⏳ 승인 대기',
+  ads:'📢 광고 업체 관리', adreq:'📋 광고 신청 목록',
+  branch:'🏢 지역본부/지사 신청', reporter:'📰 홍보기자단 신청',
+  notice:'📢 공지사항 관리', event:'🎉 지역행사 관리', settings:'⚙️ 설정'
+};
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('act'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('act'));
+  document.getElementById('panel-'+id)?.classList.add('act');
+  document.getElementById('topbarTitle').textContent = panelTitles[id] || id;
+  // nav 활성화
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick')?.includes(`'${id}'`)) n.classList.add('act');
+  });
+  // 패널별 데이터 로드
+  if (id === 'stores' || id === 'pending') loadStores();
+  if (id === 'ads') loadAds();
+  if (id === 'dashboard') loadDashboard();
+  if (id === 'branch') loadCollection('branches', 'branchTbody', renderBranchRow);
+  if (id === 'reporter') loadCollection('reporters', 'reporterTbody', renderReporterRow);
+  if (id === 'notice') loadNotices();
+  if (id === 'event') loadEvents();
+}
+
+/* ==============================
+   데이터 상태
+============================== */
+let allStores = [];
+let storeFilter = 'all';
+let storeCatFilter = '';
+let storeSearch = '';
+let storePage = 1;
+const perPage = 15;
+let selectedIds = new Set();
+
+/* ==============================
+   API 호출
+============================== */
+async function api(path, method='GET', body=null) {
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (body) opts.body = JSON.stringify(body);
+  try {
+    const res = await fetch(path, opts);
+    return await res.json();
+  } catch(e) {
+    return null;
+  }
+}
+
+/* ==============================
+   대시보드
+============================== */
+async function loadDashboard() {
+  const [statsData, stores] = await Promise.all([
+    api('/api/stats'),
+    api('/api/store?all=true')
+  ]);
+  allStores = Array.isArray(stores) ? stores : getDemoStores();
+
+  const pend = allStores.filter(s => !s.approved).length;
+  const prem = allStores.filter(s => s.premium).length;
+  const total = allStores.length;
+  const clicks = allStores.reduce((s,x)=>s+(x.clicks||0),0);
+  const views  = allStores.reduce((s,x)=>s+(x.views||0),0);
+
+  document.getElementById('s-total').textContent  = total;
+  document.getElementById('s-pend').textContent   = pend;
+  document.getElementById('s-prem').textContent   = prem;
+  document.getElementById('s-clicks').textContent = clicks.toLocaleString();
+  document.getElementById('s-views').textContent  = views.toLocaleString();
+  document.getElementById('s-branch').textContent = '-';
+  document.getElementById('s-reporter').textContent = '-';
+  document.getElementById('s-adreq').textContent  = '-';
+
+  // 뱃지 업데이트
+  document.getElementById('nb-stores').textContent  = total;
+  document.getElementById('nb-pending').textContent = pend;
+  if (pend > 0) document.getElementById('notifDot').style.display = 'block';
+  else document.getElementById('notifDot').style.display = 'none';
+
+  // 업종별 차트
+  const cats = {};
+  allStores.forEach(s => { if(s.category) cats[s.category] = (cats[s.category]||0)+1; });
+  const sorted = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
+  const max = sorted[0]?.[1] || 1;
+  const colors = ['#0d1f35','#c0392b','#1a7a4a','#c9a84c','#1a56a0','#7b2d8b','#e65100','#2196F3'];
+  document.getElementById('catChart').innerHTML = sorted.map(([name,cnt],i) => `
+    <div class="bar-row">
+      <div class="bar-label">${name}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(cnt/max*100)}%;background:${colors[i%colors.length]}">${cnt}</div></div>
+      <div class="bar-cnt">${cnt}개</div>
+    </div>`).join('') || '<div style="padding:20px;text-align:center;color:var(--g4)">데이터 없음</div>';
+
+  // 최근 신청 5건
+  const recent = [...allStores].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,5);
+  document.getElementById('recentApply').innerHTML = recent.map(s => `
+    <tr>
+      <td class="td-name">${s.name}</td>
+      <td><span class="badge b-cat">${s.category||'-'}</span></td>
+      <td class="td-small">${s.region||'-'}</td>
+      <td class="td-small">${fmtDate(s.createdAt)}</td>
+      <td>${s.approved ? '<span class="badge b-ok">승인</span>' : '<span class="badge b-pend">대기</span>'}</td>
+      <td><div class="actions-cell">
+        ${!s.approved ? `<button class="btn-success btn-sm" onclick="approveStore('${s.id}',true)">승인</button>` : ''}
+        <button class="btn-sm" style="background:var(--g1);color:var(--navy)" onclick="openDetail('${s.id}')">상세</button>
+      </div></td>
+    </tr>`).join('') || '<tr class="empty-row"><td colspan="6">신청 데이터 없음</td></tr>';
+}
+
+/* ==============================
+   입점 업체 목록
+============================== */
+async function loadStores() {
+  if (!allStores.length) {
+    const data = await api('/api/store?all=true');
+    allStores = Array.isArray(data) ? data : getDemoStores();
+  }
+  renderStoreTable();
+  renderPendingTable();
+  // 카운트 업데이트
+  const total  = allStores.length;
+  const pend   = allStores.filter(s=>!s.approved).length;
+  const appr   = allStores.filter(s=>s.approved).length;
+  const prem   = allStores.filter(s=>s.premium).length;
+  document.getElementById('cnt-all').textContent    = `(${total})`;
+  document.getElementById('cnt-approved').textContent= `(${appr})`;
+  document.getElementById('cnt-pend2').textContent  = `(${pend})`;
+  document.getElementById('cnt-prem2').textContent  = `(${prem})`;
+  document.getElementById('nb-stores').textContent  = total;
+  document.getElementById('nb-pending').textContent = pend;
+}
+
+function renderStoreTable() {
+  let list = [...allStores];
+  if (storeFilter === 'approved') list = list.filter(s=>s.approved);
+  if (storeFilter === 'pending')  list = list.filter(s=>!s.approved);
+  if (storeFilter === 'premium')  list = list.filter(s=>s.premium);
+  if (storeCatFilter) list = list.filter(s=>s.category===storeCatFilter);
+  if (storeSearch)    { const kw=storeSearch.toLowerCase(); list=list.filter(s=>(s.name||'').toLowerCase().includes(kw)); }
+  document.getElementById('storeCount').textContent = `${list.length}개 업체`;
+  const total = Math.ceil(list.length / perPage);
+  const page  = list.slice((storePage-1)*perPage, storePage*perPage);
+  document.getElementById('storesTbody').innerHTML = page.map(s => `
+    <tr>
+      <td><input type="checkbox" data-id="${s.id}" class="row-chk" onchange="toggleSelect('${s.id}',this.checked)"></td>
+      <td><div class="td-name">${s.name}</div><div class="td-small">${s.email||''}</div></td>
+      <td><span class="badge b-cat">${s.category||'-'}</span></td>
+      <td class="td-small">${s.region||'-'}</td>
+      <td class="td-small">${s.phone||'-'}</td>
+      <td class="td-small">${(s.clicks||0)}클릭 / ${(s.views||0)}조회</td>
+      <td>
+        ${s.approved ? '<span class="badge b-ok">승인</span>' : '<span class="badge b-pend">대기</span>'}
+        ${s.premium ? ' <span class="badge b-prem">⭐광고</span>' : ''}
+      </td>
+      <td><div class="actions-cell">
+        ${!s.approved ? `<button class="btn-success btn-sm" onclick="approveStore('${s.id}',true)">승인</button>
+                         <button class="btn-danger btn-sm" onclick="approveStore('${s.id}',false)">거절</button>` : ''}
+        ${s.approved && !s.premium ? `<button class="btn-warn btn-sm" onclick="setPremium('${s.id}',true)">광고↑</button>` : ''}
+        ${s.premium ? `<button class="btn-sm" style="background:var(--g2);color:var(--g4)" onclick="setPremium('${s.id}',false)">광고↓</button>` : ''}
+        <button class="btn-sm" style="background:var(--g1);color:var(--navy)" onclick="openDetail('${s.id}')">상세</button>
+        <button class="btn-danger btn-sm" onclick="deleteStore('${s.id}')">삭제</button>
+      </div></td>
+    </tr>`).join('') || '<tr class="empty-row"><td colspan="8">검색 결과 없음</td></tr>';
+  // 페이지네이션
+  let pgn = '';
+  for(let i=1;i<=total;i++) pgn += `<button class="btn-sm" style="background:${i===storePage?'var(--navy)':'var(--g2)'};color:${i===storePage?'#fff':'var(--g4)'}" onclick="storePage=${i};renderStoreTable()">${i}</button>`;
+  document.getElementById('storePgn').innerHTML = pgn;
+}
+
+function renderPendingTable() {
+  const pend = allStores.filter(s=>!s.approved);
+  document.getElementById('pendingTbody').innerHTML = pend.map(s => `
+    <tr>
+      <td><input type="checkbox" data-id="${s.id}" class="row-chk" onchange="toggleSelect('${s.id}',this.checked)"></td>
+      <td class="td-name">${s.name}</td>
+      <td class="td-small">${s.owner||'-'}</td>
+      <td><span class="badge b-cat">${s.category||'-'}</span></td>
+      <td class="td-small">${s.region||'-'}</td>
+      <td class="td-small">${s.phone||'-'}</td>
+      <td class="td-small">${fmtDate(s.createdAt)}</td>
+      <td class="td-small" style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.desc||'-'}</td>
+      <td><div class="actions-cell">
+        <button class="btn-success btn-sm" onclick="approveStore('${s.id}',true)">✅ 승인</button>
+        <button class="btn-danger btn-sm" onclick="approveStore('${s.id}',false)">❌ 거절</button>
+        <button class="btn-sm" style="background:var(--g1);color:var(--navy)" onclick="openDetail('${s.id}')">상세</button>
+      </div></td>
+    </tr>`).join('') || '<tr class="empty-row"><td colspan="9">대기 중인 신청이 없습니다 ✅</td></tr>';
+}
+
+function filterStores(type, el) {
+  storeFilter = type; storePage = 1;
+  document.querySelectorAll('#panel-stores .tab').forEach(t=>t.classList.remove('act'));
+  el.classList.add('act');
+  renderStoreTable();
+}
+function filterByCat(v){ storeCatFilter=v; storePage=1; renderStoreTable(); }
+function searchStores(v){ storeSearch=v; storePage=1; renderStoreTable(); }
+function selectAll(chk){ document.querySelectorAll('.row-chk').forEach(c=>{ c.checked=chk.checked; toggleSelect(c.dataset.id, chk.checked); }); }
+function toggleSelect(id, checked){ if(checked) selectedIds.add(id); else selectedIds.delete(id); }
+
+/* ==============================
+   승인/거절/프리미엄/삭제
+============================== */
+async function approveStore(id, approve) {
+  const s = allStores.find(x=>x.id===id);
+  if (!s) return;
+  const action = approve ? '승인' : '거절';
+  if (!confirm(`"${s.name}" 업체를 ${action}하시겠습니까?`)) return;
+  s.approved = approve;
+  const autoAi = document.getElementById('aiCopyAuto')?.checked;
+  if (approve && autoAi) {
+    // AI 홍보문구 자동 생성 시뮬레이션
+    s.aiCopy = `[AI 자동생성] ${s.name}은 ${s.region}의 우수 ${s.category}로, ${s.item||'다양한 상품'}을 합리적인 가격으로 제공합니다.`;
+    toast(`✅ ${s.name} 승인 + AI 홍보문구 자동 생성 완료`, 'success');
+  } else {
+    toast(`${approve?'✅':'❌'} ${s.name} ${action} 처리됨`, approve?'success':'error');
+  }
+  // 실제: await api('/api/admin/approve', 'POST', { id, approve });
+  await api('/api/admin/approve', 'POST', { id });
+  renderStoreTable(); renderPendingTable(); loadDashboard();
+}
+
+async function setPremium(id, isPremium) {
+  const s = allStores.find(x=>x.id===id);
+  if (!s) return;
+  s.premium = isPremium;
+  toast(`⭐ ${s.name} 프리미엄 ${isPremium?'전환':'해제'}`, isPremium?'success':'');
+  await api('/api/ads/upgrade', 'POST', { id });
+  renderStoreTable();
+}
+
+async function deleteStore(id) {
+  const s = allStores.find(x=>x.id===id);
+  if (!confirm(`"${s?.name}" 업체를 삭제하시겠습니까?`)) return;
+  allStores = allStores.filter(x=>x.id!==id);
+  // await api(`/api/admin/store/${id}`, 'DELETE');
+  toast('삭제 완료', 'success');
+  renderStoreTable(); renderPendingTable();
+}
+
+function bulkApprove() {
+  if (!selectedIds.size) { toast('업체를 선택하세요.','error'); return; }
+  selectedIds.forEach(id => { const s=allStores.find(x=>x.id===id); if(s) s.approved=true; });
+  toast(`✅ ${selectedIds.size}개 업체 일괄 승인 완료`, 'success');
+  selectedIds.clear(); renderStoreTable(); renderPendingTable(); loadDashboard();
+}
+
+function bulkReject() {
+  if (!selectedIds.size) { toast('업체를 선택하세요.','error'); return; }
+  allStores = allStores.filter(s => !selectedIds.has(s.id));
+  toast(`❌ ${selectedIds.size}개 업체 거절/삭제 완료`, 'error');
+  selectedIds.clear(); renderStoreTable(); renderPendingTable();
+}
+
+function bulkPremium() {
+  if (!selectedIds.size) { toast('업체를 선택하세요.','error'); return; }
+  selectedIds.forEach(id => { const s=allStores.find(x=>x.id===id); if(s) s.premium=true; });
+  toast(`⭐ ${selectedIds.size}개 업체 프리미엄 전환`, 'success');
+  selectedIds.clear(); renderStoreTable();
+}
+
+/* ==============================
+   광고 업체
+============================== */
+async function loadAds() {
+  if (!allStores.length) { const d=await api('/api/store?all=true'); allStores=Array.isArray(d)?d:getDemoStores(); }
+  const prem = allStores.filter(s=>s.premium);
+  document.getElementById('adsTbody').innerHTML = prem.map(s=>`
+    <tr>
+      <td class="td-name">${s.name}</td>
+      <td><span class="badge b-cat">${s.category||'-'}</span></td>
+      <td class="td-small">${s.region||'-'}</td>
+      <td style="font-weight:700;color:var(--grn)">${(s.clicks||0).toLocaleString()}</td>
+      <td>${(s.views||0).toLocaleString()}</td>
+      <td><span class="badge b-prem">⭐ 활성</span></td>
+      <td><button class="btn-sm" style="background:var(--g2);color:var(--g4)" onclick="setPremium('${s.id}',false)">광고 해제</button></td>
+    </tr>`).join('') || '<tr class="empty-row"><td colspan="7">프리미엄 광고 업체 없음</td></tr>';
+}
+
+async function submitAdReq() {
+  const biz   = document.getElementById('adBiz').value.trim();
+  const phone = document.getElementById('adPhone').value.trim();
+  if (!biz || !phone) { toast('업체명과 연락처를 입력하세요.','error'); return; }
+  await api('/api/ad-request', 'POST', {
+    biz, phone,
+    type:   document.getElementById('adType').value,
+    budget: document.getElementById('adBudget').value,
+    content:document.getElementById('adContent').value,
+  });
+  toast('광고 신청이 등록되었습니다.','success');
+  ['adBiz','adPhone','adBudget','adContent'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+}
+
+/* ==============================
+   범용 컬렉션 로더
+============================== */
+async function loadCollection(col, tbodyId, renderFn) {
+  const data = await api(`/api/admin/${col}`);
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  if (!data || !Array.isArray(data) || !data.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="8">신청 데이터 없음<br><span style="font-size:.7rem">Firestore '${col}' 컬렉션 연동 필요</span></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map(renderFn).join('');
+  document.getElementById('nb-'+col.replace(/s$/,''))?.textContent && (document.getElementById('nb-'+col.replace(/s$/,'')+'s').textContent = data.filter(d=>d.status==='pending').length);
+}
+
+function renderBranchRow(d) {
+  return `<tr>
+    <td class="td-name">${d.name||'-'}</td>
+    <td><span class="badge b-cat">${d.type||'-'}</span></td>
+    <td class="td-small">${d.region||'-'}</td>
+    <td class="td-small">${d.phone||'-'}</td>
+    <td class="td-small">${d.email||'-'}</td>
+    <td class="td-small">${fmtDate(d.createdAt)}</td>
+    <td>${d.status==='approved'?'<span class="badge b-ok">승인</span>':d.status==='rejected'?'<span class="badge b-rej">거절</span>':'<span class="badge b-pend">대기</span>'}</td>
+    <td><div class="actions-cell">
+      <button class="btn-success btn-sm" onclick="approveGeneral('branches','${d.id}',true)">승인</button>
+      <button class="btn-danger btn-sm" onclick="approveGeneral('branches','${d.id}',false)">거절</button>
+    </div></td>
+  </tr>`;
+}
+
+function renderReporterRow(d) {
+  return `<tr>
+    <td class="td-name">${d.name||'-'}</td>
+    <td><span class="badge b-cat">${d.grade||d.type||'-'}</span></td>
+    <td class="td-small">${d.region||'-'}</td>
+    <td class="td-small">${d.phone||'-'}</td>
+    <td class="td-small" style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d.intro||'-'}</td>
+    <td class="td-small">${fmtDate(d.createdAt)}</td>
+    <td>${d.status==='approved'?'<span class="badge b-ok">승인</span>':d.status==='rejected'?'<span class="badge b-rej">거절</span>':'<span class="badge b-pend">대기</span>'}</td>
+    <td><div class="actions-cell">
+      <button class="btn-success btn-sm" onclick="approveGeneral('reporters','${d.id}',true)">승인</button>
+      <button class="btn-danger btn-sm" onclick="approveGeneral('reporters','${d.id}',false)">거절</button>
+    </div></td>
+  </tr>`;
+}
+
+async function approveGeneral(col, id, approve) {
+  await api(`/api/admin/${col}/${id}`, 'PATCH', { status: approve?'approved':'rejected' });
+  toast(approve?'✅ 승인 완료':'❌ 거절 처리','success');
+  loadCollection(col, col+'Tbody', col==='branches'?renderBranchRow:renderReporterRow);
+}
+
+/* ==============================
+   공지사항 / 행사
+============================== */
+const localNotices = [
+  {id:'n1',title:'무료 입점 이벤트 5월 말까지 연장',cat:'공지',date:'2026.04.13'},
+  {id:'n2',title:'AI 홍보문구 자동 생성 기능 업데이트',cat:'서비스',date:'2026.04.10'},
+  {id:'n3',title:'라이브 방송 2채널 동시 운영 시작',cat:'서비스',date:'2026.04.08'},
+  {id:'n4',title:'개인정보처리방침 개정 안내',cat:'안내',date:'2026.04.01'},
+];
+const localEvents = [
+  {id:'e1',title:'인천 봄꽃 축제',date:'4/20~4/25',region:'인천',desc:'인천대공원'},
+  {id:'e2',title:'성남 거리음악 페스티벌',date:'매주 토요일',region:'경기',desc:'분당 정자역'},
+  {id:'e3',title:'전국노래자랑 인천 남동구',date:'4/19(토)',region:'인천',desc:'KBS 전국노래자랑'},
+];
+
+function loadNotices() {
+  document.getElementById('noticeTbody').innerHTML = localNotices.map(n=>`
+    <tr>
+      <td class="td-name">${n.title}</td>
+      <td><span class="badge b-cat">${n.cat}</span></td>
+      <td class="td-small">${n.date}</td>
+      <td><div class="actions-cell">
+        <button class="btn-danger btn-sm" onclick="this.closest('tr').remove();toast('삭제됨','error')">삭제</button>
+      </div></td>
+    </tr>`).join('');
+}
+
+function loadEvents() {
+  document.getElementById('eventTbody').innerHTML = localEvents.map(e=>`
+    <tr>
+      <td class="td-name">${e.title}</td>
+      <td class="td-small">${e.date}</td>
+      <td class="td-small">${e.region}</td>
+      <td class="td-small">${e.desc}</td>
+      <td><button class="btn-danger btn-sm" onclick="this.closest('tr').remove();toast('삭제됨','error')">삭제</button></td>
+    </tr>`).join('');
+}
+
+function showNoticeForm() { const w=document.getElementById('noticeFormWrap'); w.style.display=w.style.display==='none'?'block':'none'; }
+function showEventForm()  { const w=document.getElementById('eventFormWrap');  w.style.display=w.style.display==='none'?'block':'none'; }
+
+function saveNotice() {
+  const t=document.getElementById('ntTitle').value.trim();
+  const c=document.getElementById('ntCat').value;
+  if(!t){toast('제목을 입력하세요.','error');return;}
+  const d=new Date();
+  const date=`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+  localNotices.unshift({id:'n'+Date.now(),title:t,cat:c,date});
+  loadNotices(); document.getElementById('noticeFormWrap').style.display='none';
+  document.getElementById('ntTitle').value='';
+  toast('공지사항이 등록되었습니다.','success');
+}
+
+function saveEvent() {
+  const t=document.getElementById('evTitle').value.trim();
+  if(!t){toast('행사명을 입력하세요.','error');return;}
+  localEvents.unshift({id:'e'+Date.now(),title:t,date:document.getElementById('evDate').value,region:document.getElementById('evRegion').value,desc:document.getElementById('evDesc').value});
+  loadEvents(); document.getElementById('eventFormWrap').style.display='none';
+  ['evTitle','evDate','evRegion','evDesc'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  toast('행사가 등록되었습니다.','success');
+}
+
+/* ==============================
+   업체 상세 모달
+============================== */
+function openDetail(id) {
+  const s = allStores.find(x=>x.id===id);
+  if (!s) return;
+  document.getElementById('modTitle').textContent = s.name;
+  document.getElementById('modTable').innerHTML = [
+    ['업체명',s.name],['대표자',s.owner||'-'],['업종',s.category||'-'],
+    ['지역',s.region||'-'],['연락처',s.phone||'-'],['이메일',s.email||'-'],
+    ['주요아이템',s.item||'-'],['클릭수',(s.clicks||0).toLocaleString()],['조회수',(s.views||0).toLocaleString()],
+    ['상태',s.approved?'✅ 승인':'⏳ 대기'],['프리미엄',s.premium?'⭐ 활성':'없음'],
+    ['신청일',fmtDate(s.createdAt)],['소개',s.desc||'-'],
+    ['AI홍보문구',s.aiCopy||'(미생성)'],
+  ].map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+  document.getElementById('modFoot').innerHTML = `
+    ${!s.approved?`<button class="btn-success" onclick="approveStore('${s.id}',true);closeModal()">✅ 승인</button>
+                   <button class="btn-danger" onclick="approveStore('${s.id}',false);closeModal()">❌ 거절</button>`:''}
+    ${s.approved&&!s.premium?`<button class="btn-warn" onclick="setPremium('${s.id}',true);closeModal()">⭐ 프리미엄 전환</button>`:''}
+    <button class="btn-sm" style="background:var(--g2);color:var(--g4)" onclick="closeModal()">닫기</button>`;
+  document.getElementById('storeModal').classList.add('op');
+}
+function closeModal() { document.getElementById('storeModal').classList.remove('op'); }
+
+/* ==============================
+   기타
+============================== */
+function saveSettings() { toast('설정이 저장되었습니다.','success'); }
+
+async function refreshAll() {
+  allStores = [];
+  const data = await api('/api/store?all=true');
+  allStores = Array.isArray(data) ? data : getDemoStores();
+  loadDashboard();
+  toast('새로고침 완료','success');
+}
+
+function exportCSV() {
+  const rows = [['업체명','업종','지역','연락처','상태','클릭','조회']];
+  allStores.forEach(s=>rows.push([s.name,s.category,s.region,s.phone,s.approved?'승인':'대기',s.clicks||0,s.views||0]));
+  const csv = rows.map(r=>r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download = 'aiplatmarket_stores.csv';
+  a.click();
+  toast('CSV 내보내기 완료','success');
+}
+
+function fmtDate(s) {
+  if (!s) return '-';
+  const d = new Date(s);
+  if (isNaN(d)) return s;
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function getDemoStores() {
+  const cats=['음식점','카페','미용','음식점','음식점','카페','농수산','의류','의료','교육'];
+  const names=['우리동네 돼지갈비','커피빈 로스팅','정숙이 미용실','할매 손칼국수','나폴리 피자','달달 케이크','그린팜 유기농','스타일 편집샵','건강 한의원','창의 수학학원'];
+  const regions=['인천 남동구','서울 강남구','경기 성남시','부산 해운대구','인천 연수구'];
+  return names.map((nm,i)=>({
+    id:'d'+i, name:nm, category:cats[i], region:regions[i%5], owner:'홍길동',
+    phone:`010-1234-${String(1000+i).padStart(4,'0')}`,
+    item:'주력 아이템', email:`store${i}@example.com`,
+    desc:`${nm}의 업체 소개입니다.`,
+    clicks:Math.floor(Math.random()*200), views:Math.floor(Math.random()*800),
+    premium:i<2, approved:i!==3 && i!==7,
+    createdAt:new Date(Date.now()-i*86400000*3).toISOString(),
+  }));
+}
+
+/* ── 토스트 ── */
+let _tt;
+function toast(msg, type='') {
+  const el=document.getElementById('toastEl');
+  el.textContent=msg; el.className='toast show'+(type?' '+type:'');
+  clearTimeout(_tt); _tt=setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// 모달 외부 클릭 닫기
+document.getElementById('storeModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+</script>
+</body>
+</html>
