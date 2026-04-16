@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI PLATMARKET | 국민경제㊉</title>
+<title>AI PLATMARKET | 국민경제+</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -40,7 +40,7 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
 .logo-sub{font-family:var(--fs);font-size:.7rem;color:var(--g4);letter-spacing:2px;font-weight:600;display:block;margin-bottom:1px}
 .logo-main{font-family:var(--fs);font-size:1.85rem;font-weight:900;color:var(--navy);letter-spacing:-2px;line-height:1;display:block}
 .logo-main em{color:var(--red);font-style:normal}
-/* 중앙 - 국민경제㊉ */
+/* 중앙 - 국민경제+ */
 .hd-center{flex:1;text-align:center;padding:0 8px;cursor:pointer}
 .hd-center .eco-pre{font-size:.7rem;color:var(--g4);letter-spacing:1.5px;display:block;margin-bottom:2px}
 .hd-center .eco-main{
@@ -62,20 +62,27 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
 .hd-right .cd-main{font-family:var(--fs);font-size:1.85rem;font-weight:900;color:var(--navy);letter-spacing:-2px;line-height:1;display:block}
 .hd-right .cd-main em{color:var(--red);font-style:normal}
 /* 햄버거 */
-.ham{display:none;background:none;border:none;padding:6px;flex-direction:column;gap:5px;flex-shrink:0}
+.ham{background:none;border:none;padding:6px;flex-direction:column;gap:5px;flex-shrink:0;cursor:pointer}
 .ham span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
+/* PC: 햄버거 숨김 */
+@media(min-width:901px){.ham{display:none}}
+/* 모바일: 항상 표시 */
+@media(max-width:900px){.ham{display:flex !important}}
 
 /* === GNB === */
 nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(13,31,53,.06)}
 /* 상단 줄: 핵심 메뉴 + 검색 */
-.gnb-top{display:flex;align-items:stretch;border-bottom:2px solid var(--g2);padding:0;position:relative}
+.gnb-top{display:flex;align-items:stretch;border-bottom:2px solid var(--g2);padding:0;position:relative;overflow:visible}
 /* 스크롤 영역 (검색 제외) */
 .gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;flex:1;padding:0 0 0 var(--pad)}
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
 .gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
 /* 하단 줄: 나머지 메뉴 스크롤 (PC에서 thin 스크롤바 표시 — 반응형에서 재정의) */
-.gnb-sub-placeholder{} /* 반응형 CSS에서 .gnb-sub 정의 */
+.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 var(--pad)}
+.gnb-sub::-webkit-scrollbar{height:4px}
+.gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
+.gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 /* 공통 메뉴 아이템 */
 .gi{display:flex;align-items:center;padding:10px 13px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
@@ -88,7 +95,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 /* 드롭다운 공통 */
 .ddw{position:relative;display:flex;align-items:stretch;flex-shrink:0}
 .ddw:hover .dd,.ddw.op .dd{display:flex;flex-direction:column}
-.dd{display:none;position:absolute;top:100%;left:0;min-width:160px;background:#fff;border:var(--bd);border-top:2px solid var(--red);box-shadow:0 8px 24px rgba(13,31,53,.13);z-index:300;border-radius:0 0 6px 6px;max-height:70vh;overflow-y:auto}
+.dd{display:none;position:absolute;top:100%;left:0;min-width:160px;background:#fff;border:var(--bd);border-top:2px solid var(--red);box-shadow:0 8px 24px rgba(13,31,53,.18);z-index:9999;border-radius:0 0 6px 6px;max-height:70vh;overflow-y:auto}
 .ddi{padding:8px 14px;font-size:.8rem;font-weight:600;color:var(--text);cursor:pointer;border-bottom:1px solid var(--g2);white-space:nowrap;transition:background .15s;flex-shrink:0}
 .ddi:last-child{border-bottom:none}
 .ddi:hover,.ddi.sel{background:#fce8e6;color:var(--red)}
@@ -446,27 +453,26 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
   .mgrid{grid-template-columns:1fr}
   .lsb{display:none}.mr{display:none}
   header{padding:8px 6px 0}
-  /* 2. 모바일: AIPLATMARKET·ChatDoumi 숨기기 */
-  .logo{display:none}
-  .hd-right{display:none}
-  /* 2. hd = 3열 그리드: 햄버거 | 국민경제㊉(중앙) | 햄버거 */
+  /* 모바일: AIPLATMARKET·ChatDoumi 숨기기 */
+  .logo{display:none !important}
+  .hd-right{display:none !important}
+  /* hd = 3열 그리드: 왼쪽햄버거 | 중앙타이틀 | 오른쪽햄버거 */
   .hd{
-    display:grid;
-    grid-template-columns:40px 1fr 40px;
+    display:grid !important;
+    grid-template-columns:44px 1fr 44px;
     align-items:center;
     gap:0;
+    width:100%;
   }
-  #hamL{grid-column:1;justify-self:start}
-  .hd-center{grid-column:2;text-align:center;padding:0}
-  /* 3. 우측 햄버거 항상 표시 */
-  #hamR{grid-column:3;justify-self:end;display:flex !important;margin-left:0}
+  #hamL{grid-column:1 !important;justify-self:start;display:flex !important}
+  .hd-center{grid-column:2 !important;text-align:center !important;padding:0 !important;width:100% !important}
+  #hamR{grid-column:3 !important;justify-self:end;display:flex !important}
   .hd-center .eco-main{font-size:1.25rem;letter-spacing:.1em}
   .hd-center .eco-pre{font-size:.6rem}
   .eco-slogan-wrap{overflow:hidden}
   .hd-center .eco-slogan{animation:marquee 14s linear infinite;white-space:nowrap}
-  .ham{display:flex;flex-shrink:0}
   /* 5. GNB top 좌측 6px 붙이기, 검색 우측 0 */
-  .gnb-top{overflow:hidden}
+  .gnb-top{overflow:visible}
   .gnb-top-scroll{overflow-x:auto;padding-left:6px}
   .gnb-top-fixed{display:flex;padding:5px 0 5px 4px}
   .gnb-qi{width:86px;font-size:.7rem}
@@ -504,7 +510,26 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
   </div>
   <div class="ts-r">
     <a href="#" onclick="showPage('register');return false" style="font-weight:700">입점신청</a>
-    <a href="#" class="hl" onclick="toast('로그인 기능 준비 중입니다.');return false">로그인</a>
+    <a href="#" onclick="openLoginModal();return false" class="hl" id="loginBtn">로그인</a>
+    <a href="/admin" target="_blank" style="background:rgba(201,168,76,.2);border:1px solid var(--gold);color:var(--gold);padding:1px 8px;border-radius:3px;font-size:.72rem;font-weight:700;margin-left:10px" title="관리자 대시보드">⚙️ 관리자</a>
+  </div>
+</div>
+
+<!-- 로그인 모달 -->
+<div id="loginModal" style="display:none;position:fixed;inset:0;background:rgba(13,31,53,.6);z-index:2000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:8px;padding:28px;width:320px;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="font-family:var(--fs);font-size:1.2rem;font-weight:900;color:var(--navy)">AI<em style="color:var(--red);font-style:normal">PLAT</em>MARKET</div>
+      <div style="font-size:.72rem;color:var(--g4);margin-top:2px">로그인</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <input type="text" id="lgId" placeholder="아이디" style="border:1px solid #dde2ea;padding:10px 12px;border-radius:6px;font-size:.88rem;outline:none;font-family:inherit" onkeydown="if(event.key==='Enter')doLogin()">
+      <input type="password" id="lgPw" placeholder="비밀번호" style="border:1px solid #dde2ea;padding:10px 12px;border-radius:6px;font-size:.88rem;outline:none;font-family:inherit" onkeydown="if(event.key==='Enter')doLogin()">
+      <div id="lgErr" style="color:var(--red);font-size:.76rem;text-align:center;min-height:16px"></div>
+      <button onclick="doLogin()" style="background:var(--navy);color:#fff;border:none;padding:11px;border-radius:6px;font-size:.9rem;font-weight:800;cursor:pointer;font-family:inherit">로그인</button>
+      <button onclick="closeLoginModal()" style="background:var(--g1);color:var(--g4);border:none;padding:9px;border-radius:6px;font-size:.84rem;cursor:pointer;font-family:inherit">취소</button>
+    </div>
+    <div style="margin-top:12px;font-size:.7rem;color:var(--g4);text-align:center">관리자: admin / aiplatmarket2026</div>
   </div>
 </div>
 
@@ -1231,7 +1256,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 
 <footer>
   <div class="ft">
-    <div><div class="ft-logo">AI PLATMARKET · 국민경제㊉</div><div class="ft-copy">© 2026 AI플랫마켓. All rights reserved.</div><div style="font-size:.7rem;line-height:1.8;color:rgba(255,255,255,.45);margin-top:5px">사업자등록번호: 000-00-00000 | 대표: 김형식<br>주소: 인천광역시 | contact@aiplatmarket.kr</div></div>
+    <div><div class="ft-logo">AI PLATMARKET · 국민경제+</div><div class="ft-copy">© 2026 AI플랫마켓. All rights reserved.</div><div style="font-size:.7rem;line-height:1.8;color:rgba(255,255,255,.45);margin-top:5px">사업자등록번호: 000-00-00000 | 대표: 김형식<br>주소: 인천광역시 | contact@aiplatmarket.kr</div></div>
     <div class="ft-links"><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">광고문의</a><a href="#" onclick="showPage('register');return false">입점문의</a><a href="#" onclick="showPage('community');return false">커뮤니티</a></div>
   </div>
 </footer>
@@ -1819,6 +1844,41 @@ async function doRegister() {
     document.getElementById('rSido').value='';document.getElementById('rCat').value='';
   }catch(_){toast('❗ 제출 중 오류가 발생했습니다.');}
 }
+
+/* ── 로그인 모달 ── */
+const ADMIN_PW_KEY = 'apm_pw';
+let adminPw = localStorage.getItem(ADMIN_PW_KEY) || 'aiplatmarket2026';
+
+function openLoginModal() {
+  const m = document.getElementById('loginModal');
+  m.style.display = 'flex';
+  document.getElementById('lgId').value = '';
+  document.getElementById('lgPw').value = '';
+  document.getElementById('lgErr').textContent = '';
+}
+function closeLoginModal() {
+  document.getElementById('loginModal').style.display = 'none';
+}
+function doLogin() {
+  const id = document.getElementById('lgId').value.trim();
+  const pw = document.getElementById('lgPw').value;
+  if (id === 'admin' && pw === adminPw) {
+    closeLoginModal();
+    // 관리자 → admin 페이지로 이동
+    window.open('/admin', '_blank');
+    toast('✅ 관리자 대시보드가 열렸습니다.', 'success');
+  } else if (id && pw) {
+    // 일반 사용자 로그인 (추후 Firebase Auth 연동)
+    toast('⚠️ 일반 회원 로그인은 준비 중입니다.');
+    document.getElementById('lgErr').textContent = '현재 관리자 로그인만 지원됩니다.';
+  } else {
+    document.getElementById('lgErr').textContent = '아이디와 비밀번호를 입력하세요.';
+  }
+}
+// 로그인 모달 외부 클릭 닫기
+document.getElementById('loginModal').addEventListener('click', function(e) {
+  if (e.target === this) closeLoginModal();
+});
 
 /* ── 토스트 ── */
 function toast(msg) {
