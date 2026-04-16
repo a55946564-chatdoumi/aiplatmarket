@@ -74,9 +74,8 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
 .gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
-/* 하단 줄: 나머지 메뉴 스크롤 */
-.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;border-bottom:var(--bd);padding:0 var(--pad)}
-.gnb-sub::-webkit-scrollbar{display:none}
+/* 하단 줄: 나머지 메뉴 스크롤 (PC에서 thin 스크롤바 표시 — 반응형에서 재정의) */
+.gnb-sub-placeholder{} /* 반응형 CSS에서 .gnb-sub 정의 */
 /* 공통 메뉴 아이템 */
 .gi{display:flex;align-items:center;padding:10px 13px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
@@ -436,27 +435,45 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
   .bc-grid{grid-template-columns:1fr}
   .sl-grid{grid-template-columns:1fr}
 }
+/* 4. PC GNB sub - 마우스 드래그/휠 스크롤 표시 */
+.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 var(--pad)}
+.gnb-sub::-webkit-scrollbar{height:4px}
+.gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
+.gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
+
 @media(max-width:900px){
   .shell{width:100%;overflow:hidden}
   .mgrid{grid-template-columns:1fr}
   .lsb{display:none}.mr{display:none}
-  header{padding:9px 12px 0}
+  header{padding:8px 6px 0}
+  /* 2. 모바일: AIPLATMARKET·ChatDoumi 숨기기 */
   .logo{display:none}
   .hd-right{display:none}
-  .hd{justify-content:space-between;align-items:center}
-  .hd-center{flex:1;text-align:center;padding:0 6px}
-  .hd-center .eco-main{font-size:1.35rem;letter-spacing:.15em}
-  .hd-center .eco-pre{font-size:.62rem}
-  /* 모바일 슬로건: 마퀴 자동 스크롤 */
+  /* 2. hd = 3열 그리드: 햄버거 | 국민경제㊉(중앙) | 햄버거 */
+  .hd{
+    display:grid;
+    grid-template-columns:40px 1fr 40px;
+    align-items:center;
+    gap:0;
+  }
+  #hamL{grid-column:1;justify-self:start}
+  .hd-center{grid-column:2;text-align:center;padding:0}
+  /* 3. 우측 햄버거 항상 표시 */
+  #hamR{grid-column:3;justify-self:end;display:flex !important;margin-left:0}
+  .hd-center .eco-main{font-size:1.25rem;letter-spacing:.1em}
+  .hd-center .eco-pre{font-size:.6rem}
   .eco-slogan-wrap{overflow:hidden}
   .hd-center .eco-slogan{animation:marquee 14s linear infinite;white-space:nowrap}
   .ham{display:flex;flex-shrink:0}
+  /* 5. GNB top 좌측 6px 붙이기, 검색 우측 0 */
   .gnb-top{overflow:hidden}
-  .gnb-top-scroll{overflow-x:auto}
-  .gnb-top-fixed{display:flex}
-  .gnb-qi{width:100px;font-size:.72rem}
-  .gnb-sub{padding:0 6px}
-  .gi{padding:7px 8px;font-size:.76rem}
+  .gnb-top-scroll{overflow-x:auto;padding-left:6px}
+  .gnb-top-fixed{display:flex;padding:5px 0 5px 4px}
+  .gnb-qi{width:86px;font-size:.7rem}
+  .gnb-qb{padding:5px 8px;font-size:.7rem}
+  .gnb-sub{padding:0 4px;scrollbar-width:none}
+  .gnb-sub::-webkit-scrollbar{display:none}
+  .gi{padding:7px 7px;font-size:.75rem}
   .ml{padding:12px;overflow:hidden}
   .bc-grid{grid-template-columns:1fr}
   .sl-grid{grid-template-columns:1fr}
@@ -468,8 +485,8 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
   .panel-scroll{height:120px}
 }
 @media(max-width:600px){
-  .hd-center .eco-main{font-size:1.3rem}
-  .hd-center .eco-pre,.hd-center .eco-slogan{font-size:.65rem}
+  .hd-center .eco-main{font-size:1.1rem;letter-spacing:.06em}
+  .hd-center .eco-pre,.hd-center .eco-slogan{font-size:.6rem}
   .sl-grid{grid-template-columns:1fr}
   .mini-grid{grid-template-columns:1fr 1fr}
   .sp-grid{grid-template-columns:1fr 1fr}
@@ -515,7 +532,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
     <!-- 우: ChatDoumi -->
     <div class="hd-right">
       <a href="https://chatdoumi.com" target="_blank" rel="noopener">
-        <span class="cd-pre">내 사업 내 A(G)I 비서</span>
+        <span class="cd-pre">내 사업 내 비서</span>
         <span class="cd-main">Chat<em>Doumi</em></span>
       </a>
     </div>
