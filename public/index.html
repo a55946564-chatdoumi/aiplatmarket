@@ -89,12 +89,12 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
   /* PC 헤더 숨기고 mob-hd 표시 */
   .hd{display:none !important}
   .mob-hd{display:flex !important}
-  /* GNB — 모바일 간격 축소, 좌측 밀착 */
-  .gnb-top-scroll{padding-left:2px}
+  /* GNB — 모바일 간격 축소, 좌측 밀착 (햄버거 버튼과 동일 위치) */
+  .gnb-top-scroll{padding-left:0px}
   .gnb-top-fixed{padding:4px 0 4px 2px}
   .gnb-qi{width:70px;font-size:.68rem;padding:4px 7px}
   .gnb-qb{padding:4px 7px;font-size:.68rem}
-  .gnb-sub{padding:0 0 0 2px;scrollbar-width:none}
+  .gnb-sub{padding:0;scrollbar-width:none}
   .gnb-sub::-webkit-scrollbar{display:none}
   .gi{padding:6px 6px;font-size:.72rem}
   /* 메인 컨텐츠 전체 너비 */
@@ -117,17 +117,17 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 /* 상단 줄: 핵심 메뉴 + 검색 */
 .gnb-top{display:flex;align-items:stretch;border-bottom:2px solid var(--g2);padding:0;position:relative;overflow:visible}
 /* 스크롤 영역 (검색 제외) */
-.gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0 0 var(--pad)}
+.gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0 0var(--pad)}
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
 .gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
 /* 하단 줄: 나머지 메뉴 스크롤 (PC에서 thin 스크롤바 표시 — 반응형에서 재정의) */
-.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 var(--pad)}
+.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0var(--pad)}
 .gnb-sub::-webkit-scrollbar{height:4px}
 .gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
 .gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 /* 공통 메뉴 아이템 */
-.gi{display:flex;align-items:center;padding:10px 13px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
+.gi{display:flex;align-items:center;padding:10px -6px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
 .gi.act{color:var(--red);border-bottom-color:var(--red)}
 .gi .bx{background:var(--red);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
@@ -528,7 +528,6 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
   <div class="ts-r">
     <a href="#" onclick="showPage('register');return false" style="font-weight:700">입점신청</a>
     <a href="#" onclick="openLoginModal();return false" class="hl" id="loginBtn">로그인</a>
-    <a href="/admin" target="_blank" style="background:rgba(201,168,76,.2);border:1px solid var(--gold);color:var(--gold);padding:1px 8px;border-radius:3px;font-size:.72rem;font-weight:700;margin-left:10px" title="관리자 대시보드">⚙️ 관리자</a>
   </div>
 </div>
 
@@ -1345,8 +1344,50 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 
 <footer>
   <div class="ft">
-    <div><div class="ft-logo">AI PLATMARKET · 국민경제+</div><div class="ft-copy">© 2026 AI플랫마켓. All rights reserved.</div><div style="font-size:.7rem;line-height:1.8;color:rgba(255,255,255,.45);margin-top:5px">사업자등록번호: 000-00-00000 | 대표: 김형식<br>주소: 인천광역시 | contact@aiplatmarket.kr</div></div>
-    <div class="ft-links"><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">광고문의</a><a href="#" onclick="showPage('register');return false">입점문의</a><a href="#" onclick="showPage('community');return false">커뮤니티</a></div>
+
+    <!-- 좌: 브랜드 + 사업자 정보 -->
+    <div style="min-width:240px">
+      <div class="ft-logo">AI PLATMARKET · 국민경제㊉</div>
+      <div class="ft-copy" style="color:rgba(255,255,255,.5);margin:2px 0 8px">소상공인+소비자 상생 플랫폼</div>
+      <div style="font-size:.7rem;line-height:2;color:rgba(255,255,255,.45)">
+        © 2026 <strong style="color:rgba(255,255,255,.65)">22세기대한</strong>. All rights reserved.<br>
+        대표: 김형식 &nbsp;|&nbsp; 발행인 겸 편집인: 김형식<br>
+        사업자등록번호: 227-18-34338<br>
+        주소: 인천광역시<br>
+        TEL: 0505-505-9000<br>
+        <!-- 이메일 드롭다운 -->
+        <span style="position:relative;display:inline-block">
+          <span id="ftEmailBtn" onclick="toggleFtEmail()" style="cursor:pointer;color:var(--gold);text-decoration:underline;font-size:.7rem">📧 이메일 문의 ▾</span>
+          <div id="ftEmailDd" style="display:none;position:absolute;bottom:100%;left:0;background:#fff;border:1px solid #dde2ea;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.18);z-index:100;min-width:210px;overflow:hidden;margin-bottom:4px">
+            <a href="mailto:newstar114@naver.com" style="display:block;padding:9px 14px;font-size:.8rem;color:var(--navy);font-weight:600;border-bottom:1px solid #eee;transition:background .15s" onmouseover="this.style.background='#fce8e6'" onmouseout="this.style.background=''">
+              📮 newstar114@naver.com<br><span style="font-size:.68rem;color:var(--g4);font-weight:400">네이버 메일</span>
+            </a>
+            <a href="mailto:a55946564@gmail.com" style="display:block;padding:9px 14px;font-size:.8rem;color:var(--navy);font-weight:600;transition:background .15s" onmouseover="this.style.background='#fce8e6'" onmouseout="this.style.background=''">
+              📮 a55946564@gmail.com<br><span style="font-size:.68rem;color:var(--g4);font-weight:400">Gmail</span>
+            </a>
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <!-- 우: 링크 + 관리자 -->
+    <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:14px">
+      <div class="ft-links">
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">광고문의</a>
+        <a href="#" onclick="showPage('register');return false">입점문의</a>
+        <a href="#" onclick="showPage('community');return false">커뮤니티</a>
+      </div>
+      <!-- 관리자 버튼 (푸터 우측 하단) -->
+      <a href="/admin" target="_blank"
+         style="display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);color:var(--gold);padding:5px 14px;border-radius:4px;font-size:.74rem;font-weight:700;transition:all .2s;text-decoration:none"
+         onmouseover="this.style.background='rgba(201,168,76,.3)'" onmouseout="this.style.background='rgba(201,168,76,.15)'"
+         title="관리자 대시보드 (admin / aiplatmarket2026)">
+        ⚙️ 관리자 대시보드
+      </a>
+    </div>
+
   </div>
 </footer>
 </div><!-- /shell -->
@@ -1797,6 +1838,19 @@ function updateGnbLabel() {
 }
 
 /* ── 드롭다운 토글 ── */
+/* ── 푸터 이메일 드롭다운 ── */
+function toggleFtEmail() {
+  const dd = document.getElementById('ftEmailDd');
+  if (!dd) return;
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#ftEmailBtn') && !e.target.closest('#ftEmailDd')) {
+    const dd = document.getElementById('ftEmailDd');
+    if (dd) dd.style.display = 'none';
+  }
+});
+
 /* ── scrollToChannel: 홈으로 이동 후 방송 섹션 스크롤 ── */
 function scrollToChannel(id) {
   showPage('home');
