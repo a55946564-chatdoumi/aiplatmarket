@@ -120,14 +120,14 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0 0var(--pad)}
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
-.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
+.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 2px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
 /* 하단 줄: 나머지 메뉴 스크롤 (PC에서 thin 스크롤바 표시 — 반응형에서 재정의) */
 .gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0var(--pad)}
 .gnb-sub::-webkit-scrollbar{height:4px}
 .gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
 .gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 /* 공통 메뉴 아이템 */
-.gi{display:flex;align-items:center;padding:10px -6px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
+.gi{display:flex;align-items:center;padding:10px 5px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
 .gi.act{color:var(--red);border-bottom-color:var(--red)}
 .gi .bx{background:var(--red);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
@@ -178,7 +178,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 
 /* GNB 인라인 검색 */
 .gnb-sq{display:flex;align-items:center;margin-left:auto;padding:5px 0 5px 10px;gap:0;flex-shrink:0}
-.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 10px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:145px;transition:border-color .2s}
+.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 5px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:125px;transition:border-color .2s}
 .gnb-qi:focus{border-color:var(--navy)}
 .gnb-qb{background:var(--navy);color:#fff;border:none;padding:5px 11px;border-radius:0 20px 20px 0;font-size:.76rem;font-weight:700}
 
