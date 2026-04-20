@@ -4,17 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI PLATMARKET | 국민경제+</title>
-<!-- SEO 메타태그 -->
-<meta name="keywords" content="소상공인,지역경제,AI플랫마켓,국민경제,생활경제,입점,광고,지역업체">
-<meta name="author" content="AI플랫마켓">
-<meta property="og:title" content="AI PLATMARKET | 국민경제㊉">
-<meta property="og:description" content="소상공인+소비자 상생 플랫폼. 우리 동네 소식을 AI로 더 빠르게.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://aiplatmarket.kr">
-<meta name="theme-color" content="#0d1f35">
-<!-- PWA -->
-<link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -45,79 +34,47 @@ input,select,textarea{font-family:inherit}
 
 /* === HEADER === */
 header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pad) 0}
-
-/* PC 헤더 */
 .hd{display:flex;align-items:center;justify-content:space-between;gap:14px}
+/* 좌 - AIPLATMARKET */
 .logo{cursor:pointer;flex-shrink:0}
 .logo-sub{font-family:var(--fs);font-size:.7rem;color:var(--g4);letter-spacing:2px;font-weight:600;display:block;margin-bottom:1px}
 .logo-main{font-family:var(--fs);font-size:1.85rem;font-weight:900;color:var(--navy);letter-spacing:-2px;line-height:1;display:block}
 .logo-main em{color:var(--red);font-style:normal}
+/* 중앙 - 국민경제+ */
 .hd-center{flex:1;text-align:center;padding:0 8px;cursor:pointer}
 .hd-center .eco-pre{font-size:.7rem;color:var(--g4);letter-spacing:1.5px;display:block;margin-bottom:2px}
-.hd-center .eco-main{font-family:'Noto Sans KR',sans-serif;font-size:2.15rem;font-weight:900;color:var(--grn2);letter-spacing:.3em;display:block;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,.08)}
+.hd-center .eco-main{
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:2.15rem;font-weight:900;
+  color:var(--grn2);letter-spacing:.3em;
+  display:block;line-height:1;
+  text-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+/* 슬로건: 한 줄, 모바일에서 마퀴 스크롤 */
 .eco-slogan-wrap{overflow:hidden;margin-top:4px}
 .hd-center .eco-slogan{font-size:.7rem;color:var(--g4);white-space:nowrap;line-height:1.5;display:inline-block}
 .hd-center .eco-slogan b{color:var(--navy);font-size:.76rem;margin-right:4px}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* 우 - ChatDoumi */
 .hd-right{flex-shrink:0;text-align:center;cursor:pointer}
 .hd-right a{text-decoration:none;display:block}
 .hd-right .cd-pre{font-size:.68rem;color:var(--g4);display:block;margin-bottom:2px;letter-spacing:.5px}
 .hd-right .cd-main{font-family:var(--fs);font-size:1.85rem;font-weight:900;color:var(--navy);letter-spacing:-2px;line-height:1;display:block}
 .hd-right .cd-main em{color:var(--red);font-style:normal}
-
-/* ─── 모바일 전용 헤더 ─── */
-/* mob-hd: 기본 숨김 (PC) */
-.mob-hd{display:none;align-items:center;width:100%;padding:7px 6px;background:#fff;gap:0}
-.mob-ham{background:none;border:none;padding:7px;display:flex;flex-direction:column;gap:5px;cursor:pointer;flex-shrink:0;width:38px}
-.mob-ham span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
-.mob-title{flex:1;text-align:center;cursor:pointer;min-width:0;overflow:hidden}
-.mob-title .eco-pre{font-size:.58rem;color:var(--g4);letter-spacing:1px;display:block;margin-bottom:1px}
-.mob-title .eco-main{font-family:'Noto Sans KR',sans-serif;font-size:1.2rem;font-weight:900;color:var(--grn2);letter-spacing:.12em;display:block;line-height:1.2}
-.mob-title .eco-slogan-wrap{overflow:hidden}
-.mob-title .eco-slogan{font-size:.6rem;color:var(--g4);white-space:nowrap;display:inline-block;animation:marquee 14s linear infinite}
-/* PC에서 mob-hd 절대 숨김 */
-@media(min-width:901px){
-  .mob-hd{display:none !important}
-  .hd{display:flex}
-}
-/* 모바일 레이아웃 */
-@media(max-width:900px){
-  .shell{width:100%;overflow:hidden}
-  .mgrid{grid-template-columns:1fr}
-  .lsb{display:none !important}.mr{display:none !important}
-  header{padding:0 !important;border-bottom:2px solid var(--navy)}
-  /* PC 헤더 숨기고 mob-hd 표시 */
-  .hd{display:none !important}
-  .mob-hd{display:flex !important}
-  /* GNB */
-  .gnb-top-scroll{padding-left:6px}
-  .gnb-top-fixed{padding:5px 0 5px 3px}
-  .gnb-qi{width:82px;font-size:.7rem}
-  .gnb-qb{padding:5px 7px;font-size:.7rem}
-  .gnb-sub{padding:0 4px;scrollbar-width:none}
-  .gnb-sub::-webkit-scrollbar{display:none}
-  .gi{padding:7px 7px;font-size:.75rem}
-  /* 메인 컨텐츠 전체 너비 */
-  .mgrid{display:block !important}
-  .ml{padding:12px;overflow:hidden;width:100% !important;box-sizing:border-box}
-  .lsb{display:none !important}
-  .mr{display:none !important}
-  .bc-grid{grid-template-columns:1fr}
-  .sl-grid{grid-template-columns:1fr}
-  .mini-grid{grid-template-columns:1fr 1fr}
-  .nc-grid{grid-template-columns:1fr 1fr}
-  .news-page,.sp-page,.live-page,.reg-wrap{padding:14px 12px;width:100%;box-sizing:border-box}
-  .ng{grid-template-columns:1fr}
-  .fr{grid-template-columns:1fr}
-  .panel-scroll{height:120px}
-}
+/* 햄버거 */
+.ham{background:none;border:none;padding:6px;flex-direction:column;gap:5px;flex-shrink:0;cursor:pointer}
+.ham span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
+/* PC: 햄버거 숨김 */
+@media(min-width:901px){.ham{display:none}}
+/* 모바일: 항상 표시 */
+@media(max-width:900px){.ham{display:flex !important}}
 
 /* === GNB === */
 nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(13,31,53,.06)}
 /* 상단 줄: 핵심 메뉴 + 검색 */
 .gnb-top{display:flex;align-items:stretch;border-bottom:2px solid var(--g2);padding:0;position:relative;overflow:visible}
 /* 스크롤 영역 (검색 제외) */
-.gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0 0 var(--pad)}
+.gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;flex:1;padding:0 0 0 var(--pad)}
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
 .gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
@@ -135,26 +92,10 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .gi .bxb{background:var(--purple);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
 .gd{width:1px;background:var(--g2);margin:7px 0;align-self:stretch;flex-shrink:0}
 
-/* 드롭다운: position:fixed로 overflow 컨테이너 탈출 */
+/* 드롭다운 공통 */
 .ddw{position:relative;display:flex;align-items:stretch;flex-shrink:0}
-/* .dd는 기본 숨김 — JS가 show/hide + 위치 제어 */
-.dd{
-  display:none;
-  position:fixed;
-  top:0;left:0;   /* JS가 setDropPos()로 덮어씀 */
-  min-width:160px;
-  background:#fff;
-  border:var(--bd);
-  border-top:2px solid var(--red);
-  box-shadow:0 8px 24px rgba(13,31,53,.2);
-  z-index:99999;
-  border-radius:0 0 6px 6px;
-  max-height:60vh;
-  overflow-y:auto;
-}
-.dd.show{display:flex;flex-direction:column}
-/* 메가드롭다운은 row 방향 */
-.dd.dd-mega{flex-direction:row !important;min-width:360px}
+.ddw:hover .dd,.ddw.op .dd{display:flex;flex-direction:column}
+.dd{display:none;position:absolute;top:100%;left:0;min-width:160px;background:#fff;border:var(--bd);border-top:2px solid var(--red);box-shadow:0 8px 24px rgba(13,31,53,.18);z-index:9999;border-radius:0 0 6px 6px;max-height:70vh;overflow-y:auto}
 .ddi{padding:8px 14px;font-size:.8rem;font-weight:600;color:var(--text);cursor:pointer;border-bottom:1px solid var(--g2);white-space:nowrap;transition:background .15s;flex-shrink:0}
 .ddi:last-child{border-bottom:none}
 .ddi:hover,.ddi.sel{background:#fce8e6;color:var(--red)}
@@ -181,11 +122,6 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 10px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:145px;transition:border-color .2s}
 .gnb-qi:focus{border-color:var(--navy)}
 .gnb-qb{background:var(--navy);color:#fff;border:none;padding:5px 11px;border-radius:0 20px 20px 0;font-size:.76rem;font-weight:700}
-
-/* === 빠른 필터 버튼 === */
-.fbtn{background:#fff;border:1px solid var(--g2);color:var(--g4);padding:4px 11px;border-radius:20px;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
-.fbtn:hover{border-color:var(--navy);color:var(--navy)}
-.fbtn.act{background:var(--navy);color:#fff;border-color:var(--navy)}
 
 /* === 4분할 패널 스크롤 === */
 .panel-scroll{height:140px;overflow:hidden;background:#fff}
@@ -506,10 +442,57 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
   .bc-grid{grid-template-columns:1fr}
   .sl-grid{grid-template-columns:1fr}
 }
+/* 4. PC GNB sub - 마우스 드래그/휠 스크롤 표시 */
+.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 var(--pad)}
+.gnb-sub::-webkit-scrollbar{height:4px}
+.gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
+.gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 
+@media(max-width:900px){
+  .shell{width:100%;overflow:hidden}
+  .mgrid{grid-template-columns:1fr}
+  .lsb{display:none}.mr{display:none}
+  header{padding:8px 6px 0}
+  /* 모바일: AIPLATMARKET·ChatDoumi 숨기기 */
+  .logo{display:none !important}
+  .hd-right{display:none !important}
+  /* hd = 3열 그리드: 왼쪽햄버거 | 중앙타이틀 | 오른쪽햄버거 */
+  .hd{
+    display:grid !important;
+    grid-template-columns:44px 1fr 44px;
+    align-items:center;
+    gap:0;
+    width:100%;
+  }
+  #hamL{grid-column:1 !important;justify-self:start;display:flex !important}
+  .hd-center{grid-column:2 !important;text-align:center !important;padding:0 !important;width:100% !important}
+  #hamR{grid-column:3 !important;justify-self:end;display:flex !important}
+  .hd-center .eco-main{font-size:1.25rem;letter-spacing:.1em}
+  .hd-center .eco-pre{font-size:.6rem}
+  .eco-slogan-wrap{overflow:hidden}
+  .hd-center .eco-slogan{animation:marquee 14s linear infinite;white-space:nowrap}
+  /* 5. GNB top 좌측 6px 붙이기, 검색 우측 0 */
+  .gnb-top{overflow:visible}
+  .gnb-top-scroll{overflow-x:auto;padding-left:6px}
+  .gnb-top-fixed{display:flex;padding:5px 0 5px 4px}
+  .gnb-qi{width:86px;font-size:.7rem}
+  .gnb-qb{padding:5px 8px;font-size:.7rem}
+  .gnb-sub{padding:0 4px;scrollbar-width:none}
+  .gnb-sub::-webkit-scrollbar{display:none}
+  .gi{padding:7px 7px;font-size:.75rem}
+  .ml{padding:12px;overflow:hidden}
+  .bc-grid{grid-template-columns:1fr}
+  .sl-grid{grid-template-columns:1fr}
+  .mini-grid{grid-template-columns:1fr 1fr}
+  .nc-grid{grid-template-columns:1fr 1fr}
+  .news-page,.sp-page,.live-page,.reg-wrap{padding:14px 12px}
+  .ng{grid-template-columns:1fr}
+  .fr{grid-template-columns:1fr}
+  .panel-scroll{height:120px}
+}
 @media(max-width:600px){
-  .mob-hd .mob-title .eco-main{font-size:1.1rem !important;letter-spacing:.06em}
-  .mob-hd .mob-title .eco-pre{font-size:.58rem !important}
+  .hd-center .eco-main{font-size:1.1rem;letter-spacing:.06em}
+  .hd-center .eco-pre,.hd-center .eco-slogan{font-size:.6rem}
   .sl-grid{grid-template-columns:1fr}
   .mini-grid{grid-template-columns:1fr 1fr}
   .sp-grid{grid-template-columns:1fr 1fr}
@@ -552,21 +535,10 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 
 <!-- HEADER -->
 <header>
-  <!-- ★ 모바일 전용 헤더 (PC에서는 CSS로 숨김) ★ -->
-  <div class="mob-hd" id="mobHd">
-    <button class="mob-ham" onclick="openSide('left')" aria-label="메뉴열기"><span></span><span></span><span></span></button>
-    <div class="mob-title" onclick="showPage('home')">
-      <span class="eco-pre">국민에 의한 국민을 위한</span>
-      <span class="eco-main">국 민 경 제 ㊉</span>
-      <div class="eco-slogan-wrap" style="overflow:hidden">
-        <span class="eco-slogan"><b>"우리 동네 소식 · AI로 더 빠르게"</b> 지역 소상공인과 소비자를 잇는 AI 생활경제 미디어</span>
-      </div>
-    </div>
-    <button class="mob-ham" onclick="openSide('right')" aria-label="메뉴닫기"><span></span><span></span><span></span></button>
-  </div>
+  <div class="hd">
+    <!-- 모바일 좌측 햄버거 -->
+    <button class="ham" id="hamL" onclick="openSide('left')" aria-label="메뉴"><span></span><span></span><span></span></button>
 
-  <!-- ★ PC 전용 헤더 (모바일에서는 CSS로 숨김) ★ -->
-  <div class="hd" id="pcHd">
     <!-- 좌: AIPLATMARKET -->
     <div class="logo" onclick="showPage('home')">
       <span class="logo-sub">소상공인+소비자 상생 플랫폼</span>
@@ -589,6 +561,9 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         <span class="cd-main">Chat<em>Doumi</em></span>
       </a>
     </div>
+
+    <!-- 모바일 우측 햄버거 -->
+    <button class="ham" id="hamR" onclick="openSide('right')" aria-label="더보기"><span></span><span></span><span></span></button>
   </div>
 
   <!-- GNB 상단 줄: 스크롤 영역 + 고정 검색 -->
@@ -651,8 +626,8 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       </div><!-- /gnb-top-scroll -->
       <!-- 고정 검색 -->
       <div class="gnb-top-fixed">
-        <input class="gnb-qi" id="gnbQi" aria-label="업체·메뉴 검색" placeholder="업체·메뉴 검색..." onkeydown="if(event.key==='Enter')gnbSearch()">
-        <button class="gnb-qb" onclick="gnbSearch()" aria-label="검색실행">검색</button>
+        <input class="gnb-qi" id="gnbQi" placeholder="업체·메뉴 검색..." onkeydown="if(event.key==='Enter')gnbSearch()">
+        <button class="gnb-qb" onclick="gnbSearch()">검색</button>
       </div>
     </div>
 
@@ -912,26 +887,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       </div><!-- /4분할 패널 -->
 
       <!-- 업체 목록 (2컬럼) -->
-      <div class="sh" style="margin-top:4px">
-        <div class="sh-t">🏪 지역 업체</div>
-        <div style="display:flex;gap:6px;align-items:center">
-          <span id="storeCountBadge" style="font-size:.7rem;color:var(--g4);background:var(--g1);padding:2px 8px;border-radius:20px"></span>
-          <span class="sh-m" onclick="clearFilters()">전체 ›</span>
-        </div>
-      </div>
-      <!-- 빠른 필터 바 -->
-      <div id="filterBar" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;padding:10px;background:var(--g1);border-radius:var(--r)">
-        <span style="font-size:.72rem;color:var(--g4);font-weight:700;align-self:center;white-space:nowrap">빠른 필터:</span>
-        <button class="fbtn act" onclick="qFilter(this,'')">전체</button>
-        <button class="fbtn" onclick="qFilter(this,'음식점')">🍽️ 음식점</button>
-        <button class="fbtn" onclick="qFilter(this,'카페')">☕ 카페</button>
-        <button class="fbtn" onclick="qFilter(this,'미용')">💇 미용</button>
-        <button class="fbtn" onclick="qFilter(this,'생활서비스')">🔧 생활</button>
-        <button class="fbtn" onclick="qFilter(this,'의료')">💊 건강</button>
-        <button class="fbtn" onclick="qFilter(this,'교육')">📚 교육</button>
-        <button class="fbtn" onclick="qFilter(this,'농수산')">🥬 농수산</button>
-        <button class="fbtn" onclick="qFilter(this,'여가')">🎮 여가</button>
-      </div>
+      <div class="sh" style="margin-top:4px"><div class="sh-t">🏪 지역 업체</div><span class="sh-m" onclick="applyFilters()">전체 ›</span></div>
       <div id="storeList" class="sl-grid"><div class="spin-wrap" style="grid-column:1/-1"><div class="spin"></div>업체 정보를 불러오는 중...</div></div>
       <div class="pgn" id="pgn"></div>
 
@@ -1045,7 +1001,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 <div id="page-community" class="pg">
   <div class="sp-page" style="padding-bottom:30px">
     <div class="sh"><div class="sh-t">💬 커뮤니티</div></div>
-    <button class="cm-write" onclick="openWriteModal()">✏️ 글쓰기</button>
+    <button class="cm-write" onclick="toast('로그인 후 글쓰기가 가능합니다.')">✏️ 글쓰기</button>
     <div class="cm-tabs">
       <div class="cm-tab act" onclick="cmTab(this,'all')">전체</div>
       <div class="cm-tab" onclick="cmTab(this,'free')">자유게시판</div>
@@ -1606,17 +1562,11 @@ function getDummy() {
 async function loadStores() {
   renderLoading();
   try {
-    const ctrl = new AbortController();
-    const tid  = setTimeout(() => ctrl.abort(), 5000); // 5초 타임아웃
-    const res  = await fetch('/api/store', { signal: ctrl.signal });
-    clearTimeout(tid);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const res = await fetch('/api/store');
+    if (!res.ok) throw new Error();
     const data = await res.json();
-    S.stores = Array.isArray(data) && data.length > 0 ? data : getDummy();
-  } catch(_) {
-    // 서버 없음(로컬 개발) 또는 500 → 더미 데이터로 정상 동작
-    S.stores = getDummy();
-  }
+    S.stores = data.length > 0 ? data : getDummy();
+  } catch(_) { S.stores = getDummy(); }
   applyFilters();
 }
 
@@ -1631,9 +1581,6 @@ function applyFilters() {
   else nm.sort((a,b)=>(b.clicks||0)-(a.clicks||0));
   S.filtered=[...pr,...nm]; S.page=1;
   renderStores(); renderRanking(); renderRecList(); updateCatCounts(); updateGnbLabel();
-  // 업체 수 뱃지 업데이트
-  const cb = document.getElementById('storeCountBadge');
-  if(cb) cb.textContent = S.filtered.length + '개 업체';
 }
 
 function renderLoading() {
@@ -1752,64 +1699,24 @@ function updateGnbLabel() {
 }
 
 /* ── 드롭다운 토글 ── */
-/* ── 드롭다운 (position:fixed 방식 — overflow 컨테이너 탈출) ── */
-let _currentDd = null;
-
-function setDropPos(ddEl, btnEl) {
-  const r = btnEl.getBoundingClientRect();
-  ddEl.style.top  = (r.bottom + 2) + 'px';
-  ddEl.style.left = r.left + 'px';
-  // 화면 오른쪽 넘으면 오른쪽 정렬
-  const ddW = ddEl.offsetWidth || 160;
-  if (r.left + ddW > window.innerWidth - 8) {
-    ddEl.style.left = Math.max(4, window.innerWidth - ddW - 8) + 'px';
-  }
-}
-
 function toggleDd(id) {
-  const wrap = document.getElementById(id);
-  if (!wrap) return;
-  const dd   = wrap.querySelector('.dd');
-  const btn  = wrap.querySelector('.gi');
-  if (!dd || !btn) return;
-
-  if (_currentDd === dd) {
-    // 같은 드롭다운 클릭 → 닫기
-    dd.classList.remove('show');
-    _currentDd = null;
-    return;
-  }
+  const wrap=document.getElementById(id);
+  if(!wrap)return;
+  const isOpen=wrap.classList.contains('op');
   closeDds();
-  dd.classList.add('show');
-  setDropPos(dd, btn);
-  _currentDd = dd;
-  event && event.stopPropagation();
+  if(!isOpen) wrap.classList.add('op');
 }
-
 function toggleChDd(id) {
-  const wrap = document.getElementById(id);
-  if (!wrap) return;
-  const isOpen = wrap.classList.contains('op');
+  const wrap=document.getElementById(id);
+  if(!wrap)return;
+  const isOpen=wrap.classList.contains('op');
   closeDds();
-  if (!isOpen) wrap.classList.add('op');
-  event && event.stopPropagation();
+  if(!isOpen) wrap.classList.add('op');
 }
-
 function closeDds() {
-  document.querySelectorAll('.dd.show').forEach(e => e.classList.remove('show'));
-  document.querySelectorAll('.ch-ddw.op').forEach(e => e.classList.remove('op'));
-  _currentDd = null;
+  document.querySelectorAll('.ddw.op').forEach(e=>e.classList.remove('op'));
+  document.querySelectorAll('.ch-ddw.op').forEach(e=>e.classList.remove('op'));
 }
-
-// 스크롤·리사이즈 시 열린 드롭다운 위치 재계산
-window.addEventListener('scroll', function() {
-  if (_currentDd) {
-    const wrap = _currentDd.closest('.ddw');
-    const btn  = wrap?.querySelector('.gi');
-    if (btn) setDropPos(_currentDd, btn);
-  }
-}, true);
-window.addEventListener('resize', closeDds);
 
 /* ── 아코디언 ── */
 function toggleAcc(hdr) {
