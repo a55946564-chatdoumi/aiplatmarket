@@ -15,8 +15,18 @@
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- 외부 연결 사전 확보 -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.youtube.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.youtube.com">
+<!-- 구글 폰트: 비차단(non-blocking) 로드 — 렌더 블로킹 제거 -->
+<link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@900&display=swap"
+  onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@900&display=swap" rel="stylesheet">
+</noscript>
 <style>
 :root{
   --navy:#0d1f35;--navy2:#1a3556;--red:#c0392b;--red2:#e74c3c;
@@ -24,8 +34,9 @@
   --g1:#f4f6f9;--g2:#e8ecf1;--g3:#b0bac7;--g4:#6b7a8d;
   --text:#1c2635;--white:#fff;
   --bd:1px solid #dde2ea;--sh:0 2px 12px rgba(13,31,53,.08);--r:6px;
-  --fs:'Noto Serif KR',serif;
-  --fn:'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif;
+  /* 시스템 폰트 우선 → 구글폰트 로드 후 자동 교체 (FOUT 최소화) */
+  --fs:'Noto Serif KR','AppleMyungjo','Malgun Gothic',Georgia,serif;
+  --fn:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','나눔고딕',sans-serif;
   --pad:28px;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -117,17 +128,17 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 /* 상단 줄: 핵심 메뉴 + 검색 */
 .gnb-top{display:flex;align-items:stretch;border-bottom:2px solid var(--g2);padding:0;position:relative;overflow:visible}
 /* 스크롤 영역 (검색 제외) */
-.gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0 0var(--pad)}
+.gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0 0 var(--pad)}
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
-.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 2px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
+.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
 /* 하단 줄: 나머지 메뉴 스크롤 (PC에서 thin 스크롤바 표시 — 반응형에서 재정의) */
-.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0var(--pad)}
+.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 var(--pad)}
 .gnb-sub::-webkit-scrollbar{height:4px}
 .gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
 .gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 /* 공통 메뉴 아이템 */
-.gi{display:flex;align-items:center;padding:10px 5px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
+.gi{display:flex;align-items:center;padding:10px 13px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
 .gi.act{color:var(--red);border-bottom-color:var(--red)}
 .gi .bx{background:var(--red);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
@@ -178,7 +189,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 
 /* GNB 인라인 검색 */
 .gnb-sq{display:flex;align-items:center;margin-left:auto;padding:5px 0 5px 10px;gap:0;flex-shrink:0}
-.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 5px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:125px;transition:border-color .2s}
+.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 10px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:145px;transition:border-color .2s}
 .gnb-qi:focus{border-color:var(--navy)}
 .gnb-qb{background:var(--navy);color:#fff;border:none;padding:5px 11px;border-radius:0 20px 20px 0;font-size:.76rem;font-weight:700}
 
@@ -508,8 +519,8 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 }
 
 @media(max-width:600px){
-  .mob-hd .mob-title .eco-main{font-size:1.5rem !important;letter-spacing:.06em}
-  .mob-hd .mob-title .eco-pre{font-size:.59rem !important}
+  .mob-hd .mob-title .eco-main{font-size:1.1rem !important;letter-spacing:.06em}
+  .mob-hd .mob-title .eco-pre{font-size:.58rem !important}
   .sl-grid{grid-template-columns:1fr}
   .mini-grid{grid-template-columns:1fr 1fr}
   .sp-grid{grid-template-columns:1fr 1fr}
@@ -545,7 +556,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <button onclick="doLogin()" style="background:var(--navy);color:#fff;border:none;padding:11px;border-radius:6px;font-size:.9rem;font-weight:800;cursor:pointer;font-family:inherit">로그인</button>
       <button onclick="closeLoginModal()" style="background:var(--g1);color:var(--g4);border:none;padding:9px;border-radius:6px;font-size:.84rem;cursor:pointer;font-family:inherit">취소</button>
     </div>
-    <div style="margin-top:12px;font-size:.7rem;color:var(--g4);text-align:center"></div>
+    <div style="margin-top:12px;font-size:.7rem;color:var(--g4);text-align:center">관리자: admin / aiplatmarket2026</div>
   </div>
 </div>
 
@@ -828,8 +839,14 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
           <div class="live-area">
             <div class="live-badge">● LIVE</div>
             <div class="vc">👁 <span id="vcnt">1,248</span>명</div>
-            <div class="iframe-box">
-              <iframe id="liveIframe" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0&controls=1&rel=0" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+            <div class="iframe-box" id="liveBox">
+              <!-- 클릭 시 YouTube 로드 (초기 렌더링 속도 최적화) -->
+              <div id="liveCover" onclick="loadLiveIframe()" style="width:100%;height:100%;background:linear-gradient(135deg,#0d1f35,#1a3556);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:10px">
+                <div style="width:60px;height:60px;background:rgba(255,0,0,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem">▶</div>
+                <div style="color:#fff;font-size:.82rem;font-weight:700;letter-spacing:1px">● LIVE 방송 보기</div>
+                <div style="color:rgba(255,255,255,.6);font-size:.72rem">클릭하여 재생</div>
+              </div>
+              <iframe id="liveIframe" src="" allow="autoplay;encrypted-media" allowfullscreen style="display:none;width:100%;height:100%;border:0"></iframe>
             </div>
           </div>
           <div class="bc-info">
@@ -852,8 +869,13 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
           <div class="live-area">
             <div class="live-badge" style="background:var(--purple);animation:none">♪ MUSIC</div>
             <div class="vc">🎵 <span id="musicVcnt">886</span>명</div>
-            <div class="iframe-box">
-              <iframe id="musicIframe" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG&autoplay=1&mute=0&controls=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+            <div class="iframe-box" id="musicBox">
+              <div id="musicCover" onclick="loadMusicIframe()" style="width:100%;height:100%;background:linear-gradient(135deg,#2d1040,#4a1565);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:10px">
+                <div style="width:60px;height:60px;background:rgba(123,45,139,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem">🎵</div>
+                <div style="color:#fff;font-size:.82rem;font-weight:700;letter-spacing:1px">♪ MUSIC 방송 보기</div>
+                <div style="color:rgba(255,255,255,.6);font-size:.72rem">클릭하여 재생</div>
+              </div>
+              <iframe id="musicIframe" src="" allow="autoplay;encrypted-media" allowfullscreen style="display:none;width:100%;height:100%;border:0"></iframe>
             </div>
           </div>
           <div class="bc-info">
@@ -1383,7 +1405,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <a href="/admin" target="_blank"
          style="display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);color:var(--gold);padding:5px 14px;border-radius:4px;font-size:.74rem;font-weight:700;transition:all .2s;text-decoration:none"
          onmouseover="this.style.background='rgba(201,168,76,.3)'" onmouseout="this.style.background='rgba(201,168,76,.15)'"
-         title="관리자 대시보드 (admin)">
+         title="관리자 대시보드 (admin / aiplatmarket2026)">
         ⚙️ 관리자 대시보드
       </a>
     </div>
@@ -1554,14 +1576,20 @@ let _tt;
 
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', function() {
+  // ── 즉시 실행 (화면 표시에 필요) ──
   initDate();
   buildSidoList();
-  buildLiveSched();
-  buildGenreSched();
-  buildLiveGrid();
-  loadStores();
-  startViewerAnim();
-  initPanelScrolls();
+
+  // ── 약간 지연 (화면 표시 후 처리) ──
+  setTimeout(function() {
+    buildLiveSched();
+    buildGenreSched();
+    buildLiveGrid();
+    loadStores();
+    startViewerAnim();
+    initPanelScrolls();
+  }, 50);
+
   document.addEventListener('click', function(e) {
     if (!e.target.closest('.ddw') && !e.target.closest('.ch-ddw')) closeDds();
   });
@@ -1634,15 +1662,39 @@ function buildGenreSched() {
     </div>`).join('');
 }
 
+/* ── YouTube lazy loader ── */
+function loadLiveIframe() {
+  const cover = document.getElementById('liveCover');
+  const ifr   = document.getElementById('liveIframe');
+  if (!cover || !ifr) return;
+  cover.style.display = 'none';
+  ifr.style.display   = 'block';
+  ifr.src = 'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0&controls=1&rel=0';
+}
+function loadMusicIframe() {
+  const cover = document.getElementById('musicCover');
+  const ifr   = document.getElementById('musicIframe');
+  if (!cover || !ifr) return;
+  cover.style.display = 'none';
+  ifr.style.display   = 'block';
+  const g = GENRES[curGenreIdx] || GENRES[0];
+  ifr.src = `https://www.youtube.com/embed/videoseries?list=${g.list}&autoplay=1&mute=0&controls=1`;
+}
+
 /* ── 장르 변경 ── */
 function setGenre(idx) {
   curGenreIdx = idx;
   const g = GENRES[idx];
-  const ifr = document.getElementById('musicIframe');
-  if (ifr) ifr.src = `https://www.youtube.com/embed/videoseries?list=${g.list}&autoplay=1&mute=0&controls=1`;
+  // lazy iframe이 아직 안 로드됐으면 로드 먼저
+  const cover = document.getElementById('musicCover');
+  const ifr   = document.getElementById('musicIframe');
+  if (cover) cover.style.display = 'none';
+  if (ifr) {
+    ifr.style.display = 'block';
+    ifr.src = `https://www.youtube.com/embed/videoseries?list=${g.list}&autoplay=1&mute=0&controls=1`;
+  }
   const ttl = document.getElementById('musicTitle');
   if (ttl) ttl.textContent = `${g.label} — 오늘도 힘내세요 🎶`;
-  // 드롭다운 현재 표시 갱신
   document.querySelectorAll('#genreSched .ch-dd-item').forEach((el,i) => {
     el.classList.toggle('now', i===idx);
     const ct = el.querySelector('.cdt');
