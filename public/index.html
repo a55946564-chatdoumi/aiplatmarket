@@ -37,7 +37,7 @@
   /* 시스템 폰트 우선 → 구글폰트 로드 후 자동 교체 (FOUT 최소화) */
   --fs:'Noto Serif KR','AppleMyungjo','Malgun Gothic',Georgia,serif;
   --fn:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','나눔고딕',sans-serif;
-  --pad:28px;
+  --pad:25px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden}
@@ -66,7 +66,7 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
 .hd-center{flex:1;text-align:center;padding:0 8px;cursor:pointer}
 .hd-center .eco-pre{font-size:.7rem;color:var(--g4);letter-spacing:1.5px;display:block;margin-bottom:2px}
 .hd-center .eco-main{font-family:'Noto Sans KR',sans-serif;font-size:2.15rem;font-weight:900;color:var(--grn2);letter-spacing:.3em;display:block;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,.08)}
-.eco-slogan-wrap{overflow:hidden;margin-top:4px}
+.eco-slogan-wrap{overflow:hidden;margin-top:2px}
 .hd-center .eco-slogan{font-size:.7rem;color:var(--g4);white-space:nowrap;line-height:1.5;display:inline-block}
 .hd-center .eco-slogan b{color:var(--navy);font-size:.76rem;margin-right:4px}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
@@ -128,17 +128,17 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 /* 상단 줄: 핵심 메뉴 + 검색 */
 .gnb-top{display:flex;align-items:stretch;border-bottom:2px solid var(--g2);padding:0;position:relative;overflow:visible}
 /* 스크롤 영역 (검색 제외) */
-.gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0 0 var(--pad)}
+.gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0}
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
-.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
+.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 5px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
 /* 하단 줄: 나머지 메뉴 스크롤 (PC에서 thin 스크롤바 표시 — 반응형에서 재정의) */
-.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 var(--pad)}
+.gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 0}
 .gnb-sub::-webkit-scrollbar{height:4px}
 .gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
 .gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 /* 공통 메뉴 아이템 */
-.gi{display:flex;align-items:center;padding:10px 13px;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
+.gi{display:flex;align-items:center;padding:4px 4px;font-size:.8rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
 .gi.act{color:var(--red);border-bottom-color:var(--red)}
 .gi .bx{background:var(--red);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
@@ -189,7 +189,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 
 /* GNB 인라인 검색 */
 .gnb-sq{display:flex;align-items:center;margin-left:auto;padding:5px 0 5px 10px;gap:0;flex-shrink:0}
-.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 10px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:145px;transition:border-color .2s}
+.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 6px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:120px;transition:border-color .2s}
 .gnb-qi:focus{border-color:var(--navy)}
 .gnb-qb{background:var(--navy);color:#fff;border:none;padding:5px 11px;border-radius:0 20px 20px 0;font-size:.76rem;font-weight:700}
 
@@ -519,7 +519,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 }
 
 @media(max-width:600px){
-  .mob-hd .mob-title .eco-main{font-size:1.1rem !important;letter-spacing:.06em}
+  .mob-hd .mob-title .eco-main{font-size:1.5rem !important;letter-spacing:.06em}
   .mob-hd .mob-title .eco-pre{font-size:.58rem !important}
   .sl-grid{grid-template-columns:1fr}
   .mini-grid{grid-template-columns:1fr 1fr}
