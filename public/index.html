@@ -66,7 +66,7 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
 .hd-center{flex:1;text-align:center;padding:0 8px;cursor:pointer}
 .hd-center .eco-pre{font-size:.7rem;color:var(--g4);letter-spacing:1.5px;display:block;margin-bottom:2px}
 .hd-center .eco-main{font-family:'Noto Sans KR',sans-serif;font-size:2.15rem;font-weight:900;color:var(--grn2);letter-spacing:.3em;display:block;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,.08)}
-.eco-slogan-wrap{overflow:hidden;margin-top:2px}
+.eco-slogan-wrap{overflow:hidden;margin-top:4px}
 .hd-center .eco-slogan{font-size:.7rem;color:var(--g4);white-space:nowrap;line-height:1.5;display:inline-block}
 .hd-center .eco-slogan b{color:var(--navy);font-size:.76rem;margin-right:4px}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
@@ -110,17 +110,28 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
   .gi{padding:6px 6px;font-size:.72rem}
   /* 메인 컨텐츠 전체 너비 */
   .mgrid{display:block !important}
-  .ml{padding:12px;overflow:hidden;width:100% !important;box-sizing:border-box}
+  .ml{padding:8px;overflow:hidden;width:100% !important;box-sizing:border-box}
   .lsb{display:none !important}
   .mr{display:none !important}
-  .bc-grid{grid-template-columns:1fr}
-  .sl-grid{grid-template-columns:1fr}
+  /* 모바일에서도 2컬럼 유지 (PC와 동일) */
+  .bc-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .sl-grid{grid-template-columns:1fr 1fr;gap:8px}
   .mini-grid{grid-template-columns:1fr 1fr}
   .nc-grid{grid-template-columns:1fr 1fr}
-  .news-page,.sp-page,.live-page,.reg-wrap{padding:14px 12px;width:100%;box-sizing:border-box}
+  /* 카드 내부 패딩 모바일 최적화 */
+  .si-body{padding:7px 8px}
+  .si-name{font-size:.82rem}
+  .si-desc{font-size:.72rem;-webkit-line-clamp:2}
+  .si-meta{font-size:.64rem}
+  .si-thumb{height:70px}
+  .news-page,.sp-page,.live-page,.reg-wrap{padding:10px 8px;width:100%;box-sizing:border-box}
   .ng{grid-template-columns:1fr}
   .fr{grid-template-columns:1fr}
   .panel-scroll{height:120px}
+  /* 방송 카드 내부 폰트 축소 */
+  .bc-ttl{font-size:.78rem}
+  .bc-info .ch-badge{font-size:.6rem;padding:2px 5px}
+  .iframe-box{border-radius:4px}
 }
 
 /* === GNB === */
@@ -131,14 +142,14 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0}
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
-.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 5px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
+.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
 /* 하단 줄: 나머지 메뉴 스크롤 (PC에서 thin 스크롤바 표시 — 반응형에서 재정의) */
 .gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 0}
 .gnb-sub::-webkit-scrollbar{height:4px}
 .gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
 .gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 /* 공통 메뉴 아이템 */
-.gi{display:flex;align-items:center;padding:4px 4px;font-size:.8rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
+.gi{display:flex;align-items:center;padding:5px 5px;font-size:.80rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
 .gi.act{color:var(--red);border-bottom-color:var(--red)}
 .gi .bx{background:var(--red);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
@@ -189,12 +200,12 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 
 /* GNB 인라인 검색 */
 .gnb-sq{display:flex;align-items:center;margin-left:auto;padding:5px 0 5px 10px;gap:0;flex-shrink:0}
-.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 6px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:120px;transition:border-color .2s}
+.gnb-qi{border:1px solid var(--g2);border-right:none;padding:5px 5px;font-size:.78rem;border-radius:20px 0 0 20px;outline:none;width:120px;transition:border-color .2s}
 .gnb-qi:focus{border-color:var(--navy)}
 .gnb-qb{background:var(--navy);color:#fff;border:none;padding:5px 11px;border-radius:0 20px 20px 0;font-size:.76rem;font-weight:700}
 
 /* === 빠른 필터 버튼 === */
-.fbtn{background:#fff;border:1px solid var(--g2);color:var(--g4);padding:4px 11px;border-radius:20px;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.fbtn{background:#fff;border:1px solid var(--g2);color:var(--g4);padding:4px 4px;border-radius:20px;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
 .fbtn:hover{border-color:var(--navy);color:var(--navy)}
 .fbtn.act{background:var(--navy);color:#fff;border-color:var(--navy)}
 
@@ -514,17 +525,21 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
   .mgrid{grid-template-columns:165px 1fr 230px}
   .lsb{padding:11px 8px}
   .lmi,.ac-h{font-size:.74rem;padding:5px 6px}
-  .bc-grid{grid-template-columns:1fr}
-  .sl-grid{grid-template-columns:1fr}
+  /* 태블릿(900~1100px)에서는 2컬럼 유지 */
 }
 
 @media(max-width:600px){
   .mob-hd .mob-title .eco-main{font-size:1.5rem !important;letter-spacing:.06em}
   .mob-hd .mob-title .eco-pre{font-size:.58rem !important}
-  .sl-grid{grid-template-columns:1fr}
+  /* 360px 이하 극소형 폰에서만 1컬럼 */
   .mini-grid{grid-template-columns:1fr 1fr}
   .sp-grid{grid-template-columns:1fr 1fr}
   .nc-grid{grid-template-columns:1fr 1fr}
+}
+/* 극소형 폰(360px 미만)에서만 1컬럼 */
+@media(max-width:359px){
+  .bc-grid{grid-template-columns:1fr}
+  .sl-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -556,7 +571,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <button onclick="doLogin()" style="background:var(--navy);color:#fff;border:none;padding:11px;border-radius:6px;font-size:.9rem;font-weight:800;cursor:pointer;font-family:inherit">로그인</button>
       <button onclick="closeLoginModal()" style="background:var(--g1);color:var(--g4);border:none;padding:9px;border-radius:6px;font-size:.84rem;cursor:pointer;font-family:inherit">취소</button>
     </div>
-    <div style="margin-top:12px;font-size:.7rem;color:var(--g4);text-align:center">관리자 & 사용자 / 비번 주기적 변경</div>
+    <div style="margin-top:12px;font-size:.7rem;color:var(--g4);text-align:center">관리자: admin / aiplatmarket2026</div>
   </div>
 </div>
 
@@ -986,7 +1001,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         </div>
       </div>
       <!-- 빠른 필터 바 -->
-      <div id="filterBar" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;padding:10px;background:var(--g1);border-radius:var(--r)">
+      <div id="filterBar" style="display:flex;gap:2px;flex-wrap:wrap;margin-bottom:5px;padding:5px;background:var(--g1);border-radius:var(--r)">
         <span style="font-size:.72rem;color:var(--g4);font-weight:700;align-self:center;white-space:nowrap">빠른 필터:</span>
         <button class="fbtn act" onclick="qFilter(this,'')">전체</button>
         <button class="fbtn" onclick="qFilter(this,'음식점')">🍽️ 음식점</button>
@@ -1405,7 +1420,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <a href="/admin" target="_blank"
          style="display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);color:var(--gold);padding:5px 14px;border-radius:4px;font-size:.74rem;font-weight:700;transition:all .2s;text-decoration:none"
          onmouseover="this.style.background='rgba(201,168,76,.3)'" onmouseout="this.style.background='rgba(201,168,76,.15)'"
-         title="관리자 대시보드 (admin / aiplatmarket0619)">
+         title="관리자 대시보드 (admin / aiplatmarket2026)">
         ⚙️ 관리자 대시보드
       </a>
     </div>
