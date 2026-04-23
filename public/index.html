@@ -142,7 +142,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .gnb-top-scroll{display:flex;align-items:stretch;overflow-x:auto;overflow-y:visible;scrollbar-width:none;flex:1;padding:0 0}
 .gnb-top-scroll::-webkit-scrollbar{display:none}
 /* 검색 고정 (우측) */
-.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 8px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
+.gnb-top-fixed{display:flex;align-items:center;flex-shrink:0;padding:5px 5px 5px 4px;border-left:var(--bd);background:#fff;position:sticky;right:0}
 /* 하단 줄: 나머지 메뉴 스크롤 (PC에서 thin 스크롤바 표시 — 반응형에서 재정의) */
 .gnb-sub{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;border-bottom:var(--bd);padding:0 0}
 .gnb-sub::-webkit-scrollbar{height:4px}
@@ -676,7 +676,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       </div><!-- /gnb-top-scroll -->
       <!-- 고정 검색 -->
       <div class="gnb-top-fixed">
-        <input class="gnb-qi" id="gnbQi" aria-label="업체·메뉴 검색" placeholder="업체·메뉴 검색..." onkeydown="if(event.key==='Enter')gnbSearch()">
+        <input class="gnb-qi" id="gnbQi" aria-label="업체·메뉴 검색" placeholder="🔍업체·메뉴 검색.." onkeydown="if(event.key==='Enter')gnbSearch()">
         <button class="gnb-qb" onclick="gnbSearch()" aria-label="검색실행">검색</button>
       </div>
     </div>
