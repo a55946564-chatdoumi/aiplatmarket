@@ -541,6 +541,16 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
   .bc-grid{grid-template-columns:1fr}
   .sl-grid{grid-template-columns:1fr}
 }
+.plus-red {
+    color: #cc0000 !important;
+    font-weight: 900;
+    /* 사이즈와 위치 조정의 핵심 */
+    display: inline-block;    /* 위치 조정을 가능하게 함 */
+    font-size: 0.80em;       /* 글자 크기를 80% 정도로 축소 */
+    transform: translateY(-15px); /* 위로 5픽셀 이동 (숫자로 높이 조절 가능) */
+    vertical-align: middle;   /* 주변 글자와의 정렬 기준 */
+    margin-left: 2px;         /* 앞 글자와 너무 붙지 않게 미세 간격 */
+}
 </style>
 <!-- 2. 화면 로딩 관련 자바스크립트 (필요 시 여기에 추가) -->
     <script>
@@ -577,7 +587,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <button onclick="doLogin()" style="background:var(--navy);color:#fff;border:none;padding:11px;border-radius:6px;font-size:.9rem;font-weight:800;cursor:pointer;font-family:inherit">로그인</button>
       <button onclick="closeLoginModal()" style="background:var(--g1);color:var(--g4);border:none;padding:9px;border-radius:6px;font-size:.84rem;cursor:pointer;font-family:inherit">취소</button>
     </div>
-    <div style="margin-top:12px;font-size:.7rem;color:var(--g4);text-align:center">관리자: admin / aiplatmarket2026</div>
+    <div style="margin-top:12px;font-size:.7rem;color:var(--g4);text-align:center">이용자: 비번 주기적 변경</div>
   </div>
 </div>
 
@@ -607,7 +617,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
     <!-- 중: 국민경제㊉ -->
     <div class="hd-center" onclick="showPage('home')">
       <span class="eco-pre">국민에 의한 국민을 위한</span>
-      <span class="eco-main">국 민 경 제 ㊉</span>
+      <span class="eco-main">국 민 경 제<span class="plus-red">㊉</span></span>
       <div class="eco-slogan-wrap">
         <span class="eco-slogan" id="ecoSlogan"><b>"우리 동네 소식 · AI로 더 빠르게"</b>지역 소상공인과 소비자를 잇는 AI 생활경제 미디어 · 국민경제㊉ · AI플랫마켓</span>
       </div>
@@ -1426,11 +1436,10 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <a href="/admin" target="_blank"
          style="display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);color:var(--gold);padding:5px 14px;border-radius:4px;font-size:.74rem;font-weight:700;transition:all .2s;text-decoration:none"
          onmouseover="this.style.background='rgba(201,168,76,.3)'" onmouseout="this.style.background='rgba(201,168,76,.15)'"
-         title="관리자 대시보드 (admin / aiplatmarket2026)">
+         title="관리자 대시보드 (admin / 비번 주기적 변경)">
         ⚙️ 관리자 대시보드
       </a>
     </div>
-
   </div>
 </footer>
 </div><!-- /shell -->
@@ -2121,7 +2130,7 @@ async function doRegister() {
 
 /* ── 로그인 모달 ── */
 const ADMIN_PW_KEY = 'apm_pw';
-let adminPw = localStorage.getItem(ADMIN_PW_KEY) || 'aiplatmarket2026';
+let adminPw = localStorage.getItem(ADMIN_PW_KEY) || '비밀번호 변경';
 
 function openLoginModal() {
   const m = document.getElementById('loginModal');
