@@ -551,6 +551,14 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
     vertical-align: middle;   /* 주변 글자와의 정렬 기준 */
     margin-left: 2px;         /* 앞 글자와 너무 붙지 않게 미세 간격 */
 }
+/* 모바일 전용 미세 조정 (화면 너비 768px 이하) */
+@media (max-width: 768px) {
+    .plus-red {
+        font-size: 0.8em;          /* 모바일에서는 조금 더 작게 */
+        transform: translateY(-0.4em); /* 모바일 높이에 맞게 미세 하향 조정 */
+        margin-left: .8px;
+    }
+}
 </style>
 <!-- 2. 화면 로딩 관련 자바스크립트 (필요 시 여기에 추가) -->
     <script>
@@ -598,7 +606,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
     <button class="mob-ham" onclick="openSide('left')" aria-label="메뉴열기"><span></span><span></span><span></span></button>
     <div class="mob-title" onclick="showPage('home')">
       <span class="eco-pre">국민에 의한 국민을 위한</span>
-      <span class="eco-main">국 민 경 제 ㊉</span>
+      <span class="eco-main">국 민 경 제 <span class="plus-red">㊉</span></span>
       <div class="eco-slogan-wrap" style="overflow:hidden">
         <span class="eco-slogan"><b>"우리 동네 소식 · AI로 더 빠르게"</b> 지역 소상공인과 소비자를 잇는 AI 생활경제 미디어</span>
       </div>
