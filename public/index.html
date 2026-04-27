@@ -432,6 +432,81 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 /* 뉴스 */
 .news-page{padding:22px var(--pad)}
 .ng{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+
+/* === 뉴스 4열 그리드 === */
+.news-4col{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:14px}
+.news-col{min-width:0}
+.nc-col-hd{font-size:.72rem;font-weight:900;color:var(--navy);letter-spacing:1px;text-transform:uppercase;padding:0 0 6px;border-bottom:2px solid var(--red);margin-bottom:10px}
+.nc-hero{cursor:pointer;margin-bottom:10px}
+.nc-hero-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a3556,#0d1f35);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:8px}
+.nc-hero-ttl{font-family:var(--fs);font-size:.95rem;font-weight:700;color:var(--navy);line-height:1.4;margin-bottom:4px}
+.nc-hero-desc{font-size:.76rem;color:#555;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.nc-meta{font-size:.68rem;color:var(--g4);margin-top:4px}
+.nc-tags{display:flex;gap:4px;margin-bottom:5px}
+.nc-list{display:flex;flex-direction:column}
+.nc-item{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--g2);cursor:pointer}
+.nc-item:hover .nc-item-ttl{color:var(--red)}
+.nc-num{font-family:var(--fs);font-size:.9rem;font-weight:900;color:var(--g3);width:18px;flex-shrink:0;text-align:center}
+.nc-item-ttl{font-size:.8rem;font-weight:600;color:var(--navy);line-height:1.35}
+.nc-card{border:var(--bd);border-radius:var(--r);overflow:hidden;cursor:pointer;margin-bottom:8px;transition:box-shadow .2s}
+.nc-card:hover{box-shadow:var(--sh)}
+.nc-card-img{height:90px;display:flex;align-items:center;justify-content:center;font-size:2.2rem}
+.nc-card-ttl{font-size:.8rem;font-weight:700;color:var(--navy);padding:8px 9px 4px;line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.nc-mini-list{display:flex;flex-direction:column}
+.nc-mini{font-size:.76rem;color:var(--text);padding:6px 0;border-bottom:1px solid var(--g2);cursor:pointer;line-height:1.35;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.nc-mini:hover{color:var(--red)}
+.nc-rank-list{display:flex;flex-direction:column}
+.nc-rank{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--g2);cursor:pointer}
+.nr-n{font-family:var(--fs);font-size:.9rem;font-weight:900;width:16px;flex-shrink:0;text-align:center}
+.nr-ttl{font-size:.78rem;font-weight:600;color:var(--navy);line-height:1.35}
+.nc-rank:hover .nr-ttl{color:var(--red)}
+.news-reg-btn{background:var(--g1);border:var(--bd);color:var(--g4);padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.news-reg-btn:hover,.news-reg-btn.act{background:var(--navy);color:#fff;border-color:var(--navy)}
+.news-cat{padding:7px 14px;font-size:.8rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;color:var(--g4);transition:all .18s;white-space:nowrap;flex-shrink:0}
+.news-cat.act{color:var(--red);border-bottom-color:var(--red)}
+/* 지역광고 4열 */
+.ad-4col{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px}
+.ad-card{border:var(--bd);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .15s;background:#fff}
+.ad-card:hover{box-shadow:0 4px 16px rgba(13,31,53,.1);transform:translateY(-2px)}
+.ad-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.ad-body{padding:9px 11px}
+.ad-ttl{font-size:.8rem;font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:4px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ad-meta{font-size:.67rem;color:var(--g4)}
+/* 검색 팝업 */
+.srch-pop{display:none;position:fixed;inset:0;background:rgba(13,31,53,.7);z-index:5000;align-items:flex-start;justify-content:center;padding-top:60px}
+.srch-pop.op{display:flex}
+.srch-pop-box{background:#fff;border-radius:12px;width:min(700px,96vw);max-height:85vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);display:flex;flex-direction:column}
+.srch-pop-hd{background:var(--navy);padding:14px 16px;display:flex;align-items:center;gap:10px}
+.srch-pop-inp{flex:1;border:none;background:rgba(255,255,255,.15);color:#fff;padding:9px 14px;border-radius:6px;font-size:1rem;outline:none;font-family:inherit}
+.srch-pop-inp::placeholder{color:rgba(255,255,255,.5)}
+.srch-pop-btn{background:var(--gold);color:var(--navy);border:none;padding:9px 18px;border-radius:6px;font-size:.88rem;font-weight:800;cursor:pointer}
+.srch-pop-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:1.3rem;cursor:pointer}
+.srch-pop-body{flex:1;overflow-y:auto;padding:14px 16px}
+.srch-sec-ttl{font-size:.7rem;font-weight:800;color:var(--g4);letter-spacing:1px;text-transform:uppercase;margin:12px 0 7px}
+.srch-tags{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.srch-tags::-webkit-scrollbar{display:none}
+.srch-tag{background:var(--g1);border:var(--bd);color:var(--text);padding:4px 11px;border-radius:20px;font-size:.76rem;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.srch-tag:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.srch-portal-row{display:flex;gap:8px;flex-wrap:wrap}
+.srch-portal{display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 14px;border:var(--bd);border-radius:var(--r);cursor:pointer;text-decoration:none;color:var(--text);transition:box-shadow .2s;font-size:.72rem;font-weight:600;min-width:70px}
+.srch-portal:hover{box-shadow:var(--sh)}
+.srch-portal .ico{font-size:1.4rem}
+/* 챗도우미 실시간 팝업 */
+.cd-popup{position:fixed;bottom:76px;right:16px;z-index:4000;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.22);border:2px solid var(--navy);width:255px;animation:slideUp .4s ease}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.cd-popup-hd{background:linear-gradient(135deg,var(--navy),#1a3556);color:#fff;padding:9px 13px;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center}
+.cd-popup-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:1rem;cursor:pointer}
+.cd-popup-body{padding:12px 13px}
+.cd-fab{position:fixed;bottom:16px;right:16px;z-index:3999;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border:none;border-radius:50%;width:52px;height:52px;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.cd-fab:hover{transform:scale(1.1)}
+/* 모바일 반응형 */
+@media(max-width:900px){
+  .news-4col{display:flex;overflow-x:auto;gap:10px;padding-bottom:6px;scrollbar-width:none}
+  .news-4col::-webkit-scrollbar{display:none}
+  .news-col{min-width:260px;flex-shrink:0}
+  .ad-4col{grid-template-columns:1fr 1fr;gap:8px}
+  .srch-pop{padding-top:16px}
+}
 .nm-img{width:100%;aspect-ratio:16/7;background:linear-gradient(135deg,#e8ecf1,#d0d8e4);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:11px}
 .nm-ttl{font-family:var(--fs);font-size:1.3rem;font-weight:900;color:var(--navy);line-height:1.4;margin-bottom:6px;cursor:pointer}
 .nm-ttl:hover{text-decoration:underline}
@@ -766,7 +841,39 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <div class="gi" onclick="showPage('newprod')">🆕 신상품</div><div class="gd"></div>
       <div class="gi" onclick="showPage('branch')">🏢 지역본부/지사 <span class="bxg">모집</span></div><div class="gd"></div>
       <div class="gi" onclick="showPage('reporter')">📰 홍보기자단 <span class="bxg">모집</span></div><div class="gd"></div>
-      <div class="gi" onclick="showPage('register')">✅ 입점신청</div>
+      <div class="gi" onclick="showPage('register')">✅ 입점신청</div><div class="gd"></div>
+
+      <!-- 전국소상공인회 2단계 드롭다운 -->
+      <div class="ddw" id="ddSME">
+        <div class="gi" onclick="toggleDd('ddSME')" style="color:var(--grn2);font-weight:800">🏛 전국소상공인회 ▾</div>
+        <div class="dd" style="min-width:220px">
+          <!-- 소상공인상생회 -->
+          <div style="padding:6px 14px 4px;font-size:.66rem;color:var(--g4);font-weight:800;border-bottom:var(--bd);letter-spacing:.5px">🤝 소상공인상생회</div>
+          <div style="overflow-x:auto;display:flex;flex-wrap:nowrap;gap:0;max-width:360px">
+            <div style="display:flex;flex-direction:column;min-width:110px">
+              <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">서울 상생회</div>
+              <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">인천 상생회</div>
+              <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">경기 상생회</div>
+              <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">부산 상생회</div>
+              <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">대구 상생회</div>
+              <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">광주 상생회</div>
+              <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">대전 상생회</div>
+              <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">강원 상생회</div>
+            </div>
+          </div>
+          <!-- 소상공인연합회 -->
+          <div style="padding:6px 14px 4px;font-size:.66rem;color:var(--g4);font-weight:800;border-bottom:var(--bd);border-top:var(--bd);letter-spacing:.5px;margin-top:4px">🏢 소상공인연합회</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">전국 소상공인연합회 (본부)</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">서울 연합회</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">인천 연합회</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">경기 연합회</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">부산 연합회</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">대구·경북 연합회</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">광주·전남 연합회</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">대전·충남 연합회</div>
+          <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">제주 연합회</div>
+        </div>
+      </div>
     </div>
   </nav>
 </header>
@@ -1110,29 +1217,142 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 <!-- ==================== NEWS ==================== -->
 <div id="page-news" class="pg">
   <div class="news-page">
-    <div class="sh"><div class="sh-t">📰 지역경제 뉴스</div></div>
-    <div class="ng">
-      <div>
-        <div style="border-bottom:var(--bd);padding-bottom:16px;margin-bottom:16px;cursor:pointer">
-          <div class="nm-img">🏙️</div>
-          <div style="display:flex;gap:6px;margin-bottom:6px"><span class="tag tc">지역경제</span><span class="tag tn">NEW</span></div>
-          <div class="nm-ttl">[단독] 소상공인 디지털 전환 지원금 내달부터 최대 200만원 확대</div>
-          <div class="nm-desc">정부는 디지털 전환을 희망하는 전국 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔다...</div>
-          <div style="margin-top:7px;font-size:.73rem;color:var(--g4)">2026.04.13 · AI플랫마켓 편집국</div>
+    <!-- 헤더: 제목 + 지역 메뉴 + 우측 빠른 메뉴 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:3px solid var(--navy)">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div style="font-family:var(--fs);font-size:1.05rem;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:6px">
+          <span style="display:inline-block;width:3px;height:15px;background:var(--red);border-radius:2px"></span>📰 지역경제 뉴스
         </div>
-        <div class="ns"><div class="ns-th">📈</div><div><div class="ns-t">인천 소상공인 매출 1분기 역대 최고 — 배달 증가 영향</div><small class="ns-d">2026.04.12 · 경제</small></div></div>
-        <div class="ns"><div class="ns-th">🏪</div><div><div class="ns-t">경기 성남·분당 신규 상권 분석 — AI 예측 유망 업종 TOP5</div><small class="ns-d">2026.04.11 · 창업</small></div></div>
-        <div class="ns"><div class="ns-th">💡</div><div><div class="ns-t">카카오페이 소상공인 결제 수수료 0% 이벤트 시행</div><small class="ns-d">2026.04.10 · IT</small></div></div>
-        <div class="ns"><div class="ns-th">🌿</div><div><div class="ns-t">로컬 푸드 직거래 활성화, 농수산 소상공인 매출 30%↑</div><small class="ns-d">2026.04.09 · 농수산</small></div></div>
+        <!-- 지역 탭 -->
+        <div style="display:flex;gap:4px;flex-wrap:wrap" id="newsRegTabs">
+          <button class="news-reg-btn act" onclick="filterNews('all',this)">전체</button>
+          <button class="news-reg-btn" onclick="filterNews('서울',this)">서울</button>
+          <button class="news-reg-btn" onclick="filterNews('인천',this)">인천</button>
+          <button class="news-reg-btn" onclick="filterNews('경기',this)">경기</button>
+          <button class="news-reg-btn" onclick="filterNews('부산',this)">부산</button>
+          <button class="news-reg-btn" onclick="filterNews('대구',this)">대구</button>
+          <button class="news-reg-btn" onclick="filterNews('광주',this)">광주</button>
+          <button class="news-reg-btn" onclick="filterNews('대전',this)">대전</button>
+          <button class="news-reg-btn" onclick="filterNews('강원',this)">강원</button>
+        </div>
       </div>
-      <div>
-        <div class="sh"><div class="sh-t" style="font-size:.88rem">오피니언</div></div>
-        <div style="font-size:.82rem;line-height:1.7;color:#444;background:var(--g1);padding:12px;border-radius:var(--r);margin-bottom:16px"><b style="color:var(--navy);display:block;margin-bottom:4px">"지역경제, AI가 살린다"</b>소상공인의 디지털 전환은 선택이 아닌 필수입니다. AI플랫마켓이 앞장서겠습니다.<div style="margin-top:6px;font-size:.7rem;color:var(--g4)">— AI플랫마켓 편집장</div></div>
-        <div class="sh"><div class="sh-t" style="font-size:.88rem">많이 읽은 기사</div></div>
-        <div style="font-size:.8rem;font-weight:600;color:var(--navy);padding:8px 0;border-bottom:var(--bd);cursor:pointer">1. 2026년 소상공인 지원 정책 총정리</div>
-        <div style="font-size:.8rem;font-weight:600;color:var(--navy);padding:8px 0;border-bottom:var(--bd);cursor:pointer">2. 배달앱 수수료 비교 — 쿠팡·배민·요기요</div>
-        <div style="font-size:.8rem;font-weight:600;color:var(--navy);padding:8px 0;border-bottom:var(--bd);cursor:pointer">3. AI 홍보문구 무료 서비스 TOP3</div>
-        <div style="font-size:.8rem;font-weight:600;color:var(--navy);padding:8px 0;cursor:pointer">4. 우리 동네 인기 창업 아이템 20선</div>
+      <!-- 우측 빠른 메뉴 -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button onclick="showPage('good')" style="background:#e8f5e9;color:#2e7d32;border:none;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:700;cursor:pointer">🌿 산지직송</button>
+        <button onclick="filterNews('맛집',this,true)" style="background:#fff3e0;color:#e65100;border:none;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:700;cursor:pointer">🍽️ 전국맛집</button>
+        <button onclick="showPage('good')" style="background:#e3f2fd;color:#1565c0;border:none;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:700;cursor:pointer">💚 더착한가게</button>
+      </div>
+    </div>
+
+    <!-- 카테고리 탭 -->
+    <div style="display:flex;gap:0;overflow-x:auto;border-bottom:2px solid var(--g2);margin-bottom:14px;scrollbar-width:none" id="newsCatTabs">
+      <div class="news-cat act" onclick="filterNewsCat('전체',this)">전체</div>
+      <div class="news-cat" onclick="filterNewsCat('경제',this)">경제</div>
+      <div class="news-cat" onclick="filterNewsCat('창업',this)">창업/사업</div>
+      <div class="news-cat" onclick="filterNewsCat('IT',this)">IT/AI</div>
+      <div class="news-cat" onclick="filterNewsCat('농수산',this)">농수산</div>
+      <div class="news-cat" onclick="filterNewsCat('부동산',this)">부동산</div>
+      <div class="news-cat" onclick="filterNewsCat('생활',this)">생활/문화</div>
+      <div class="news-cat" onclick="filterNewsCat('정치',this)">정치</div>
+      <div class="news-cat" onclick="filterNewsCat('사회',this)">사회</div>
+    </div>
+
+    <!-- 4열 뉴스 그리드 -->
+    <div class="news-4col" id="newsGrid">
+
+      <!-- 1열: 주요뉴스 -->
+      <div class="news-col nc-main">
+        <div class="nc-col-hd">🔥 주요뉴스</div>
+        <div class="nc-hero" onclick="openNewsDetail(0)">
+          <div class="nc-hero-img">🏙️</div>
+          <div class="nc-hero-body">
+            <div class="nc-tags"><span class="tag tc">지역경제</span><span class="tag tn">단독</span></div>
+            <div class="nc-hero-ttl">[단독] 소상공인 디지털 전환 지원금 내달부터 최대 200만원 확대</div>
+            <div class="nc-hero-desc">정부는 디지털 전환을 희망하는 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔다. 1인당 최대 200만원...</div>
+            <div class="nc-meta">2026.04.13 · AI플랫마켓 편집국</div>
+          </div>
+        </div>
+        <div class="nc-list">
+          <div class="nc-item" onclick="openNewsDetail(1)"><span class="nc-num">1</span><div><div class="nc-item-ttl">인천 소상공인 매출 1분기 역대 최고 — 배달 증가 영향</div><div class="nc-meta">2026.04.12 · 경제</div></div></div>
+          <div class="nc-item" onclick="openNewsDetail(2)"><span class="nc-num">2</span><div><div class="nc-item-ttl">경기 성남·분당 신규 상권 AI 예측 유망 업종 TOP5</div><div class="nc-meta">2026.04.11 · 창업</div></div></div>
+          <div class="nc-item" onclick="openNewsDetail(3)"><span class="nc-num">3</span><div><div class="nc-item-ttl">카카오페이 소상공인 결제 수수료 0% 이벤트 시행</div><div class="nc-meta">2026.04.10 · IT</div></div></div>
+          <div class="nc-item" onclick="openNewsDetail(4)"><span class="nc-num">4</span><div><div class="nc-item-ttl">로컬 푸드 직거래 활성화, 농수산 소상공인 매출 30%↑</div><div class="nc-meta">2026.04.09 · 농수산</div></div></div>
+          <div class="nc-item" onclick="openNewsDetail(5)"><span class="nc-num">5</span><div><div class="nc-item-ttl">2026년 2분기 최저임금 시행 소상공인 영향 분석</div><div class="nc-meta">2026.04.08 · 경제</div></div></div>
+        </div>
+      </div>
+
+      <!-- 2열: 창업/사업 -->
+      <div class="news-col">
+        <div class="nc-col-hd">🚀 창업/사업</div>
+        <div class="nc-card" onclick="openNewsDetail(10)">
+          <div class="nc-card-img" style="background:linear-gradient(135deg,#e8f0fe,#c5cae9)">💡</div>
+          <div class="nc-card-ttl">2026 유망 창업 아이템 TOP10 — AI 분석 결과 공개</div>
+          <div class="nc-meta">2026.04.13 · AI플랫마켓</div>
+        </div>
+        <div class="nc-card" onclick="openNewsDetail(11)">
+          <div class="nc-card-img" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">🏪</div>
+          <div class="nc-card-ttl">소상공인 정책 자금 3월 조기 소진 — 추경 편성 여부 주목</div>
+          <div class="nc-meta">2026.04.12 · 창업</div>
+        </div>
+        <div class="nc-mini-list">
+          <div class="nc-mini" onclick="openNewsDetail(12)">프랜차이즈 vs 독립 창업, 2026년 어느 쪽이 유리한가</div>
+          <div class="nc-mini" onclick="openNewsDetail(13)">청년 창업 지원금 신청 방법 완전 정리</div>
+          <div class="nc-mini" onclick="openNewsDetail(14)">전통시장 내 온라인 판매 지원 프로그램 안내</div>
+          <div class="nc-mini" onclick="openNewsDetail(15)">배달앱 수수료 절감 5가지 실전 방법</div>
+        </div>
+      </div>
+
+      <!-- 3열: IT/AI & 생활 -->
+      <div class="news-col">
+        <div class="nc-col-hd">💡 IT·AI·생활</div>
+        <div class="nc-card" onclick="openNewsDetail(20)">
+          <div class="nc-card-img" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7)">🤖</div>
+          <div class="nc-card-ttl">AI 홍보문구 자동 생성, 소상공인 마케팅 판도 바꾼다</div>
+          <div class="nc-meta">2026.04.13 · AI/IT</div>
+        </div>
+        <div class="nc-card" onclick="openNewsDetail(21)">
+          <div class="nc-card-img" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">📱</div>
+          <div class="nc-card-ttl">인스타그램 소상공인 마케팅 성공 사례 10선</div>
+          <div class="nc-meta">2026.04.11 · 마케팅</div>
+        </div>
+        <div class="nc-mini-list">
+          <div class="nc-mini" onclick="openNewsDetail(22)">ChatGPT 활용해 매출 올린 소상공인 인터뷰</div>
+          <div class="nc-mini" onclick="openNewsDetail(23)">스마트 POS 도입 시 절세 혜택 총정리</div>
+          <div class="nc-mini" onclick="openNewsDetail(24)">지역 소상공인 카카오채널 무료 개설 가이드</div>
+          <div class="nc-mini" onclick="openNewsDetail(25)">네이버 플레이스 최적화로 방문객 2배 늘리기</div>
+        </div>
+      </div>
+
+      <!-- 4열: 오피니언 + 인기 -->
+      <div class="news-col">
+        <div class="nc-col-hd">📌 오피니언·인기</div>
+        <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--r);padding:14px;color:#fff;margin-bottom:10px;cursor:pointer" onclick="openNewsDetail(30)">
+          <div style="font-size:.62rem;background:var(--gold);color:var(--navy);padding:1px 6px;border-radius:2px;font-weight:900;display:inline-block;margin-bottom:6px">편집장 칼럼</div>
+          <div style="font-size:.85rem;font-weight:700;line-height:1.4;margin-bottom:6px">"지역경제, AI가 살린다"<br>소상공인의 디지털 전환</div>
+          <div style="font-size:.7rem;color:rgba(255,255,255,.6)">— AI플랫마켓 편집장</div>
+        </div>
+        <div class="nc-col-hd" style="margin-top:10px">🏆 많이 읽은 기사</div>
+        <div class="nc-rank-list">
+          <div class="nc-rank" onclick="openNewsDetail(31)"><span class="nr-n t1">1</span><div class="nr-ttl">2026년 소상공인 지원 정책 총정리</div></div>
+          <div class="nc-rank" onclick="openNewsDetail(32)"><span class="nr-n t2">2</span><div class="nr-ttl">배달앱 수수료 비교 — 쿠팡·배민·요기요</div></div>
+          <div class="nc-rank" onclick="openNewsDetail(33)"><span class="nr-n t3">3</span><div class="nr-ttl">AI 홍보문구 무료 서비스 TOP3</div></div>
+          <div class="nc-rank" onclick="openNewsDetail(34)"><span class="nr-n">4</span><div class="nr-ttl">우리 동네 인기 창업 아이템 20선</div></div>
+          <div class="nc-rank" onclick="openNewsDetail(35)"><span class="nr-n">5</span><div class="nr-ttl">상가 임대료 지원 받는 법 A-Z</div></div>
+          <div class="nc-rank" onclick="openNewsDetail(36)"><span class="nr-n">6</span><div class="nr-ttl">카드 수수료 0% 적용 방법 정리</div></div>
+          <div class="nc-rank" onclick="openNewsDetail(37)"><span class="nr-n">7</span><div class="nr-ttl">2026 최저임금 소상공인 대응 전략</div></div>
+        </div>
+      </div>
+
+    </div><!-- /news-4col -->
+
+    <!-- 뉴스 상세 모달 -->
+    <div id="newsDetailModal" style="display:none;position:fixed;inset:0;background:rgba(13,31,53,.6);z-index:3000;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto" onclick="if(event.target===this)closeNewsDetail()">
+      <div style="background:#fff;border-radius:var(--r);max-width:700px;width:100%;margin:20px auto;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+        <div style="background:var(--navy);color:#fff;padding:16px 20px;border-radius:var(--r) var(--r) 0 0;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:.9rem;font-weight:700" id="ndTitle">기사 제목</span>
+          <button onclick="closeNewsDetail()" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:1.3rem;cursor:pointer">✕</button>
+        </div>
+        <div style="padding:20px" id="ndBody">기사 내용이 여기에 표시됩니다.</div>
       </div>
     </div>
   </div>
@@ -1341,16 +1561,58 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 
 <!-- ==================== 지역생활광고 ==================== -->
 <div id="page-localad" class="pg">
-  <div class="sp-page"><div class="sh"><div class="sh-t">📋 지역생활광고</div></div><p style="font-size:.86rem;color:#555;margin-bottom:4px">전단지·광고 PDF를 업로드하여 지역 주민에게 홍보하세요.</p>
-    <div class="pdf-drop" onclick="document.getElementById('pdfInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
-      <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="handlePdfFile(this)">
-      <div style="font-size:2.4rem;margin-bottom:7px">📄</div>
-      <div style="font-size:.84rem;color:var(--g4)"><b style="color:var(--navy);display:block;margin-bottom:3px">PDF 파일 드래그 또는 클릭하여 업로드</b>최대 10MB · PDF 형식만 가능</div>
+  <div class="sp-page">
+    <div class="sh"><div class="sh-t">📋 지역생활광고</div></div>
+    <p style="font-size:.86rem;color:#555;margin-bottom:4px">전단지·광고 PDF·JPG를 업로드하여 지역 주민에게 홍보하세요.</p>
+    <!-- 관리자/편집자 확인 -->
+    <div id="adUploadArea">
+      <div style="background:var(--g1);border:var(--bd);border-radius:var(--r);padding:12px;margin-bottom:10px;font-size:.8rem;color:var(--g4);display:flex;align-items:center;gap:8px">
+        🔒 <span>업로드 권한: <strong style="color:var(--navy)">관리자·편집자</strong>만 가능합니다. 로그인 후 이용해 주세요.</span>
+        <button onclick="openLoginModal()" style="background:var(--navy);color:#fff;border:none;padding:3px 10px;border-radius:4px;font-size:.74rem;cursor:pointer;margin-left:auto">로그인</button>
+      </div>
+      <div class="pdf-drop" onclick="checkUploadAuth()" ondragover="event.preventDefault()" ondrop="handleDropAd(event)">
+        <input type="file" id="adFileInput" accept=".pdf,.jpg,.jpeg,.png" style="display:none" onchange="handleAdFile(this)">
+        <div style="font-size:2.4rem;margin-bottom:7px">📄</div>
+        <div style="font-size:.84rem;color:var(--g4)"><b style="color:var(--navy);display:block;margin-bottom:3px">PDF · JPG · PNG 파일 드래그 또는 클릭하여 업로드</b>최대 20MB · PDF / JPG / PNG 형식 지원</div>
+      </div>
     </div>
-    <div class="pdf-list" id="pdfList">
-      <div class="pdf-item"><div class="pdf-ico">📄</div><div class="pdf-nm">인천 남동구 전통시장 할인 행사 안내.pdf</div><div class="pdf-meta">2026.04.10 · 1.2MB</div><button class="btn-pdf" onclick="toast('보기 기능 준비 중입니다.')">보기</button></div>
-      <div class="pdf-item"><div class="pdf-ico">📄</div><div class="pdf-nm">부평구 소상공인 지원 사업 신청 안내.pdf</div><div class="pdf-meta">2026.04.08 · 0.8MB</div><button class="btn-pdf" onclick="toast('보기 기능 준비 중입니다.')">보기</button></div>
+    <!-- 4열 광고 그리드 -->
+    <div class="sh" style="margin-top:16px"><div class="sh-t">등록된 지역 광고</div></div>
+    <div class="ad-4col" id="adGrid">
+      <div class="ad-card" onclick="openAdDetail('인천 남동구 전통시장 할인 행사')">
+        <div class="ad-thumb" style="background:linear-gradient(135deg,#fce8e6,#f5c6c2)">📄</div>
+        <div class="ad-body"><div class="ad-ttl">인천 남동구 전통시장 할인 행사 안내</div><div class="ad-meta">2026.04.10 · PDF · 1.2MB</div></div>
+      </div>
+      <div class="ad-card" onclick="openAdDetail('부평구 소상공인 지원 사업')">
+        <div class="ad-thumb" style="background:linear-gradient(135deg,#e8f0fe,#c5cae9)">📋</div>
+        <div class="ad-body"><div class="ad-ttl">부평구 소상공인 지원 사업 신청 안내</div><div class="ad-meta">2026.04.08 · PDF · 0.8MB</div></div>
+      </div>
+      <div class="ad-card" onclick="openAdDetail('인천 맛집 특가 이벤트')">
+        <div class="ad-thumb" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">🍽️</div>
+        <div class="ad-body"><div class="ad-ttl">인천 남동구 맛집 특가 이벤트 전단</div><div class="ad-meta">2026.04.06 · JPG · 2.1MB</div></div>
+      </div>
+      <div class="ad-card" onclick="openAdDetail('연수구 봄맞이 세일')">
+        <div class="ad-thumb" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7)">🌸</div>
+        <div class="ad-body"><div class="ad-ttl">연수구 봄맞이 대세일 광고</div><div class="ad-meta">2026.04.04 · JPG · 1.5MB</div></div>
+      </div>
+      <div class="ad-card" onclick="openAdDetail('경기 성남 창업 설명회')">
+        <div class="ad-thumb" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">🚀</div>
+        <div class="ad-body"><div class="ad-ttl">경기 성남 소상공인 창업 설명회</div><div class="ad-meta">2026.04.02 · PDF · 3.2MB</div></div>
+      </div>
+      <div class="ad-card" onclick="openAdDetail('부산 해운대 여름 축제')">
+        <div class="ad-thumb" style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2)">🏖️</div>
+        <div class="ad-body"><div class="ad-ttl">부산 해운대 여름 축제 홍보물</div><div class="ad-meta">2026.03.30 · JPG · 1.8MB</div></div>
+      </div>
+      <div class="ad-card" onclick="openAdDetail('대전 유성구 음식축제')">
+        <div class="ad-thumb" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">🎪</div>
+        <div class="ad-body"><div class="ad-ttl">대전 유성구 음식축제 안내문</div><div class="ad-meta">2026.03.28 · PDF · 0.9MB</div></div>
+      </div>
+      <div class="ad-card" onclick="openAdDetail('광주 북구 로컬마켓')">
+        <div class="ad-thumb" style="background:linear-gradient(135deg,#e8f5e9,#dcedc8)">🛒</div>
+        <div class="ad-body"><div class="ad-ttl">광주 북구 로컬마켓 오픈 안내</div><div class="ad-meta">2026.03.25 · JPG · 2.3MB</div></div>
+      </div>
     </div>
+    <div id="adFileList" style="margin-top:10px"></div>
   </div>
 </div>
 
@@ -1444,9 +1706,15 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <a href="/admin" target="_blank"
          style="display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.5);color:var(--gold);padding:5px 14px;border-radius:4px;font-size:.74rem;font-weight:700;transition:all .2s;text-decoration:none"
          onmouseover="this.style.background='rgba(201,168,76,.3)'" onmouseout="this.style.background='rgba(201,168,76,.15)'"
-         title="관리자 대시보드 (admin / 비번 주기적 변경)">
+         title="관리자 대시보드">
         ⚙️ 관리자 대시보드
       </a>
+      <!-- PC 버전 버튼 (모바일에서 표시) -->
+      <button onclick="switchToPcMode()"
+         style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);padding:5px 14px;border-radius:4px;font-size:.74rem;font-weight:700;cursor:pointer;transition:all .2s"
+         onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">
+        🖥 PC 버전으로 보기
+      </button>
     </div>
   </div>
 </footer>
@@ -1543,6 +1811,85 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 </div>
 
 <div class="toast" id="toastEl"></div>
+
+<!-- ========== 검색 팝업 ========== -->
+<div class="srch-pop" id="srchPop" onclick="if(event.target===this)closeSearchPop()">
+  <div class="srch-pop-box">
+    <div class="srch-pop-hd">
+      <span style="font-size:1.2rem">🔍</span>
+      <input class="srch-pop-inp" id="srchPopInp" placeholder="업체·메뉴·지역 검색..." onkeydown="if(event.key==='Enter')doPopSearch()">
+      <button class="srch-pop-btn" onclick="doPopSearch()">검색</button>
+      <button class="srch-pop-close" onclick="closeSearchPop()">✕</button>
+    </div>
+    <div class="srch-pop-body">
+      <div class="srch-sec-ttl">🏠 국내 빠른 메뉴</div>
+      <div class="srch-tags">
+        <span class="srch-tag" onclick="popKw('삼겹살')">삼겹살</span>
+        <span class="srch-tag" onclick="popKw('네일샵')">네일샵</span>
+        <span class="srch-tag" onclick="popKw('헬스장')">헬스장</span>
+        <span class="srch-tag" onclick="popKw('족발')">족발</span>
+        <span class="srch-tag" onclick="popKw('카페')">카페</span>
+        <span class="srch-tag" onclick="popKw('치킨')">치킨</span>
+        <span class="srch-tag" onclick="popKw('세탁소')">세탁소</span>
+        <span class="srch-tag" onclick="popKw('학원')">학원</span>
+        <span class="srch-tag" onclick="popKw('피자')">피자</span>
+        <span class="srch-tag" onclick="popKw('미용실')">미용실</span>
+        <span class="srch-tag" onclick="popKw('한의원')">한의원</span>
+        <span class="srch-tag" onclick="popKw('마트')">마트</span>
+      </div>
+      <div class="srch-sec-ttl">🌐 글로벌 메뉴</div>
+      <div class="srch-tags">
+        <span class="srch-tag" onclick="popPage('global')">글로벌경제</span>
+        <span class="srch-tag" onclick="popPage('news')">지역뉴스</span>
+        <span class="srch-tag" onclick="popPage('travel')">해외여행</span>
+        <span class="srch-tag" onclick="popPage('recipe')">세계레시피</span>
+        <span class="srch-tag" onclick="popKw('수출')">수출입</span>
+        <span class="srch-tag" onclick="popKw('해외직구')">해외직구</span>
+        <span class="srch-tag" onclick="popKw('환율')">환율정보</span>
+      </div>
+      <div class="srch-sec-ttl">🔎 주요 검색 포털</div>
+      <div class="srch-portal-row">
+        <a class="srch-portal" href="https://search.naver.com/search.naver?query=" id="naverLink" target="_blank"><span class="ico">🟢</span>네이버</a>
+        <a class="srch-portal" href="https://www.google.co.kr/search?q=" id="googleLink" target="_blank"><span class="ico">🔵</span>구글</a>
+        <a class="srch-portal" href="https://www.daum.net/" target="_blank"><span class="ico">🟠</span>다음</a>
+        <a class="srch-portal" href="https://www.bing.com/search?q=" id="bingLink" target="_blank"><span class="ico">⚪</span>빙</a>
+        <a class="srch-portal" href="https://chatdoumi.com" target="_blank"><span class="ico">🤖</span>챗도우미</a>
+        <a class="srch-portal" href="https://map.naver.com/v5/search/" id="mapLink" target="_blank"><span class="ico">🗺️</span>지도검색</a>
+        <a class="srch-portal" href="https://blog.naver.com" target="_blank"><span class="ico">📝</span>블로그</a>
+        <a class="srch-portal" href="https://shopping.naver.com" target="_blank"><span class="ico">🛒</span>쇼핑</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 챗도우미 실시간 팝업 ========== -->
+<div class="cd-popup" id="cdPopup" style="display:none">
+  <div class="cd-popup-hd">
+    <div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.65);margin-bottom:1px">내 사업 내 비서</div>
+      <div style="font-size:.88rem;font-weight:800">🤖 A(G)I 챗도우미</div>
+    </div>
+    <button class="cd-popup-close" onclick="closeCdPopup()">✕</button>
+  </div>
+  <div class="cd-popup-body">
+    <div style="font-size:.78rem;color:#555;line-height:1.6;margin-bottom:10px">
+      <b style="color:var(--navy);display:block;margin-bottom:4px">✨ AI 광고·마케팅 지원</b>
+      소상공인 맞춤 AI 광고문구 자동 생성, 매출 분석, 마케팅 전략을 ChatDoumi가 도와드립니다.
+    </div>
+    <div style="display:flex;gap:7px;flex-direction:column">
+      <a href="https://chatdoumi.com" target="_blank" rel="noopener"
+         style="background:var(--navy);color:#fff;padding:8px 12px;border-radius:6px;font-size:.8rem;font-weight:700;text-align:center;text-decoration:none;display:block">
+        🚀 챗도우미 시작하기 →
+      </a>
+      <button onclick="closeCdPopup()" style="background:var(--g1);border:var(--bd);color:var(--g4);padding:6px;border-radius:6px;font-size:.76rem;cursor:pointer">
+        오늘 하루 보지 않기
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FAB 버튼 (챗도우미) -->
+<button class="cd-fab" id="cdFab" onclick="toggleCdPopup()" title="챗도우미 AI 비서">🤖</button>
 
 <!-- ==================== JAVASCRIPT ==================== -->
 <script>
@@ -2170,6 +2517,120 @@ function doLogin() {
 document.getElementById('loginModal').addEventListener('click', function(e) {
   if (e.target === this) closeLoginModal();
 });
+
+/* ── 검색 팝업 ── */
+function openSearchPop() {
+  document.getElementById('srchPop').classList.add('op');
+  setTimeout(() => document.getElementById('srchPopInp')?.focus(), 100);
+}
+function closeSearchPop() {
+  document.getElementById('srchPop').classList.remove('op');
+}
+function doPopSearch() {
+  const q = document.getElementById('srchPopInp').value.trim();
+  if (!q) return;
+  closeSearchPop();
+  if (typeof S !== 'undefined') { S.kw = q; showPage('home'); applyFilters(); }
+  // 네이버 연동 href 업데이트
+  const enc = encodeURIComponent(q);
+  document.getElementById('naverLink').href = `https://search.naver.com/search.naver?query=${enc}`;
+  document.getElementById('googleLink').href = `https://www.google.co.kr/search?q=${enc}`;
+  document.getElementById('bingLink').href   = `https://www.bing.com/search?q=${enc}`;
+  document.getElementById('mapLink').href    = `https://map.naver.com/v5/search/${enc}`;
+}
+function popKw(kw) {
+  document.getElementById('srchPopInp').value = kw;
+  doPopSearch();
+}
+function popPage(pg) {
+  closeSearchPop();
+  showPage(pg);
+}
+
+/* ── 뉴스 기능 ── */
+function filterNews(reg, btn, isKw) {
+  document.querySelectorAll('.news-reg-btn').forEach(b => b.classList.remove('act'));
+  if (btn) btn.classList.add('act');
+  toast(`📰 ${reg === 'all' ? '전체' : reg} 뉴스 보기`);
+}
+function filterNewsCat(cat, el) {
+  document.querySelectorAll('.news-cat').forEach(b => b.classList.remove('act'));
+  el.classList.add('act');
+  toast(`📌 ${cat} 뉴스`);
+}
+const NEWS_DATA = [
+  { title: '[단독] 소상공인 디지털 전환 지원금 최대 200만원 확대', body: '정부는 디지털 전환을 희망하는 전국 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔습니다. 신청 기간은 다음 달부터이며, 온라인 신청이 가능합니다.', date: '2026.04.13', cat: '지역경제' },
+  { title: '인천 소상공인 매출 1분기 역대 최고', body: '인천 지역 소상공인의 1분기 매출이 역대 최고치를 기록했습니다. 배달앱 이용 증가와 함께 온라인 홍보 효과가 컸다는 분석입니다.', date: '2026.04.12', cat: '경제' },
+  { title: '경기 성남·분당 신규 상권 AI 예측 TOP5', body: 'AI 분석을 통한 유망 업종 TOP5: 1위 카페·디저트, 2위 펫샵, 3위 건강식품, 4위 홈케어, 5위 학원', date: '2026.04.11', cat: '창업' },
+];
+function openNewsDetail(idx) {
+  const n = NEWS_DATA[idx % NEWS_DATA.length] || NEWS_DATA[0];
+  document.getElementById('ndTitle').textContent = n.title;
+  document.getElementById('ndBody').innerHTML = `
+    <div style="font-size:.72rem;color:var(--g4);margin-bottom:12px">${n.date} · ${n.cat}</div>
+    <div style="font-size:.9rem;line-height:1.8;color:#333">${n.body}</div>
+    <div style="margin-top:16px;padding:12px;background:var(--g1);border-radius:var(--r);font-size:.78rem;color:var(--g4)">
+      📌 이 기사는 AI플랫마켓 편집국에서 작성되었습니다.
+    </div>`;
+  document.getElementById('newsDetailModal').style.display = 'flex';
+}
+function closeNewsDetail() {
+  document.getElementById('newsDetailModal').style.display = 'none';
+}
+
+/* ── 지역광고 업로드 (관리자/편집자 체크) ── */
+const UPLOAD_AUTH = localStorage.getItem('apm_admin_logged') === 'true';
+function checkUploadAuth() {
+  if (!UPLOAD_AUTH) { openLoginModal(); toast('⚠️ 관리자·편집자만 업로드 가능합니다.'); return; }
+  document.getElementById('adFileInput').click();
+}
+function handleDropAd(e) {
+  e.preventDefault();
+  if (!UPLOAD_AUTH) { toast('⚠️ 관리자·편집자만 업로드 가능합니다.'); return; }
+  const f = e.dataTransfer.files[0];
+  if (f) addAdFile(f);
+}
+function handleAdFile(input) {
+  const f = input.files[0]; if (!f) return;
+  if (f.size > 20 * 1024 * 1024) { toast('❗ 20MB 초과 파일입니다.'); return; }
+  addAdFile(f);
+}
+function addAdFile(f) {
+  const ext = f.name.split('.').pop().toUpperCase();
+  const grid = document.getElementById('adGrid');
+  const card = document.createElement('div'); card.className = 'ad-card';
+  const bg = ext === 'PDF' ? '#fce8e6' : '#e8f0fe';
+  const ico = ext === 'PDF' ? '📄' : '🖼️';
+  card.innerHTML = `<div class="ad-thumb" style="background:${bg}">${ico}</div>
+    <div class="ad-body"><div class="ad-ttl">${f.name}</div>
+    <div class="ad-meta">${new Date().toLocaleDateString('ko-KR')} · ${ext} · ${(f.size/1024/1024).toFixed(1)}MB</div></div>`;
+  grid.insertBefore(card, grid.firstChild);
+  toast(`✅ ${f.name} 업로드 완료!`);
+}
+function openAdDetail(title) { toast(`📋 ${title} — 보기 기능 준비 중`); }
+
+/* ── 챗도우미 실시간 팝업 ── */
+function toggleCdPopup() {
+  const p = document.getElementById('cdPopup');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+}
+function closeCdPopup() {
+  document.getElementById('cdPopup').style.display = 'none';
+  sessionStorage.setItem('cd_popup_closed', '1');
+}
+// 3초 후 자동 표시 (오늘 닫은 경우 제외)
+setTimeout(() => {
+  if (!sessionStorage.getItem('cd_popup_closed')) {
+    document.getElementById('cdPopup').style.display = 'block';
+  }
+}, 3000);
+
+/* ── PC 버전 모드 ── */
+function switchToPcMode() {
+  const meta = document.querySelector('meta[name="viewport"]');
+  if (meta) meta.content = 'width=1280';
+  toast('🖥 PC 버전으로 전환됩니다.');
+}
 
 /* ── 토스트 ── */
 function toast(msg) {
