@@ -474,18 +474,21 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .srch-pop{display:none;position:fixed;inset:0;background:rgba(13,31,53,.7);z-index:5000;align-items:flex-start;justify-content:center;padding-top:60px}
 .srch-pop.op{display:flex}
 .srch-pop-box{background:#fff;border-radius:12px;width:min(700px,96vw);max-height:85vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);display:flex;flex-direction:column}
-.srch-pop-hd{background:var(--navy);padding:14px 16px;display:flex;align-items:center;gap:10px}
-.srch-pop-inp{flex:1;border:none;background:rgba(255,255,255,.15);color:#fff;padding:9px 14px;border-radius:6px;font-size:1rem;outline:none;font-family:inherit}
+.srch-pop-hd{background:var(--navy);padding:10px 12px;display:flex;align-items:center;gap:7px;flex-wrap:nowrap;min-width:0}
+.srch-pop-inp{flex:1;min-width:0;border:none;background:rgba(255,255,255,.15);color:#fff;padding:8px 10px;border-radius:6px;font-size:.88rem;outline:none;font-family:inherit}
 .srch-pop-inp::placeholder{color:rgba(255,255,255,.5)}
-.srch-pop-btn{background:var(--gold);color:var(--navy);border:none;padding:9px 18px;border-radius:6px;font-size:.88rem;font-weight:800;cursor:pointer}
-.srch-pop-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:1.3rem;cursor:pointer}
-.srch-pop-body{flex:1;overflow-y:auto;padding:14px 16px}
+.srch-pop-btn{background:var(--gold);color:var(--navy);border:none;padding:8px 12px;border-radius:6px;font-size:.8rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.srch-pop-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:1.1rem;cursor:pointer;flex-shrink:0;padding:2px 4px}
+.srch-pop-body{flex:1;overflow-y:auto;padding:12px 14px}
 .srch-sec-ttl{font-size:.7rem;font-weight:800;color:var(--g4);letter-spacing:1px;text-transform:uppercase;margin:12px 0 7px}
 .srch-tags{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
 .srch-tags::-webkit-scrollbar{display:none}
 .srch-tag{background:var(--g1);border:var(--bd);color:var(--text);padding:4px 11px;border-radius:20px;font-size:.76rem;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
 .srch-tag:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-.srch-portal-row{display:flex;gap:8px;flex-wrap:wrap}
+.srch-portal-row{display:flex;gap:7px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent}
+.srch-portal-row::-webkit-scrollbar{height:4px}
+.srch-portal-row::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
+.srch-portal-row::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 .srch-portal{display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 14px;border:var(--bd);border-radius:var(--r);cursor:pointer;text-decoration:none;color:var(--text);transition:box-shadow .2s;font-size:.72rem;font-weight:600;min-width:70px}
 .srch-portal:hover{box-shadow:var(--sh)}
 .srch-portal .ico{font-size:1.4rem}
@@ -1887,7 +1890,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 
       <!-- 포털 검색 (가로 스크롤) -->
       <div class="srch-sec-ttl">🔎 국내 포털</div>
-      <div class="srch-portal-row" style="flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;scrollbar-width:none">
+      <div class="srch-portal-row" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:8px">
         <a class="srch-portal" href="#" id="naverLink" onclick="portalSearch('naver')" target="_blank"><span class="ico">🟢</span>네이버</a>
         <a class="srch-portal" href="#" id="googleLink" onclick="portalSearch('google')" target="_blank"><span class="ico">🔵</span>구글</a>
         <a class="srch-portal" href="https://www.daum.net/" id="daumLink" target="_blank" onclick="portalSearch('daum')"><span class="ico">🟠</span>다음</a>
@@ -1902,7 +1905,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         🤖 AI 챗 포털
         <span style="font-size:.66rem;color:var(--g4);font-weight:400">국내외 주요 AI 서비스</span>
       </div>
-      <div class="srch-portal-row" style="flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;scrollbar-width:none">
+      <div class="srch-portal-row" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:8px">
         <a class="srch-portal" href="https://chatdoumi.com" target="_blank" style="border-color:var(--navy);color:var(--navy)"><span class="ico">🤖</span>챗도우미</a>
         <a class="srch-portal" href="https://chat.openai.com" target="_blank"><span class="ico">🟢</span>ChatGPT</a>
         <a class="srch-portal" href="https://claude.ai" target="_blank"><span class="ico">🟠</span>Claude</a>
@@ -1916,7 +1919,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 
       <!-- 글로벌 포털 (가로 스크롤) -->
       <div class="srch-sec-ttl">🌍 글로벌 포털</div>
-      <div class="srch-portal-row" style="flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none">
+      <div class="srch-portal-row" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:8px">
         <a class="srch-portal" href="#" id="bingLink" onclick="portalSearch('bing')" target="_blank"><span class="ico">⚪</span>빙</a>
         <a class="srch-portal" href="#" id="yahooLink" onclick="portalSearch('yahoo')" target="_blank"><span class="ico">🟣</span>야후</a>
         <a class="srch-portal" href="#" id="baiduLink" onclick="portalSearch('baidu')" target="_blank"><span class="ico">🔴</span>바이두</a>
