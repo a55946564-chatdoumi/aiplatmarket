@@ -20,5 +20,7 @@
     "firebase-admin": "^13.8.0",
     "rss-parser": "^3.13.0",
     "ws": "^8.20.0"
+    "imap": "^0.8",
+    "mailparser": "^3.6"
   }
 }
