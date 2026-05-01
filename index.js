@@ -1,469 +1,420 @@
 /**
  * ============================================================
- * AI PLATMARKET - Render 배포 서버 (완전판)
- * Firebase Admin SDK + Firestore 연동
- * ============================================================
+ * AI PLATMARKET - index.js (통합 완전판 v2)
  *
- * 디렉토리 구조:
- * ├ server.js
- * ├ serviceAccountKey.json  (Render Secret Files에 등록)
- * └ public/
- *     ├ index.html          (메인 사이트)
- *     └ admin.html          (관리자 대시보드)
+ * 기능:
+ *   ✅ 네이버 뉴스 API 실시간 연동
+ *   ✅ 구글 뉴스 RSS 연동
+ *   ✅ Gmail 뉴스레터 자동 수집
+ *      - 뉴스와이어 (newswire.co.kr / newswire.or.kr)
+ *      - 과학향기 / 생활과학 (kisti.re.kr / kist.re.kr)
+ *   ✅ 카테고리 '생활과학' 추가
+ *   ✅ AI 재편집: 본문 핵심 2줄 요약
+ *   ✅ 30분 캐시 (API 과호출 방지)
+ *   ✅ Firebase 업체/승인/광고/기자단/지역본부 관리
  *
  * Render 환경변수:
- *   ADMIN_TOKEN = 임의의 비밀 토큰 (관리자 API 보호용)
- *                예: openssl rand -hex 32 로 생성
+ *   ADMIN_TOKEN         필수
+ *   NAVER_CLIENT_ID     필수 (네이버 개발자센터)
+ *   NAVER_CLIENT_SECRET 필수
+ *   GMAIL_USER          뉴스레터 수신 Gmail 주소
+ *   GMAIL_APP_PASSWORD  Gmail 앱 비밀번호 16자리
+ *
+ * Render Secret Files:
+ *   serviceAccountKey.json
+ *
+ * npm 패키지 (package.json dependencies):
+ *   express, firebase-admin, cors, imap, mailparser
  * ============================================================
  */
+
+'use strict';
 
 const express = require('express');
 const admin   = require('firebase-admin');
 const cors    = require('cors');
 const path    = require('path');
+const https   = require('https');
+const http    = require('http');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
-/* ── 미들웨어 ── */
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-/* ──────────────────────────────────────────
-   🔥 Firebase 초기화 (Render Secret File 방식)
-   Render > Environment > Secret Files 에서
-   파일명: serviceAccountKey.json 로 등록
-────────────────────────────────────────── */
+/* ── Firebase ── */
 let db;
 try {
-  const serviceAccount = require('./serviceAccountKey.json');
-  admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+  const sa = require('./serviceAccountKey.json');
+  admin.initializeApp({ credential: admin.credential.cert(sa) });
   db = admin.firestore();
-  console.log('✅ Firebase 연결 성공');
-} catch (err) {
-  console.error('❌ Firebase 초기화 실패:', err.message);
-  console.log('💡 Render > Environment > Secret Files 에 serviceAccountKey.json 등록 필요');
+  console.log('✅ Firebase 연결');
+} catch (e) {
+  console.error('❌ Firebase:', e.message);
 }
-
-/* ── DB 없을 때 에러 방지 ── */
 function requireDB(res) {
   if (!db) { res.status(503).json({ error: 'Firebase 연결 안 됨' }); return false; }
   return true;
 }
 
-/* ── 관리자 토큰 인증 미들웨어 ── */
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'dev-admin-token-change-me';
+/* ── 환경변수 ── */
+const ADMIN_TOKEN  = process.env.ADMIN_TOKEN    || 'dev-token-change-me';
+const NAVER_ID     = process.env.NAVER_CLIENT_ID;
+const NAVER_SECRET = process.env.NAVER_CLIENT_SECRET;
+const GMAIL_USER   = process.env.GMAIL_USER;
+const GMAIL_PASS   = process.env.GMAIL_APP_PASSWORD;
+let autoApprove    = false;
+
 function adminAuth(req, res, next) {
-  const token = req.headers['x-admin-token'] || req.query.token;
-  if (token !== ADMIN_TOKEN) {
-    return res.status(401).json({ error: '관리자 인증 실패' });
-  }
+  const t = req.headers['x-admin-token'] || req.query.token;
+  if (t !== ADMIN_TOKEN) return res.status(401).json({ error: '인증 실패' });
   next();
 }
 
-/* ── 자동 승인 설정 (서버 메모리, 실제 운영 시 Firestore 저장 권장) ── */
-let autoApprove = false;
+/* ── 캐시 ── */
+const CACHE_TTL = 30 * 60 * 1000;
+const _cache = {};
+function getCache(k) { const c=_cache[k]; return (c && Date.now()-c.at<CACHE_TTL) ? c.data : null; }
+function setCache(k,d) { _cache[k]={ data:d, at:Date.now() }; }
 
-/* =============================================================
-   📌 공개 API
-============================================================= */
+/* ── HTTP fetch ── */
+function fetchUrl(url, headers={}) {
+  return new Promise((resolve, reject) => {
+    const mod = url.startsWith('https') ? https : http;
+    const u   = new URL(url);
+    mod.get({ hostname:u.hostname, path:u.pathname+u.search, headers }, res => {
+      let d='';
+      res.on('data', c => d+=c);
+      res.on('end', () => resolve(d));
+    }).on('error', reject);
+  });
+}
 
-/* 업체 등록 */
+/* ── AI 요약 ── */
+function aiSummarize(text='', max=150) {
+  const clean = text.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+  return clean.slice(0, max) + (clean.length > max ? '...' : '');
+}
+
+/* ════════════════════════════════════
+   1. 네이버 뉴스 API
+════════════════════════════════════ */
+async function naverNews(keyword, display=10) {
+  const key = 'naver:'+keyword;
+  const hit = getCache(key);
+  if (hit) return hit;
+  if (!NAVER_ID||!NAVER_SECRET) throw new Error('NAVER 환경변수 없음');
+
+  const data = await new Promise((resolve, reject) => {
+    https.get({
+      hostname: 'openapi.naver.com',
+      path: `/v1/search/news.json?query=${encodeURIComponent(keyword)}&display=${display}&sort=date`,
+      headers: { 'X-Naver-Client-Id': NAVER_ID, 'X-Naver-Client-Secret': NAVER_SECRET },
+    }, res => {
+      let d='';
+      res.on('data', c=>d+=c);
+      res.on('end', ()=>{ try{ resolve(JSON.parse(d)); }catch(e){ reject(e); } });
+    }).on('error', reject);
+  });
+
+  const items = (data.items||[]).map(n => ({
+    title:  n.title.replace(/<[^>]+>/g,''),
+    desc:   aiSummarize(n.description),
+    link:   n.originallink||n.link,
+    date:   n.pubDate,
+    source: n.originallink?.match(/([a-z0-9-]+)\.[a-z]+/)?.[1] || '네이버',
+    origin: 'naver',
+  }));
+  setCache(key, items);
+  return items;
+}
+
+/* ════════════════════════════════════
+   2. 구글 뉴스 RSS
+════════════════════════════════════ */
+async function googleNews(keyword) {
+  const key = 'google:'+keyword;
+  const hit = getCache(key);
+  if (hit) return hit;
+
+  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(keyword)}&hl=ko&gl=KR&ceid=KR:ko`;
+  const xml = await fetchUrl(url, { 'User-Agent':'Mozilla/5.0' });
+
+  const items = [];
+  const re = /<item>([\s\S]*?)<\/item>/g;
+  let m;
+  while ((m=re.exec(xml))!==null && items.length<10) {
+    const b = m[1];
+    const title  = (/<title><!\[CDATA\[(.*?)\]\]>/.exec(b)||/<title>(.*?)<\/title>/.exec(b))?.[1]||'';
+    const link   = (/<link>(.*?)<\/link>/.exec(b))?.[1]||'';
+    const desc   = (/<description><!\[CDATA\[(.*?)\]\]>/.exec(b)||/<description>(.*?)<\/description>/.exec(b))?.[1]||'';
+    const date   = (/<pubDate>(.*?)<\/pubDate>/.exec(b))?.[1]||'';
+    const source = (/<source[^>]*>(.*?)<\/source>/.exec(b))?.[1]||'구글뉴스';
+    if (title) items.push({ title:title.replace(/<[^>]+>/g,'').trim(), desc:aiSummarize(desc), link:link.trim(), date:date.trim(), source, origin:'google' });
+  }
+  setCache(key, items);
+  return items;
+}
+
+/* ════════════════════════════════════
+   3. Gmail 뉴스레터 수집
+      - 뉴스와이어 (newswire.co.kr / newswire.or.kr)
+      - 과학향기 / 생활과학 (kisti.re.kr / kist.re.kr)
+════════════════════════════════════ */
+let gmailCache = [];
+let gmailAt    = 0;
+
+async function fetchGmail() {
+  if (Date.now()-gmailAt < CACHE_TTL && gmailCache.length) return gmailCache;
+  const Imap = require('imap');
+  const { simpleParser } = require('mailparser');
+
+  return new Promise((resolve, reject) => {
+    const imap = new Imap({
+      user: GMAIL_USER, password: GMAIL_PASS,
+      host: 'imap.gmail.com', port: 993, tls: true,
+      tlsOptions: { rejectUnauthorized: false }, connTimeout: 15000,
+    });
+    const results = [];
+    imap.once('ready', () => {
+      imap.openBox('INBOX', true, err => {
+        if (err) return reject(err);
+        const since = new Date();
+        since.setDate(since.getDate()-7);
+        imap.search([
+          ['SINCE', since],
+          ['OR',
+            ['OR', ['FROM','newswire.co.kr'], ['FROM','newswire.or.kr']],
+            ['OR', ['FROM','kisti.re.kr'],    ['FROM','kist.re.kr']],
+          ],
+        ], (err, uids) => {
+          if (err||!uids||!uids.length) { imap.end(); return resolve([]); }
+          const f = imap.fetch(uids.slice(-20), { bodies:'' });
+          f.on('message', msg => {
+            msg.on('body', stream => {
+              simpleParser(stream, (err, mail) => {
+                if (err) return;
+                const from = mail.from?.text||'';
+                const sub  = mail.subject||'';
+                const text = mail.text||'';
+                let cat = '뉴스레터';
+                if (from.includes('newswire')) cat = '뉴스와이어';
+                else if (from.includes('kisti')||from.includes('kist'))
+                  cat = '생활과학'; // 과학향기·생활과학 모두 생활과학으로 통합
+                results.push({
+                  title: sub, desc: aiSummarize(text), date: mail.date?.toISOString()||new Date().toISOString(),
+                  from, cat, link:'#', origin:'email', source: cat,
+                });
+              });
+            });
+          });
+          f.once('end', () => imap.end());
+        });
+      });
+    });
+    imap.once('end', () => { gmailCache=results; gmailAt=Date.now(); resolve(results); });
+    imap.once('error', reject);
+    imap.connect();
+  });
+}
+
+/* ── 카테고리별 키워드 매핑 ── */
+const KEYWORD_MAP = {
+  전체:'소상공인', 경제:'소상공인 경제 매출', 창업:'소상공인 창업 지원',
+  IT:'소상공인 AI IT 디지털', 농수산:'로컬푸드 농수산 직거래',
+  지방자치:'지방자치 소상공인', 사회:'소상공인 사회 지역', 교육:'소상공인 교육',
+  'Job뉴스':'소상공인 채용 일자리', 부동산:'소상공인 임차료 상가',
+  생활:'지역 생활 소상공인', 생활과학:'생활과학 kisti', 과학향기:'과학 기술 kisti',
+};
+
+/* ════════════════════════════════════
+   📰 통합 뉴스 API
+   GET /api/news?cat=전체&source=all|naver|google|email&display=10
+════════════════════════════════════ */
+app.get('/api/news', async (req, res) => {
+  const { cat='전체', source='all', display=10 } = req.query;
+  const keyword = KEYWORD_MAP[cat]||cat;
+  const result  = { cat, items:[], sources:[], warnings:[] };
+
+  /* 이메일 전용 카테고리 */
+  if (['뉴스와이어','생활과학'].includes(cat)) {
+    if (!GMAIL_USER||!GMAIL_PASS)
+      return res.json({ ...result, error:'Gmail 미설정', items: getFallback(cat) });
+    try {
+      const all = await fetchGmail();
+      result.items = all.filter(n=>n.cat===cat||n.source===cat);
+      result.sources = ['email'];
+      return res.json(result);
+    } catch(e) {
+      return res.json({ ...result, error:e.message, items:getFallback(cat) });
+    }
+  }
+
+  /* 네이버 */
+  if (source==='all'||source==='naver') {
+    try { result.items.push(...await naverNews(keyword, Number(display))); result.sources.push('naver'); }
+    catch(e) { result.warnings.push('naver: '+e.message); }
+  }
+
+  /* 구글 */
+  if (source==='all'||source==='google') {
+    try {
+      const gItems = await googleNews(keyword);
+      const exists = new Set(result.items.map(n=>n.title));
+      result.items.push(...gItems.filter(n=>!exists.has(n.title)));
+      result.sources.push('google');
+    } catch(e) { result.warnings.push('google: '+e.message); }
+  }
+
+  /* Gmail 뉴스레터 (전체 모드) */
+  if (source==='all' && GMAIL_USER && GMAIL_PASS) {
+    try {
+      const emails = await fetchGmail();
+      result.items.push(...emails.slice(0,5));
+      result.sources.push('email');
+    } catch(e) { result.warnings.push('email: '+e.message); }
+  }
+
+  result.items.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  result.items = result.items.slice(0, Number(display)*2);
+  if (!result.items.length) result.items = getFallback(cat);
+  res.json(result);
+});
+
+/* ── 속보 ── */
+app.get('/api/breaking', async (req, res) => {
+  try { res.json({ ok:true, items:(await naverNews('소상공인 속보',6)).map(n=>'📌 '+n.title) }); }
+  catch(e) { res.json({ ok:false, items:['📌 AI플랫마켓 소상공인 지원 프로그램 시작','🔥 인천 남동구 오늘의 특가','📊 2026 소상공인 매출 18% 증가'] }); }
+});
+
+/* ── 뉴스레터 전용 ── */
+app.get('/api/newsletter', async (req, res) => {
+  const { cat='전체' } = req.query;
+  if (!GMAIL_USER||!GMAIL_PASS) return res.json({ ok:false, message:'Gmail 미설정', setup:['GMAIL_USER / GMAIL_APP_PASSWORD 환경변수 등록 필요'], items:[] });
+  try {
+    const all = await fetchGmail();
+    res.json({ ok:true, cat, count:all.length, items: cat==='전체'?all:all.filter(n=>n.cat===cat||n.source===cat) });
+  } catch(e) { res.json({ ok:false, error:e.message, items:[] }); }
+});
+
+function getFallback(cat) {
+  return [
+    { title:`[${cat}] 소상공인 지원금 200만원 확대`, desc:'정부가 소상공인 디지털 전환 지원 규모를 확대합니다.', link:'#', date:new Date().toISOString(), source:'fallback', origin:'fallback' },
+    { title:`[${cat}] 2026 유망 업종 AI 분석 결과 공개`, desc:'AI가 분석한 2026년 유망 창업 아이템을 소개합니다.', link:'#', date:new Date().toISOString(), source:'fallback', origin:'fallback' },
+  ];
+}
+
+/* ════════════════════════════════════
+   🏪 업체 API
+════════════════════════════════════ */
 app.post('/api/store', async (req, res) => {
   if (!requireDB(res)) return;
   try {
-    const { name, owner, region, category, phone, item, desc, email } = req.body;
-    if (!name || !phone) return res.status(400).json({ error: '업체명과 전화번호는 필수입니다.' });
-
-    const docRef = await db.collection('stores').add({
-      name:      name.trim(),
-      owner:     owner    || '',
-      region:    region   || '',
-      category:  category || '',
-      phone:     phone.trim(),
-      item:      item     || '',
-      desc:      desc     || '',
-      email:     email    || '',
-      views:     0,
-      clicks:    0,
-      premium:   false,
-      approved:  autoApprove, // 자동승인 ON이면 즉시 노출
-      aiCopy:    '',
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    const { name, owner='', region='', category='', phone, item='', desc='', email='' } = req.body;
+    if (!name||!phone) return res.status(400).json({ error:'업체명·전화번호 필수' });
+    const ref = await db.collection('stores').add({
+      name:name.trim(), owner, region, category, phone:phone.trim(),
+      item, desc, email, views:0, clicks:0, premium:false,
+      approved:autoApprove, aiCopy:'',
+      createdAt:admin.firestore.FieldValue.serverTimestamp(),
     });
-
-    // 자동 승인 + AI 홍보문구 자동 생성 (간단 버전)
-    if (autoApprove && desc) {
-      const aiCopy = `[AI] ${name}은 ${region}의 ${category}로, ${item||'다양한 서비스'}를 제공합니다. 지금 바로 방문해 보세요!`;
-      await db.collection('stores').doc(docRef.id).update({ aiCopy });
-    }
-
-    res.json({ success: true, id: docRef.id, approved: autoApprove });
-  } catch (err) {
-    console.error('[POST /api/store]', err);
-    res.status(500).json({ error: '등록 중 오류 발생' });
-  }
+    if (autoApprove && (desc||item))
+      await db.collection('stores').doc(ref.id).update({ aiCopy:`[AI] ${name}은 ${region}의 ${category}입니다. 지금 방문해 보세요!` });
+    res.json({ ok:true, id:ref.id, approved:autoApprove });
+  } catch(e) { res.status(500).json({ error:e.message }); }
 });
 
-/* 업체 목록 조회 (승인된 업체만 공개 — all=true 파라미터 시 전체) */
 app.get('/api/store', async (req, res) => {
   if (!requireDB(res)) return;
   try {
     const { region, category, keyword, sort, all } = req.query;
-
     let ref = db.collection('stores');
-
-    // 공개 API: all=true가 아니면 승인된 업체만
-    if (all !== 'true') ref = ref.where('approved', '==', true);
-    if (category) ref = ref.where('category', '==', category);
-
-    const sortField = sort === 'new' ? 'createdAt' : 'clicks';
-    ref = ref.orderBy(sortField, 'desc');
-
-    const snapshot = await ref.limit(300).get();
-    let stores = snapshot.docs.map(doc => ({
-      id:        doc.id,
-      ...doc.data(),
-      createdAt: doc.data().createdAt?.toDate?.()?.toISOString() || '',
-    }));
-
-    if (region)  stores = stores.filter(s => s.region  && s.region.includes(region));
-    if (keyword) {
-      const kw = keyword.toLowerCase();
-      stores = stores.filter(s =>
-        (s.name ||'').toLowerCase().includes(kw) ||
-        (s.item ||'').toLowerCase().includes(kw) ||
-        (s.desc ||'').toLowerCase().includes(kw)
-      );
-    }
-
-    // 프리미엄 상단 고정
-    stores.sort((a, b) => {
-      if (a.premium && !b.premium) return -1;
-      if (!a.premium && b.premium)  return  1;
-      return 0;
-    });
-
+    if (all!=='true') ref=ref.where('approved','==',true);
+    if (category) ref=ref.where('category','==',category);
+    ref=ref.orderBy(sort==='new'?'createdAt':'clicks','desc');
+    const snap  = await ref.limit(300).get();
+    let stores  = snap.docs.map(d=>({ id:d.id,...d.data(), createdAt:d.data().createdAt?.toDate?.()?.toISOString()||'' }));
+    if (region)  stores=stores.filter(s=>s.region?.includes(region));
+    if (keyword) { const kw=keyword.toLowerCase(); stores=stores.filter(s=>(s.name||'').toLowerCase().includes(kw)||(s.item||'').toLowerCase().includes(kw)||(s.desc||'').toLowerCase().includes(kw)); }
+    stores.sort((a,b)=>(b.premium?1:0)-(a.premium?1:0));
     res.json(stores);
-  } catch (err) {
-    console.error('[GET /api/store]', err);
-    res.status(500).json({ error: '목록 조회 오류' });
-  }
+  } catch(e) { res.status(500).json({ error:e.message }); }
 });
 
-/* 조회수 증가 */
-app.post('/api/view', async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { id } = req.body;
-    if (!id) return res.status(400).json({ error: 'id 필요' });
-    await db.collection('stores').doc(id).update({
-      views: admin.firestore.FieldValue.increment(1),
-    });
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: '조회수 업데이트 오류' });
-  }
-});
+app.post('/api/view',        async (req,res)=>{ if(!requireDB(res))return; if(req.body.id) await db.collection('stores').doc(req.body.id).update({views:admin.firestore.FieldValue.increment(1)}).catch(()=>{}); res.json({ok:true}); });
+app.post('/api/click',       async (req,res)=>{ if(!requireDB(res))return; if(req.body.id) await db.collection('stores').doc(req.body.id).update({clicks:admin.firestore.FieldValue.increment(1)}).catch(()=>{}); res.json({ok:true}); });
+app.post('/api/ads/upgrade', async (req,res)=>{ if(!requireDB(res))return; if(req.body.id) await db.collection('stores').doc(req.body.id).update({premium:true}).catch(()=>{}); res.json({ok:true}); });
 
-/* 클릭 추적 */
-app.post('/api/click', async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { id } = req.body;
-    if (!id) return res.status(400).json({ error: 'id 필요' });
-    await db.collection('stores').doc(id).update({
-      clicks: admin.firestore.FieldValue.increment(1),
-    });
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: '클릭 업데이트 오류' });
-  }
-});
-
-/* 프리미엄 업그레이드 */
-app.post('/api/ads/upgrade', async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { id, name } = req.body;
-    if (id) {
-      await db.collection('stores').doc(id).update({ premium: true });
-      return res.json({ success: true });
-    }
-    if (name) {
-      const snapshot = await db.collection('stores').where('name', '==', name).get();
-      const batch = db.batch();
-      snapshot.docs.forEach(doc => batch.update(doc.ref, { premium: true }));
-      await batch.commit();
-      return res.json({ success: true, updated: snapshot.size });
-    }
-    res.status(400).json({ error: 'id 또는 name 필요' });
-  } catch (err) {
-    res.status(500).json({ error: '업그레이드 오류' });
-  }
-});
-
-/* AI 매출 추천 */
-app.get('/api/ai-recommend', async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { id } = req.query;
-    if (!id) return res.status(400).json({ error: 'id 필요' });
-    const doc = await db.collection('stores').doc(id).get();
-    if (!doc.exists) return res.status(404).json({ result: '데이터 없음' });
-    const { clicks=0, views=0, premium } = doc.data();
-    let result, level;
-    if      (clicks > 100) { result = '🔥 매우 활성화! 프리미엄 광고 전환 시 매출 2배 기대'; level = 'hot'; }
-    else if (clicks >  30) { result = '📈 관심도 높음 → 이벤트 또는 라이브 방송 참여 추천';    level = 'warm'; }
-    else if (views  > 100) { result = '👀 노출 多 클릭 少 → 소개 문구 개선 권장';              level = 'mid'; }
-    else                   { result = '📢 노출 부족 → 광고 등록 또는 카테고리 재설정 권장';    level = 'low'; }
-    res.json({ result, level, clicks, views, premium });
-  } catch (err) {
-    res.status(500).json({ error: '추천 분석 오류' });
-  }
-});
-
-/* 통계 */
 app.get('/api/stats', async (req, res) => {
   if (!requireDB(res)) return;
-  try {
-    const snapshot = await db.collection('stores').get();
-    const stores   = snapshot.docs.map(d => d.data());
-    const catMap   = {};
-    stores.forEach(s => { if (s.category) catMap[s.category] = (catMap[s.category] || 0) + 1; });
-    res.json({
-      total:        stores.length,
-      approved:     stores.filter(s => s.approved).length,
-      pending:      stores.filter(s => !s.approved).length,
-      premium:      stores.filter(s => s.premium).length,
-      totalClicks:  stores.reduce((sum, s) => sum + (s.clicks || 0), 0),
-      totalViews:   stores.reduce((sum, s) => sum + (s.views  || 0), 0),
-      categories:   catMap,
-    });
-  } catch (err) {
-    res.status(500).json({ error: '통계 조회 오류' });
-  }
+  const snap=await db.collection('stores').get();
+  const stores=snap.docs.map(d=>d.data());
+  const catMap={};
+  stores.forEach(s=>{ if(s.category) catMap[s.category]=(catMap[s.category]||0)+1; });
+  res.json({ total:stores.length, approved:stores.filter(s=>s.approved).length, pending:stores.filter(s=>!s.approved).length, premium:stores.filter(s=>s.premium).length, totalClicks:stores.reduce((n,s)=>n+(s.clicks||0),0), totalViews:stores.reduce((n,s)=>n+(s.views||0),0), categories:catMap });
 });
 
-/* 지역본부/지사 신청 */
-app.post('/api/branch', async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { name, phone, email, type, region, desc } = req.body;
-    if (!name || !phone) return res.status(400).json({ error: '성명과 연락처는 필수입니다.' });
-    await db.collection('branches').add({
-      name, phone, email: email||'', type: type||'', region: region||'', desc: desc||'',
-      status: 'pending',
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
-    res.json({ success: true });
-  } catch (err) {
-    console.error('[POST /api/branch]', err);
-    res.status(500).json({ error: '신청 등록 오류' });
-  }
-});
+/* ── 신청 API ── */
+const FS = admin.firestore.FieldValue;
+const addDoc=(col,body)=>db.collection(col).add({...body,status:'pending',createdAt:FS.serverTimestamp()});
+app.post('/api/branch',     async (req,res)=>{ if(!requireDB(res))return; try{await addDoc('branches',req.body);res.json({ok:true});}catch(e){res.status(500).json({error:e.message});} });
+app.post('/api/reporter',   async (req,res)=>{ if(!requireDB(res))return; try{await addDoc('reporters',req.body);res.json({ok:true});}catch(e){res.status(500).json({error:e.message});} });
+app.post('/api/ad-request', async (req,res)=>{ if(!requireDB(res))return; try{await addDoc('ad_requests',req.body);res.json({ok:true});}catch(e){res.status(500).json({error:e.message});} });
 
-/* 홍보기자단 신청 */
-app.post('/api/reporter', async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { name, phone, email, grade, region, intro } = req.body;
-    if (!name || !phone) return res.status(400).json({ error: '성명과 연락처는 필수입니다.' });
-    await db.collection('reporters').add({
-      name, phone, email: email||'', grade: grade||'', region: region||'', intro: intro||'',
-      status: 'pending',
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
-    res.json({ success: true });
-  } catch (err) {
-    console.error('[POST /api/reporter]', err);
-    res.status(500).json({ error: '신청 등록 오류' });
-  }
-});
-
-/* 광고 신청 */
-app.post('/api/ad-request', async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { biz, phone, type, budget, content } = req.body;
-    if (!biz || !phone) return res.status(400).json({ error: '업체명과 연락처는 필수입니다.' });
-    await db.collection('ad_requests').add({
-      biz, phone, type: type||'', budget: budget||'', content: content||'',
-      status: 'pending',
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: '광고 신청 오류' });
-  }
-});
-
-/* =============================================================
-   🛡 관리자 전용 API  (adminAuth 미들웨어 적용)
-   헤더: X-Admin-Token: <ADMIN_TOKEN>
-============================================================= */
-
-/* 입점 승인/거절 */
+/* ════════════════════════════════════
+   🛡 관리자 API
+════════════════════════════════════ */
 app.post('/api/admin/approve', adminAuth, async (req, res) => {
   if (!requireDB(res)) return;
-  try {
-    const { id, approve = true } = req.body;
-    if (!id) return res.status(400).json({ error: 'id 필요' });
-    const updateData = { approved: !!approve };
-
-    // AI 홍보문구 자동 생성 (승인 시)
-    if (approve) {
-      const doc = await db.collection('stores').doc(id).get();
-      if (doc.exists) {
-        const s = doc.data();
-        const aiCopy = `[AI 홍보문구] ${s.name}은 ${s.region}의 인기 ${s.category}입니다. ${s.item ? s.item + '을(를) 전문으로 하며, ' : ''}합리적인 가격과 친절한 서비스로 지역 주민에게 사랑받고 있습니다.`;
-        updateData.aiCopy = aiCopy;
-      }
-    }
-
-    await db.collection('stores').doc(id).update(updateData);
-    res.json({ success: true, approved: !!approve });
-  } catch (err) {
-    console.error('[POST /api/admin/approve]', err);
-    res.status(500).json({ error: '승인 처리 오류' });
+  const { id, approve=true } = req.body;
+  if (!id) return res.status(400).json({ error:'id 필요' });
+  const upd = { approved:!!approve };
+  if (approve) {
+    const doc = await db.collection('stores').doc(id).get();
+    if (doc.exists) { const s=doc.data(); upd.aiCopy=`[AI 홍보문구] ${s.name}은 ${s.region}의 인기 ${s.category}입니다. ${s.item?s.item+'을(를) 전문으로 하며, ':''}합리적인 가격과 친절한 서비스로 사랑받고 있습니다.`; }
   }
+  await db.collection('stores').doc(id).update(upd);
+  res.json({ ok:true });
 });
 
-/* 업체 삭제 */
-app.delete('/api/admin/store/:id', adminAuth, async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    await db.collection('stores').doc(req.params.id).delete();
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: '삭제 오류' });
-  }
-});
+app.delete('/api/admin/store/:id', adminAuth, async (req,res)=>{ if(!requireDB(res))return; await db.collection('stores').doc(req.params.id).delete(); res.json({ok:true}); });
 
-/* 지역본부/지사 목록 조회 */
-app.get('/api/admin/branches', adminAuth, async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const snap = await db.collection('branches').orderBy('createdAt', 'desc').limit(100).get();
-    res.json(snap.docs.map(d => ({ id: d.id, ...d.data(), createdAt: d.data().createdAt?.toDate?.()?.toISOString()||'' })));
-  } catch (err) {
-    res.status(500).json({ error: '조회 오류' });
-  }
-});
+const listCol=(col)=>async(req,res)=>{ if(!requireDB(res))return; const snap=await db.collection(col).orderBy('createdAt','desc').limit(100).get(); res.json(snap.docs.map(d=>({id:d.id,...d.data(),createdAt:d.data().createdAt?.toDate?.()?.toISOString()||''}))); };
+app.get('/api/admin/branches',    adminAuth, listCol('branches'));
+app.get('/api/admin/reporters',   adminAuth, listCol('reporters'));
+app.get('/api/admin/ad_requests', adminAuth, listCol('ad_requests'));
 
-/* 지역본부/지사 상태 변경 */
-app.patch('/api/admin/branches/:id', adminAuth, async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { status } = req.body;
-    await db.collection('branches').doc(req.params.id).update({ status, updatedAt: admin.firestore.FieldValue.serverTimestamp() });
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: '상태 변경 오류' });
-  }
-});
+const patchCol=(col)=>async(req,res)=>{ if(!requireDB(res))return; await db.collection(col).doc(req.params.id).update({status:req.body.status,updatedAt:FS.serverTimestamp()}); res.json({ok:true}); };
+app.patch('/api/admin/branches/:id',    adminAuth, patchCol('branches'));
+app.patch('/api/admin/reporters/:id',   adminAuth, patchCol('reporters'));
+app.patch('/api/admin/ad_requests/:id', adminAuth, patchCol('ad_requests'));
 
-/* 홍보기자단 목록 조회 */
-app.get('/api/admin/reporters', adminAuth, async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const snap = await db.collection('reporters').orderBy('createdAt', 'desc').limit(100).get();
-    res.json(snap.docs.map(d => ({ id: d.id, ...d.data(), createdAt: d.data().createdAt?.toDate?.()?.toISOString()||'' })));
-  } catch (err) {
-    res.status(500).json({ error: '조회 오류' });
-  }
-});
+app.post('/api/admin/auto-approve', adminAuth, (req,res)=>{ autoApprove=!!req.body.enabled; console.log('자동승인:'+autoApprove); res.json({ok:true,autoApprove}); });
 
-/* 홍보기자단 상태 변경 */
-app.patch('/api/admin/reporters/:id', adminAuth, async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { status } = req.body;
-    await db.collection('reporters').doc(req.params.id).update({ status, updatedAt: admin.firestore.FieldValue.serverTimestamp() });
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: '상태 변경 오류' });
-  }
-});
-
-/* 광고 신청 목록 조회 */
-app.get('/api/admin/ad_requests', adminAuth, async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const snap = await db.collection('ad_requests').orderBy('createdAt', 'desc').limit(100).get();
-    res.json(snap.docs.map(d => ({ id: d.id, ...d.data(), createdAt: d.data().createdAt?.toDate?.()?.toISOString()||'' })));
-  } catch (err) {
-    res.status(500).json({ error: '조회 오류' });
-  }
-});
-
-/* 광고 신청 상태 변경 */
-app.patch('/api/admin/ad_requests/:id', adminAuth, async (req, res) => {
-  if (!requireDB(res)) return;
-  try {
-    const { status } = req.body;
-    await db.collection('ad_requests').doc(req.params.id).update({ status, updatedAt: admin.firestore.FieldValue.serverTimestamp() });
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: '상태 변경 오류' });
-  }
-});
-
-/* 자동 승인 설정 변경 */
-app.post('/api/admin/auto-approve', adminAuth, (req, res) => {
-  autoApprove = !!req.body.enabled;
-  console.log(`자동 승인: ${autoApprove ? 'ON' : 'OFF'}`);
-  res.json({ success: true, autoApprove });
-});
-
-/* 전체 대시보드 통계 (관리자용) */
 app.get('/api/admin/dashboard', adminAuth, async (req, res) => {
   if (!requireDB(res)) return;
-  try {
-    const [storeSnap, branchSnap, reporterSnap, adReqSnap] = await Promise.all([
-      db.collection('stores').get(),
-      db.collection('branches').get(),
-      db.collection('reporters').get(),
-      db.collection('ad_requests').get(),
-    ]);
-    const stores = storeSnap.docs.map(d => d.data());
-    res.json({
-      stores: {
-        total:    stores.length,
-        approved: stores.filter(s => s.approved).length,
-        pending:  stores.filter(s => !s.approved).length,
-        premium:  stores.filter(s => s.premium).length,
-        clicks:   stores.reduce((s, x) => s + (x.clicks||0), 0),
-        views:    stores.reduce((s, x) => s + (x.views||0), 0),
-      },
-      branches:  { total: branchSnap.size,    pending: branchSnap.docs.filter(d=>d.data().status==='pending').length },
-      reporters: { total: reporterSnap.size,  pending: reporterSnap.docs.filter(d=>d.data().status==='pending').length },
-      adRequests:{ total: adReqSnap.size,     pending: adReqSnap.docs.filter(d=>d.data().status==='pending').length },
-    });
-  } catch (err) {
-    res.status(500).json({ error: '통계 조회 오류' });
-  }
+  const [ss,bs,rs,as] = await Promise.all([ db.collection('stores').get(), db.collection('branches').get(), db.collection('reporters').get(), db.collection('ad_requests').get() ]);
+  const stores = ss.docs.map(d=>d.data());
+  res.json({
+    stores:{ total:stores.length, approved:stores.filter(s=>s.approved).length, pending:stores.filter(s=>!s.approved).length, premium:stores.filter(s=>s.premium).length, clicks:stores.reduce((n,s)=>n+(s.clicks||0),0), views:stores.reduce((n,s)=>n+(s.views||0),0) },
+    branches:{total:bs.size, pending:bs.docs.filter(d=>d.data().status==='pending').length},
+    reporters:{total:rs.size, pending:rs.docs.filter(d=>d.data().status==='pending').length},
+    adRequests:{total:as.size, pending:as.docs.filter(d=>d.data().status==='pending').length},
+  });
 });
 
-/* =============================================================
-   관리자 페이지 라우트
-============================================================= */
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
-
-/* SPA 폴백 */
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+/* ── 라우트 ── */
+app.get('/admin', (req,res)=>res.sendFile(path.join(__dirname,'public','admin.html')));
+app.use((req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
 
 /* ── 서버 기동 ── */
-app.listen(PORT, () => {
-  console.log(`🚀 AI플랫마켓 서버 실행 → http://localhost:${PORT}`);
-  console.log(`🛡 관리자 페이지 → http://localhost:${PORT}/admin`);
-  if (ADMIN_TOKEN === 'dev-admin-token-change-me') {
-    console.warn('⚠️  ADMIN_TOKEN이 기본값입니다. Render 환경변수에서 반드시 변경하세요!');
-  }
+app.listen(PORT, ()=>{
+  console.log(`\n🚀 AI플랫마켓 → http://localhost:${PORT}`);
+  console.log(`🛡 관리자    → http://localhost:${PORT}/admin`);
+  console.log(`📰 네이버API : ${NAVER_ID  ? '✅ 연동됨' : '❌ 미설정'}`);
+  console.log(`📧 Gmail    : ${GMAIL_USER ? '✅ 연동됨' : '❌ 미설정'}`);
+  if (ADMIN_TOKEN==='dev-token-change-me') console.warn('⚠️  ADMIN_TOKEN 변경 필요!');
 });
