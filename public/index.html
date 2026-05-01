@@ -1225,18 +1225,19 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 <!-- ==================== NEWS ==================== -->
 <div id="page-news" class="pg">
   <div class="news-page">
-    <!-- 뉴스 헤더 1행: 제목 + 전체버튼 + 지역2단계 드롭다운 + 가로스크롤 메뉴 -->
+    <!-- 뉴스 헤더 1행: 전체를 하나의 가로스크롤 행으로 -->
     <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:3px solid var(--navy)">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px">
-        <!-- 제목 -->
-        <div style="font-family:var(--fs);font-size:1rem;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:5px;flex-shrink:0">
-          <span style="display:inline-block;width:3px;height:14px;background:var(--red);border-radius:2px"></span>📰 지역경제뉴스
+      <div style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;-webkit-overflow-scrolling:touch">
+        <style>.nhrow::-webkit-scrollbar{height:3px}.nhrow::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}</style>
+        <!-- 제목 (flex-shrink:0 고정) -->
+        <div style="font-family:var(--fs);font-size:.95rem;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:4px;flex-shrink:0;white-space:nowrap">
+          <span style="display:inline-block;width:3px;height:13px;background:var(--red);border-radius:2px"></span>📰 지역경제뉴스
         </div>
         <!-- 전체 버튼 -->
         <button class="news-reg-btn act" id="newsAllBtn" onclick="filterNews('all',this)" style="flex-shrink:0">전체</button>
         <!-- 지역 2단계 드롭다운 -->
         <div style="position:relative;flex-shrink:0" id="newsRegDd2">
-          <button class="news-reg-btn" id="newsRegDdBtn" onclick="toggleNewsRegDd2()" style="display:flex;align-items:center;gap:3px">
+          <button class="news-reg-btn" id="newsRegDdBtn" onclick="toggleNewsRegDd2()" style="display:flex;align-items:center;gap:3px;white-space:nowrap">
             📍 지역 <span id="newsRegSelLbl"></span>▾
           </button>
           <div id="newsRegDdBox" style="display:none;position:fixed;background:#fff;border:var(--bd);border-top:2px solid var(--red);box-shadow:0 8px 24px rgba(13,31,53,.15);z-index:99999;border-radius:0 0 6px 6px;flex-direction:row;width:320px;max-height:280px">
@@ -1246,17 +1247,15 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
             </div>
           </div>
         </div>
-        <!-- 이동된 메뉴들 (가로 스크롤) -->
-        <div style="display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0">
-          <button class="news-reg-btn" onclick="showPage('welfare')" style="flex-shrink:0;background:#e8f5e9;color:#2e7d32;border-color:#2e7d32">🤝 지역복지</button>
-          <button class="news-reg-btn" onclick="showPage('event')" style="flex-shrink:0;background:#fff3e0;color:#e65100;border-color:#e65100">🎉 지역행사</button>
-          <button class="news-reg-btn" onclick="showPage('localad')" style="flex-shrink:0;background:#e8f0fe;color:#1a56a0;border-color:#1a56a0">📋 지역광고</button>
-          <button class="news-reg-btn" onclick="showPage('branch')" style="flex-shrink:0;background:var(--navy);color:#fff;border-color:var(--navy)">🏢 지역본부/지사 <span style="font-size:.6rem;background:var(--gold);color:var(--navy);padding:1px 3px;border-radius:2px;margin-left:2px">모집</span></button>
-          <button class="news-reg-btn" onclick="showPage('reporter')" style="flex-shrink:0;background:var(--navy);color:#fff;border-color:var(--navy)">📰 홍보기자단 <span style="font-size:.6rem;background:var(--gold);color:var(--navy);padding:1px 3px;border-radius:2px;margin-left:2px">모집</span></button>
-          <button class="news-reg-btn" onclick="showPage('good')" style="flex-shrink:0">🌿 산지직송</button>
-          <button class="news-reg-btn" onclick="showPage('good')" style="flex-shrink:0">💚 더착한가게</button>
-          <button class="news-reg-btn" onclick="filterNews('맛집',this,true)" style="flex-shrink:0">🍽️ 전국맛집</button>
-        </div>
+        <!-- 나머지 메뉴 (모두 같은 행에서 스크롤) -->
+        <button class="news-reg-btn" onclick="showPage('welfare')" style="flex-shrink:0;background:#e8f5e9;color:#2e7d32;border-color:#2e7d32;white-space:nowrap">🤝 지역복지</button>
+        <button class="news-reg-btn" onclick="showPage('event')" style="flex-shrink:0;background:#fff3e0;color:#e65100;border-color:#e65100;white-space:nowrap">🎉 지역행사</button>
+        <button class="news-reg-btn" onclick="showPage('localad')" style="flex-shrink:0;background:#e8f0fe;color:#1a56a0;border-color:#1a56a0;white-space:nowrap">📋 지역광고</button>
+        <button class="news-reg-btn" onclick="showPage('branch')" style="flex-shrink:0;background:var(--navy);color:#fff;border-color:var(--navy);white-space:nowrap">🏢 지역본부/지사 <span style="font-size:.58rem;background:var(--gold);color:var(--navy);padding:1px 3px;border-radius:2px;margin-left:2px">모집</span></button>
+        <button class="news-reg-btn" onclick="showPage('reporter')" style="flex-shrink:0;background:var(--navy);color:#fff;border-color:var(--navy);white-space:nowrap">📰 홍보기자단 <span style="font-size:.58rem;background:var(--gold);color:var(--navy);padding:1px 3px;border-radius:2px;margin-left:2px">모집</span></button>
+        <button class="news-reg-btn" onclick="showPage('good')" style="flex-shrink:0;white-space:nowrap">🌿 산지직송</button>
+        <button class="news-reg-btn" onclick="showPage('good')" style="flex-shrink:0;white-space:nowrap">💚 더착한가게</button>
+        <button class="news-reg-btn" onclick="filterNews('맛집',this,true)" style="flex-shrink:0;white-space:nowrap">🍽️ 전국맛집</button>
       </div>
     </div>
 
@@ -1273,6 +1272,8 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <div class="news-cat" onclick="filterNewsCat('사회',this)">사회</div>
       <div class="news-cat" onclick="filterNewsCat('교육',this)">교육</div>
       <div class="news-cat" onclick="filterNewsCat('Job뉴스',this)">Job뉴스</div>
+      <div class="news-cat" onclick="filterNewsCat('생활과학',this)">생활과학</div>
+      <div class="news-cat" onclick="filterNewsCat('뉴스와이어',this)">뉴스와이어</div>
     </div>
 
     <!-- 4열 뉴스 그리드 (순서: 인기랭킹 | 주요뉴스+영상 | IT/AI+영상 | 오피니언) -->
@@ -1281,7 +1282,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <!-- 1열 (좁음): 많이 읽은 기사 랭킹 -->
       <div class="news-col">
         <div class="nc-col-hd">🏆 인기 기사</div>
-        <div class="nc-rank-list">
+        <div class="nc-rank-list" id="newsRankList">
           <div class="nc-rank" onclick="openNewsDetail(31)"><span class="nr-n t1">1</span><div class="nr-ttl">2026년 소상공인 지원 정책 총정리</div></div>
           <div class="nc-rank" onclick="openNewsDetail(32)"><span class="nr-n t2">2</span><div class="nr-ttl">배달앱 수수료 비교 — 쿠팡·배민·요기요</div></div>
           <div class="nc-rank" onclick="openNewsDetail(33)"><span class="nr-n t3">3</span><div class="nr-ttl">AI 홍보문구 무료 서비스 TOP3</div></div>
@@ -1308,11 +1309,11 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         </div>
         <div class="nc-hero" onclick="openNewsDetail(0)" style="margin-bottom:8px">
           <div class="nc-tags"><span class="tag tc">지역경제</span><span class="tag tn">단독</span></div>
-          <div class="nc-hero-ttl">[단독] 소상공인 디지털 전환 지원금 최대 200만원 확대</div>
-          <div class="nc-hero-desc" style="-webkit-line-clamp:2">정부는 디지털 전환을 희망하는 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔다...</div>
-          <div class="nc-meta">2026.04.13 · AI플랫마켓</div>
+          <div class="nc-hero-ttl" id="newsHeroTtl">[단독] 소상공인 디지털 전환 지원금 최대 200만원 확대</div>
+          <div class="nc-hero-desc" id="newsHeroDesc" style="-webkit-line-clamp:2">정부는 디지털 전환을 희망하는 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔다...</div>
+          <div class="nc-meta" id="newsHeroMeta">2026.04.13 · AI플랫마켓</div>
         </div>
-        <div class="nc-list">
+        <div class="nc-list" id="newsMainList">
           <div class="nc-item" onclick="openNewsDetail(1)"><span class="nc-num">1</span><div><div class="nc-item-ttl">인천 소상공인 매출 1분기 역대 최고</div><div class="nc-meta">2026.04.12 · 경제</div></div></div>
           <div class="nc-item" onclick="openNewsDetail(2)"><span class="nc-num">2</span><div><div class="nc-item-ttl">경기 성남 신규 상권 AI 예측 TOP5</div><div class="nc-meta">2026.04.11 · 창업</div></div></div>
           <div class="nc-item" onclick="openNewsDetail(3)"><span class="nc-num">3</span><div><div class="nc-item-ttl">카카오페이 소상공인 수수료 0% 이벤트</div><div class="nc-meta">2026.04.10 · IT</div></div></div>
@@ -1695,9 +1696,9 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <div class="ft-logo">AI PLATMARKET · 국민경제㊉</div>
       <div class="ft-copy" style="color:rgba(255,255,255,.5);margin:2px 0 8px">소상공인+소비자 상생 플랫폼</div>
       <div style="font-size:.7rem;line-height:2;color:rgba(255,255,255,.45)">
-        © 2026 <strong style="color:rgba(255,255,255,.65)">22세기대한/국민경제+</strong>. All rights reserved.<br>
+        © 2026 <strong style="color:rgba(255,255,255,.65)">22세기대한</strong>. All rights reserved.<br>
         대표: 김형식 &nbsp;|&nbsp; 발행인 겸 편집인: 김형식<br>
-        사업자등록번호: 227-18-34338/ 월간지 등록번호: 부평,라00025<br>
+        사업자등록번호: 227-18-34338<br>
         주소: 인천광역시<br>
         TEL: 0505-505-9000<br>
         <!-- 이메일 드롭다운 -->
@@ -2038,6 +2039,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // ── 즉시 실행 (화면 표시에 필요) ──
   initDate();
   buildSidoList();
+  /* 속보 실시간 갱신 */
+  fetch('/api/breaking').then(r=>r.json()).then(data=>{
+    if (data.ok && data.items && data.items.length) {
+      const el = document.querySelector('.t-in');
+      if (el) {
+        el.innerHTML = data.items.map(t=>`<span class="t-item">${t}</span>`).join('');
+      }
+    }
+  }).catch(()=>{});
 
   // ── 약간 지연 (화면 표시 후 처리) ──
   setTimeout(function() {
@@ -2622,35 +2632,192 @@ function popPage(pg) {
 }
 
 /* ── 뉴스 기능 ── */
+/* ══════════════════════════════════════════
+   뉴스 데이터 (확장)
+══════════════════════════════════════════ */
+const NEWS_DB = {
+  전체: [
+    { title:'[단독] 소상공인 디지털 전환 지원금 최대 200만원 확대', body:'정부는 디지털 전환을 희망하는 전국 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔습니다. 1인당 최대 200만원을 신청 가능하며 온라인 접수가 가능합니다.', date:'2026.04.13', cat:'지역경제', region:'전국' },
+    { title:'인천 소상공인 매출 1분기 역대 최고', body:'인천 지역 소상공인의 1분기 매출이 역대 최고치를 기록했습니다. 배달앱 이용 증가와 함께 온라인 홍보 효과가 컸다는 분석입니다.', date:'2026.04.12', cat:'경제', region:'인천' },
+    { title:'경기 성남·분당 신규 상권 AI 예측 TOP5', body:'AI 분석을 통한 유망 업종: 1위 카페·디저트, 2위 펫샵, 3위 건강식품, 4위 홈케어, 5위 학원', date:'2026.04.11', cat:'창업', region:'경기' },
+    { title:'카카오페이 소상공인 결제 수수료 0% 이벤트', body:'카카오페이가 소상공인 상생을 위해 결제 수수료 0% 이벤트를 시행합니다. 신청 기간은 이달 말까지입니다.', date:'2026.04.10', cat:'IT', region:'전국' },
+    { title:'로컬 푸드 직거래 농수산 매출 30%↑', body:'전국 로컬푸드 직거래 플랫폼 활성화로 농수산 소상공인 매출이 전년 동기 대비 30% 상승했습니다.', date:'2026.04.09', cat:'농수산', region:'전국' },
+    { title:'2026년 최저임금 소상공인 영향 분석', body:'2026년 최저임금 인상이 소상공인 경영에 미치는 영향을 분석한 결과, 인건비 부담 완화책이 시급한 것으로 나타났습니다.', date:'2026.04.08', cat:'경제', region:'전국' },
+  ],
+  경제: [
+    { title:'2026 소상공인 정책 자금 조기 소진 — 추경 주목', body:'2026년 소상공인 정책자금이 3월 중 조기 소진되어 추가경정예산 편성 여부에 관심이 집중되고 있습니다.', date:'2026.04.13', cat:'경제', region:'전국' },
+    { title:'서울 강남구 상권 회복세 뚜렷', body:'코로나 이후 침체됐던 강남구 상권이 빠른 회복세를 보이고 있습니다. 외식·뷰티 업종을 중심으로 매출이 증가했습니다.', date:'2026.04.12', cat:'경제', region:'서울' },
+    { title:'카드 수수료 0% 제도 확대 시행', body:'영세 소상공인 대상 카드 수수료 0% 정책이 더 많은 업종으로 확대 적용됩니다.', date:'2026.04.11', cat:'경제', region:'전국' },
+  ],
+  창업: [
+    { title:'2026 유망 창업 아이템 TOP10 — AI 분석', body:'AI가 분석한 2026년 유망 창업 아이템: 1위 프리미엄 세탁, 2위 반려동물 서비스, 3위 건강식품, 4위 키오스크 카페, 5위 중고거래 플랫폼...', date:'2026.04.13', cat:'창업', region:'전국' },
+    { title:'청년 창업 지원금 신청 방법 완전 정리', body:'중소벤처기업부 청년 창업사관학교, 창업진흥원 지원 프로그램, 지자체 청년창업 지원금 신청 방법을 완전 정리했습니다.', date:'2026.04.11', cat:'창업', region:'전국' },
+    { title:'프랜차이즈 vs 독립 창업, 2026년 선택 기준', body:'초기 자본, 브랜드 파워, 수익률을 기준으로 2026년 프랜차이즈와 독립 창업을 비교 분석했습니다.', date:'2026.04.09', cat:'창업', region:'전국' },
+  ],
+  IT: [
+    { title:'AI 홍보문구 자동 생성 소상공인 마케팅 혁신', body:'ChatDoumi AI가 업종별 맞춤 홍보문구를 자동 생성해주는 서비스가 소상공인 마케팅 방식을 바꾸고 있습니다.', date:'2026.04.13', cat:'IT', region:'전국' },
+    { title:'네이버 플레이스 최적화 방법 2026년 버전', body:'네이버 플레이스 노출 알고리즘 변경에 따른 2026년 최적화 방법을 안내합니다.', date:'2026.04.12', cat:'IT', region:'전국' },
+    { title:'스마트 POS 도입 소상공인 절세 효과', body:'스마트 POS 도입 시 세금 환급 혜택과 매출 관리 효율화 사례를 소개합니다.', date:'2026.04.10', cat:'IT', region:'전국' },
+  ],
+  농수산: [
+    { title:'봄 제철 산나물 출하량 급증 — 가격 안정세', body:'냉이·달래·쑥 등 봄 제철 산나물 출하량이 늘면서 소비자 가격이 안정세를 유지하고 있습니다.', date:'2026.04.13', cat:'농수산', region:'전국' },
+    { title:'로컬팜 직거래 플랫폼 가입 농가 1만 돌파', body:'AI플랫마켓 로컬팜 직거래 플랫폼에 가입한 농가 수가 1만 곳을 돌파했습니다.', date:'2026.04.11', cat:'농수산', region:'전국' },
+  ],
+  지방자치: [
+    { title:'인천시 2026년 소상공인 지원 예산 역대 최대', body:'인천시가 2026년 소상공인 지원 예산으로 역대 최대 규모를 편성했습니다. 디지털 전환, 임차료 지원, 마케팅 지원이 포함됩니다.', date:'2026.04.13', cat:'지방자치', region:'인천' },
+    { title:'경기도 전통시장 활성화 프로젝트 착수', body:'경기도가 관내 전통시장 50곳을 대상으로 디지털 전환 및 환경 개선 사업을 시작합니다.', date:'2026.04.11', cat:'지방자치', region:'경기' },
+  ],
+  사회: [
+    { title:'소상공인 법률 무료 상담 신청 방법', body:'대한법률구조공단에서 소상공인을 대상으로 계약·분쟁·임대 관련 법률 무료 상담을 제공합니다.', date:'2026.04.12', cat:'사회', region:'전국' },
+    { title:'지역 소상공인 봉사활동 참여 사례 소개', body:'지역 소상공인들이 자발적으로 참여한 봉사활동이 지역사회에 훈훈한 이야기를 전하고 있습니다.', date:'2026.04.10', cat:'사회', region:'전국' },
+  ],
+  교육: [
+    { title:'소상공인 무료 디지털 교육 신청 방법', body:'중소벤처기업부에서 운영하는 소상공인 디지털 역량 강화 교육을 무료로 받을 수 있습니다.', date:'2026.04.13', cat:'교육', region:'전국' },
+    { title:'학원 창업 시 주의해야 할 법적 사항', body:'학원 창업 전 꼭 알아야 할 학원법·교육청 신고·보험 가입 등 법적 사항을 정리했습니다.', date:'2026.04.11', cat:'교육', region:'전국' },
+  ],
+  'Job뉴스': [
+    { title:'소상공인 직원 채용 지원금 최대 월 80만원', body:'고용노동부의 소상공인 채용 지원금 제도로 신규 직원 채용 시 월 최대 80만원을 지원받을 수 있습니다.', date:'2026.04.13', cat:'Job뉴스', region:'전국' },
+    { title:'2026 최저임금 적용 사례별 정리', body:'2026년 최저임금이 적용되는 업종별 사례와 야간·연장 근무 수당 계산 방법을 안내합니다.', date:'2026.04.11', cat:'Job뉴스', region:'전국' },
+  ],
+  부동산: [
+    { title:'소상공인 임차료 지원 프로그램 신청 방법', body:'정부와 지자체가 운영하는 소상공인 임차료 지원 프로그램 종류와 신청 방법을 안내합니다.', date:'2026.04.12', cat:'부동산', region:'전국' },
+  ],
+  생활: [
+    { title:'지역 소상공인과 함께하는 착한 소비 캠페인', body:'우리 동네 소상공인에게 소비하는 착한 소비 캠페인이 전국적으로 확산되고 있습니다.', date:'2026.04.13', cat:'생활', region:'전국' },
+  ],
+};
+
+let currentNewsCat = '전체';
+let currentNewsReg = 'all';
+
 function filterNews(reg, btn, isKw) {
+  currentNewsReg = reg;
+  // 버튼 활성화
   document.querySelectorAll('.news-reg-btn').forEach(b => b.classList.remove('act'));
   if (btn) btn.classList.add('act');
-  toast(`📰 ${reg === 'all' ? '전체' : reg} 뉴스 보기`);
+  // 뉴스 그리드 업데이트
+  renderNewsGrid();
+  toast(`📰 ${reg === 'all' ? '전체' : reg} 뉴스`);
 }
+
 function filterNewsCat(cat, el) {
+  currentNewsCat = cat;
   document.querySelectorAll('.news-cat').forEach(b => b.classList.remove('act'));
   el.classList.add('act');
-  toast(`📌 ${cat} 뉴스`);
+  renderNewsGrid();
+  toast(`📌 ${cat}`);
 }
-const NEWS_DATA = [
-  { title: '[단독] 소상공인 디지털 전환 지원금 최대 200만원 확대', body: '정부는 디지털 전환을 희망하는 전국 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔습니다. 신청 기간은 다음 달부터이며, 온라인 신청이 가능합니다.', date: '2026.04.13', cat: '지역경제' },
-  { title: '인천 소상공인 매출 1분기 역대 최고', body: '인천 지역 소상공인의 1분기 매출이 역대 최고치를 기록했습니다. 배달앱 이용 증가와 함께 온라인 홍보 효과가 컸다는 분석입니다.', date: '2026.04.12', cat: '경제' },
-  { title: '경기 성남·분당 신규 상권 AI 예측 TOP5', body: 'AI 분석을 통한 유망 업종 TOP5: 1위 카페·디저트, 2위 펫샵, 3위 건강식품, 4위 홈케어, 5위 학원', date: '2026.04.11', cat: '창업' },
-];
-function openNewsDetail(idx) {
-  const n = NEWS_DATA[idx % NEWS_DATA.length] || NEWS_DATA[0];
+
+/* ── 뉴스 API 호출 + 렌더링 (실시간) ── */
+let _newsPool = [];
+
+async function renderNewsGrid() {
+  const rankEl  = document.getElementById('newsRankList');
+  const listEl  = document.getElementById('newsMainList');
+  const heroTtl = document.getElementById('newsHeroTtl');
+  const heroDesc= document.getElementById('newsHeroDesc');
+  const heroMeta= document.getElementById('newsHeroMeta');
+
+  // 로딩 표시
+  if (rankEl) rankEl.innerHTML = '<div style="padding:16px;text-align:center;color:var(--g4);font-size:.78rem">뉴스 불러오는 중...</div>';
+  if (listEl) listEl.innerHTML = '<div style="padding:8px;text-align:center;color:var(--g4);font-size:.75rem">로딩 중...</div>';
+
+  let pool = [];
+  try {
+    const params = new URLSearchParams({ cat: currentNewsCat, display: 10 });
+    const res    = await fetch('/api/news?' + params);
+    const data   = await res.json();
+    pool = data.items || [];
+  } catch(e) {
+    // API 없을 때 내장 데이터 사용
+    pool = (NEWS_DB[currentNewsCat] || NEWS_DB['전체'] || []);
+  }
+
+  // 지역 필터
+  if (currentNewsReg !== 'all') {
+    pool = pool.filter(n => !n.region || n.region === currentNewsReg || n.region === '전국');
+  }
+  if (!pool.length) pool = NEWS_DB['전체'] || [];
+  _newsPool = pool;
+
+  // 히어로 업데이트
+  if (heroTtl && pool[0]) {
+    heroTtl.textContent = pool[0].title || '';
+    if (heroDesc) heroDesc.textContent = pool[0].desc || '';
+    if (heroMeta) heroMeta.textContent = (pool[0].date ? new Date(pool[0].date).toLocaleDateString('ko-KR') : '') + ' · ' + (pool[0].source || pool[0].cat || '');
+  }
+
+  // 뉴스 목록
+  if (listEl) {
+    listEl.innerHTML = pool.slice(0,6).map((n,i) => `
+      <div class="nc-item" onclick="openNewsDetail2(${i})" style="cursor:pointer">
+        <span class="nc-num" style="color:var(--g3)">${i+1}</span>
+        <div style="min-width:0">
+          <div class="nc-item-ttl">${n.title}</div>
+          <div class="nc-meta">${n.date ? new Date(n.date).toLocaleDateString('ko-KR') : ''} · <span style="color:var(--g4)">${n.source||''}</span></div>
+        </div>
+      </div>`).join('') || '<div class="empty">뉴스 없음</div>';
+  }
+
+  // 랭킹
+  if (rankEl) {
+    rankEl.innerHTML = pool.slice(0,10).map((n,i) => `
+      <div class="nc-rank" onclick="openNewsDetail2(${i})" style="cursor:pointer">
+        <span class="nr-n ${i===0?'t1':i===1?'t2':i===2?'t3':''}">${i+1}</span>
+        <div class="nr-ttl">${n.title}</div>
+      </div>`).join('') || '<div style="padding:10px;color:var(--g4);font-size:.75rem">기사 없음</div>';
+  }
+}
+
+function openNewsDetail2(idx) {
+  const n = _newsPool[idx] || _newsPool[0];
+  if (!n) return;
+  const date = n.date ? new Date(n.date).toLocaleDateString('ko-KR') : '';
   document.getElementById('ndTitle').textContent = n.title;
   document.getElementById('ndBody').innerHTML = `
-    <div style="font-size:.72rem;color:var(--g4);margin-bottom:12px">${n.date} · ${n.cat}</div>
-    <div style="font-size:.9rem;line-height:1.8;color:#333">${n.body}</div>
-    <div style="margin-top:16px;padding:12px;background:var(--g1);border-radius:var(--r);font-size:.78rem;color:var(--g4)">
-      📌 이 기사는 AI플랫마켓 편집국에서 작성되었습니다.
+    <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
+      <span class="tag tc">${n.cat||n.source||''}</span>
+      ${n.origin==='naver'?'<span class="tag tg">네이버뉴스</span>':n.origin==='google'?'<span class="tag tg">구글뉴스</span>':n.origin==='email'?'<span class="tag" style="background:#e8f5e9;color:#2e7d32">📧 뉴스레터</span>':''}
+    </div>
+    <div style="font-size:.72rem;color:var(--g4);margin-bottom:12px">${date} · ${n.source||''}</div>
+    <div style="font-size:.9rem;line-height:1.8;color:#333;margin-bottom:14px">${n.desc||''}</div>
+    ${n.link && n.link!=='#' ? `<a href="${n.link}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;background:var(--navy);color:#fff;padding:8px 16px;border-radius:6px;font-size:.82rem;font-weight:700;text-decoration:none">🔗 원문 기사 보기 →</a>` : ''}
+    <div style="margin-top:14px;padding:10px;background:var(--g1);border-radius:var(--r);font-size:.74rem;color:var(--g4)">
+      📌 실시간 뉴스: 네이버 API + 구글 뉴스 + 이메일 뉴스레터 자동 수집
     </div>`;
   document.getElementById('newsDetailModal').style.display = 'flex';
 }
-function closeNewsDetail() {
-  document.getElementById('newsDetailModal').style.display = 'none';
+
+// 기존 호환성 유지
+function openNewsDetail(idx) { openNewsDetail2(idx); }
+
+/* ══════════════════════════════════════════
+   속보 자동 갱신 (30초마다 rotate)
+══════════════════════════════════════════ */
+const BREAKING_NEWS = [
+  '📌 AI플랫마켓, 소상공인 디지털 마케팅 무료 지원 프로그램 시작',
+  '🔥 인천 남동구 \'오늘의 특가\' — 철판볶음밥 전문점 2인 세트 30% 할인',
+  '📊 2026 1분기 소상공인 온라인 매출 전년 대비 18% 증가',
+  '🏪 경기도 성남 분당구 신규 입점 업체 모집 중 — 무료 등록 이벤트',
+  '🎯 AI 광고 추천 서비스, 파트너 300개사 돌파 기념 이벤트',
+  '💰 소상공인 디지털 전환 지원금 200만원 — 이달부터 신청 가능',
+  '📺 AI플랫 라이브 홈쇼핑 CH1 오후 2시 — 인천 족발·보쌈 특가전',
+  '🌿 로컬팜 직거래 봄나물 꾸러미 한정 출시 — 냉이·달래·쑥 포함',
+  '🚀 2026 유망 창업 아이템 AI 분석 결과 공개 — 지금 확인하세요',
+  '🤝 지역 소상공인 법률 무료 상담 4월 셋째주 화요일 신청 마감',
+];
+let breakIdx = 0;
+function rotateBreaking() {
+  const el = document.querySelector('.t-in');
+  if (!el) return;
+  breakIdx = (breakIdx + 1) % BREAKING_NEWS.length;
+  // 맨 앞 아이템 교체
+  const items = el.querySelectorAll('.t-item');
+  if (items.length > 0) items[0].textContent = BREAKING_NEWS[breakIdx];
 }
+setInterval(rotateBreaking, 30000);
+
+const NEWS_DATA = NEWS_DB['전체']; // 기존 호환
 
 /* ── 지역광고 업로드 (관리자/편집자 체크) ── */
 const UPLOAD_AUTH = localStorage.getItem('apm_admin_logged') === 'true';
