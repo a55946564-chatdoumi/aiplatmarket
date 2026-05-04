@@ -1273,7 +1273,6 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <div class="news-cat" onclick="filterNewsCat('교육',this)">교육</div>
       <div class="news-cat" onclick="filterNewsCat('Job뉴스',this)">Job뉴스</div>
       <div class="news-cat" onclick="filterNewsCat('생활과학',this)">생활과학</div>
-      <div class="news-cat" onclick="filterNewsCat('뉴스와이어',this)">뉴스와이어</div>
     </div>
 
     <!-- 4열 뉴스 그리드 (순서: 인기랭킹 | 주요뉴스+영상 | IT/AI+영상 | 오피니언) -->
@@ -1369,13 +1368,20 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
     </div><!-- /news-4col -->
 
     <!-- 뉴스 상세 모달 -->
-    <div id="newsDetailModal" style="display:none;position:fixed;inset:0;background:rgba(13,31,53,.6);z-index:3000;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto" onclick="if(event.target===this)closeNewsDetail()">
-      <div style="background:#fff;border-radius:var(--r);max-width:700px;width:100%;margin:20px auto;box-shadow:0 20px 60px rgba(0,0,0,.25)">
-        <div style="background:var(--navy);color:#fff;padding:16px 20px;border-radius:var(--r) var(--r) 0 0;display:flex;justify-content:space-between;align-items:center">
-          <span style="font-size:.9rem;font-weight:700" id="ndTitle">기사 제목</span>
-          <button onclick="closeNewsDetail()" style="background:none;border:none;color:rgba(255,255,255,.7);font-size:1.3rem;cursor:pointer">✕</button>
+    <!-- 뉴스 상세 모달 -->
+    <div id="newsDetailModal" style="display:none;position:fixed;inset:0;background:rgba(13,31,53,.65);z-index:3000;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto">
+      <div style="background:#fff;border-radius:10px;max-width:680px;width:100%;margin:20px auto;box-shadow:0 20px 60px rgba(0,0,0,.3);display:flex;flex-direction:column;max-height:85vh">
+        <!-- 헤더 -->
+        <div style="background:var(--navy);color:#fff;padding:14px 18px;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;gap:10px">
+          <div id="ndTitle" style="font-size:.88rem;font-weight:700;line-height:1.4;flex:1">기사 제목</div>
+          <button onclick="closeNewsDetail()" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1.1rem;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s" onmouseover="this.style.background='rgba(255,255,255,.3)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">✕</button>
         </div>
-        <div style="padding:20px" id="ndBody">기사 내용이 여기에 표시됩니다.</div>
+        <!-- 본문 (스크롤) -->
+        <div id="ndBody" style="padding:20px;overflow-y:auto;flex:1;font-size:.88rem;line-height:1.8;color:#333">기사 내용이 여기에 표시됩니다.</div>
+        <!-- 하단 닫기 -->
+        <div style="padding:12px 18px;border-top:var(--bd);background:var(--g1);border-radius:0 0 10px 10px;flex-shrink:0;display:flex;justify-content:flex-end">
+          <button onclick="closeNewsDetail()" style="background:var(--navy);color:#fff;border:none;padding:7px 20px;border-radius:6px;font-size:.82rem;font-weight:700;cursor:pointer">닫기</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1903,21 +1909,81 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         <a class="srch-portal" href="https://www.youtube.com/results?search_query=" id="youtubeLink" target="_blank" onclick="portalSearch('youtube')"><span class="ico">▶</span>유튜브</a>
       </div>
 
-      <!-- AI 챗 포털 (드롭다운 + 가로스크롤) -->
+      <!-- AI 챗 포털 → 카테고리별 확장 -->
       <div class="srch-sec-ttl" style="display:flex;align-items:center;justify-content:space-between">
-        🤖 AI 챗 포털
-        <span style="font-size:.66rem;color:var(--g4);font-weight:400">국내외 주요 AI 서비스</span>
+        🤖 AI 서비스
+        <span style="font-size:.66rem;color:var(--g4);font-weight:400">분야별 주요 AI 모아보기</span>
       </div>
+
+      <!-- 대화형 AI -->
+      <div style="font-size:.66rem;font-weight:800;color:var(--g4);letter-spacing:.5px;margin:6px 0 5px">💬 대화형 AI</div>
       <div class="srch-portal-row" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:8px">
-        <a class="srch-portal" href="https://chatdoumi.com" target="_blank" style="border-color:var(--navy);color:var(--navy)"><span class="ico">🤖</span>챗도우미</a>
+        <a class="srch-portal" href="https://chatdoumi.com" target="_blank" style="border-color:var(--navy);color:var(--navy);font-weight:800"><span class="ico">🤖</span>챗도우미</a>
         <a class="srch-portal" href="https://chat.openai.com" target="_blank"><span class="ico">🟢</span>ChatGPT</a>
         <a class="srch-portal" href="https://claude.ai" target="_blank"><span class="ico">🟠</span>Claude</a>
         <a class="srch-portal" href="https://gemini.google.com" target="_blank"><span class="ico">🔵</span>Gemini</a>
         <a class="srch-portal" href="https://www.perplexity.ai" target="_blank"><span class="ico">🔮</span>Perplexity</a>
         <a class="srch-portal" href="https://copilot.microsoft.com" target="_blank"><span class="ico">⚡</span>Copilot</a>
+        <a class="srch-portal" href="https://grok.x.ai" target="_blank"><span class="ico">𝕏</span>Grok</a>
         <a class="srch-portal" href="https://clova.ai" target="_blank"><span class="ico">🍀</span>클로바X</a>
         <a class="srch-portal" href="https://wrtn.ai" target="_blank"><span class="ico">✍</span>뤼튼</a>
         <a class="srch-portal" href="https://www.askup.net" target="_blank"><span class="ico">💬</span>AskUp</a>
+        <a class="srch-portal" href="https://www.meta.ai" target="_blank"><span class="ico">🔵</span>Meta AI</a>
+        <a class="srch-portal" href="https://mistral.ai/fr/chat" target="_blank"><span class="ico">🌬</span>Mistral</a>
+      </div>
+
+      <!-- 이미지·디자인 AI -->
+      <div style="font-size:.66rem;font-weight:800;color:var(--g4);letter-spacing:.5px;margin:8px 0 5px">🎨 이미지·디자인 AI</div>
+      <div class="srch-portal-row" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:8px">
+        <a class="srch-portal" href="https://www.canva.com" target="_blank"><span class="ico">🎨</span>Canva</a>
+        <a class="srch-portal" href="https://www.midjourney.com" target="_blank"><span class="ico">🖼</span>Midjourney</a>
+        <a class="srch-portal" href="https://openai.com/dall-e-3" target="_blank"><span class="ico">🟢</span>DALL·E</a>
+        <a class="srch-portal" href="https://stability.ai" target="_blank"><span class="ico">🌀</span>Stable Diff.</a>
+        <a class="srch-portal" href="https://www.adobe.com/kr/products/firefly.html" target="_blank"><span class="ico">🔥</span>Adobe Firefly</a>
+        <a class="srch-portal" href="https://ideogram.ai" target="_blank"><span class="ico">💡</span>Ideogram</a>
+        <a class="srch-portal" href="https://www.bing.com/create" target="_blank"><span class="ico">🎭</span>Bing 이미지</a>
+        <a class="srch-portal" href="https://leonardo.ai" target="_blank"><span class="ico">🦁</span>Leonardo AI</a>
+      </div>
+
+      <!-- 영상·음악 AI -->
+      <div style="font-size:.66rem;font-weight:800;color:var(--g4);letter-spacing:.5px;margin:8px 0 5px">🎬 영상·음악 AI</div>
+      <div class="srch-portal-row" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:8px">
+        <a class="srch-portal" href="https://www.sora.com" target="_blank"><span class="ico">🎬</span>Sora</a>
+        <a class="srch-portal" href="https://runwayml.com" target="_blank"><span class="ico">🎞</span>Runway</a>
+        <a class="srch-portal" href="https://pika.art" target="_blank"><span class="ico">⚡</span>Pika</a>
+        <a class="srch-portal" href="https://www.heygen.com" target="_blank"><span class="ico">👤</span>HeyGen</a>
+        <a class="srch-portal" href="https://suno.com" target="_blank"><span class="ico">🎵</span>Suno</a>
+        <a class="srch-portal" href="https://www.udio.com" target="_blank"><span class="ico">🎶</span>Udio</a>
+        <a class="srch-portal" href="https://www.aiva.ai" target="_blank"><span class="ico">🎼</span>AIVA</a>
+        <a class="srch-portal" href="https://elevenlabs.io" target="_blank"><span class="ico">🔊</span>ElevenLabs</a>
+        <a class="srch-portal" href="https://klingai.com" target="_blank"><span class="ico">📹</span>Kling AI</a>
+      </div>
+
+      <!-- 업무·코딩·설계 AI -->
+      <div style="font-size:.66rem;font-weight:800;color:var(--g4);letter-spacing:.5px;margin:8px 0 5px">💼 업무·코딩·설계 AI</div>
+      <div class="srch-portal-row" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:8px">
+        <a class="srch-portal" href="https://github.com/features/copilot" target="_blank"><span class="ico">💻</span>GitHub Copilot</a>
+        <a class="srch-portal" href="https://cursor.sh" target="_blank"><span class="ico">⌨</span>Cursor</a>
+        <a class="srch-portal" href="https://www.notion.so/product/ai" target="_blank"><span class="ico">📝</span>Notion AI</a>
+        <a class="srch-portal" href="https://gamma.app" target="_blank"><span class="ico">🎯</span>Gamma(PPT)</a>
+        <a class="srch-portal" href="https://www.beautiful.ai" target="_blank"><span class="ico">✨</span>Beautiful.AI</a>
+        <a class="srch-portal" href="https://www.taskade.com" target="_blank"><span class="ico">✅</span>Taskade</a>
+        <a class="srch-portal" href="https://www.autodeskforma.com" target="_blank"><span class="ico">🏗</span>Autodesk AI</a>
+        <a class="srch-portal" href="https://www.jasper.ai" target="_blank"><span class="ico">📢</span>Jasper(마케팅)</a>
+        <a class="srch-portal" href="https://www.copy.ai" target="_blank"><span class="ico">📋</span>Copy.ai</a>
+      </div>
+
+      <!-- 국내 특화 AI -->
+      <div style="font-size:.66rem;font-weight:800;color:var(--g4);letter-spacing:.5px;margin:8px 0 5px">🇰🇷 국내 특화 AI</div>
+      <div class="srch-portal-row" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:8px">
+        <a class="srch-portal" href="https://chatdoumi.com" target="_blank" style="border-color:var(--navy);color:var(--navy);font-weight:800"><span class="ico">🤖</span>챗도우미</a>
+        <a class="srch-portal" href="https://wrtn.ai" target="_blank"><span class="ico">✍</span>뤼튼</a>
+        <a class="srch-portal" href="https://clova.ai" target="_blank"><span class="ico">🍀</span>클로바X</a>
+        <a class="srch-portal" href="https://www.askup.net" target="_blank"><span class="ico">💬</span>AskUp</a>
+        <a class="srch-portal" href="https://typecast.ai" target="_blank"><span class="ico">🎙</span>타입캐스트</a>
+        <a class="srch-portal" href="https://www.deepbrain.io" target="_blank"><span class="ico">🧠</span>딥브레인AI</a>
+        <a class="srch-portal" href="https://brain.kakao.com" target="_blank"><span class="ico">💛</span>카카오브레인</a>
+        <a class="srch-portal" href="https://clovaspeech.naver.com" target="_blank"><span class="ico">🎤</span>클로바 보이스</a>
       </div>
 
       <!-- 글로벌 포털 (가로 스크롤) -->
@@ -2773,22 +2839,45 @@ function openNewsDetail2(idx) {
   const n = _newsPool[idx] || _newsPool[0];
   if (!n) return;
   const date = n.date ? new Date(n.date).toLocaleDateString('ko-KR') : '';
+  const originLabel = { naver:'네이버뉴스', google:'구글뉴스', email:'📧 뉴스레터', fallback:'편집국' };
+  const originColor = { naver:'tg', google:'tg', email:'', fallback:'' };
+  const originStyle = n.origin==='email' ? 'background:#e8f5e9;color:#2e7d32' : '';
+
   document.getElementById('ndTitle').textContent = n.title;
   document.getElementById('ndBody').innerHTML = `
-    <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
-      <span class="tag tc">${n.cat||n.source||''}</span>
-      ${n.origin==='naver'?'<span class="tag tg">네이버뉴스</span>':n.origin==='google'?'<span class="tag tg">구글뉴스</span>':n.origin==='email'?'<span class="tag" style="background:#e8f5e9;color:#2e7d32">📧 뉴스레터</span>':''}
+    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">
+      ${n.cat||n.source ? `<span class="tag tc">${n.cat||n.source}</span>` : ''}
+      ${n.origin && originLabel[n.origin] ? `<span class="tag ${originColor[n.origin]||''}" style="${originStyle}">${originLabel[n.origin]||''}</span>` : ''}
     </div>
-    <div style="font-size:.72rem;color:var(--g4);margin-bottom:12px">${date} · ${n.source||''}</div>
-    <div style="font-size:.9rem;line-height:1.8;color:#333;margin-bottom:14px">${n.desc||''}</div>
-    ${n.link && n.link!=='#' ? `<a href="${n.link}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;background:var(--navy);color:#fff;padding:8px 16px;border-radius:6px;font-size:.82rem;font-weight:700;text-decoration:none">🔗 원문 기사 보기 →</a>` : ''}
-    <div style="margin-top:14px;padding:10px;background:var(--g1);border-radius:var(--r);font-size:.74rem;color:var(--g4)">
-      📌 실시간 뉴스: 네이버 API + 구글 뉴스 + 이메일 뉴스레터 자동 수집
+    <div style="font-size:.72rem;color:var(--g4);margin-bottom:14px;padding-bottom:10px;border-bottom:var(--bd)">
+      ${date} · ${n.source||'AI플랫마켓'}
+    </div>
+    <!-- AI 재편집 요약 -->
+    <div style="background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border-left:3px solid var(--blue);padding:12px 14px;border-radius:0 6px 6px 0;margin-bottom:14px;font-size:.84rem;line-height:1.75;color:#333">
+      <div style="font-size:.66rem;font-weight:800;color:var(--blue);margin-bottom:6px;letter-spacing:.5px">🤖 AI 재편집 요약</div>
+      ${n.desc || '요약 내용이 없습니다.'}
+    </div>
+    ${n.fullText ? `
+    <!-- 전문 펼치기 -->
+    <details style="margin-bottom:14px">
+      <summary style="cursor:pointer;font-size:.8rem;font-weight:700;color:var(--navy);padding:8px 12px;background:var(--g1);border-radius:6px;list-style:none;display:flex;align-items:center;gap:5px">
+        📄 전문 보기 ▾
+      </summary>
+      <div style="padding:12px;font-size:.82rem;line-height:1.8;color:#444;border:var(--bd);border-top:none;border-radius:0 0 6px 6px">${n.fullText}</div>
+    </details>` : ''}
+    ${n.link && n.link!=='#' ? `
+    <a href="${n.link}" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;padding:9px 18px;border-radius:6px;font-size:.82rem;font-weight:700;text-decoration:none;margin-bottom:12px">
+      🔗 원문 기사 전체 보기 →
+    </a>` : ''}
+    <div style="padding:10px;background:var(--g1);border-radius:6px;font-size:.72rem;color:var(--g4)">
+      📌 네이버 뉴스 API · 구글 뉴스 · 이메일 뉴스레터 자동 수집 및 AI 재편집
     </div>`;
   document.getElementById('newsDetailModal').style.display = 'flex';
 }
 
 // 기존 호환성 유지
+function closeNewsDetail() { document.getElementById('newsDetailModal').style.display='none'; }
 function openNewsDetail(idx) { openNewsDetail2(idx); }
 
 /* ══════════════════════════════════════════
