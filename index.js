@@ -167,6 +167,53 @@ async function googleNews(keyword) {
 let gmailCache = [];
 let gmailAt    = 0;
 
+/* ── 민감정보·스팸 필터 키워드 ── */
+const FILTER_KEYWORDS = [
+  '인증코드', '인증번호', 'verification code', '확인코드',
+  '구독 취소', '수신거부', '구독해지', 'unsubscribe',
+  '이메일 변경', '비밀번호 재설정', 'password reset',
+  '로그인 알림', '보안 알림', '계정 알림',
+  'MY뉴스', '뉴스레터 구독 신청', '수신 이메일 변경',
+  '광고성 정보', '스팸', '[광고]',
+];
+
+/* ── 뉴스와이어 → 카테고리 자동 분류 ── */
+const NEWSWIRE_CAT_MAP = [
+  { keywords:['소상공인','자영업','창업','폐업','지원금','매출'], cat:'경제' },
+  { keywords:['AI','인공지능','IT','디지털','플랫폼','앱','스마트'], cat:'IT' },
+  { keywords:['농업','수산','로컬푸드','농산물','수산물','직거래'], cat:'농수산' },
+  { keywords:['부동산','임차','임대','상가','건물','토지'], cat:'부동산' },
+  { keywords:['채용','일자리','취업','구인','구직','인력'], cat:'Job뉴스' },
+  { keywords:['교육','학원','강의','세미나','워크숍'], cat:'교육' },
+  { keywords:['지방자치','지자체','시청','군청','구청','행정'], cat:'지방자치' },
+  { keywords:['과학','연구','기술','발명','특허'], cat:'생활과학' },
+  { keywords:['사건','사고','화재','사기','범죄'], cat:'사회' },
+  { keywords:['축제','행사','이벤트','문화','공연'], cat:'생활' },
+];
+
+function classifyNewswire(title='', text='') {
+  const combined = (title+' '+text).toLowerCase();
+  for (const { keywords, cat } of NEWSWIRE_CAT_MAP) {
+    if (keywords.some(kw => combined.includes(kw))) return cat;
+  }
+  return '경제'; // 기본값
+}
+
+function isSensitive(subject='', text='') {
+  const combined = (subject+' '+text).toLowerCase();
+  return FILTER_KEYWORDS.some(kw => combined.includes(kw.toLowerCase()));
+}
+
+function isNewsworthy(subject='', text='') {
+  // 제목이 너무 짧거나 광고성이면 제외
+  if (!subject || subject.length < 5) return false;
+  if (isSensitive(subject, text)) return false;
+  // 본문이 너무 짧으면 제외 (인증코드류)
+  const cleanText = text.replace(/\s+/g,' ').trim();
+  if (cleanText.length < 80) return false;
+  return true;
+}
+
 async function fetchGmail() {
   if (Date.now()-gmailAt < CACHE_TTL && gmailCache.length) return gmailCache;
   const Imap = require('imap');
@@ -192,21 +239,40 @@ async function fetchGmail() {
           ],
         ], (err, uids) => {
           if (err||!uids||!uids.length) { imap.end(); return resolve([]); }
-          const f = imap.fetch(uids.slice(-20), { bodies:'' });
+          const f = imap.fetch(uids.slice(-30), { bodies:'' });
           f.on('message', msg => {
             msg.on('body', stream => {
               simpleParser(stream, (err, mail) => {
                 if (err) return;
-                const from = mail.from?.text||'';
-                const sub  = mail.subject||'';
-                const text = mail.text||'';
-                let cat = '뉴스레터';
-                if (from.includes('newswire')) cat = '뉴스와이어';
-                else if (from.includes('kisti')||from.includes('kist'))
-                  cat = '생활과학'; // 과학향기·생활과학 모두 생활과학으로 통합
+                const from     = mail.from?.text || '';
+                const subject  = (mail.subject || '').trim();
+                const text     = mail.text || '';
+                const html     = mail.html || '';
+                const fullText = text || html.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+
+                // 민감정보·스팸 필터링
+                if (!isNewsworthy(subject, fullText)) {
+                  console.log(`[Gmail 필터] 제외: ${subject.slice(0,30)}`);
+                  return;
+                }
+
+                let cat = '생활';
+                if (from.includes('kisti') || from.includes('kist')) {
+                  cat = '생활과학'; // 과학향기·생활과학 통합
+                } else if (from.includes('newswire')) {
+                  cat = classifyNewswire(subject, fullText); // 뉴스와이어 자동 분류
+                }
+
                 results.push({
-                  title: sub, desc: aiSummarize(text), date: mail.date?.toISOString()||new Date().toISOString(),
-                  from, cat, link:'#', origin:'email', source: cat,
+                  title:    subject,
+                  desc:     aiSummarize(fullText, 200),
+                  fullText: fullText.slice(0, 1500),
+                  date:     mail.date?.toISOString() || new Date().toISOString(),
+                  from,
+                  cat,
+                  link:     '#',
+                  origin:   'email',
+                  source:   from.includes('newswire') ? '뉴스와이어' : '생활과학',
                 });
               });
             });
@@ -215,7 +281,12 @@ async function fetchGmail() {
         });
       });
     });
-    imap.once('end', () => { gmailCache=results; gmailAt=Date.now(); resolve(results); });
+    imap.once('end', () => {
+      gmailCache = results;
+      gmailAt    = Date.now();
+      console.log(`[Gmail] 수집 ${results.length}건 (필터 후)`);
+      resolve(results);
+    });
     imap.once('error', reject);
     imap.connect();
   });
@@ -240,7 +311,7 @@ app.get('/api/news', async (req, res) => {
   const result  = { cat, items:[], sources:[], warnings:[] };
 
   /* 이메일 전용 카테고리 */
-  if (['뉴스와이어','생활과학'].includes(cat)) {
+  if (['생활과학'].includes(cat)) {
     if (!GMAIL_USER||!GMAIL_PASS)
       return res.json({ ...result, error:'Gmail 미설정', items: getFallback(cat) });
     try {
@@ -269,12 +340,13 @@ app.get('/api/news', async (req, res) => {
     } catch(e) { result.warnings.push('google: '+e.message); }
   }
 
-  /* Gmail 뉴스레터 (전체 모드) */
-  if (source==='all' && GMAIL_USER && GMAIL_PASS) {
+  /* Gmail 뉴스레터: 카테고리 필터 후 해당 cat 기사만 병합 */
+  if ((source==='all'||source==='email') && GMAIL_USER && GMAIL_PASS) {
     try {
-      const emails = await fetchGmail();
-      result.items.push(...emails.slice(0,5));
-      result.sources.push('email');
+      const emails  = await fetchGmail();
+      const matched = emails.filter(n => cat==='전체' || n.cat===cat);
+      result.items.push(...matched.slice(0, 5));
+      if (matched.length > 0) result.sources.push('email');
     } catch(e) { result.warnings.push('email: '+e.message); }
   }
 
