@@ -171,8 +171,7 @@ td{padding:10px 14px;font-size:.82rem;color:var(--text)}
       <button class="lg-btn" onclick="doLogin()">로그인</button>
     </div>
     <div style="margin-top:14px;font-size:.72rem;color:var(--g4);text-align:center">
-      기본: admin<br>
-      <span style="color:var(--red)">비밀번호 변경</span>
+      비밀번호 = Render 환경변수 <b>ADMIN_TOKEN</b><br><span style="color:var(--red)">또는 처음 접속 시: aiplatmarket2026</span>
     </div>
   </div>
 </div>
@@ -526,16 +525,38 @@ const ADMIN_ID = 'admin';
 const ADMIN_PW_KEY = 'apm_admin_pw';
 let adminPw = localStorage.getItem(ADMIN_PW_KEY) || 'aiplatmarket2026';
 
-function doLogin() {
-  const id = document.getElementById('lgId').value.trim();
-  const pw = document.getElementById('lgPw').value;
-  if (id === ADMIN_ID && pw === adminPw) {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('dashWrap').style.display = 'flex';
-    refreshAll();
-  } else {
-    document.getElementById('lgErr').textContent = '아이디 또는 비밀번호가 올바르지 않습니다.';
-  }
+/* ── 로그인: 서버 ADMIN_TOKEN 우선 → localStorage fallback ── */
+async function doLogin() {
+  const id  = document.getElementById('lgId').value.trim();
+  const pw  = document.getElementById('lgPw').value;
+  const err = document.getElementById('lgErr');
+  err.textContent = '';
+
+  if (id !== ADMIN_ID) { err.textContent = '아이디가 올바르지 않습니다.'; return; }
+
+  // 1순위: Render 환경변수 ADMIN_TOKEN으로 검증
+  try {
+    const res = await fetch('/api/admin/dashboard', {
+      headers: { 'X-Admin-Token': pw }
+    });
+    if (res.ok) {
+      localStorage.setItem(ADMIN_PW_KEY, pw);
+      adminPw = pw;
+      _enterDashboard();
+      return;
+    }
+  } catch(_) { /* 서버 없을 때 fallback */ }
+
+  // 2순위: localStorage 비밀번호 확인
+  if (pw === adminPw) { _enterDashboard(); return; }
+
+  err.textContent = '비밀번호가 올바르지 않습니다.';
+}
+
+function _enterDashboard() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashWrap').style.display = 'flex';
+  refreshAll();
 }
 
 function doLogout() {
@@ -551,11 +572,12 @@ function changePw() {
   const p2 = document.getElementById('pw2').value;
   if (!p1) { toast('새 비밀번호를 입력하세요.','error'); return; }
   if (p1 !== p2) { toast('비밀번호가 일치하지 않습니다.','error'); return; }
+  if (p1.length < 8) { toast('비밀번호는 8자 이상으로 설정하세요.','error'); return; }
   localStorage.setItem(ADMIN_PW_KEY, p1);
   adminPw = p1;
   document.getElementById('pw1').value = '';
   document.getElementById('pw2').value = '';
-  toast('비밀번호가 변경되었습니다.','success');
+  toast('✅ 비밀번호 변경 완료! Render 환경변수 ADMIN_TOKEN도 동일하게 변경하세요.','success');
 }
 
 /* ==============================

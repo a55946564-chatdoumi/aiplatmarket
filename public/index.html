@@ -433,7 +433,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 
 /* === 뉴스 4열 그리드 === */
 .news-4col{display:grid;grid-template-columns:1fr 1.3fr 1.3fr 0.9fr;gap:14px}
-.news-col{min-width:0}
+.news-col{min-width:calc(100vw - 24px);max-width:calc(100vw - 24px);flex-shrink:0;box-sizing:border-box}
 .nc-col-hd{font-size:.72rem;font-weight:900;color:var(--navy);letter-spacing:1px;text-transform:uppercase;padding:0 0 6px;border-bottom:2px solid var(--red);margin-bottom:10px}
 .nc-hero{cursor:pointer;margin-bottom:10px}
 .nc-hero-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a3556,#0d1f35);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:8px}
@@ -506,7 +506,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 @media(max-width:900px){
   .news-4col{display:flex;overflow-x:auto;gap:10px;padding-bottom:6px;scrollbar-width:none}
   .news-4col::-webkit-scrollbar{display:none}
-  .news-col{min-width:260px;flex-shrink:0}
+  .news-col{min-width:calc(100vw - 24px);max-width:calc(100vw - 24px);flex-shrink:0;box-sizing:border-box}
   .ad-4col{grid-template-columns:1fr 1fr;gap:8px}
   .srch-pop{padding-top:16px}
 }
@@ -1407,6 +1407,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <div class="cm-tab" onclick="cmTab(this,'qna')">Q&amp;A</div>
       <div class="cm-tab" onclick="cmTab(this,'deal')">공동구매</div>
       <div class="cm-tab" onclick="cmTab(this,'review')">후기</div>
+      <div class="cm-tab" onclick="cmTab(this,'sanglife')">지역상생회</div>
     </div>
     <div id="cmPosts">
       <div class="cm-post"><div class="cm-post-hd"><div class="cm-post-ttl"><span class="cm-badge" style="background:#e8f0fe;color:#1a56a0;margin-right:5px">정보</span>인천 남동구 소상공인 지원금 신청 방법 공유합니다</div><span class="cm-post-meta">04.13 · 조회 1,241</span></div><div class="cm-post-prev">구청 담당자에게 직접 확인한 내용입니다. 신청 기간은 이달 말까지이며...</div><div class="cm-post-ft"><span>👍 38</span><span>💬 12</span><span>by 인천사장님</span></div></div>
@@ -1535,13 +1536,14 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
     <!-- 모집 배너 -->
     <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--r);padding:28px;color:#fff;text-align:center;margin-bottom:20px">
       <div style="font-size:1.4rem;font-family:var(--fs);font-weight:900;margin-bottom:8px">🏢 AI플랫마켓 전국 지역본부 · 지사 모집</div>
-      <div style="font-size:.9rem;color:rgba(255,255,255,.8);margin-bottom:16px">국민경제㊉ 플랫폼과 함께 지역 경제를 이끌어갈 파트너를 모집합니다</div>
+      <div style="font-size:.88rem;color:var(--gold);font-weight:700;margin-bottom:6px">🚀 AI경제 시대! 합동사무실 & 지역 개발 상품 공동 운영 매장 가능한 분!</div>
+      <div style="font-size:.86rem;color:rgba(255,255,255,.8);margin-bottom:16px">국민경제㊉ 플랫폼과 함께 지역 경제를 이끌어갈 파트너를 모집합니다</div>
       <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:16px">
         <div style="background:rgba(255,255,255,.1);border-radius:var(--r);padding:12px 20px;text-align:center"><div style="font-size:1.2rem;font-weight:900;color:var(--gold)">본부</div><div style="font-size:.75rem;color:rgba(255,255,255,.7);margin-top:2px">시·도 단위</div></div>
         <div style="background:rgba(255,255,255,.1);border-radius:var(--r);padding:12px 20px;text-align:center"><div style="font-size:1.2rem;font-weight:900;color:var(--gold)">지사</div><div style="font-size:.75rem;color:rgba(255,255,255,.7);margin-top:2px">시·군·구 단위</div></div>
         <div style="background:rgba(255,255,255,.1);border-radius:var(--r);padding:12px 20px;text-align:center"><div style="font-size:1.2rem;font-weight:900;color:var(--gold)">대리점</div><div style="font-size:.75rem;color:rgba(255,255,255,.7);margin-top:2px">읍·면·동 단위</div></div>
       </div>
-      <button onclick="showBranchForm()" style="background:var(--gold);color:var(--navy);border:none;padding:12px 32px;border-radius:var(--r);font-size:.95rem;font-weight:800;cursor:pointer">📝 지역본부·지사 신청하기 →</button>
+      <button onclick="openBranchPopup()" style="background:var(--gold);color:var(--navy);border:none;padding:12px 32px;border-radius:var(--r);font-size:.95rem;font-weight:800;cursor:pointer">📝 지역본부·지사 신청하기 →</button>
     </div>
 
     <!-- 혜택 -->
@@ -1687,7 +1689,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         <div class="fg"><label class="fl">주력 아이템/메뉴 <span class="req">*</span></label><input id="rItem" class="fi" placeholder="예: 생삼겹살, 된장찌개"></div>
         <div class="fg"><label class="fl">업체 소개</label><textarea id="rDesc" class="fi" rows="3" style="resize:vertical" placeholder="특징, 분위기, 강점을 자유롭게..."></textarea></div>
         <div class="fg"><label class="fl">이메일</label><input id="rEmail" class="fi" type="email" placeholder="example@email.com"></div>
-        <div style="background:var(--g1);border:var(--bd);border-radius:4px;padding:9px;font-size:.74rem;color:var(--g4)">📋 입점 심사는 영업일 1-2일 이내 완료. AI가 홍보문구를 자동 생성합니다.</div>
+        <div style="background:var(--g1);border:var(--bd);border-radius:4px;padding:9px;font-size:.74rem;color:var(--g4)">📋 입점 심사 후 관리자 승인 시 시·군·구·읍·면·동 단위까지 해당 지역에 자동 노출됩니다. AI 홍보문구도 자동 생성됩니다.</div>
       </div>
       <div class="ff"><button class="btn-cn" onclick="showPage('home')">취소</button><button class="btn-sm" onclick="doRegister()">신청서 제출하기 →</button></div>
     </div>
@@ -1727,7 +1729,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
       <div class="ft-links">
         <a href="#">이용약관</a>
         <a href="#">개인정보처리방침</a>
-        <a href="#">광고문의</a>
+        <a href="#" onclick="showPage('adcontact');return false">광고문의</a>
         <a href="#" onclick="showPage('register');return false">입점문의</a>
         <a href="#" onclick="showPage('community');return false">커뮤니티</a>
       </div>
@@ -1851,7 +1853,114 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 
 <div class="toast" id="toastEl"></div>
 
-<!-- ========== 검색 팝업 (확장판) ========== -->
+<!-- ========== 지역본부/지사 신청 팝업 ========== -->
+<div id="branchPopup" style="display:none;position:fixed;inset:0;background:rgba(13,31,53,.65);z-index:4000;align-items:center;justify-content:center;padding:16px;overflow-y:auto">
+  <div style="background:#fff;border-radius:12px;max-width:560px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);max-height:90vh;display:flex;flex-direction:column">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 20px;border-radius:12px 12px 0 0;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0">
+      <div>
+        <div style="font-size:1rem;font-weight:900;font-family:var(--fs)">🏢 지역본부 · 지사 신청</div>
+        <div style="font-size:.72rem;color:var(--gold);margin-top:3px;font-weight:700">🚀 AI경제 시대! 합동사무실 & 지역 개발 상품 공동 운영 매장 가능한 분!</div>
+      </div>
+      <button onclick="closeBranchPopup()" style="background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">✕</button>
+    </div>
+    <div style="padding:20px;overflow-y:auto;flex:1;display:grid;gap:12px">
+      <input class="fi" id="bpName" placeholder="신청자 성명 *">
+      <input class="fi" id="bpPhone" type="tel" placeholder="연락처 * (010-0000-0000)">
+      <input class="fi" id="bpEmail" type="email" placeholder="이메일">
+      <select class="fi" id="bpType">
+        <option value="">신청 유형 *</option>
+        <option>지역본부 (시·도)</option>
+        <option>지사 (시·군·구)</option>
+        <option>대리점 (읍·면·동)</option>
+        <option>합동사무실 운영</option>
+        <option>지역 공동 운영 매장</option>
+      </select>
+      <input class="fi" id="bpRegion" placeholder="희망 지역 (예: 인천광역시 남동구 구월동)">
+      <textarea class="fi" rows="3" id="bpDesc" placeholder="자기소개 및 지원 동기 (합동사무실·공동매장 운영 경험 포함)" style="resize:vertical"></textarea>
+      <div style="background:var(--g1);border-radius:var(--r);padding:10px;font-size:.74rem;color:var(--g4)">
+        📋 심사 후 2~3일 이내 담당자 연락드립니다. 지역본부·지사·합동사무실·공동 운영 매장 모두 문의 가능합니다.
+      </div>
+    </div>
+    <div style="padding:14px 20px;border-top:var(--bd);background:var(--g1);border-radius:0 0 12px 12px;display:flex;gap:8px;justify-content:flex-end;flex-shrink:0">
+      <button onclick="closeBranchPopup()" style="background:#fff;border:var(--bd);color:var(--g4);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.84rem">취소</button>
+      <button onclick="submitBranchPopup()" style="background:var(--gold);color:var(--navy);border:none;padding:8px 20px;border-radius:6px;font-size:.84rem;font-weight:800;cursor:pointer">📝 신청서 제출하기 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 광고문의 페이지 ========== -->
+<div id="page-adcontact" class="pg">
+  <div class="sp-page">
+    <div class="sh"><div class="sh-t">📢 광고 문의 · 신청</div></div>
+    <!-- 광고 종류 카드 -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px">
+      <div style="border:2px solid var(--navy);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#f0f4f8'" onmouseout="this.style.background=''">
+        <div style="font-size:1.8rem;margin-bottom:8px">📺</div>
+        <div style="font-weight:800;color:var(--navy);margin-bottom:4px">라이브 홈쇼핑 광고</div>
+        <div style="font-size:.78rem;color:var(--g4)">CH1~CH4 라이브 방송 중 제품·서비스 노출</div>
+        <div style="margin-top:8px;font-size:.8rem;color:var(--red);font-weight:700">문의 시 견적 제공</div>
+      </div>
+      <div style="border:2px solid var(--gold);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#fdf8ee'" onmouseout="this.style.background=''">
+        <div style="font-size:1.8rem;margin-bottom:8px">⭐</div>
+        <div style="font-weight:800;color:var(--navy);margin-bottom:4px">프리미엄 입점 광고</div>
+        <div style="font-size:.78rem;color:var(--g4)">업체 목록 최상단 노출 + AI 홍보문구 자동생성</div>
+        <div style="margin-top:8px;font-size:.8rem;color:var(--gold);font-weight:700">월 정액제</div>
+      </div>
+      <div style="border:2px solid var(--grn);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#f0faf4'" onmouseout="this.style.background=''">
+        <div style="font-size:1.8rem;margin-bottom:8px">📋</div>
+        <div style="font-weight:800;color:var(--navy);margin-bottom:4px">지역생활광고 게재</div>
+        <div style="font-size:.78rem;color:var(--g4)">PDF·이미지 광고물 지역 주민 대상 노출</div>
+        <div style="margin-top:8px;font-size:.8rem;color:var(--grn);font-weight:700">건당 게재</div>
+      </div>
+      <div style="border:var(--bd);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--g1)'" onmouseout="this.style.background=''">
+        <div style="font-size:1.8rem;margin-bottom:8px">🤖</div>
+        <div style="font-weight:800;color:var(--navy);margin-bottom:4px">AI 마케팅 패키지</div>
+        <div style="font-size:.78rem;color:var(--g4)">AI 홍보문구 + SNS 콘텐츠 + 배너 자동생성</div>
+        <div style="margin-top:8px;font-size:.8rem;color:var(--blue);font-weight:700">ChatDoumi 연동</div>
+      </div>
+    </div>
+    <!-- 광고 신청 폼 -->
+    <div style="border:2px solid var(--navy);border-radius:var(--r);overflow:hidden;max-width:640px;margin:0 auto">
+      <div style="background:var(--navy);color:#fff;padding:16px 20px;font-weight:900;font-size:.95rem">📝 광고 신청서</div>
+      <div style="padding:20px;background:#fff;display:grid;gap:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label class="fl">업체/회사명 <span class="req">*</span></label><input class="fi" id="adcBiz" placeholder="업체명"></div>
+          <div><label class="fl">담당자 <span class="req">*</span></label><input class="fi" id="adcName" placeholder="담당자 성명"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label class="fl">연락처 <span class="req">*</span></label><input class="fi" id="adcPhone" type="tel" placeholder="010-0000-0000"></div>
+          <div><label class="fl">이메일</label><input class="fi" id="adcEmail" type="email" placeholder="email@example.com"></div>
+        </div>
+        <div><label class="fl">광고 종류 <span class="req">*</span></label>
+          <select class="fi" id="adcType">
+            <option value="">선택</option>
+            <option>라이브 홈쇼핑 광고</option>
+            <option>프리미엄 입점 광고</option>
+            <option>지역생활광고 게재</option>
+            <option>AI 마케팅 패키지</option>
+            <option>기타 광고 문의</option>
+          </select>
+        </div>
+        <div><label class="fl">희망 지역</label><input class="fi" id="adcRegion" placeholder="예: 인천 남동구 또는 전국"></div>
+        <div><label class="fl">광고 예산 (월)</label>
+          <select class="fi" id="adcBudget">
+            <option value="">선택</option>
+            <option>10만원 미만</option><option>10~30만원</option>
+            <option>30~50만원</option><option>50~100만원</option>
+            <option>100만원 이상</option><option>협의</option>
+          </select>
+        </div>
+        <div><label class="fl">광고 내용 / 요청사항</label>
+          <textarea class="fi" id="adcContent" rows="3" placeholder="광고하고 싶은 제품·서비스, 목표 고객, 기간 등을 자유롭게 입력해주세요." style="resize:vertical"></textarea>
+        </div>
+        <div style="background:var(--g1);border-radius:4px;padding:10px;font-size:.74rem;color:var(--g4)">
+          📋 신청 후 1~2 영업일 이내 담당자가 연락드립니다. · 문의: admin@aiplatmarket.kr
+        </div>
+        <button onclick="submitAdContact()" style="background:var(--navy);color:#fff;border:none;padding:12px;border-radius:var(--r);font-size:.92rem;font-weight:800;cursor:pointer">광고 신청서 제출하기 →</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="srch-pop" id="srchPop" onclick="if(event.target===this)closeSearchPop()">
   <div class="srch-pop-box">
     <div class="srch-pop-hd">
@@ -1921,7 +2030,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         <a class="srch-portal" href="https://chatdoumi.com" target="_blank" style="border-color:var(--navy);color:var(--navy);font-weight:800"><span class="ico">🤖</span>챗도우미</a>
         <a class="srch-portal" href="https://chat.openai.com" target="_blank"><span class="ico">🟢</span>ChatGPT</a>
         <a class="srch-portal" href="https://claude.ai" target="_blank"><span class="ico">🟠</span>Claude</a>
-        <a class="srch-portal" href="https://gemini.google.com" target="_blank"><span class="ico">🔵</span>Gemini</a>
+        <a class="srch-portal" href="https://gemini.google.com" target="_blank" title="Gemini Enterprise Agent Platform (2026.04)"><span class="ico">🔵</span>Gemini✦</a>
         <a class="srch-portal" href="https://www.perplexity.ai" target="_blank"><span class="ico">🔮</span>Perplexity</a>
         <a class="srch-portal" href="https://copilot.microsoft.com" target="_blank"><span class="ico">⚡</span>Copilot</a>
         <a class="srch-portal" href="https://grok.x.ai" target="_blank"><span class="ico">𝕏</span>Grok</a>
@@ -2602,6 +2711,20 @@ function showPage(id) {
   document.querySelectorAll('.pg').forEach(e=>e.classList.remove('act'));
   const tgt=document.getElementById('page-'+id);
   if(tgt)tgt.classList.add('act');
+  // 뉴스 페이지 진입 시 상태 초기화
+  if (id === 'news') {
+    currentNewsCat = '전체';
+    currentNewsReg = 'all';
+    _newsPool = [];
+    document.querySelectorAll('.news-cat').forEach(b=>b.classList.remove('act'));
+    const firstCat = document.querySelector('.news-cat');
+    if (firstCat) firstCat.classList.add('act');
+    document.querySelectorAll('.news-reg-btn').forEach(b=>b.classList.remove('act'));
+    const allBtn = document.getElementById('newsAllBtn');
+    if (allBtn) allBtn.classList.add('act');
+    document.getElementById('newsRegSelLbl') && (document.getElementById('newsRegSelLbl').textContent='');
+    renderNewsGrid();
+  }
   document.querySelectorAll('.gnb-top .gi, .gnb-sub .gi').forEach(e=>e.classList.remove('act'));
   const gMap={home:0,news:1};
   const gis=document.querySelectorAll('.gnb-top .gi');
@@ -2612,10 +2735,17 @@ function showPage(id) {
 
 /* ── 입점 신청 ── */
 async function doRegister() {
+  const sido    = document.getElementById('rSido')?.value||'';
+  const sigungu = document.getElementById('rSigungu')?.value||'';
+  const dong    = document.getElementById('rDong')?.value||'';
+  const regionFull = [sido, sigungu, dong].filter(Boolean).join(' ');
   const data={
     name:document.getElementById('rName').value.trim(),
     owner:document.getElementById('rOwner').value.trim(),
-    region:(document.getElementById('rSido').value||'')+' '+(document.getElementById('rSigungu').value||''),
+    region: regionFull,
+    regionSido: sido,
+    regionSigungu: sigungu,
+    regionDong: dong,
     category:document.getElementById('rCat').value,
     phone:document.getElementById('rPhone').value.trim(),
     item:document.getElementById('rItem').value.trim(),
@@ -3073,21 +3203,87 @@ document.addEventListener('click', function(e) {
 
 /* ── 소상공인상생회 2단계 서브 ── */
 function showSmeSub(subId, wrapId) {
-  document.querySelectorAll('.sme-sub').forEach(s => {
-    if (s.id !== subId) s.style.display = 'none';
-  });
-  const sub = document.getElementById(subId);
-  if (sub) {
-    sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
-    // position 보정
-    const wrap = document.getElementById(wrapId);
-    if (wrap) {
-      const r = wrap.getBoundingClientRect();
-      sub.style.top  = '0px';
-      sub.style.left = (wrap.offsetWidth) + 'px';
-    }
+  document.querySelectorAll('.sme-sub').forEach(s => { if(s.id!==subId) s.style.display='none'; });
+  const sub  = document.getElementById(subId);
+  const wrap = document.getElementById(wrapId);
+  if (!sub || !wrap) return;
+  if (sub.style.display === 'block') { sub.style.display='none'; return; }
+  const r = wrap.getBoundingClientRect();
+  sub.style.display = 'block';
+  sub.style.top  = r.top + 'px';
+  sub.style.left = (r.right + 4) + 'px';
+  // 화면 밖으로 나가면 왼쪽으로
+  const sw = sub.offsetWidth || 150;
+  if (r.right + sw + 8 > window.innerWidth) {
+    sub.style.left = Math.max(4, r.left - sw - 4) + 'px';
   }
 }
+
+/* ── 지역본부 팝업 ── */
+function openBranchPopup() {
+  document.getElementById('branchPopup').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeBranchPopup() {
+  document.getElementById('branchPopup').style.display = 'none';
+  document.body.style.overflow = '';
+}
+async function submitBranchPopup() {
+  const name   = document.getElementById('bpName')?.value.trim();
+  const phone  = document.getElementById('bpPhone')?.value.trim();
+  const type   = document.getElementById('bpType')?.value;
+  const region = document.getElementById('bpRegion')?.value.trim();
+  const desc   = document.getElementById('bpDesc')?.value.trim();
+  if (!name || !phone || !type) { toast('❗ 성명, 연락처, 유형은 필수입니다.'); return; }
+  try {
+    await fetch('/api/branch', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name, phone, type, region, desc })
+    });
+  } catch(_) {}
+  toast(`✅ ${name}님의 ${type} 신청 완료! 2~3일 내 연락드립니다.`);
+  closeBranchPopup();
+  ['bpName','bpPhone','bpEmail','bpRegion','bpDesc'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('bpType') && (document.getElementById('bpType').value='');
+}
+
+/* ── 광고문의 ── */
+async function submitAdContact() {
+  const biz   = document.getElementById('adcBiz')?.value.trim();
+  const name  = document.getElementById('adcName')?.value.trim();
+  const phone = document.getElementById('adcPhone')?.value.trim();
+  const type  = document.getElementById('adcType')?.value;
+  if (!biz || !phone || !type) { toast('❗ 업체명, 연락처, 광고종류는 필수입니다.'); return; }
+  try {
+    await fetch('/api/ad-request', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ biz, name, phone, email: document.getElementById('adcEmail')?.value, type, region: document.getElementById('adcRegion')?.value, budget: document.getElementById('adcBudget')?.value, content: document.getElementById('adcContent')?.value })
+    });
+  } catch(_) {}
+  toast('✅ 광고 신청 완료! 1~2 영업일 내 담당자가 연락드립니다.');
+  ['adcBiz','adcName','adcPhone','adcEmail','adcRegion','adcContent'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('adcType') && (document.getElementById('adcType').value='');
+  document.getElementById('adcBudget') && (document.getElementById('adcBudget').value='');
+}
+
+/* ── 7. 뉴스 자동수집 스케줄 (30분마다 캐시 갱신 트리거) ── */
+setInterval(async () => {
+  try {
+    await fetch('/api/news?cat=전체&source=all&display=10');
+    await fetch('/api/breaking');
+    // 현재 뉴스 페이지 보고 있으면 자동 갱신
+    if (document.getElementById('page-news')?.classList.contains('act')) {
+      renderNewsGrid();
+    }
+    // 속보 갱신
+    fetch('/api/breaking').then(r=>r.json()).then(data=>{
+      if (data.ok && data.items?.length) {
+        const el = document.querySelector('.t-in');
+        if (el) el.innerHTML = data.items.map(t=>`<span class="t-item">${t}</span>`).join('');
+      }
+    }).catch(()=>{});
+  } catch(_) {}
+}, 30 * 60 * 1000); // 30분
 
 /* ── 토스트 ── */
 function toast(msg) {
