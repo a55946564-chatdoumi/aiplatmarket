@@ -263,16 +263,24 @@ async function fetchGmail() {
                   cat = classifyNewswire(subject, fullText); // 뉴스와이어 자동 분류
                 }
 
+                // 이메일 본문에서 개별 기사 링크 추출
+                const htmlContent = mail.html || '';
+                const firstLink = (() => {
+                  const m = /href=["'](https?:\/\/(?!.*(?:unsubscribe|tracking|pixel|click\.php))[^"'>\s]+)["']/i.exec(htmlContent);
+                  return m ? m[1] : '#';
+                })();
+
                 results.push({
-                  title:    subject,
-                  desc:     aiSummarize(fullText, 200),
-                  fullText: fullText.slice(0, 1500),
-                  date:     mail.date?.toISOString() || new Date().toISOString(),
+                  title:     subject,
+                  desc:      aiSummarize(fullText, 200),
+                  fullText:  fullText.slice(0, 2000),
+                  emailHtml: htmlContent.slice(0, 5000), // 링크 추출용
+                  date:      mail.date?.toISOString() || new Date().toISOString(),
                   from,
                   cat,
-                  link:     '#',
-                  origin:   'email',
-                  source:   from.includes('newswire') ? '뉴스와이어' : '생활과학',
+                  link:      firstLink, // 첫 번째 기사 링크
+                  origin:    'email',
+                  source:    from.includes('newswire') ? '뉴스와이어' : '생활과학',
                 });
               });
             });
