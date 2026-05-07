@@ -292,7 +292,77 @@ async function fetchGmail() {
   });
 }
 
-/* ── 카테고리별 키워드 매핑 ── */
+/* ════════════════════════════════════
+   뉴스와이어 RSS 수집
+   https://api.newswire.co.kr/rss/all
+════════════════════════════════════ */
+const NEWSWIRE_RSS = 'https://api.newswire.co.kr/rss/all';
+
+async function fetchNewswireRSS() {
+  const key = 'rss:newswire';
+  const hit = getCache(key);
+  if (hit) return hit;
+
+  try {
+    const xml = await fetchUrl(NEWSWIRE_RSS, { 'User-Agent': 'Mozilla/5.0 AI플랫마켓 RSS Reader' });
+
+    // RSS 아이템 파싱
+    const items = [];
+    const itemRe = /<item>([\s\S]*?)<\/item>/g;
+    let m;
+    while ((m = itemRe.exec(xml)) !== null && items.length < 50) {
+      const b = m[1];
+      const title   = (/<title><!\[CDATA\[(.*?)\]\]>/.exec(b) || /<title>(.*?)<\/title>/.exec(b))?.[1] || '';
+      const link    = (/<link>(.*?)<\/link>/.exec(b))?.[1]?.trim() || '#';
+      const desc    = (/<description><!\[CDATA\[(.*?)\]\]>/.exec(b) || /<description>(.*?)<\/description>/.exec(b))?.[1] || '';
+      const date    = (/<pubDate>(.*?)<\/pubDate>/.exec(b))?.[1] || '';
+      const catRaw  = (/<category><!\[CDATA\[(.*?)\]\]>/.exec(b) || /<category>(.*?)<\/category>/.exec(b))?.[1] || '';
+
+      if (!title || title.length < 5) continue;
+
+      // 민감 정보 필터
+      if (isSensitive(title, desc)) continue;
+      if (aiSummarize(desc, 10).length < 5) continue;
+
+      const cat = classifyNewswire(title, desc);
+
+      items.push({
+        title:   title.replace(/<[^>]+>/g, '').trim(),
+        desc:    aiSummarize(desc, 200),
+        link:    link,
+        date:    date ? new Date(date).toISOString() : new Date().toISOString(),
+        source:  '뉴스와이어',
+        cat,
+        origin:  'rss',
+        catRaw,
+      });
+    }
+
+    setCache(key, items);
+    console.log(`[뉴스와이어 RSS] ${items.length}건 수집`);
+    return items;
+  } catch (e) {
+    console.error('[뉴스와이어 RSS]', e.message);
+    return [];
+  }
+}
+
+/* ── 소상공인 관련 키워드 필터 (RSS) ── */
+const RELEVANT_KW = [
+  '소상공인','자영업','창업','폐업','매출','상권','전통시장','골목상권',
+  'AI','인공지능','IT','디지털','플랫폼','스마트','로컬','지역',
+  '지원금','정책','공모','모집','세금','혜택','보조금','대출',
+  '농업','수산','식품','유통','직거래','로컬푸드',
+  '부동산','임차','임대','상가','점포',
+  '채용','일자리','취업','구인','고용',
+  '지방자치','행정','시청','구청','군청',
+  '과학','기술','연구','특허','발명',
+  '축제','행사','이벤트','공연','문화',
+];
+function isRelevant(title = '', desc = '') {
+  const combined = (title + ' ' + desc).toLowerCase();
+  return RELEVANT_KW.some(kw => combined.includes(kw));
+}
 const KEYWORD_MAP = {
   전체:'소상공인', 경제:'소상공인 경제 매출', 창업:'소상공인 창업 지원',
   IT:'소상공인 AI IT 디지털', 농수산:'로컬푸드 농수산 직거래',
@@ -340,6 +410,20 @@ app.get('/api/news', async (req, res) => {
     } catch(e) { result.warnings.push('google: '+e.message); }
   }
 
+  /* 뉴스와이어 RSS: 카테고리 필터 후 병합 */
+  if (source === 'all' || source === 'rss') {
+    try {
+      const rssAll  = await fetchNewswireRSS();
+      const matched = rssAll.filter(n =>
+        (cat === '전체' || n.cat === cat) && isRelevant(n.title, n.desc)
+      );
+      // 중복 제거
+      const exists = new Set(result.items.map(n => n.title));
+      result.items.push(...matched.filter(n => !exists.has(n.title)));
+      if (matched.length > 0) result.sources.push('rss');
+    } catch(e) { result.warnings.push('rss: ' + e.message); }
+  }
+
   /* Gmail 뉴스레터: 카테고리 필터 후 해당 cat 기사만 병합 */
   if ((source==='all'||source==='email') && GMAIL_USER && GMAIL_PASS) {
     try {
@@ -358,8 +442,33 @@ app.get('/api/news', async (req, res) => {
 
 /* ── 속보 ── */
 app.get('/api/breaking', async (req, res) => {
-  try { res.json({ ok:true, items:(await naverNews('소상공인 속보',6)).map(n=>'📌 '+n.title) }); }
-  catch(e) { res.json({ ok:false, items:['📌 AI플랫마켓 소상공인 지원 프로그램 시작','🔥 인천 남동구 오늘의 특가','📊 2026 소상공인 매출 18% 증가'] }); }
+  try {
+    const [naverItems, rssItems] = await Promise.allSettled([
+      naverNews('소상공인 속보', 4),
+      fetchNewswireRSS(),
+    ]);
+    const naver = naverItems.status === 'fulfilled' ? naverItems.value.slice(0,4) : [];
+    const rss   = rssItems.status  === 'fulfilled'
+      ? rssItems.value.filter(n => isRelevant(n.title,n.desc)).slice(0,3)
+      : [];
+    const all   = [...naver, ...rss].map(n => '📌 ' + n.title);
+    res.json({ ok: true, items: all.length ? all : DEFAULT_BREAKING });
+  } catch(e) {
+    res.json({ ok: false, items: DEFAULT_BREAKING });
+  }
+});
+
+/* ── 뉴스와이어 RSS 전용 ── */
+app.get('/api/rss/newswire', async (req, res) => {
+  const { cat = '전체' } = req.query;
+  try {
+    const all     = await fetchNewswireRSS();
+    const relevant = all.filter(n => isRelevant(n.title, n.desc));
+    const items   = cat === '전체' ? relevant : relevant.filter(n => n.cat === cat);
+    res.json({ ok: true, total: all.length, filtered: items.length, items });
+  } catch(e) {
+    res.json({ ok: false, error: e.message, items: [] });
+  }
 });
 
 /* ── 뉴스레터 전용 ── */
