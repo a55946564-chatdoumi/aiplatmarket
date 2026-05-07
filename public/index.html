@@ -428,8 +428,41 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .cm-badge{font-size:.62rem;padding:2px 6px;border-radius:3px;font-weight:700}
 .cm-write{background:var(--navy);color:#fff;border:none;padding:8px 18px;border-radius:var(--r);font-size:.84rem;font-weight:700;float:right;margin-bottom:12px}
 /* 뉴스 */
-.news-page{padding:22px var(--pad)}
+.news-page{padding:16px var(--pad)}
 .ng{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+
+/* === 뉴스 — 전문 언론사 스타일 === */
+/* 페이지 상단 제목 구분선 */
+.nc-col-hd{font-size:.7rem;font-weight:900;color:#fff;letter-spacing:1px;background:var(--navy);padding:5px 10px;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+/* 히어로 기사 */
+.nc-hero{cursor:pointer;margin-bottom:10px;border-bottom:1px solid var(--g2);padding-bottom:10px}
+.nc-hero:hover .nc-hero-ttl{color:var(--red)}
+/* 뉴스 아이템 */
+.nc-item{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--g2);cursor:pointer;align-items:flex-start}
+.nc-item:hover .nc-item-ttl{color:var(--red)}
+.nc-item-ttl{font-size:.82rem;font-weight:700;color:var(--navy);line-height:1.38}
+.nc-num{font-family:var(--fs);font-size:1.1rem;font-weight:900;width:20px;flex-shrink:0;text-align:center;line-height:1.2}
+.t1{color:var(--red)}.t2{color:var(--red);opacity:.7}.t3{color:var(--gold)}
+/* 카드형 기사 */
+.nc-card{border:none;border-radius:0;overflow:hidden;cursor:pointer;margin-bottom:10px;border-bottom:1px solid var(--g2);padding-bottom:10px;transition:none}
+.nc-card:hover .nc-card-ttl{color:var(--red)}
+.nc-card:hover{box-shadow:none}
+.nc-card-img{height:100px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;border-radius:4px;margin-bottom:6px}
+.nc-card-ttl{font-size:.82rem;font-weight:700;color:var(--navy);line-height:1.38;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* 미니 리스트 */
+.nc-mini{font-size:.78rem;color:var(--text);padding:6px 0;border-bottom:1px dotted var(--g2);cursor:pointer;line-height:1.38;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.nc-mini:hover{color:var(--red)}
+/* 랭킹 */
+.nc-rank{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--g2);cursor:pointer}
+.nc-rank:hover .nr-ttl{color:var(--red)}
+.nr-ttl{font-size:.78rem;font-weight:600;color:var(--navy);line-height:1.38}
+/* 메타 */
+.nc-meta{font-size:.67rem;color:var(--g4);margin-top:3px}
+/* 태그 */
+.nc-tags{display:flex;gap:4px;margin-bottom:5px;flex-wrap:wrap}
+/* 열 구분선 */
+.news-col{border-right:1px solid var(--g2);padding-right:12px;padding-left:4px}
+.news-col:last-child{border-right:none}
 
 /* === 뉴스 4열 그리드 === */
 .news-4col{display:grid;grid-template-columns:1fr 1.3fr 1.3fr 0.9fr;gap:14px}
@@ -458,10 +491,12 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .nr-n{font-family:var(--fs);font-size:.9rem;font-weight:900;width:16px;flex-shrink:0;text-align:center}
 .nr-ttl{font-size:.78rem;font-weight:600;color:var(--navy);line-height:1.35}
 .nc-rank:hover .nr-ttl{color:var(--red)}
-.news-reg-btn{background:var(--g1);border:var(--bd);color:var(--g4);padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
-.news-reg-btn:hover,.news-reg-btn.act{background:var(--navy);color:#fff;border-color:var(--navy)}
-.news-cat{padding:7px 14px;font-size:.8rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;color:var(--g4);transition:all .18s;white-space:nowrap;flex-shrink:0}
-.news-cat.act{color:var(--red);border-bottom-color:var(--red)}
+.news-reg-btn{background:#fff;border:1px solid #ccc;color:var(--g4);padding:3px 10px;border-radius:3px;font-size:.7rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.news-reg-btn:hover{background:var(--g1);border-color:var(--navy);color:var(--navy)}
+.news-reg-btn.act{background:var(--navy);color:#fff;border-color:var(--navy)}
+.news-cat{padding:6px 13px;font-size:.78rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;color:var(--g4);transition:all .18s;white-space:nowrap;flex-shrink:0;border-radius:3px 3px 0 0}
+.news-cat:hover{color:var(--navy);background:var(--g1)}
+.news-cat.act{color:#fff;border-bottom-color:var(--red);background:var(--red)}
 /* 지역광고 4열 */
 .ad-4col{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px}
 .ad-card{border:var(--bd);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .15s;background:#fff}
@@ -504,9 +539,10 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .cd-fab:hover{transform:scale(1.1)}
 /* 모바일 반응형 */
 @media(max-width:900px){
-  .news-4col{display:flex;overflow-x:auto;gap:10px;padding-bottom:6px;scrollbar-width:none}
-  .news-4col::-webkit-scrollbar{display:none}
-  .news-col{min-width:calc(100vw - 24px);max-width:calc(100vw - 24px);flex-shrink:0;box-sizing:border-box}
+  .news-4col{display:flex;overflow-x:auto;gap:0;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;scroll-snap-type:x mandatory}
+  .news-4col::-webkit-scrollbar{height:3px}
+  .news-4col::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
+  .news-col{min-width:100vw;max-width:100vw;flex-shrink:0;box-sizing:border-box;scroll-snap-align:start;padding:0 8px}
   .ad-4col{grid-template-columns:1fr 1fr;gap:8px}
   .srch-pop{padding-top:16px}
 }
@@ -2904,8 +2940,39 @@ function filterNewsCat(cat, el) {
   toast(`📌 ${cat}`);
 }
 
+/* ── 임의 보조 기사 (실제 기사 부족 시 보완) ── */
+const DUMMY_RANK = [
+  { title:'2026년 소상공인 지원 정책 완전 정리', desc:'정부의 각종 소상공인 지원 정책을 한눈에 정리했습니다.', link:'https://search.naver.com/search.naver?query=소상공인+지원정책+2026', date:new Date().toISOString(), source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  { title:'배달앱 수수료 비교 — 쿠팡이츠·배민·요기요', desc:'주요 배달앱의 수수료 구조와 절감 방법을 비교 분석합니다.', link:'https://search.naver.com/search.naver?query=배달앱+수수료+비교', date:new Date().toISOString(), source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  { title:'AI 홍보문구 자동생성 무료 서비스 TOP3', desc:'소상공인이 무료로 쓸 수 있는 AI 홍보문구 생성 서비스를 소개합니다.', link:'https://chatdoumi.com', date:new Date().toISOString(), source:'ChatDoumi', cat:'IT', origin:'dummy' },
+  { title:'우리 동네 인기 창업 아이템 20선 (2026)', desc:'AI가 분석한 지역별 유망 창업 아이템을 공개합니다.', link:'https://search.naver.com/search.naver?query=2026+유망창업아이템', date:new Date().toISOString(), source:'AI플랫마켓', cat:'창업', origin:'dummy' },
+  { title:'상가 임차료 지원 받는 법 A-Z', desc:'정부·지자체 임차료 지원 제도 신청 방법을 단계별로 안내합니다.', link:'https://search.naver.com/search.naver?query=소상공인+임차료+지원', date:new Date().toISOString(), source:'AI플랫마켓', cat:'부동산', origin:'dummy' },
+  { title:'카드 수수료 0% 적용 소상공인 신청 방법', desc:'여신전문금융업법에 따른 영세·중소가맹점 수수료 우대 신청 안내입니다.', link:'https://search.naver.com/search.naver?query=소상공인+카드수수료+0%', date:new Date().toISOString(), source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  { title:'2026 최저임금 소상공인 대응 전략', desc:'최저임금 인상에 대응하는 인건비 절감 및 업무 효율화 방법을 소개합니다.', link:'https://search.naver.com/search.naver?query=2026+최저임금+소상공인', date:new Date().toISOString(), source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  { title:'네이버 플레이스 최적화 2026년 완전 가이드', desc:'네이버 플레이스 노출을 극대화하는 2026년 최신 방법을 단계별로 안내합니다.', link:'https://search.naver.com/search.naver?query=네이버플레이스+최적화+2026', date:new Date().toISOString(), source:'AI플랫마켓', cat:'IT', origin:'dummy' },
+  { title:'전통시장 온라인 입점 성공 사례 10선', desc:'전통시장 상인들이 온라인 판매로 매출을 늘린 성공 사례를 소개합니다.', link:'https://search.naver.com/search.naver?query=전통시장+온라인판매+성공', date:new Date().toISOString(), source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  { title:'소상공인 법률 무료 상담 신청 방법', desc:'대한법률구조공단 소상공인 법률 상담 서비스 이용 방법을 안내합니다.', link:'https://www.klac.or.kr', date:new Date().toISOString(), source:'법률구조공단', cat:'사회', origin:'dummy' },
+];
+
+/* ── 3. 과학향기 이메일에서 기사 링크 추출 ── */
+function extractEmailLinks(html='', text='') {
+  const links = [];
+  // HTML에서 href 링크 추출
+  const hrefRe = /href=["'](https?:\/\/[^"'>\s]+)["']/gi;
+  let m;
+  while ((m = hrefRe.exec(html)) !== null) {
+    const url = m[1];
+    // 구독취소·이미지·트래킹 링크 제외
+    if (/unsubscribe|tracking|pixel|click\.php|mailchimp|campaign/i.test(url)) continue;
+    if (/\.(jpg|jpeg|png|gif|webp|ico)/i.test(url)) continue;
+    links.push(url);
+  }
+  return [...new Set(links)].slice(0, 5); // 중복 제거, 최대 5개
+}
+
 /* ── 뉴스 API 호출 + 렌더링 (실시간) ── */
 let _newsPool = [];
+let _rankPool = [];
 
 async function renderNewsGrid() {
   const rankEl  = document.getElementById('newsRankList');
@@ -2955,16 +3022,27 @@ async function renderNewsGrid() {
       </div>`).join('') || '<div class="empty">뉴스 없음</div>';
   }
 
-  // 랭킹
+  // 랭킹: 실제 기사 + 더미 기사 병합 (최대 10개)
   if (rankEl) {
-    rankEl.innerHTML = pool.slice(0,10).map((n,i) => `
-      <div class="nc-rank" onclick="openNewsDetail2(${i})" style="cursor:pointer">
+    const merged = [...pool];
+    // 실제 기사가 10개 미만이면 더미로 보충
+    for (const d of DUMMY_RANK) {
+      if (merged.length >= 10) break;
+      if (!merged.some(n => n.title === d.title)) merged.push(d);
+    }
+    rankEl.innerHTML = merged.slice(0,10).map((n,i) => `
+      <div class="nc-rank" onclick="openNewsDetail3(${i},_rankPool)" style="cursor:pointer">
         <span class="nr-n ${i===0?'t1':i===1?'t2':i===2?'t3':''}">${i+1}</span>
         <div class="nr-ttl">${n.title}</div>
       </div>`).join('') || '<div style="padding:10px;color:var(--g4);font-size:.75rem">기사 없음</div>';
+    _rankPool = merged.slice(0,10);
   }
 }
 
+function openNewsDetail3(idx, pool) {
+  _newsPool = pool || _newsPool;
+  openNewsDetail2(idx);
+}
 function openNewsDetail2(idx) {
   const n = _newsPool[idx] || _newsPool[0];
   if (!n) return;
@@ -2998,8 +3076,12 @@ function openNewsDetail2(idx) {
     ${n.link && n.link!=='#' ? `
     <a href="${n.link}" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;padding:9px 18px;border-radius:6px;font-size:.82rem;font-weight:700;text-decoration:none;margin-bottom:12px">
-      🔗 원문 기사 전체 보기 →
+      🔗 원문 기사 보기 →
     </a>` : ''}
+    ${n.origin==='email' && n.emailHtml ? (() => {
+      const links = extractEmailLinks(n.emailHtml||'', n.desc||'');
+      return links.length ? `<div style="margin-top:8px"><div style="font-size:.72rem;font-weight:700;color:var(--g4);margin-bottom:5px">📎 관련 기사 바로가기</div><div style="display:flex;flex-direction:column;gap:5px">${links.map((l,i)=>`<a href="${l}" target="_blank" rel="noopener" style="font-size:.78rem;color:var(--blue);text-decoration:underline;padding:4px 0;border-bottom:1px solid var(--g2)">${i+1}. ${l.replace(/https?:\/\/(www\.)?/,'').slice(0,60)}${l.length>60?'...':''}</a>`).join('')}</div></div>` : '';
+    })() : ''}
     <div style="padding:10px;background:var(--g1);border-radius:6px;font-size:.72rem;color:var(--g4)">
       📌 네이버 뉴스 API · 구글 뉴스 · 이메일 뉴스레터 자동 수집 및 AI 재편집
     </div>`;
