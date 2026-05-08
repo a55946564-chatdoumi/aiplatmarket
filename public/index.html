@@ -122,7 +122,8 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
   .si-desc{font-size:.72rem;-webkit-line-clamp:2}
   .si-meta{font-size:.64rem}
   .si-thumb{height:70px}
-  .news-page,.sp-page,.live-page,.reg-wrap{padding:10px 8px;width:100%;box-sizing:border-box}
+  .news-page{padding:10px 0;width:100%;box-sizing:border-box;overflow:hidden}
+  .sp-page,.live-page,.reg-wrap{padding:10px 8px;width:100%;box-sizing:border-box}
   .ng{grid-template-columns:1fr}
   .fr{grid-template-columns:1fr}
   .panel-scroll{height:120px}
@@ -467,7 +468,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 /* === 뉴스 4열 그리드 === */
 .news-4col{display:grid;grid-template-columns:1fr 1.3fr 1.3fr 0.9fr;gap:14px}
 .news-col{min-width:0;overflow:hidden}
-.nc-col-hd{font-size:.72rem;font-weight:900;color:var(--g1);letter-spacing:1px;text-transform:uppercase;padding:0 0 6px;border-bottom:2px solid var(--red);margin-bottom:10px}
+/* nc-col-hd: 위에 정의됨 */
 .nc-hero{cursor:pointer;margin-bottom:10px}
 .nc-hero-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a3556,#0d1f35);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:8px}
 .nc-hero-ttl{font-family:var(--fs);font-size:.95rem;font-weight:700;color:var(--navy);line-height:1.4;margin-bottom:4px}
@@ -1403,7 +1404,21 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
 
     </div><!-- /news-4col -->
 
+    <!-- 뉴스 서브 페이지 오버레이 (지역복지·행사 등) -->
+    <div id="newsSubBack" style="display:none;align-items:center;gap:8px;padding:10px 0;margin-bottom:10px;border-bottom:var(--bd)">
+      <button onclick="closeNewsSubPage()" style="background:var(--navy);color:#fff;border:none;padding:5px 14px;border-radius:4px;font-size:.8rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px">← 지역경제뉴스로</button>
+      <span id="newsSubTitle" style="font-size:.82rem;color:var(--g4)"></span>
+    </div>
+    <div id="newsSubOverlay" style="display:none"></div>
+
     <!-- 뉴스 상세 모달 -->
+    <!-- 뉴스 서브 페이지 오버레이 (지역복지·행사 등) -->
+    <div id="newsSubBack" style="display:none;align-items:center;gap:8px;padding:10px 0;margin-bottom:10px;border-bottom:var(--bd)">
+      <button onclick="closeNewsSubPage()" style="background:var(--navy);color:#fff;border:none;padding:5px 14px;border-radius:4px;font-size:.8rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px">← 지역경제뉴스로</button>
+      <span id="newsSubTitle" style="font-size:.82rem;color:var(--g4)"></span>
+    </div>
+    <div id="newsSubOverlay" style="display:none"></div>
+
     <!-- 뉴스 상세 모달 -->
     <div id="newsDetailModal" style="display:none;position:fixed;inset:0;background:rgba(13,31,53,.65);z-index:3000;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto">
       <div style="background:#fff;border-radius:10px;max-width:680px;width:100%;margin:20px auto;box-shadow:0 20px 60px rgba(0,0,0,.3);display:flex;flex-direction:column;max-height:85vh">
@@ -2052,6 +2067,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         <a class="srch-portal" href="https://blog.naver.com/search/search.naver?query=" id="blogLink" target="_blank" onclick="portalSearch('blog')"><span class="ico">📝</span>블로그</a>
         <a class="srch-portal" href="https://shopping.naver.com/search/all?query=" id="shopLink" target="_blank" onclick="portalSearch('shop')"><span class="ico">🛒</span>쇼핑</a>
         <a class="srch-portal" href="https://www.youtube.com/results?search_query=" id="youtubeLink" target="_blank" onclick="portalSearch('youtube')"><span class="ico">▶</span>유튜브</a>
+        <a class="srch-portal" href="https://www.newswire.co.kr/newsSearch/?q=" id="newswireLink" target="_blank" onclick="portalSearch('newswire')"><span class="ico">📰</span>뉴스와이어</a>
       </div>
 
       <!-- AI 챗 포털 → 카테고리별 확장 -->
@@ -2743,7 +2759,15 @@ function addPdf(name,size) {
 }
 
 /* ── 페이지 전환 ── */
+// 뉴스 헤더 고정 유지 대상 페이지
+const NEWS_SUB_PAGES = ['welfare','event','localad','branch','reporter','good','startup','incident','newprod','bigsale'];
+
 function showPage(id) {
+  // 뉴스 서브 페이지면 page-news를 유지하고 서브콘텐츠 표시
+  if (NEWS_SUB_PAGES.includes(id)) {
+    showNewsSubPage(id);
+    return;
+  }
   document.querySelectorAll('.pg').forEach(e=>e.classList.remove('act'));
   const tgt=document.getElementById('page-'+id);
   if(tgt)tgt.classList.add('act');
@@ -3060,6 +3084,8 @@ function openNewsDetail2(idx) {
     <div style="font-size:.72rem;color:var(--g4);margin-bottom:14px;padding-bottom:10px;border-bottom:var(--bd)">
       ${date} · ${n.source||'AI플랫마켓'}
     </div>
+    <!-- 대표 이미지 -->
+    ${n.img ? `<img src="${n.img}" alt="" style="width:100%;max-height:200px;object-fit:cover;border-radius:6px;margin-bottom:12px" onerror="this.style.display='none'">` : ''}
     <!-- AI 재편집 요약 -->
     <div style="background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border-left:3px solid var(--blue);padding:12px 14px;border-radius:0 6px 6px 0;margin-bottom:14px;font-size:.84rem;line-height:1.75;color:#333">
       <div style="font-size:.66rem;font-weight:800;color:var(--blue);margin-bottom:6px;letter-spacing:.5px">🤖 AI 재편집 요약</div>
@@ -3212,6 +3238,7 @@ function portalSearch(portal) {
     navermap: `https://map.naver.com/v5/search/${q}`,
     blog:     `https://blog.naver.com/search/search.naver?query=${q}`,
     shop:     `https://shopping.naver.com/search/all?query=${q}`,
+    newswire: `https://www.newswire.co.kr/newsSearch/?q=${q}`,
   };
   if (urls[portal]) window.open(urls[portal], '_blank');
 }
@@ -3299,6 +3326,32 @@ function showSmeSub(subId, wrapId) {
   if (r.right + sw + 8 > window.innerWidth) {
     sub.style.left = Math.max(4, r.left - sw - 4) + 'px';
   }
+}
+
+/* ── 뉴스 서브 페이지: 헤더 유지하면서 내용 교체 ── */
+function showNewsSubPage(id) {
+  // page-news 활성화 유지
+  document.querySelectorAll('.pg').forEach(e=>e.classList.remove('act'));
+  document.getElementById('page-news')?.classList.add('act');
+  // newsSubContent 영역에 해당 페이지 내용 로드
+  const subArea = document.getElementById('newsSubOverlay');
+  const srcPage = document.getElementById('page-'+id+'-content') || document.getElementById('page-'+id);
+  if (subArea && srcPage) {
+    subArea.innerHTML = srcPage.querySelector('.sp-page')?.innerHTML || srcPage.innerHTML;
+    subArea.style.display = 'block';
+    subArea.scrollIntoView({ behavior:'smooth', block:'start' });
+    document.getElementById('newsSubBack').style.display = 'flex';
+  } else {
+    // fallback: 해당 페이지로 이동
+    document.querySelectorAll('.pg').forEach(e=>e.classList.remove('act'));
+    document.getElementById('page-'+id)?.classList.add('act');
+  }
+}
+function closeNewsSubPage() {
+  const sub = document.getElementById('newsSubOverlay');
+  if (sub) { sub.style.display='none'; sub.innerHTML=''; }
+  document.getElementById('newsSubBack').style.display = 'none';
+  document.getElementById('newsGrid').style.display = '';
 }
 
 /* ── 지역본부 팝업 ── */
