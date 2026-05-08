@@ -389,17 +389,28 @@ app.get('/api/news', async (req, res) => {
   const result  = { cat, items:[], sources:[], warnings:[] };
 
   /* 이메일 전용 카테고리 */
-  if (['생활과학'].includes(cat)) {
-    if (!GMAIL_USER||!GMAIL_PASS)
-      return res.json({ ...result, error:'Gmail 미설정', items: getFallback(cat) });
+  if (cat === '생활과학') {
+    // 과학향기 RSS 우선, Gmail fallback
     try {
-      const all = await fetchGmail();
-      result.items = all.filter(n=>n.cat===cat||n.source===cat);
-      result.sources = ['email'];
+      const rssItems = await fetchScentRSS();
+      result.items   = rssItems;
+      result.sources = ['rss:scent'];
       return res.json(result);
     } catch(e) {
-      return res.json({ ...result, error:e.message, items:getFallback(cat) });
+      result.warnings.push('scent_rss: '+e.message);
     }
+    // Gmail fallback
+    if (GMAIL_USER && GMAIL_PASS) {
+      try {
+        const all = await fetchGmail();
+        result.items   = all.filter(n=>n.cat===cat||n.source===cat);
+        result.sources = ['email'];
+        return res.json(result);
+      } catch(e2) {
+        return res.json({ ...result, error:e2.message, items:getFallback(cat) });
+      }
+    }
+    return res.json({ ...result, items: getFallback(cat) });
   }
 
   /* 네이버 */
@@ -606,4 +617,73 @@ app.listen(PORT, ()=>{
   console.log(`📰 네이버API : ${NAVER_ID  ? '✅ 연동됨' : '❌ 미설정'}`);
   console.log(`📧 Gmail    : ${GMAIL_USER ? '✅ 연동됨' : '❌ 미설정'}`);
   if (ADMIN_TOKEN==='dev-token-change-me') console.warn('⚠️  ADMIN_TOKEN 변경 필요!');
+});
+
+/* ════════════════════════════════════
+   4. 과학향기 RSS 수집 (이메일 대체)
+   에피소드: https://scent.kisti.re.kr/site/main/feed/rss/kidsepisode
+   스토리:   https://scent.kisti.re.kr/site/main/feed/rss/story
+   동영상:   https://scent.kisti.re.kr/site/main/feed/rss/kidsmovie
+════════════════════════════════════ */
+const SCENT_RSS = {
+  episode: 'https://scent.kisti.re.kr/site/main/feed/rss/kidsepisode',
+  story:   'https://scent.kisti.re.kr/site/main/feed/rss/story',
+  movie:   'https://scent.kisti.re.kr/site/main/feed/rss/kidsmovie',
+};
+
+async function fetchScentRSS() {
+  const key = 'rss:scent';
+  const hit = getCache(key);
+  if (hit) return hit;
+
+  const all = [];
+  for (const [type, url] of Object.entries(SCENT_RSS)) {
+    try {
+      const xml = await fetchUrl(url, { 'User-Agent': 'Mozilla/5.0 AIplatmarket' });
+      const itemRe = /<item>([\s\S]*?)<\/item>/g;
+      let m;
+      while ((m = itemRe.exec(xml)) !== null && all.length < 30) {
+        const b     = m[1];
+        const title = (/<title><!\[CDATA\[(.*?)\]\]>/.exec(b) || /<title>(.*?)<\/title>/.exec(b))?.[1] || '';
+        const link  = (/<link>(.*?)<\/link>/.exec(b))?.[1]?.trim() || '#';
+        const desc  = (/<description><!\[CDATA\[(.*?)\]\]>/.exec(b) || /<description>(.*?)<\/description>/.exec(b))?.[1] || '';
+        const date  = (/<pubDate>(.*?)<\/pubDate>/.exec(b))?.[1] || '';
+        const img   = (/<enclosure[^>]*url=["']([^"']+)["']/.exec(b) || /<media:content[^>]*url=["']([^"']+)["']/.exec(b))?.[1] || '';
+
+        if (!title || title.length < 3) continue;
+
+        all.push({
+          title:   title.replace(/<[^>]+>/g, '').trim(),
+          desc:    aiSummarize(desc, 200),
+          link:    link,
+          date:    date ? new Date(date).toISOString() : new Date().toISOString(),
+          img:     img,
+          source:  '과학향기',
+          cat:     '생활과학',
+          origin:  'rss',
+          type,    // episode | story | movie
+        });
+      }
+    } catch(e) {
+      console.error(`[과학향기 RSS:${type}]`, e.message);
+    }
+  }
+
+  // 날짜 최신순 정렬
+  all.sort((a, b) => new Date(b.date) - new Date(a.date));
+  setCache(key, all);
+  console.log(`[과학향기 RSS] ${all.length}건 수집`);
+  return all;
+}
+
+/* 과학향기 RSS API 엔드포인트 */
+app.get('/api/rss/scent', async (req, res) => {
+  const { type = 'all' } = req.query;
+  try {
+    const all   = await fetchScentRSS();
+    const items = type === 'all' ? all : all.filter(n => n.type === type);
+    res.json({ ok: true, count: items.length, items });
+  } catch(e) {
+    res.json({ ok: false, error: e.message, items: [] });
+  }
 });
