@@ -540,7 +540,8 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .cd-fab:hover{transform:scale(1.1)}
 /* 모바일 반응형 */
 @media(max-width:900px){
-  .news-4col{display:flex;overflow-x:auto;gap:0;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;scroll-snap-type:x mandatory}
+  /* 뉴스 4열: .ml의 padding:8px 탈출 → 좌우 흰 막대 제거 */
+  .news-4col{display:flex;overflow-x:auto;gap:0;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;scroll-snap-type:x mandatory;margin-left:-8px;margin-right:-8px;width:calc(100% + 16px)}
   .news-4col::-webkit-scrollbar{height:3px}
   .news-4col::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
   .news-col{min-width:100vw;max-width:100vw;flex-shrink:0;box-sizing:border-box;scroll-snap-align:start;padding:0 8px}
