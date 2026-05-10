@@ -687,3 +687,87 @@ app.get('/api/rss/scent', async (req, res) => {
     res.json({ ok: false, error: e.message, items: [] });
   }
 });
+
+/* ════════════════════════════════════
+   Firebase Remote Config 연동
+   - 관리자 대시보드에서 코드 수정 없이
+     메뉴·카테고리·공지·자동승인 설정
+════════════════════════════════════ */
+let remoteConfig = {};
+let remoteConfigAt = 0;
+const RC_TTL = 5 * 60 * 1000; // 5분 캐시
+
+async function fetchRemoteConfig() {
+  if (Date.now() - remoteConfigAt < RC_TTL && Object.keys(remoteConfig).length) {
+    return remoteConfig;
+  }
+  if (!db) return {};
+  try {
+    // Firestore의 'config' 컬렉션에서 설정값 읽기
+    // (Firebase Remote Config SDK 대신 Firestore로 구현 - 서버 사이드 적합)
+    const doc = await db.collection('config').doc('site').get();
+    if (doc.exists) {
+      remoteConfig = doc.data();
+      remoteConfigAt = Date.now();
+      // autoApprove 동적 적용
+      if (typeof remoteConfig.auto_approve === 'boolean') {
+        autoApprove = remoteConfig.auto_approve;
+      }
+    }
+    return remoteConfig;
+  } catch(e) {
+    console.error('[RemoteConfig]', e.message);
+    return {};
+  }
+}
+
+/* Remote Config 공개 API */
+app.get('/api/config', async (req, res) => {
+  try {
+    const cfg = await fetchRemoteConfig();
+    // 민감 정보 제외하고 공개
+    const { admin_token, ...publicCfg } = cfg;
+    res.json({ ok: true, config: publicCfg });
+  } catch(e) {
+    res.json({ ok: false, config: {} });
+  }
+});
+
+/* Remote Config 업데이트 (관리자 전용) */
+app.post('/api/admin/config', adminAuth, async (req, res) => {
+  if (!requireDB(res)) return;
+  try {
+    const allowed = [
+      'gnb_menus', 'news_categories', 'site_notice',
+      'auto_approve', 'breaking_custom', 'popup_enabled',
+      'popup_text', 'popup_link', 'maintenance_mode',
+      'site_title', 'site_desc',
+    ];
+    const update = {};
+    for (const key of allowed) {
+      if (req.body[key] !== undefined) update[key] = req.body[key];
+    }
+    update.updatedAt = admin.firestore.FieldValue.serverTimestamp();
+    await db.collection('config').doc('site').set(update, { merge: true });
+    remoteConfig = { ...remoteConfig, ...update };
+    remoteConfigAt = Date.now();
+    // autoApprove 즉시 반영
+    if (typeof update.auto_approve === 'boolean') {
+      autoApprove = update.auto_approve;
+    }
+    res.json({ ok: true, updated: Object.keys(update) });
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+/* Remote Config 조회 (관리자 전용) */
+app.get('/api/admin/config', adminAuth, async (req, res) => {
+  if (!requireDB(res)) return;
+  try {
+    const doc = await db.collection('config').doc('site').get();
+    res.json({ ok: true, config: doc.exists ? doc.data() : {} });
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
