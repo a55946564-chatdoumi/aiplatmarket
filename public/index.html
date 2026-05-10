@@ -108,7 +108,7 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
   .gi{padding:6px 6px;font-size:.72rem}
   /* 메인 컨텐츠 전체 너비 */
   .mgrid{display:block !important}
-  .ml{padding:8px;overflow:hidden;width:100% !important;box-sizing:border-box}
+  .ml{padding:0;overflow:visible;width:100% !important;box-sizing:border-box}
   .lsb{display:none !important}
   .mr{display:none !important}
   /* 모바일에서도 2컬럼 유지 (PC와 동일) */
@@ -123,7 +123,8 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
   .si-meta{font-size:.64rem}
   .si-thumb{height:70px}
   .news-page{padding:0;width:100%;box-sizing:border-box;overflow:hidden}
-  .sp-page,.live-page,.reg-wrap{padding:10px 8px;width:100%;box-sizing:border-box}
+  .sp-page,.live-page,.reg-wrap{padding:10px 12px;width:100%;box-sizing:border-box}
+  .sl-grid,.bc-grid,.mini-grid{padding:0 8px}
   .ng{grid-template-columns:1fr}
   .fr{grid-template-columns:1fr}
   .panel-scroll{height:120px}
@@ -540,11 +541,10 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .cd-fab:hover{transform:scale(1.1)}
 /* 모바일 반응형 */
 @media(max-width:900px){
-  /* 뉴스 4열: .ml의 padding:8px 탈출 → 좌우 흰 막대 제거 */
-  .news-4col{display:flex;overflow-x:auto;gap:0;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;scroll-snap-type:x mandatory;margin-left:-8px;margin-right:-8px;width:calc(100% + 16px)}
+  .news-4col{display:flex;overflow-x:auto;gap:0;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--g3) transparent;scroll-snap-type:x mandatory}
   .news-4col::-webkit-scrollbar{height:3px}
   .news-4col::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
-  .news-col{min-width:100vw;max-width:100vw;flex-shrink:0;box-sizing:border-box;scroll-snap-align:start;padding:0 8px}
+  .news-col{min-width:100vw;max-width:100vw;flex-shrink:0;box-sizing:border-box;scroll-snap-align:start;padding:0 6px;border-right:none}
   .ad-4col{grid-template-columns:1fr 1fr;gap:8px}
   .srch-pop{padding-top:16px}
 }
