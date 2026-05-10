@@ -37,7 +37,7 @@
   /* 시스템 폰트 우선 → 구글폰트 로드 후 자동 교체 (FOUT 최소화) */
   --fs:'Noto Serif KR','AppleMyungjo','Malgun Gothic',Georgia,serif;
   --fn:'Pretendard','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','나눔고딕',sans-serif;
-  --pad:5px;
+  --pad:6px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden}
@@ -149,7 +149,7 @@ nav.gnb{background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px r
 .gnb-sub::-webkit-scrollbar-thumb{background:var(--g3);border-radius:4px}
 .gnb-sub::-webkit-scrollbar-thumb:hover{background:var(--navy)}
 /* 공통 메뉴 아이템 */
-.gi{display:flex;align-items:center;padding:5px 5px;font-size:.80rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
+.gi{display:flex;align-items:center;padding:5px 6px;font-size:.80rem;font-weight:700;color:var(--text);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;position:relative;flex-shrink:0}
 .gi:hover{color:var(--red)}
 .gi.act{color:var(--red);border-bottom-color:var(--red)}
 .gi .bx{background:var(--red);color:#fff;font-size:.58rem;padding:1px 4px;border-radius:2px;margin-left:4px;font-weight:900}
