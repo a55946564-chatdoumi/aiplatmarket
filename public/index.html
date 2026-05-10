@@ -888,7 +888,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
                  onmouseenter="showSmeSub('smeSangSub','smeSangDdw')" onclick="showSmeSub('smeSangSub','smeSangDdw')">
               🤝 소상공인상생회 <span style="font-size:.7rem;color:var(--g3)">▶</span>
             </div>
-            <div id="smeSangSub" class="sme-sub" style="display:none;position:absolute;left:45px;top: 40,562px;min-width:150px;background:#fff;border:var(--bd);border-top:2px solid var(--grn);box-shadow:0 8px 24px rgba(0,0,0,.13);z-index:99999;border-radius:0 6px 6px 0;max-height:300px;overflow-y:auto">
+            <div id="smeSangSub" class="sme-sub" style="display:none;position:fixed;min-width:160px;background:#fff;border:var(--bd);border-top:2px solid var(--grn);box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:99999;border-radius:6px;max-height:280px;overflow-y:auto">
               <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">🏛 전국 본부</div>
               <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">서울 상생회</div>
               <div class="ddi" onclick="window.open('https://www.kfme.or.kr','_blank');closeDds()">인천 상생회</div>
@@ -3405,15 +3405,33 @@ function showSmeSub(subId, wrapId) {
   const wrap = document.getElementById(wrapId);
   if (!sub || !wrap) return;
   if (sub.style.display === 'block') { sub.style.display='none'; return; }
-  const r = wrap.getBoundingClientRect();
+
   sub.style.display = 'block';
-  sub.style.top  = r.top + 'px';
-  sub.style.left = (r.right + 4) + 'px';
-  // 화면 밖으로 나가면 왼쪽으로
-  const sw = sub.offsetWidth || 150;
-  if (r.right + sw + 8 > window.innerWidth) {
-    sub.style.left = Math.max(4, r.left - sw - 4) + 'px';
+
+  // position:fixed 기반 좌표 계산
+  const r = wrap.getBoundingClientRect();
+  const subH = Math.min(280, window.innerHeight - r.bottom - 8);
+  const subW = Math.max(160, sub.scrollWidth || 180);
+
+  // 기본: 아이템 바로 아래
+  let top  = r.bottom + 2;
+  let left = r.left;
+
+  // 화면 아래로 넘치면 위쪽으로
+  if (top + subH > window.innerHeight - 8) {
+    top = Math.max(8, r.top - subH - 2);
   }
+
+  // 화면 오른쪽 넘치면 왼쪽 정렬
+  if (left + subW > window.innerWidth - 8) {
+    left = Math.max(4, window.innerWidth - subW - 8);
+  }
+
+  sub.style.top    = top + 'px';
+  sub.style.left   = left + 'px';
+  sub.style.width  = subW + 'px';
+  sub.style.maxHeight = subH + 'px';
+  sub.style.position = 'fixed';
 }
 
 /* ── 뉴스 서브 페이지: 헤더 유지하면서 내용 교체 ── */
