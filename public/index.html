@@ -122,7 +122,7 @@ header{background:#fff;border-bottom:3px solid var(--navy);padding:12px var(--pa
   .si-desc{font-size:.72rem;-webkit-line-clamp:2}
   .si-meta{font-size:.64rem}
   .si-thumb{height:70px}
-  .news-page{padding:10px 0;width:100%;box-sizing:border-box;overflow:hidden}
+  .news-page{padding:0;width:100%;box-sizing:border-box;overflow:hidden}
   .sp-page,.live-page,.reg-wrap{padding:10px 8px;width:100%;box-sizing:border-box}
   .ng{grid-template-columns:1fr}
   .fr{grid-template-columns:1fr}
@@ -1411,13 +1411,70 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
     </div>
     <div id="newsSubOverlay" style="display:none"></div>
 
-    <!-- 뉴스 상세 모달 -->
-    <!-- 뉴스 서브 페이지 오버레이 (지역복지·행사 등) -->
-    <div id="newsSubBack" style="display:none;align-items:center;gap:8px;padding:10px 0;margin-bottom:10px;border-bottom:var(--bd)">
-      <button onclick="closeNewsSubPage()" style="background:var(--navy);color:#fff;border:none;padding:5px 14px;border-radius:4px;font-size:.8rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px">← 지역경제뉴스로</button>
-      <span id="newsSubTitle" style="font-size:.82rem;color:var(--g4)"></span>
+    <!-- ===== 지역생활정보 고정 섹션 ===== -->
+    <div style="margin-top:28px;padding-top:18px;border-top:3px solid var(--navy)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div style="font-family:var(--fs);font-size:.95rem;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:6px">
+          <span style="display:inline-block;width:3px;height:14px;background:var(--red);border-radius:2px"></span>
+          🏠 지역생활정보
+        </div>
+        <button onclick="showPage('localad')" style="font-size:.72rem;color:var(--g4);background:none;border:var(--bd);padding:3px 10px;border-radius:4px;cursor:pointer">전체 보기 →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px" id="localInfoGrid">
+
+        <!-- 국민경제㊉ 신문 홍보 카드 -->
+        <a href="https://paper.aiplatmarket.com" target="_blank" rel="noopener"
+           style="border:2px solid var(--navy);border-radius:8px;overflow:hidden;text-decoration:none;display:block;transition:box-shadow .2s;background:#fff"
+           onmouseover="this.style.boxShadow='0 4px 16px rgba(13,31,53,.15)'" onmouseout="this.style.boxShadow=''">
+          <div style="position:relative">
+            <img src="https://paper.aiplatmarket.com/thumb.jpg" alt="국민경제㊉ 신문"
+                 style="width:100%;height:130px;object-fit:cover;display:block"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div style="display:none;width:100%;height:130px;background:linear-gradient(135deg,var(--navy),var(--navy2));align-items:center;justify-content:center;flex-direction:column;gap:6px">
+              <span style="font-size:2rem">📰</span>
+              <span style="color:var(--gold);font-size:.8rem;font-weight:700">국민경제㊉</span>
+            </div>
+            <div style="position:absolute;top:7px;left:7px;background:var(--red);color:#fff;font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:3px">신문보기</div>
+          </div>
+          <div style="padding:10px 12px">
+            <div style="font-size:.82rem;font-weight:800;color:var(--navy);margin-bottom:3px">국민경제㊉ — 신문 그대로 보기</div>
+            <div style="font-size:.72rem;color:var(--g4);line-height:1.4">AI플랫마켓 공식 신문. 소상공인·지역경제 뉴스를 신문 형식으로 확인하세요.</div>
+            <div style="margin-top:7px;font-size:.7rem;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:3px">
+              📖 paper.aiplatmarket.com <span style="color:var(--red)">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 지역광고 1 -->
+        <div style="border:var(--bd);border-radius:8px;overflow:hidden;background:#fff;cursor:pointer" onclick="showPage('localad')">
+          <div style="height:130px;background:linear-gradient(135deg,#fce8e6,#f5c6c2);display:flex;align-items:center;justify-content:center;font-size:2.5rem">📄</div>
+          <div style="padding:10px 12px">
+            <div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:3px">지역 광고 등록하기</div>
+            <div style="font-size:.72rem;color:var(--g4)">우리 지역 주민에게 홍보하세요. PDF·JPG 업로드 가능.</div>
+          </div>
+        </div>
+
+        <!-- 지역광고 2 -->
+        <div style="border:var(--bd);border-radius:8px;overflow:hidden;background:#fff;cursor:pointer" onclick="showPage('adcontact')">
+          <div style="height:130px;background:linear-gradient(135deg,#e8f5e9,#c8e6c9);display:flex;align-items:center;justify-content:center;font-size:2.5rem">📢</div>
+          <div style="padding:10px 12px">
+            <div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:3px">광고 문의 · 신청</div>
+            <div style="font-size:.72rem;color:var(--g4)">라이브 홈쇼핑·프리미엄·AI 마케팅 패키지 문의.</div>
+          </div>
+        </div>
+
+        <!-- 지역광고 3 -->
+        <div style="border:var(--bd);border-radius:8px;overflow:hidden;background:#fff;cursor:pointer" onclick="openBranchPopup()">
+          <div style="height:130px;background:linear-gradient(135deg,#e8f0fe,#c5cae9);display:flex;align-items:center;justify-content:center;font-size:2.5rem">🏢</div>
+          <div style="padding:10px 12px">
+            <div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:3px">지역본부 · 지사 모집</div>
+            <div style="font-size:.72rem;color:var(--g4)">AI경제 시대! 합동사무실·공동 운영 매장 가능한 분 모집.</div>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div id="newsSubOverlay" style="display:none"></div>
+    <!-- ===== /지역생활정보 ===== -->
 
     <!-- 뉴스 상세 모달 -->
     <div id="newsDetailModal" style="display:none;position:fixed;inset:0;background:rgba(13,31,53,.65);z-index:3000;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto">
@@ -1557,7 +1614,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.6);padding:24px var(--pad)
         <div style="background:rgba(255,255,255,.1);border-radius:var(--r);padding:10px 18px;text-align:center"><div style="font-size:1rem;font-weight:900;color:var(--gold)">정식기자</div><div style="font-size:.72rem;color:rgba(255,255,255,.7);margin-top:2px">정기 취재·기고</div></div>
         <div style="background:rgba(255,255,255,.1);border-radius:var(--r);padding:10px 18px;text-align:center"><div style="font-size:1rem;font-weight:900;color:var(--gold)">편집기자</div><div style="font-size:.72rem;color:rgba(255,255,255,.7);margin-top:2px">콘텐츠 기획·편집</div></div>
       </div>
-      <button onclick="showReporterForm()" style="background:var(--gold);color:var(--navy);border:none;padding:11px 28px;border-radius:var(--r);font-size:.92rem;font-weight:800;cursor:pointer">📝 지역 기자단 신청하기 →</button>
+      <button onclick="showReporterForm()" style="background:var(--gold);color:var(--navy);border:none;padding:11px 28px;border-radius:var(--r);font-size:.92rem;font-weight:800;cursor:pointer">📝 기자단 신청하기 →</button>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px">
       <div style="border:var(--bd);border-radius:var(--r);padding:14px"><div style="font-size:1.4rem;margin-bottom:5px">🏷️</div><div style="font-weight:700;color:var(--navy);margin-bottom:3px">기자증 발급</div><div style="font-size:.78rem;color:var(--g4)">공식 AI플랫마켓 기자증 제공</div></div>
@@ -3011,13 +3068,14 @@ async function renderNewsGrid() {
 
   let pool = [];
   try {
-    const params = new URLSearchParams({ cat: currentNewsCat, display: 10 });
-    const res    = await fetch('/api/news?' + params);
+    const params = new URLSearchParams({ cat: currentNewsCat, display: 10, source: 'all' });
+    const res    = await fetch('/api/news?' + params, { signal: AbortSignal.timeout(8000) });
     const data   = await res.json();
     pool = data.items || [];
+    if (!pool.length) throw new Error('empty');
   } catch(e) {
-    // API 없을 때 내장 데이터 사용
-    pool = (NEWS_DB[currentNewsCat] || NEWS_DB['전체'] || []);
+    // API 없거나 빈 결과 → 내장 NEWS_DB 사용
+    pool = NEWS_DB[currentNewsCat] || NEWS_DB['전체'] || [];
   }
 
   // 지역 필터
@@ -3063,12 +3121,41 @@ async function renderNewsGrid() {
   }
 }
 
+/* 고정 HTML 기사 데이터 (열별 올바른 내용) */
+const STATIC_DB = {
+  /* 1열 랭킹 (31~37번: 더미) */
+  31:{ title:'2026년 소상공인 지원 정책 총정리', desc:'정부의 각종 소상공인 지원 정책을 한눈에 정리했습니다. 디지털 전환 지원금, 저금리 대출, 임차료 지원, 카드 수수료 우대까지 신청 방법을 안내합니다.', link:'https://search.naver.com/search.naver?query=소상공인+지원정책+2026', source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  32:{ title:'배달앱 수수료 비교 — 쿠팡이츠·배민·요기요', desc:'주요 배달앱의 수수료 구조와 절감 방법을 비교 분석합니다. 업종별·매출별 최적 배달앱 선택 전략을 안내합니다.', link:'https://search.naver.com/search.naver?query=배달앱+수수료+비교', source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  33:{ title:'AI 홍보문구 무료 서비스 TOP3', desc:'소상공인이 무료로 쓸 수 있는 AI 홍보문구 생성 서비스 TOP3를 소개합니다. ChatDoumi, 뤼튼, AskUp 활용법을 안내합니다.', link:'https://chatdoumi.com', source:'ChatDoumi', cat:'IT', origin:'dummy' },
+  34:{ title:'우리 동네 인기 창업 아이템 20선 (2026)', desc:'AI가 분석한 2026년 지역별 유망 창업 아이템 20가지를 공개합니다. 초기 자본별, 업종별로 정리했습니다.', link:'https://search.naver.com/search.naver?query=2026+유망창업아이템', source:'AI플랫마켓', cat:'창업', origin:'dummy' },
+  35:{ title:'상가 임차료 지원 받는 법 A-Z', desc:'정부·지자체 임차료 지원 제도 신청 방법을 단계별로 안내합니다. 소상공인 임차료 긴급 지원, 착한 임대인 세액공제 등을 포함합니다.', link:'https://search.naver.com/search.naver?query=소상공인+임차료+지원', source:'AI플랫마켓', cat:'부동산', origin:'dummy' },
+  36:{ title:'카드 수수료 0% 적용 소상공인 신청', desc:'여신전문금융업법에 따른 영세·중소가맹점 수수료 우대 신청 방법을 안내합니다.', link:'https://search.naver.com/search.naver?query=소상공인+카드수수료+0%25', source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  37:{ title:'2026 최저임금 소상공인 대응 전략', desc:'최저임금 인상에 대응하는 인건비 절감 및 업무 효율화 방법을 소개합니다.', link:'https://search.naver.com/search.naver?query=2026+최저임금+소상공인', source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  /* 2열 주요뉴스 */
+  0:{ title:'소상공인 디지털 전환 지원금 최대 200만원 확대', desc:'정부는 디지털 전환을 희망하는 전국 소상공인을 대상으로 지원 규모를 대폭 확대한다고 밝혔습니다. 신청 기간은 다음 달부터이며, 온라인 신청이 가능합니다.', link:'https://search.naver.com/search.naver?query=소상공인+디지털전환+지원금', source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  1:{ title:'인천 소상공인 매출 1분기 역대 최고', desc:'인천 지역 소상공인의 1분기 매출이 역대 최고치를 기록했습니다. 배달앱 이용 증가와 함께 온라인 홍보 효과가 컸다는 분석입니다.', link:'https://search.naver.com/search.naver?query=인천+소상공인+매출', source:'AI플랫마켓', cat:'경제', origin:'dummy' },
+  2:{ title:'경기 성남 신규 상권 AI 예측 유망업종 TOP5', desc:'AI 분석을 통한 유망 업종: 1위 카페·디저트, 2위 펫샵, 3위 건강식품, 4위 홈케어, 5위 학원', link:'https://search.naver.com/search.naver?query=성남+상권분석', source:'AI플랫마켓', cat:'창업', origin:'dummy' },
+  3:{ title:'카카오페이 소상공인 결제 수수료 0% 이벤트', desc:'카카오페이가 소상공인 상생을 위해 결제 수수료 0% 이벤트를 시행합니다. 신청 기간은 이달 말까지입니다.', link:'https://search.naver.com/search.naver?query=카카오페이+소상공인+수수료', source:'AI플랫마켓', cat:'IT', origin:'dummy' },
+  4:{ title:'로컬 푸드 직거래 농수산 매출 30%↑', desc:'전국 로컬푸드 직거래 플랫폼 활성화로 농수산 소상공인 매출이 전년 동기 대비 30% 상승했습니다.', link:'https://search.naver.com/search.naver?query=로컬푸드+직거래+소상공인', source:'AI플랫마켓', cat:'농수산', origin:'dummy' },
+  10:{ title:'2026 유망 창업 아이템 TOP10 AI 분석', desc:'AI가 분석한 2026년 유망 창업 아이템: 프리미엄 세탁, 반려동물 서비스, 건강식품, 키오스크 카페, 중고거래 플랫폼 등이 주목받고 있습니다.', link:'https://search.naver.com/search.naver?query=2026+유망창업', source:'AI플랫마켓', cat:'창업', origin:'dummy' },
+  /* 3열 IT/AI */
+  20:{ title:'AI 홍보문구 자동생성 소상공인 마케팅 혁신', desc:'ChatDoumi AI가 업종별 맞춤 홍보문구를 자동 생성해주는 서비스가 소상공인 마케팅 방식을 바꾸고 있습니다. 무료로 이용 가능합니다.', link:'https://chatdoumi.com', source:'ChatDoumi', cat:'IT', origin:'dummy' },
+  21:{ title:'인스타그램 소상공인 마케팅 성공 사례 10선', desc:'인스타그램을 활용해 매출을 올린 소상공인 10곳의 성공 사례와 핵심 전략을 소개합니다.', link:'https://search.naver.com/search.naver?query=소상공인+인스타그램+마케팅', source:'AI플랫마켓', cat:'IT', origin:'dummy' },
+  22:{ title:'ChatGPT 활용해 매출 올린 소상공인 인터뷰', desc:'AI 챗봇을 실제 마케팅에 활용해 매출을 늘린 소상공인들의 생생한 인터뷰를 전합니다.', link:'https://search.naver.com/search.naver?query=ChatGPT+소상공인+활용', source:'AI플랫마켓', cat:'IT', origin:'dummy' },
+  23:{ title:'스마트 POS 도입 절세 혜택 총정리', desc:'스마트 POS 도입 시 세금 환급 혜택과 매출 관리 효율화 사례를 소개합니다.', link:'https://search.naver.com/search.naver?query=소상공인+스마트POS', source:'AI플랫마켓', cat:'IT', origin:'dummy' },
+  24:{ title:'카카오채널 무료 개설 가이드', desc:'소상공인 카카오 채널 무료 개설부터 운영까지 단계별 가이드를 제공합니다.', link:'https://search.naver.com/search.naver?query=카카오채널+소상공인', source:'AI플랫마켓', cat:'IT', origin:'dummy' },
+  25:{ title:'네이버 플레이스 최적화로 방문객 2배', desc:'네이버 플레이스 노출 알고리즘 최적화로 방문객을 2배 늘린 방법을 단계별로 안내합니다.', link:'https://search.naver.com/search.naver?query=네이버플레이스+최적화', source:'AI플랫마켓', cat:'IT', origin:'dummy' },
+  /* 4열 오피니언 */
+  30:{ title:'"지역경제, AI가 살린다" — 소상공인의 디지털 전환', desc:'AI플랫마켓 편집장 칼럼: 소상공인의 디지털 전환은 선택이 아닌 필수입니다. AI 홍보문구 자동생성, 실시간 매출 분석, 지역 기반 마케팅으로 지역 경제를 살릴 수 있습니다.', link:'#', source:'AI플랫마켓 편집국', cat:'오피니언', origin:'dummy' },
+};
+
 function openNewsDetail3(idx, pool) {
-  _newsPool = pool || _newsPool;
+  if (pool) _newsPool = pool;
   openNewsDetail2(idx);
 }
 function openNewsDetail2(idx) {
-  const n = _newsPool[idx] || _newsPool[0];
+  // STATIC_DB 우선 → _newsPool 순서로 찾기
+  const n = STATIC_DB[idx] || _newsPool[idx] || _newsPool[0];
   if (!n) return;
   const date = n.date ? new Date(n.date).toLocaleDateString('ko-KR') : '';
   const originLabel = { naver:'네이버뉴스', google:'구글뉴스', email:'📧 뉴스레터', fallback:'편집국' };
