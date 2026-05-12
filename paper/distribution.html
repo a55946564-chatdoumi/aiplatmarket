@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI플랫마켓 반자동 배포 관리자</title>
+<style>
+body{font-family:Arial;background:#f4f8ff;margin:0}
+header{background:#0d47a1;color:#fff;padding:20px;font-size:24px}
+.container{display:grid;grid-template-columns:260px 1fr;height:100vh}
+.sidebar{background:#132238;color:#fff;padding:20px}
+.sidebar a{display:block;color:#fff;padding:12px;text-decoration:none}
+.main{padding:25px;overflow:auto}
+.card{background:#fff;padding:20px;border-radius:14px;margin-bottom:20px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+button{padding:10px 18px;border:none;border-radius:8px;background:#1976d2;color:white;cursor:pointer}
+button.green{background:#2e7d32}
+button.red{background:#c62828}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px;border-bottom:1px solid #ddd;text-align:left}
+textarea{width:100%;height:130px}
+</style>
+</head>
+<body>
+<header>AI플랫마켓 반자동 배포 관리자 대시보드</header>
+<div class="container">
+<div class="sidebar">
+<a href='#'>대시보드</a>
+<a href='#'>배포 후보 수집</a>
+<a href='#'>승인 대기</a>
+<a href='#'>문구 생성</a>
+<a href='#'>자동 배포</a>
+<a href='#'>성과 분석</a>
+</div>
+<div class='main'>
+<div class='card'>
+<h2>배포 후보 채널</h2>
+<table>
+<tr><th>채널</th><th>플랫폼</th><th>점수</th><th>승인</th></tr>
+<tr><td>송도 자영업 모임</td><td>카카오</td><td>92</td><td><button class='green' onclick='approve(this)'>승인</button></td></tr>
+<tr><td>인천맘카페</td><td>네이버</td><td>88</td><td><button class='green' onclick='approve(this)'>승인</button></td></tr>
+<tr><td>연수구 지역홍보</td><td>당근</td><td>84</td><td><button class='green' onclick='approve(this)'>승인</button></td></tr>
+</table>
+</div>
+<div class='card'>
+<h2>AI 자동 생성 배포문구</h2>
+<textarea id='msg'>사장님 광고비 없이 고객 유입 가능한 AI플랫마켓 무료 상단노출 입점 진행중! 선착순 무료등록 신청하세요.</textarea>
+<br><br>
+<button onclick='generateMsg()'>AI 문구 재생성</button>
+<button onclick='deploy()'>승인 후 자동 배포</button>
+</div>
+<div class='card'>
+<h2>성과 분석</h2>
+<p>노출: <b id='views'>0</b></p>
+<p>클릭: <b id='clicks'>0</b></p>
+<p>가입: <b id='joins'>0</b></p>
+</div>
+</div>
+</div>
+<script>
+function approve(btn){btn.innerText='승인됨';btn.disabled=true;}
+function generateMsg(){document.getElementById('msg').value='[AI 최적화] 지금 무료입점하면 상단노출 혜택! 광고비 없이 신규고객 확보 시작하세요.'}
+function deploy(){
+alert('AI가 승인 채널에 배포 시작');
+document.getElementById('views').innerText=1248;
+document.getElementById('clicks').innerText=213;
+document.getElementById('joins').innerText=34;
+}
+</script>
+</body>
+</html>
