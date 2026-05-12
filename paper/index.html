@@ -1,1 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국민경제㊉ - 최종 보완본</title>
+    <style>
+        :root { 
+            --p-width: 30vw; 
+            --p-height: 85vh; 
+            --wood-bg: #e6ccb2; 
+        }
+        
+        body { 
+            background: var(--wood-bg) url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            margin: 0; display: flex; height: 100vh; font-family: 'Apple SD Gothic Neo', sans-serif; overflow: hidden; 
+        }
+        
+        /* 사이드바 */
+        #sidebar { width: 220px; background: rgba(255,255,255,0.95); border-right: 2px solid #a67c52; display: flex; flex-direction: column; z-index: 3000; }
+        .toc-list { flex: 1; overflow-y: auto; padding: 10px; }
+        .toc-item { padding: 12px; margin-bottom: 5px; background: #fff; border: 1px solid #ddd; cursor: pointer; font-size: 13px; color: #5d4037; }
+        .toc-item.active { background: #8b4513; color: white; }
 
+        /* 헤더 중앙 검색바 */
+        header { 
+            height: 60px; background: #5d4037; display: flex; justify-content: space-between; 
+            align-items: center; padding: 0 20px; color: white; z-index: 2500; position: relative;
+        }
+        .search-container { 
+            position: absolute; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 8px; align-items: center; background: rgba(255,255,255,0.15); 
+            padding: 5px 15px; border-radius: 20px;
+        }
+        .search-container input { width: 50px; border: none; border-radius: 4px; padding: 4px; text-align: center; }
+        .search-container button { padding: 4px 12px; background: #ffcc80; border: none; border-radius: 15px; cursor: pointer; font-weight: bold; color: #5d4037; }
+
+        /* 스테이지 및 북 컨테이너 */
+        #main-content { flex: 1; display: flex; flex-direction: column; position: relative; }
+        .stage { flex: 1; display: flex; justify-content: center; align-items: center; perspective: 3000px; position: relative; overflow: hidden; }
+        .book { width: calc(var(--p-width) * 2); height: var(--p-height); position: relative; transform-style: preserve-3d; transition: transform 0.4s ease; }
+        
+        .page { 
+            width: var(--p-width); height: var(--p-height); position: absolute; 
+            top: 0; right: 0; transform-origin: left; transform-style: preserve-3d; 
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1); 
+        }
+        .page.flipped { transform: rotateY(-180deg); }
+        .front, .back { 
+            position: absolute; width: 100%; height: 100%; background: white; 
+            border: 1px solid #bbb; backface-visibility: hidden; overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .back { transform: rotateY(180deg); }
+
+        /* 가장자리 내비게이션 버튼 (범위 확장) */
+        .nav-btn { 
+            position: absolute; top: 0; width: 20vw; height: 100%; z-index: 1500; 
+            cursor: pointer; display: flex; align-items: center; justify-content: center; 
+            font-size: 60px; color: rgba(0,0,0,0.02); transition: 0.3s;
+        }
+        .nav-btn:hover { color: rgba(139, 69, 19, 0.3); background: rgba(0,0,0,0.02); }
+        .btn-prev { left: 0; } 
+        .btn-next { right: 0; }
+
+        /* 콘텐츠 및 링크 */
+        iframe { width: 100%; height: 100%; border: none; pointer-events: none; }
+        .click-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; cursor: pointer; }
+        .static-page { padding: 40px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #fff; box-sizing: border-box; }
+        
+        .link-btn { 
+            display: block; width: 220px; padding: 15px; margin: 10px 0;
+            background: #138b1d; color: #fff !important; text-decoration: none; 
+            border-radius: 8px; font-weight: bold; font-size: 14px; transition: 0.3s;
+        }
+        .link-btn:hover { background: #5d4037; transform: translateY(-3px); }
+
+        .page-info { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 7px 20px; border-radius: 25px; font-size: 12px; z-index: 2000; }
+    </style>
+</head>
+<body onwheel="handleWheel(event)">
+
+<div id="sidebar">
+    <div style="padding: 25px; text-align: center; border-bottom: 2px solid #d2b48c;"><strong>국민경제㊉</strong></div>
+    <div class="toc-list" id="toc-list"></div>
+</div>
+
+<div id="main-content">
+    <header>
+        <div style="font-weight: bold; width:200px;">DIGITAL ARCHIVE</div>
+        <div class="search-container">
+            <span>면 이동:</span>
+            <input type="number" id="page-input" min="1" max="16" placeholder="1">
+            <button onclick="goPage()">이동</button>
+        </div>
+        <div style="width:200px; text-align:right; font-size:12px;">국민경제㊉신문사</div>
+    </header>
+
+    <div class="stage" onmousedown="startDrag(event)" onmousemove="drag(event)" onmouseup="endDrag()">
+        <!-- 가장자리 클릭 영역 -->
+        <div class="nav-btn btn-prev" onclick="movePrev()">❮</div>
+        <div class="nav-btn btn-next" onclick="moveNext()">❯</div>
+
+        <div class="book" id="book">
+            <!-- [펼침 1] -->
+            <div class="page flipped" style="z-index: 10;">
+                <div class="front"><div class="static-page"><h3>시작</h3></div></div>
+                <div class="back">
+                    <div class="click-layer" onclick="toggleZoom(event)"></div>
+                    <iframe src="life-info.pdf#page=1&navpanes=0"></iframe>
+                </div>
+            </div>
+
+            <!-- [펼침 2~8] -->
+            <script>
+                for(let i=2; i<=14; i+=2) {
+                    let z = 9 - (i/2);
+                    document.write(`
+                    <div class="page" style="z-index: ${z};">
+                        <div class="front">
+                            <div class="click-layer" onclick="toggleZoom(event)"></div>
+                            <iframe src="life-info.pdf#page=${i}&navpanes=0"></iframe>
+                        </div>
+                        <div class="back">
+                            <div class="click-layer" onclick="toggleZoom(event)"></div>
+                            <iframe src="life-info.pdf#page=${i+1}&navpanes=0"></iframe>
+                        </div>
+                    </div>
+                    `);
+                }
+            </script>
+
+            <!-- [펼침 9] 마지막 16면 -->
+            <div class="page" style="z-index: 1;">
+                <div class="front">
+                    <div class="click-layer" onclick="toggleZoom(event)"></div>
+                    <iframe src="life-info.pdf#page=16&navpanes=0"></iframe>
+                </div>
+                <div class="back"></div>
+            </div>
+
+            <!-- 고정 배경 (안내면) -->
+            <div style="position: absolute; top:0; right:0; width:var(--p-width); height:var(--p-height); z-index:0;">
+                <div class="static-page" style="border: 1px solid #bbb; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <h3 style="color:#5d4037;">AI PLATMARKET</h3>
+                    <a href="https://aiplatmarket.com" target="_blank" class="link-btn">AI 플랫마켓 바로가기</a>
+                    <a href="https://chatdoumi.com" target="_blank" class="link-btn">내 사업 내 비서 챗도우미</a>
+                    <p style="font-size:11px; margin-top:20px; color:#888;">© 국민경제㊉신문사</p>
+                </div>
+            </div>
+        </div>
+        <div class="page-info" id="info-text">1면 (표지)</div>
+    </div>
+</div>
+
+<script>
+    let current = 1; 
+    const pages = document.querySelectorAll('.page');
+    const labels = ["1면 (표지)", "2-3면", "4-5면", "6-7면", "8-9면", "10-11면", "12-13면", "14-15면", "16면 (최종)"];
+
+    const toc = document.getElementById('toc-list');
+    labels.forEach((l, i) => {
+        const item = document.createElement('div');
+        item.className = 'toc-item';
+        item.innerText = l;
+        item.onclick = () => jumpTo(i + 1);
+        toc.appendChild(item);
+    });
+
+    function moveNext() { if (current < pages.length) { pages[current].classList.add('flipped'); current++; updateUI(); } }
+    function movePrev() { if (current > 1) { current--; pages[current].classList.remove('flipped'); updateUI(); } }
+
+    function jumpTo(idx) {
+        pages.forEach((p, i) => { if (i < idx) p.classList.add('flipped'); else p.classList.remove('flipped'); });
+        current = idx; updateUI();
+    }
+
+    function goPage() {
+        const v = parseInt(document.getElementById('page-input').value);
+        if(v >= 1 && v <= 16) jumpTo(v === 1 ? 1 : Math.floor(v / 2) + 1);
+    }
+
+    function updateUI() {
+        document.querySelectorAll('.toc-item').forEach((it, i) => it.classList.toggle('active', i === current - 1));
+        document.getElementById('info-text').innerText = labels[current - 1];
+    }
+
+    // --- 확대, 드래그 및 휠 스크롤 로직 ---
+    let isZ = false, sc = 1, px = 0, py = 0, sx = 0, sy = 0, isD = false;
+    const bk = document.getElementById('book');
+
+    function toggleZoom(e) { 
+        isZ = !isZ; sc = isZ ? 2.5 : 1; 
+        if(!isZ) { px=0; py=0; } 
+        else {
+            // 클릭한 지점으로 초기 확대 위치 잡기 (선택사항)
+            px = 0; py = 0; 
+        }
+        apply(); 
+    }
+
+    function startDrag(e) { if(isZ) { isD=true; sx=e.clientX-px; sy=e.clientY-py; bk.style.transition="none"; } }
+    function drag(e) { if(isD) { px=e.clientX-sx; py=e.clientY-sy; apply(); } }
+    function endDrag() { isD=false; bk.style.transition="transform 0.4s ease"; }
+
+    // 마우스 휠로 상하 이동 (확대 시에만 작동)
+    function handleWheel(e) {
+        if (isZ) {
+            e.preventDefault();
+            py -= e.deltaY * 0.8; // 휠 속도 조절
+            // 상하 제한 (너무 멀리 나가지 않게)
+            const limit = window.innerHeight;
+            if (py > limit) py = limit;
+            if (py < -limit) py = -limit;
+            apply();
+        }
+    }
+
+    function apply() { bk.style.transform = `translate(${px}px, ${py}px) scale(${sc})`; }
+
+    updateUI();
+</script>
+</body>
+</html>
